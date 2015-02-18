@@ -1,0 +1,12 @@
+{application, ibot_events,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { ibot_events_app, []}},
+  {env, []}
+ ]}.
