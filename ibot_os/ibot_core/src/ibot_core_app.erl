@@ -19,7 +19,7 @@ stop(_State) ->
 %% @doc Create project
 %% @spec create_project(Dir, Path) -> ok | {error, Reason} when Dir :: string(), Path :: string().
 -spec create_project(Dir, Path) -> ok | {error, Reason}
-  when Dir :: string(), Path :: string().
+  when Dir :: string(), Path :: string(), Reason :: term().
 create_project(Path, Dir) ->
   ibot_core_cmd_cdir:create_project(Path, Dir).
 
