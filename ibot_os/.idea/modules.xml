@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ibot_core/ibot_core.iml" filepath="$PROJECT_DIR$/ibot_core/ibot_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ibot_events/ibot_events.iml" filepath="$PROJECT_DIR$/ibot_events/ibot_events.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ibot_nodes/ibot_nodes.iml" filepath="$PROJECT_DIR$/ibot_nodes/ibot_nodes.iml" />
+    </modules>
+  </component>
+</project>

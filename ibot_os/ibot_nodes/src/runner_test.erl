@@ -20,8 +20,10 @@ start() ->
 crate_node() ->
   NodeInfo = #node_info{nodeName = "ClientTest", nodeServer = "alexandr", nodeNameServer = "bar@alexandr",
   nodeLang = "Java", nodeExecutable = "java",
+    %nodePreArguments = ["-classpath",
+    %  "C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\_RobotOS\\RobotOS\\_RobOS\\test\\nodes\\java;C:\\_RobotOS\\RobotOS\\_RobOS\\langlib\\java\\lib\\Node.jar"],
     nodePreArguments = ["-classpath",
-      "C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\_RobotOS\\RobotOS\\_RobOS\\test\\nodes\\java;C:\\_RobotOS\\RobotOS\\_RobOS\\langlib\\java\\lib\\Node.jar"],
+      "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/RobotOS/_RobOS/langlib/java/lib/Node.jar"],
   nodePostArguments = []},
 
   ibot_nodes_connector:run_node(NodeInfo),

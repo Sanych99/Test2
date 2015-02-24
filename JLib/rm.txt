@@ -1,0 +1,39 @@
+C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar
+
+E:/_RobOS/RobotOS/_RobOS/out/production/RobotOS
+
+
+list_to_atom("\"C:\\Program Files\\Java\\jdk1.8.0_25\\bin\\java.exe\" -classpath \"C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\ErlTest\\JavaTest\" ServerNode ")
+
+
+os:cmd(list_to_atom("\"C:\\Program Files\\Java\\jdk1.8.0_25\\bin\\java.exe\" -classpath \"C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\ErlTest\\JavaTest\" ServerNode ")).
+
+
+r_cmd:my_exec("\"C:\\Program Files\\Java\\jdk1.8.0_25\\bin\\javac.exe\" -classpath \"C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar\" \"C:\\ErlTest\\JavaTest\\ServerNode.java\"").
+
+r_cmd:my_exec("\"C:\\Program Files\\Java\\jdk1.8.0_25\\bin\\java.exe\" -classpath \"C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\ErlTest\\JavaTest\" ServerNode ").
+
+
+Ñáîðêà Jar Ôàéëà äëÿ Java
+"C:\Program Files\Java\jdk1.8.0_25\bin\javac.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar" "C:\_RobotOS\RobotOS\_RobOS\langlib\java\Node.java"
+cd C:\_RobotOS\RobotOS\_RobOS
+jar -cvf langlib\java\lib\Node.jar langlib\java\Node.class
+
+Ñáîðêà òåñòîâîãî ôàéëà
+"C:\Program Files\Java\jdk1.8.0_25\bin\javac.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar;C:\_RobotOS\RobotOS\_RobOS\langlib\java\lib\Node.jar;C:\_RobotOS\RobotOS\_RobOS\test\nodes\java" "C:\_RobotOS\RobotOS\_RobOS\test\nodes\java\ClientTest.java"
+"C:\Program Files\Java\jdk1.8.0_25\bin\java.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar;C:\_RobotOS\RobotOS\_RobOS\langlib\java\lib\Node.jar;C:\_RobotOS\RobotOS\_RobOS\test\nodes\java" ClientTest
+
+Ñáîðêà òåñòîâîãî ñîîáùåíèÿ
+"C:\Program Files\Java\jdk1.8.0_25\bin\javac.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar;C:\_RobotOS\RobotOS\_RobOS\langlib\java\lib\Node.jar;C:\_RobotOS\RobotOS\_RobOS\test\nodes\java" "C:\_RobotOS\RobotOS\_RobOS\test\nodes\java\Msg.java"
+"C:\Program Files\Java\jdk1.8.0_25\bin\java.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar;C:\_RobotOS\RobotOS\_RobOS\langlib\java\lib\Node.jar;C:\_RobotOS\RobotOS\_RobOS\test\nodes\java" Msg
+
+
+"C:\Program Files\Java\jdk1.8.0_25\bin\javac.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar" "C:\_RobotOS\RobotOS\_RobOS\test\nodes\java\ServerNode.java"
+
+Çàïóñê òåñòîâîãî ôàéëà
+"C:\Program Files\Java\jdk1.8.0_25\bin\java.exe" -classpath "C:\Program Files\erl6.3\lib\jinterface-1.5.12\priv\OtpErlang.jar;C:\ErlTest\langlib\java\lib\Node.jar;C:\ErlTest\JavaTest" ServerNode
+
+
+
+Create JAR library
+jar -cvf ../../../lib/Node.jar  langlib/java/*.class
