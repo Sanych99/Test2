@@ -1,6 +1,6 @@
 {application, ibot_core,
  [
-  {description, ""},
+  {description, "iBotOS core module"},
   {vsn, "1"},
   {registered, []},
   {applications, [
