@@ -11,6 +11,7 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
+    ets:new
     ibot_core_sup:start_link().
 
 stop(_State) ->
