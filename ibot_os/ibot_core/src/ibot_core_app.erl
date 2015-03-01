@@ -1,12 +1,13 @@
 -module(ibot_core_app).
 
+-include("debug.hrl").
 -include("config_db_keys.hrl").
 
 -behaviour(application).
 
 %% Application callbacks
 -export([start/2, stop/1]).
--export([create_project/2, crete_node/2]).
+-export([create_project/2, create_node/2]).
 -export([add/2, look/1]).
 
 %% ===================================================================
@@ -29,14 +30,17 @@ stop(_State) ->
   when Dir :: string(), Path :: string(), Reason :: term().
 
 create_project(Path, Dir) ->
+  set_project_path(Path ++ "/" ++ Dir),
   ibot_core_cmd_cdir:create_project(Path, Dir).
 
 
-crete_node(NodeName, NodeLang) ->
+create_node(NodeName, NodeLang) ->
+  ?DBG_INFO("Run create_node ...........~n", []),
   ibot_core_cmd_cdir:create_node(NodeName, list_to_atom(NodeLang)),
   ok.
 
 set_project_path(Path) ->
+  ?DBG_INFO("Run set_project_path ~p ...........~n", [Path]),
   ibot_core_config_db:add(?FULL_PROJECT_PATH, Path),
   ok.
 

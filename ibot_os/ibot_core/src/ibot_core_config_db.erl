@@ -7,7 +7,8 @@
 %%% Created : 28. Feb 2015 12:01 AM
 %%%-------------------------------------------------------------------
 -module(ibot_core_config_db).
--author("alex").
+
+-include("debug.hrl").
 
 %% API
 -export([create_db/0, add/2, get/1, delete_db/0]).
