@@ -35,12 +35,12 @@ create_project(Path, Dir) ->
 
 
 create_node(NodeName, NodeLang) ->
-  ?DBG_INFO("Run create_node ...........~n", []),
+  ?DBG_INFO("func create_node NodeName: ~p, NodeLang: ~p ...........~n", [NodeName, NodeLang]),
   ibot_core_cmd_cdir:create_node(NodeName, list_to_atom(NodeLang)),
   ok.
 
 set_project_path(Path) ->
-  ?DBG_INFO("Run set_project_path ~p ...........~n", [Path]),
+  ?DBG_INFO("func set_project_path, Path: ~p ...........~n", [Path]),
   ibot_core_config_db:add(?FULL_PROJECT_PATH, Path),
   ok.
 
