@@ -2,6 +2,7 @@
 
 -include("debug.hrl").
 -include("config_db_keys.hrl").
+-include("env_params.hrl").
 
 -behaviour(application).
 
@@ -30,7 +31,7 @@ stop(_State) ->
   when Dir :: string(), Path :: string(), Reason :: term().
 
 create_project(Path, Dir) ->
-  set_project_path(Path ++ "/" ++ Dir),
+  set_project_path(string:join([Path, Dir], ?DELIM_PATH_SYMBOL)),
   ibot_core_cmd_cdir:create_project(Path, Dir).
 
 

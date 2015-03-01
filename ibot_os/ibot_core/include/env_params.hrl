@@ -6,6 +6,12 @@
 %%% @end
 %%% Created : 19. Февр. 2015 1:51
 %%%-------------------------------------------------------------------
--author("alex").
 -define(DEV_FOLDER, "dev").
 -define(SRC_FOLDER, "src").
+
+-define(PROJECT_SRC, "src").
+
+-define(MESSAGE_DIR, "msg"). %% Node messages directory name
+-define(SERVICE_DIR, "srv"). %% Node services directory name
+
+-define(DELIM_PATH_SYMBOL, "/").

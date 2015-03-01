@@ -55,12 +55,12 @@ create_project(Path, Folder) ->
 
 -spec crate_folder_comand([F | List]) -> ok when F :: atom(), List :: list().
 
+crate_folder_comand([]) ->
+  ok;
 crate_folder_comand([F | List]) ->
   ibot_core_cmd:exec(F), % Execute create folder command
   crate_folder_comand(List), % Create next node folder
-  ok;
-crate_folder_comand([]) -> ok.
-
+  ok.
 
 
 
