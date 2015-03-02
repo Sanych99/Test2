@@ -41,21 +41,23 @@ generate_msg_srv_source_files([]) ->
 for_each_line_in_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
   file:write(GeneratedFile, ?JAVA_MSG_FILE_HEADER(RawFileName)), %% Write header template
-  for_each_line(Device, GeneratedFile, RawFileName),
+  for_each_line(Device, GeneratedFile, RawFileName, 0),
   ok.
 
 
-for_each_line(Device, GeneratedFile, RawFileName) ->
+for_each_line(Device, GeneratedFile, RawFileName, ObjCount) ->
   case io:get_line(Device, "") of
     eof ->
+      file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)),
       file:write(GeneratedFile, ?JAVA_MSG_FILE_END),
+
       file:close(Device),
       file:close(GeneratedFile),
       ok;
     Line ->
       ?DBG_INFO("line: ~p~n", [Line]),
       [Type, Name] = re:split(Line,"[ ]",[{return, list}]),
-      file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, Name)),
-      for_each_line(Device, GeneratedFile, RawFileName)
+      file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, Name -- "\n")),
+      for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1)
   end,
   ok.
