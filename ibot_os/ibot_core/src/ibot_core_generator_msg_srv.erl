@@ -41,15 +41,17 @@ generate_msg_srv_source_files([]) ->
 for_each_line_in_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
   file:write(GeneratedFile, ?JAVA_MSG_FILE_HEADER(RawFileName)), %% Write header template
-  for_each_line(Device, GeneratedFile, RawFileName, 0),
+  for_each_line(Device, GeneratedFile, RawFileName, 0, []),
   ok.
 
 
-for_each_line(Device, GeneratedFile, RawFileName, ObjCount) ->
+for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
   case io:get_line(Device, "") of
     eof ->
-      file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)),
-      file:write(GeneratedFile, ?JAVA_MSG_FILE_END),
+      file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
+      file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
+      getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
+      file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
 
       file:close(Device),
       file:close(GeneratedFile),
@@ -57,7 +59,14 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount) ->
     Line ->
       ?DBG_INFO("line: ~p~n", [Line]),
       [Type, Name] = re:split(Line,"[ ]",[{return, list}]),
-      file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, Name -- "\n")),
-      for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1)
+      NewName = Name -- "\n",
+      file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, NewName)),
+      for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1, [{Type, NewName, ObjCount} | AllFieldsList])
   end,
   ok.
+
+getters_setters_generation(_, []) -> ok;
+getters_setters_generation(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
+  ?DBG_INFO("gemerated info: ~p~n", [{Type, Name, ObjCount}]),
+  file:write(GeneratedFile, ?GETTER_SETTER_GENERATE(Type, Name, ObjCount)),
+  getters_setters_generation(GeneratedFile, FieldsList).
