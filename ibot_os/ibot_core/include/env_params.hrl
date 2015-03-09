@@ -14,4 +14,9 @@
 -define(MESSAGE_DIR, "msg"). %% Node messages directory name
 -define(SERVICE_DIR, "srv"). %% Node services directory name
 
+-define(DEV_FOLDER_MESSAGES, "msg").
+-define(DEV_FOLDER_SERVICES, "srv").
+
 -define(DELIM_PATH_SYMBOL, "/").
+
+-define(JAVA_FOLDER, "java").

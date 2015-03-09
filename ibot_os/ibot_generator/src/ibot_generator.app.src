@@ -1,0 +1,12 @@
+{application, ibot_generator,
+ [
+  {description, "iBotOS generator module"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { ibot_generator_msg_srv, []}},
+  {env, []}
+ ]}.

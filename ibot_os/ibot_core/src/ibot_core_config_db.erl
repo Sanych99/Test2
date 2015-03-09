@@ -14,7 +14,7 @@
 -export([create_db/0, add/2, get/1, delete_db/0]).
 
 create_db() ->
-  ets:new(ibot_config, [named_table]).
+  ets:new(ibot_config, [named_table, public]).
 
 add(Key, Value) ->
   ets:insert(ibot_config, {Key, Value}).

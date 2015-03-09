@@ -37,10 +37,15 @@ create_project(Path, Folder) ->
       ?DBG_INFO("dev_folder ~p~n", [Dev_Folder]),
       ibot_core_cmd:exec(atom_to_list(Dev_Folder)), % Создаем директорию для откопированных / сгенерированных файлов проекта
 
+      Dev_Folder_SubDirs = ?DEV_FOLDER_LIST(Path, Folder, ibot_core_env:env_dev_folder()), %% Dev folder subdirectories
+      create_folder_comand(Dev_Folder_SubDirs), %% Create Dev folder subdirectories
+
       Src_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ibot_core_env:env_src_folder()), % Пут до директории с исходными файлами проекта
       ?DBG_INFO("src_folder ~p~n", [Src_Folder]),
       ibot_core_cmd:exec(atom_to_list(Src_Folder)), % Создаем директорию исходных файлов проекта
       ?DBG_INFO("project directories created successfull...================... ~n", []),
+
+
 
       ok
   end.
@@ -50,16 +55,16 @@ create_project(Path, Folder) ->
 
 %% @doc
 %% Create node directories
-%% @spec crate_folder_comand([F | List]) -> ok when F :: string(), List :: list().
+%% @spec create_folder_comand([F | List]) -> ok when F :: string(), List :: list().
 %% @end
 
--spec crate_folder_comand([F | List]) -> ok when F :: atom(), List :: list().
+-spec create_folder_comand([F | List]) -> ok when F :: atom(), List :: list().
 
-crate_folder_comand([]) ->
+create_folder_comand([]) ->
   ok;
-crate_folder_comand([F | List]) ->
+create_folder_comand([F | List]) ->
   ibot_core_cmd:exec(F), % Execute create folder command
-  crate_folder_comand(List), % Create next node folder
+  create_folder_comand(List), % Create next node folder
   ok.
 
 
@@ -102,7 +107,7 @@ create_java_node(NodeName) ->
         ok ->
           NodeFolder = ?JAVA_NODE_FOLDERS(Full_Path, NodeName), % Construct node folder list
           ?DBG_INFO("java_node_folders: ~p...........~n", [NodeFolder]),
-          crate_folder_comand(NodeFolder), % Create node folders
+          create_folder_comand(NodeFolder), % Create node folders
           ok;
         {error, Reason} -> {error, ?FULL_PATH_PROJECT_NOT_EXISIT, Reason} % If project folder not exeist return error
       end;

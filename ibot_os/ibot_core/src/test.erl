@@ -31,7 +31,7 @@ list_dir() ->
   end.
 
 gen() ->
-  ibot_core_generator_msg_srv:generate_msg_srv("/home/alex/ErlangTest/test_project"),
+  ibot_generator_msg_srv:generate_msg_srv("/home/alex/ErlangTest/test_project"),
 
   io:format("wc files: ~p~n", [filelib:wildcard("/home/alex/ErlangTest/test_project/src/*/msg/*.msg")]),
                                                 %/home/alex/ErlangTest/test_project/src/*/msg/*.msg

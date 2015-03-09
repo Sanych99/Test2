@@ -6,37 +6,71 @@
 %%% @end
 %%% Created : 01. Mar 2015 10:35 PM
 %%%-------------------------------------------------------------------
--module(ibot_core_generator_msg_srv).
+-module(ibot_generator_msg_srv).
 
--include("env_params.hrl").
 -include("spec_file_ext.hrl").
 -include("msg_srv_java_generate_templates.hrl").
+-include("config_db_keys.hrl").
+-include("project_paths.hrl").
 -include("debug.hrl").
 
 %% API
 -export([generate_msg_srv/1]).
 
+%% @doc
+%% Generate message files
+%%
+%% @spec generate_msg_srv(ProjectDir) w
+%% @end
+
+-spec generate_msg_srv(ProjectDir) -> ok when ProjectDir :: string().
+
 generate_msg_srv(ProjectDir) ->
   generate_msg_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_PATH_SYMBOL))), %% Generate all msg and srv source files
+    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg and srv source files
   ok.
 
 
-generate_msg_srv_source_files([FileName | FilesList]) ->
+
+
+%% @doc
+%% Generate message source files for language
+%%
+%% @spec
+%% @end
+
+-spec generate_msg_srv_source_files([FileName | FilesList], ProjectDir) -> ok when FileName ::string(),
+  FilesList :: string(), ProjectDir :: string().
+
+generate_msg_srv_source_files([FileName | FilesList], ProjectDir) ->
   ?DBG_INFO("files for generate: ~p~n", [[FileName | FilesList]]),
 
   RawFileName = filename:basename(FileName, ".msg"), %% File name without path and extension
-  {ok, GeneratedFile} = file:open("/home/alex/ErlangTest/test_project/src/test_node/msg/"
-  ++ RawFileName ++ ".java", [write]), %% Open generated file
 
+  ProjectMsgPath = ?DEV_MSG_PATH(ProjectDir), %% Project path
+
+  JavaProjectMsgPath = ?DEV_MSG_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
+
+  {ok, GeneratedFile} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".java"], ""), [write]), %% Open generated file
 
   for_each_line_in_file(FileName, GeneratedFile,RawFileName), %% Generate properties code
 
-  generate_msg_srv_source_files(FilesList), %% Generate next file
+  generate_msg_srv_source_files(FilesList, ProjectDir), %% Generate next file
   ok;
-generate_msg_srv_source_files([]) ->
+generate_msg_srv_source_files([], _ProjectDir) ->
   ok.
 
+
+
+
+%% @doc
+%% Read lines from message files
+%%
+%% @spec
+%% @end
+
+-spec for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> ok when FileName :: string(), GeneratedFile :: term(),
+  RawFileName :: string().
 
 for_each_line_in_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
