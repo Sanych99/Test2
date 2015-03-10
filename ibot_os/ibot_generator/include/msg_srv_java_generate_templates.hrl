@@ -19,6 +19,8 @@
 %% Java import block
 -define(JAVA_MSG_FILE_HEADER(MsgName), string:join([
   "import com.ericsson.otp.erlang.*;",
+  "import java.math.BigInteger;",
+  "import langlib.java.*;",
   "",
   ?MSG_CLASS_NAME(MsgName),
   "",
@@ -42,7 +44,7 @@
 ).
 
 %% Crate properties OTP
--define(PRIVATE_OTP_PROPERTY(Type, Name), ?TAB_STRING([string:join(["private", ?OTP_TYPE(Type), string:join([Name, ";"], "")], " ")], 1)).
+-define(PRIVATE_OTP_PROPERTY(Type, Name), ?TAB_STRING([string:join(["private", ?OTP_TYPE(Type), string:join([Name, "Otp;"], "")], " ")], 1)).
 %% Create properties Java
 -define(PRIVATE_LANG_PROPERTY(Type, Name), ?TAB_STRING([string:join(["private", ?LANG_TYPE(Type), string:join([Name, ";"], "")], " ")], 1)).
 
@@ -69,7 +71,7 @@
 
 %% Generate getter method definition
 -define(GETTER_DEFINITION(Type, Name), string:join([
-  ?TAB_STRING(["public ", ?LANG_TYPE(Type), " get_", Name, " {"], 1),
+  ?TAB_STRING(["public ", ?LANG_TYPE(Type), " get_", Name, "() {"], 1),
   ?NEW_LINE,
   ?TAB_STRING(["return ", Name, ";"], 2),
   ?NEW_LINE,

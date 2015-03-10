@@ -8,11 +8,13 @@
 %%%-------------------------------------------------------------------
 -module(ibot_generator_msg_srv).
 
--include("spec_file_ext.hrl").
--include("msg_srv_java_generate_templates.hrl").
 -include("config_db_keys.hrl").
--include("project_paths.hrl").
 -include("debug.hrl").
+-include("msg_srv_java_generate_templates.hrl").
+-include("msg_srv_compile_commands.hrl").
+-include("project_paths.hrl").
+-include("spec_file_ext.hrl").
+
 
 %% API
 -export([generate_msg_srv/1]).
@@ -58,6 +60,8 @@ generate_msg_srv_source_files([FileName | FilesList], ProjectDir) ->
   generate_msg_srv_source_files(FilesList, ProjectDir), %% Generate next file
   ok;
 generate_msg_srv_source_files([], _ProjectDir) ->
+  %% Create JAR library for JAVA messages
+  ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
   ok.
 
 
@@ -101,6 +105,6 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
 
 getters_setters_generation(_, []) -> ok;
 getters_setters_generation(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
-  ?DBG_INFO("gemerated info: ~p~n", [{Type, Name, ObjCount}]),
+  ?DBG_INFO("generated info: ~p~n", [{Type, Name, ObjCount}]),
   file:write(GeneratedFile, ?GETTER_SETTER_GENERATE(Type, Name, ObjCount)),
   getters_setters_generation(GeneratedFile, FieldsList).

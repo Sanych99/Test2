@@ -9,7 +9,7 @@
 %% Application callbacks
 -export([start/2, stop/1]).
 -export([create_project/2, create_node/2]).
--export([add/2, look/1]).
+-export([add/2, look/1, db_info/0]).
 
 %% ===================================================================
 %% Application callbacks
@@ -50,3 +50,6 @@ add(Key, Value) ->
 
 look(Key) ->
   ibot_core_config_db:get(Key).
+
+db_info() ->
+  io:format("~p~n", [ets:info(ibot_config)]).

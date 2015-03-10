@@ -38,7 +38,7 @@ gen() ->
   ok.
 
 dir() ->
-  Res = filelib:is_("/home/alex/ErlangTest/test_project/src/test_node/msg"),
+  Res = filelib:is_dir("/home/alex/ErlangTest/test_project/src/test_node/msg"),
   io:format("is dir: ~p~n", [Res]),
   ok.
 
