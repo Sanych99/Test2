@@ -22,7 +22,7 @@
 %% @doc
 %% Generate message files
 %%
-%% @spec generate_msg_srv(ProjectDir) w
+%% @spec generate_msg_srv(ProjectDir)
 %% @end
 
 -spec generate_msg_srv(ProjectDir) -> ok when ProjectDir :: string().

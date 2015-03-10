@@ -1,8 +1,6 @@
--module(ibot_core_sup).
+-module(ibot_communication_sup).
 
 -behaviour(supervisor).
-
--include("debug.hrl").
 
 %% API
 -export([start_link/0]).
@@ -25,7 +23,6 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    DbChild = ?CHILD(ibot_core_db_srv, worker),
-    ?DBG_INFO("start dbchild: ~p~n", [DbChild]),
-    {ok, { {one_for_one, 5, 10}, [DbChild]} }.
+    IBot_Comm_Db_App = ?CHILD(ibot_communication_db_app, worker),
+    {ok, { {one_for_one, 5, 10}, [IBot_Comm_Db_App]} }.
 
