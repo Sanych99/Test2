@@ -7,5 +7,5 @@
 %%% Created : 10. Март 2015 20:06
 %%%-------------------------------------------------------------------
 
--record(node_info, {nodeName :: string(), serverName :: string()}).
+-record(node_pubsub_info, {nodeName :: string(), serverName :: string()}).
 -record(topic_info, {subscribeNodes = [] :: list()}).

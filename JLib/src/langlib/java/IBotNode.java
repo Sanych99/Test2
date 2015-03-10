@@ -21,7 +21,7 @@ public class IBotNode {
 
     private String publisherCoreNode; //Core message publisher module
 
-    private String coreCoockes; //Core node coockies
+    private String coreCoockies; //Core node coockies
 
     //Class constructor
     public IBotNode(String otpNodeName, String currenServerName, String coreNodeName,
@@ -30,12 +30,14 @@ public class IBotNode {
     {
         set_otpNode(createNode(otpNodeName, coreCoockes));
         set_otpMbox(createMbox(otpMboxName));
+        this.otpNodeName = otpNodeName;
+        this.otpMboxName = otpMboxName;
         //Mss mss = new Mss();
         this.currenServerName = currenServerName;
         this.coreNodeName = coreNodeName;
         this.registratorCoreNode = registratorCoreNode;
         this.publisherCoreNode = publisherCoreNode;
-        this.coreCoockes = coreCoockes;
+        this.coreCoockies = coreCoockes;
     }
 
 
@@ -51,6 +53,18 @@ public class IBotNode {
     private OtpMbox createMbox(String otpMboxName)
     {
         return get_otpNode().createMbox(otpMboxName);
+    }
+
+
+    public void subscribeToTopic(String topicName)
+    {
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[4];
+        subscribeObject[0] = new OtpErlangAtom("reg_subscr");
+        subscribeObject[1] = new OtpErlangString(this.otpMboxName);
+        subscribeObject[2] = new OtpErlangString(this.otpNodeName + "@" + this.currenServerName);
+        subscribeObject[3] = new OtpErlangString(topicName);
+        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        System.out.println("subscribeToTopic " + topicName);
     }
 
 

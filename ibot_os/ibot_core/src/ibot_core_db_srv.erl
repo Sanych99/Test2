@@ -26,6 +26,7 @@
 
 -define(SERVER, ?MODULE).
 
+-include("debug.hrl").
 -include("config_db_keys.hrl").
 -include("ibot_gen_srvs.hrl").
 -include("ibot_table_names.hrl").
@@ -45,15 +46,19 @@ init([]) ->
 
 
 handle_call({?ADD_RECORD, TableName, Key, Value}, _From, State) ->
-  ibot_core_db_func:add(TableName, Key, Value), %% Добавиляем запись
+  %?DBG_INFO("try add topic: ~p~n", [{?ADD_RECORD, TableName, Key, Value}]),
+  ibot_core_db_func:add(TableName, list_to_atom(Key), Value), %% Добавиляем запись
+  %?DBG_INFO("try get topic ~p~n", ibot_core_db_func:get(TableName, list_to_atom(Key))),
   {reply, ok, State};
 
 handle_call({?GET_RECORD, TableName, Key}, _From, State) ->
-  io:format("~p~n", [ibot_core_db_func:get(TableName, Key)]),
+  io:format("handle_call: ~p~n", [ibot_core_db_func:get(TableName, Key)]),
   case ibot_core_db_func:get(TableName, Key) of %% Получить данные
     [{Key, Value}] ->
+      ?DBG_INFO("handle_call find: ~p~n", [{Key, Value}]),
       {reply, {ok, Value}, State};
     [] ->
+      ?DBG_INFO("handle_call NOT find...~n", []),
       {reply, record_not_found, State}
   end;
 

@@ -6,8 +6,7 @@
 %%% @end
 %%% Created : 10. Март 2015 20:37
 %%%-------------------------------------------------------------------
--module(ibot_communication_topic_srv).
--author("alex").
+-module(ibot_nodes_comm_topic_srv).
 
 -behaviour(gen_server).
 
@@ -23,7 +22,9 @@
   code_change/3]).
 
 -define(SERVER, ?MODULE).
+-define(REG_SUBSRC, reg_subscr).
 
+-include("debug.hrl").
 -include("ibot_comm_commands.hrl").
 -include("ibot_comm_records.hrl").
 
@@ -43,16 +44,22 @@ handle_call(_Request, _From, State) ->
 
 
 handle_cast({?BROADCAST, TopicName, Message}, State) ->
-  case ibot_communication_db_app:get_topic_nodes(TopicName) of
+  case ibot_nodes_comm_db_srv:get_topic_nodes(TopicName) of
     [] -> ok;
-    NodeInfoList -> message_broadcast(NodeInfoList, Message)
+    NodeInfoList ->
+      spawn(fun() -> message_broadcast(NodeInfoList, Message) end)
   end,
   {noreply, State};
 handle_cast(_Request, State) ->
   {noreply, State}.
 
 
+handle_info({?REG_SUBSRC, MBoxName, NodeServerName, TopicName}, State) ->
+  ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSRC, MBoxName, NodeServerName, TopicName]]),
+  ibot_nodes_comm_db_srv:add_node_to_topic(TopicName, MBoxName, NodeServerName), %% Add subscribe node info
+  {noreply, State};
 handle_info(_Info, State) ->
+  ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
   {noreply, State}.
 
 
@@ -64,9 +71,19 @@ code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 
 
+%%==================================
+%% API functions
+%%==================================
+
+
+
+%%==================================
+%% Internal usage functions
+%%==================================
+
 message_broadcast([], _) -> ok;
 message_broadcast([NodeInfo | NodeInfoList], Msg) ->
-  erlang:send({NodeInfo#node_info.nodeName, NodeInfo#node_info.serverName}, Msg),
+  erlang:send({NodeInfo#node_pubsub_info.nodeName, NodeInfo#node_pubsub_info.serverName}, Msg),
   message_broadcast(NodeInfoList, Msg),
   ok.
 

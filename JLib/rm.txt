@@ -50,3 +50,5 @@ javac -classpath "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home
 javac -classpath "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_project/dev/msg/java/lib/JMsgs.jar:/home/alex/ErlangTest/test_project/dev/msg/java" /home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java/ClientTest2.java 
 
 
+Comipe ClientTest
+javac -classpath "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java" "/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java/ClientTest.java"

@@ -6,8 +6,7 @@
 %%% @end
 %%% Created : 10. Март 2015 19:57
 %%%-------------------------------------------------------------------
--module(ibot_communication_db_app).
--author("alex").
+-module(ibot_nodes_comm_db_srv).
 
 -behaviour(gen_server).
 
@@ -26,6 +25,7 @@
 
 -define(SERVER, ?MODULE).
 
+-include("debug.hrl").
 -include("ibot_comm_tables.hrl").
 -include("ibot_comm_records.hrl").
 -include("../../ibot_core/include/ibot_gen_srvs.hrl").
@@ -64,23 +64,29 @@ code_change(_OldVsn, State, _Extra) ->
 
 
 %%============================
-%% Internal finctions
+%% API finctions
 %%============================
 
 add_node_to_topic(TopicName, NodeName, ServerName) ->
+  ?DBG_INFO("topic table info: ~p~n", [ets:info(?TABLE_TOPICS)]),
+  ?DBG_INFO("add_node_to_topic -> ~p~n", [[TopicName, NodeName, ServerName]]),
+
   case gen_server:call(?IBOT_CORE_DB_SRV, {?GET_RECORD, ?TABLE_TOPICS, TopicName}) of
-    [{TopicName, TopicInfo}] ->
+    {reply, {ok, TopicInfo}, _} ->
+      ?DBG_INFO("add_node_to_topic find -> ~p~n", [{TopicName, TopicInfo}]),
       gen_server:call(?IBOT_CORE_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,
-        #topic_info{subscribeNodes = [#node_info{nodeName = NodeName, serverName = ServerName}
+        #topic_info{subscribeNodes = [#node_pubsub_info{nodeName = NodeName, serverName = ServerName}
           | TopicInfo#topic_info.subscribeNodes]}});
 
-    [] -> gen_server:call(?IBOT_CORE_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,
-      #topic_info{subscribeNodes = [#node_info{nodeName = NodeName, serverName = ServerName}]}})
+    _ ->
+      ?DBG_INFO("add_node_to_topic topic ~p not found...~n", [TopicName]),
+      gen_server:call(?IBOT_CORE_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,
+      #topic_info{subscribeNodes = [#node_pubsub_info{nodeName = NodeName, serverName = ServerName}]}})
   end.
 
 get_topic_nodes(TopicName) ->
   case gen_server:call(?IBOT_CORE_DB_SRV, {?GET_RECORD, ?TABLE_TOPICS, TopicName}) of
     [{TopicName, Topicinfo}] ->
       Topicinfo#topic_info.subscribeNodes;
-    [] -> []
+    [] -> ok
   end.

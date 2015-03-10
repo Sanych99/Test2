@@ -9,7 +9,6 @@
 %%% Created : 22. Февр. 2015 17:54
 %%%-------------------------------------------------------------------
 -module(ibot_nodes_registrator_srv).
--author("alex").
 
 -behaviour(gen_server).
 
@@ -30,6 +29,7 @@
 
 -define(SERVER, ?MODULE).
 -define(EXTNODE, external_node).
+-define(REG_INFO, reg_info).
 
 -record(state, {}).
 
@@ -59,13 +59,19 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
+
+
+handle_info({?REG_INFO, MBoxName, NodeServerName}, State) ->
+
+  {noreply, State};
+
 handle_info(_Info, State) ->
   case _Info of
     {?EXTNODE, Parameters} ->
       ?DBG_INFO("Module: ~p -> Messafe from node: ~p~n", [?MODULE, {_Info}]),
       % Регистрационные данные узла
       {NodeName, NodeServer, NodeNameServer, NodeLang, NodeExecutable, NodePreArguments, NodePostArguments} = Parameters,
-      % Добавляем двнне об узле в таблицу
+      % Добавляем дaнне об узле в таблицу
       ets:insert(?NODE_REGISTRATOR_DB,
         {NodeName, #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
           nodeLang = NodeLang, nodeExecutable = NodeExecutable,
