@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(ibot_core_db_func).
 
--export([create_db/1, add/3, get/2, delete_db/1]).
+-export([create_db/1, add/3, get/2, delete_table/1]).
 
 create_db(TableName) ->
   ets:new(TableName, [named_table, public]).
@@ -19,5 +19,5 @@ add(TableName, Key, Value) ->
 get(TableName, Key) ->
   ets:lookup(TableName, Key).
 
-delete_db(TableName) ->
+delete_table(TableName) ->
   ets:delete(TableName).

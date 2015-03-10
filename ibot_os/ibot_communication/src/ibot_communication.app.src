@@ -1,0 +1,12 @@
+{application, ibot_communication,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { ibot_communication_app, []}},
+  {env, []}
+ ]}.
