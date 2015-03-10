@@ -32,7 +32,7 @@ start_link() ->
 
 
 init([]) ->
-  ibot_core_config_db:create_db(),
+  ibot_core_db_func:create_db(ibot_config),
   {ok, #state{}}.
 
 
