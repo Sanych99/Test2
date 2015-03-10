@@ -2,6 +2,8 @@
 
 -behaviour(supervisor).
 
+-include("debug.hrl").
+
 %% API
 -export([start_link/0]).
 
@@ -23,5 +25,7 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+    DbChild = ?CHILD(ibot_core_db_srv, worker),
+    ?DBG_INFO("start dbchild: ~p~n", [DbChild]),
+    {ok, { {one_for_one, 5, 10}, [DbChild]} }.
 

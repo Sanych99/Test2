@@ -16,7 +16,6 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
-    ibot_core_config_db:create_db(),
     ibot_core_sup:start_link().
 
 stop(_State) ->
