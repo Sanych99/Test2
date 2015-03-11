@@ -12,7 +12,7 @@
 -behaviour(gen_server).
 
 %% API
--export([start_link/0, run_node/1]).
+-export([start_link/1, run_node/1]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -30,11 +30,14 @@
 -record(state, {node_port, node_name}).
 
 
-start_link() ->
-  gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
+start_link([NodeInfo | NodeInfoTopic]) ->
+  gen_server:start_link({local, ?SERVER}, ?MODULE, [NodeInfo | NodeInfoTopic], []).
 
 
-init([]) ->
+init([NodeInfo | NodeInfoTopic]) ->
+  ?DBG_INFO("run node: ~p~n", [NodeInfo]),
+  run_node(NodeInfo),
+  run_node(NodeInfoTopic),
   {ok, #state{}}.
 
 
@@ -93,12 +96,12 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         erlang:open_port({spawn_executable, ExecutableFile},
           [{line,1000}, stderr_to_stdout,
             {args, ArgumentList}]),
-      ?DBG_MODULE_INFO("Port value: -> ~p~n", [?MODULE, Port]),
+      ?DBG_MODULE_INFO("Port value: -> ~p~n", [?MODULE, Port])
       %% Ожидаем подтверждения запуска узла
-      case wait_for_ready(#state{node_port = Port, node_name = NodeNameServer}) of
-        {ok, State} -> ok;
-        {stop, Reason} -> ok
-      end
+      %case wait_for_ready(#state{node_port = Port, node_name = NodeNameServer}) of
+      %  {ok, State} -> ok;
+      %  {stop, Reason} -> ok
+      %end
   end.
 
 %% @doc

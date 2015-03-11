@@ -62,7 +62,7 @@ public class IBotNode {
         subscribeObject[0] = new OtpErlangAtom("reg_subscr");
         subscribeObject[1] = new OtpErlangString(this.otpMboxName);
         subscribeObject[2] = new OtpErlangString(this.otpNodeName + "@" + this.currenServerName);
-        subscribeObject[3] = new OtpErlangString(topicName);
+        subscribeObject[3] = new OtpErlangAtom(topicName);
         this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("subscribeToTopic " + topicName);
     }

@@ -72,14 +72,15 @@ add_node_to_topic(TopicName, NodeName, ServerName) ->
   ?DBG_INFO("add_node_to_topic -> ~p~n", [[TopicName, NodeName, ServerName]]),
 
   case gen_server:call(?IBOT_CORE_DB_SRV, {?GET_RECORD, ?TABLE_TOPICS, TopicName}) of
-    {reply, {ok, TopicInfo}, _} ->
+    {ok, TopicInfo} ->
       ?DBG_INFO("add_node_to_topic find -> ~p~n", [{TopicName, TopicInfo}]),
       gen_server:call(?IBOT_CORE_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,
         #topic_info{subscribeNodes = [#node_pubsub_info{nodeName = NodeName, serverName = ServerName}
           | TopicInfo#topic_info.subscribeNodes]}});
 
-    _ ->
+    Vals ->
       ?DBG_INFO("add_node_to_topic topic ~p not found...~n", [TopicName]),
+      ?DBG_INFO("add_node_to_topic format ~p ...~n", [Vals]),
       gen_server:call(?IBOT_CORE_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,
       #topic_info{subscribeNodes = [#node_pubsub_info{nodeName = NodeName, serverName = ServerName}]}})
   end.

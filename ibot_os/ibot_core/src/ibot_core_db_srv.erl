@@ -46,9 +46,10 @@ init([]) ->
 
 
 handle_call({?ADD_RECORD, TableName, Key, Value}, _From, State) ->
-  %?DBG_INFO("try add topic: ~p~n", [{?ADD_RECORD, TableName, Key, Value}]),
-  ibot_core_db_func:add(TableName, list_to_atom(Key), Value), %% Добавиляем запись
-  %?DBG_INFO("try get topic ~p~n", ibot_core_db_func:get(TableName, list_to_atom(Key))),
+  ?DBG_INFO("try add topic: ~p~n", [{?ADD_RECORD, TableName, Key, Value}]),
+  ibot_core_db_func:add(TableName, Key, Value), %% Добавиляем запись
+  ?DBG_INFO("try get topic ~p~n", ibot_core_db_func:get(TableName, Key)),
+  %?DBG_INFO("ibot_topics info: ~p~n", [ets:info(ibot_topics)]),
   {reply, ok, State};
 
 handle_call({?GET_RECORD, TableName, Key}, _From, State) ->
