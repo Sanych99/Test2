@@ -53,7 +53,7 @@ handle_call({?RESTART_NODE, NodeName}, _From, State) ->
       ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
       ok
   end,
-  {reply, ok, State}.
+  {reply, ok, State};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 

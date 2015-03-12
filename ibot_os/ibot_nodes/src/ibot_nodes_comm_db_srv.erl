@@ -87,7 +87,12 @@ add_node_to_topic(TopicName, NodeName, ServerName) ->
 
 get_topic_nodes(TopicName) ->
   case gen_server:call(?IBOT_CORE_DB_SRV, {?GET_RECORD, ?TABLE_TOPICS, TopicName}) of
-    [{TopicName, Topicinfo}] ->
-      Topicinfo#topic_info.subscribeNodes;
-    [] -> ok
+    {ok, {topic_info, Topicinfo}} ->
+      ?DBG_MODULE_INFO("get_topic_nodes Topicinfo: ~p~n", [?MODULE, Topicinfo]),
+      Topicinfo;
+    [] ->
+      ?DBG_MODULE_INFO("get_topic_nodes [] ~n", [?MODULE]),
+      ok;
+    Vals ->
+      ?DBG_MODULE_INFO("get_topic_nodes Vals: ~p~n", [?MODULE, Vals])
   end.

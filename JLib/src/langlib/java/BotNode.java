@@ -2,8 +2,10 @@ package langlib.java;
 
 import com.ericsson.otp.erlang.*;
 
+import java.lang.reflect.InvocationTargetException;
+
 //Java Otp Node Connector Class
-public class IBotNode {
+public class BotNode {
 
     private String currenServerName; //Current server name machime_name
 
@@ -23,8 +25,10 @@ public class IBotNode {
 
     private String coreCoockies; //Core node coockies
 
+    private CallBack subscribeCallBacks; //Callback for subscribe topic
+
     //Class constructor
-    public IBotNode(String otpNodeName, String currenServerName, String coreNodeName,
+    public BotNode(Class<?> subscribeClass, String otpNodeName, String currenServerName, String coreNodeName,
                 String otpMboxName, String registratorCoreNode, String publisherCoreNode, String coreCoockes)
             throws Exception
     {
@@ -38,6 +42,7 @@ public class IBotNode {
         this.registratorCoreNode = registratorCoreNode;
         this.publisherCoreNode = publisherCoreNode;
         this.coreCoockies = coreCoockes;
+        this.subscribeCallBacks = new CallBack(subscribeClass);
     }
 
 
@@ -60,8 +65,8 @@ public class IBotNode {
     {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[4];
         subscribeObject[0] = new OtpErlangAtom("reg_subscr");
-        subscribeObject[1] = new OtpErlangString(this.otpMboxName);
-        subscribeObject[2] = new OtpErlangString(this.otpNodeName + "@" + this.currenServerName);
+        subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
+        subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currenServerName);
         subscribeObject[3] = new OtpErlangAtom(topicName);
         this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("subscribeToTopic " + topicName);
@@ -80,6 +85,33 @@ public class IBotNode {
     {
         IBotMsgInterface msgIn = (IBotMsgInterface)msg;
         this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, msgIn.get_Msg());
+    }
+
+    public void subscribe(String methodName)
+    {
+        this.subscribeCallBacks.set_methodName(methodName);
+        try {
+            receive();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void receive() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+        try {
+            OtpErlangTuple par = (OtpErlangTuple) this.otpMbox.receive();
+             subscribeCallBacks.invoke(par);
+        } catch (OtpErlangExit otpErlangExit) {
+            otpErlangExit.printStackTrace();
+        } catch (OtpErlangDecodeException e) {
+            e.printStackTrace();
+        }
     }
 
 

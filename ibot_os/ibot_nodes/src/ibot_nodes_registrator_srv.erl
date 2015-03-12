@@ -67,7 +67,7 @@ handle_info({?REG_INFO, MBoxName, NodeServerName}, State) ->
   {noreply, State};
 
 handle_info({?EXTNODE, Parameters}, State) ->
-      ?DBG_MODULE_INFO("message from node: ~p~n", [?MODULE, {_Info}]),
+      ?DBG_MODULE_INFO("message from node: ~p~n", [?MODULE, {?EXTNODE, Parameters}]),
       % Регистрационные данные узла
       {NodeName, NodeServer, NodeNameServer, NodeLang, NodeExecutable, NodePreArguments, NodePostArguments} = Parameters,
       % Добавляем дaнне об узле в таблицу

@@ -10,8 +10,9 @@
 -author("alex").
 -include("nodes_registration_info.hrl").
 -include("debug.hrl").
+-include("ibot_comm_records.hrl").
 %% API
--export([start/0, c/0]).
+-export([start/0, c/0, s/0]).
 
 start() ->
   Info = gen_server:start({local, ibot_nodes_connector}, ibot_nodes_connector, [], []),
@@ -22,6 +23,22 @@ c() ->
   ibot_core_app:start(normal, []),
   ibot_nodes_app:start(normal, []),
 
+  ok.
+
+s() ->
+  case ibot_nodes_comm_db_srv:get_topic_nodes(test_topic) of
+    NodeInfoList ->
+      ?DBG_MODULE_INFO("get info: ~p~n", [?MODULE, NodeInfoList]),
+      spawn(fun() -> message_broadcast(NodeInfoList, {"Hello from Erlang!"}) end);
+    [] -> ok
+  end,
+  ok.
+
+message_broadcast([], _) -> ok;
+message_broadcast([NodeInfo | NodeInfoList], Msg) ->
+  erlang:send({ NodeInfo#node_pubsub_info.nodeName, NodeInfo#node_pubsub_info.serverName}, Msg),
+  ?DBG_MODULE_INFO("send values: ~p~n", [?MODULE, {NodeInfo#node_pubsub_info.nodeName, NodeInfo#node_pubsub_info.serverName}]),
+  message_broadcast(NodeInfoList, Msg),
   ok.
 
 test() ->
