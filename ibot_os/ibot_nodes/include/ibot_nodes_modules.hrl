@@ -4,8 +4,7 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 20:39
+%%% Created : 12. Март 2015 12:37
 %%%-------------------------------------------------------------------
--define(BROADCAST, broadcast).
-
--define(RESTART_NODE, restart_node).
+-define(IBOT_NODES_CONNECTOR, ibot_nodes_connector).
+-define(IBOT_NODES_REGISTRATOR ,ibot_nodes_registrator_srv).

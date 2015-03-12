@@ -23,7 +23,9 @@
   terminate/2,
   code_change/3]).
 
--include("debug.hrl").
+-export([add_node_info/2, get_node_info/1]).
+
+-include("../../ibot_core/include/debug.hrl").
 -include("tables_names.hrl").
 -include("nodes_registration_info.hrl").
 
@@ -40,12 +42,12 @@ start_link() ->
 
 init([]) ->
   % Создание ETS таблицы для хранения данных об узлах
-  ets:new(?NODE_REGISTRATOR_DB, [named_table]),
+  ibot_core_db_func:create_db(?NODE_REGISTRATOR_DB),
   {ok, #state{}}.
 
 
 handle_call({?GET_NODE_INFO, NodeName}, _From, State) ->
-  case ets:lookup(?NODE_REGISTRATOR_DB, NodeName) of
+  case get_node_info(NodeName) of
     [] ->
       {reply, {?RESPONSE, ?NO_NODE_INFO}, State};
     NodeInfo ->
@@ -62,25 +64,20 @@ handle_cast(_Request, State) ->
 
 
 handle_info({?REG_INFO, MBoxName, NodeServerName}, State) ->
-
   {noreply, State};
 
-handle_info(_Info, State) ->
-  case _Info of
-    {?EXTNODE, Parameters} ->
-      ?DBG_INFO("Module: ~p -> Messafe from node: ~p~n", [?MODULE, {_Info}]),
+handle_info({?EXTNODE, Parameters}, State) ->
+      ?DBG_MODULE_INFO("message from node: ~p~n", [?MODULE, {_Info}]),
       % Регистрационные данные узла
       {NodeName, NodeServer, NodeNameServer, NodeLang, NodeExecutable, NodePreArguments, NodePostArguments} = Parameters,
       % Добавляем дaнне об узле в таблицу
-      ets:insert(?NODE_REGISTRATOR_DB,
-        {NodeName, #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
-          nodeLang = NodeLang, nodeExecutable = NodeExecutable,
-          nodePreArguments = NodePreArguments, nodePostArguments = NodePostArguments}}),
-      ok;
-    _ ->
-      ?DBG_INFO("Module: ~p -> Unknow message: ~p~n", [?MODULE, {_Info}]),
-      ok
-  end,
+      add_node_info(NodeName, #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
+        nodeLang = NodeLang, nodeExecutable = NodeExecutable,
+        nodePreArguments = NodePreArguments, nodePostArguments = NodePostArguments}),
+  {noreply, State};
+
+handle_info(_Info, State) ->
+  ?DBG_MODULE_INFO("unknow message: ~p~n", [?MODULE, {_Info}]),
   {noreply, State}.
 
 
@@ -94,5 +91,11 @@ code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 
 %%%===================================================================
-%%% Internal functions
+%%% API functions
 %%%===================================================================
+
+get_node_info(NodeName) ->
+  ibot_core_db_srv:get_record(?NODE_REGISTRATOR_DB, NodeName).
+
+add_node_info(Key, Val) ->
+  ibot_core_db_srv:add_record(?NODE_REGISTRATOR_DB, Key, Val).

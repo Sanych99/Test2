@@ -24,7 +24,9 @@
 
 -define(SERVER, ?MODULE).
 
--include("debug.hrl").
+-include("../../ibot_core/include/debug.hrl").
+-include("ibot_comm_commands.hrl").
+-include("ibot_nodes_modules.hrl").
 -include("nodes_registration_info.hrl").
 
 -record(state, {node_port, node_name}).
@@ -35,12 +37,23 @@ start_link([NodeInfo | NodeInfoTopic]) ->
 
 
 init([NodeInfo | NodeInfoTopic]) ->
-  ?DBG_INFO("run node: ~p~n", [NodeInfo]),
+  ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE, [NodeInfo | NodeInfoTopic]]),
   run_node(NodeInfo),
   run_node(NodeInfoTopic),
   {ok, #state{}}.
 
 
+handle_call({?RESTART_NODE, NodeName}, _From, State) ->
+  ?DBG_MODULE_INFO("handle_call: ~p~n", [?MODULE, [?RESTART_NODE, NodeName]]),
+  case gen_server:call(?IBOT_NODES_REGISTRATOR, {?GET_NODE_INFO, NodeName}) of
+    [{NodeName, NodeInfoRecord}] ->
+      ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
+      run_node(NodeInfoRecord); %% Run new node (Restart)
+    [] ->
+      ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
+      ok
+  end,
+  {reply, ok, State}.
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
@@ -50,10 +63,10 @@ handle_cast(_Request, State) ->
 
 
 handle_info(Msg, State)->
-  io:format("Get Message ~p~n", [Msg]),
+  ?DBG_MODULE_INFO("Get Message ~p~n", [?MODULE, Msg]),
   {noreply, State};
 handle_info({nodedown, JavaNode}, State = #state{node_name = JavaNode}) ->
-  io:format("Java node is down!"),
+  ?DBG_MODULE_INFO("Get Message ~p~n", [?MODULE, "Java node is down!"]),
   {stop, nodedown, State}.
 
 
