@@ -84,7 +84,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 
 %%======================
-%% Internal functions
+%% API functions
 %%======================
 
 add_record(TableName, Key, Value) ->
