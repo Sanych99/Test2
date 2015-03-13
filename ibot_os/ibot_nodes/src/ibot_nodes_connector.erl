@@ -36,21 +36,23 @@ start_link([NodeInfo | NodeInfoTopic]) ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [NodeInfo | NodeInfoTopic], []).
 
 
-init([NodeInfo | NodeInfoTopic]) ->
-  ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE, [NodeInfo | NodeInfoTopic]]),
+init([NodeInfo | NodeInfoTopic]) -> ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE, [NodeInfo | NodeInfoTopic]]),
+  ibot_core_db_srv:add_record(node_registrator_db, 'bar@alex-N550JK', NodeInfo),
+  ibot_core_db_srv:add_record(node_registrator_db, 'bar_topic@alex-N550JK', NodeInfoTopic),
   run_node(NodeInfo),
-  run_node(NodeInfoTopic),
-  {ok, #state{}}.
+  %run_node(NodeInfoTopic),
+  {ok, #state{node_name = NodeInfo#node_info.nodeNameServer}}.
 
 
-handle_call({?RESTART_NODE, NodeName}, _From, State) ->
-  ?DBG_MODULE_INFO("handle_call: ~p~n", [?MODULE, [?RESTART_NODE, NodeName]]),
+handle_call({?RESTART_NODE, NodeName}, _From, State) -> ?DBG_MODULE_INFO("handle_call: ~p~n", [?MODULE, [?RESTART_NODE, NodeName]]),
   case gen_server:call(?IBOT_NODES_REGISTRATOR, {?GET_NODE_INFO, NodeName}) of
-    [{NodeName, NodeInfoRecord}] ->
-      ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
+    [{NodeName, NodeInfoRecord}] -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
       run_node(NodeInfoRecord); %% Run new node (Restart)
-    [] ->
-      ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
+    [] -> ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
+      ok;
+    {response, {ok, NodeInfoRecord}} -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
+      run_node(NodeInfoRecord); %% Run new node (Restart)
+    Vals -> ?DBG_MODULE_INFO("handle_call: ~p ~n", [?MODULE, Vals]),
       ok
   end,
   {reply, ok, State};
@@ -62,6 +64,23 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
+handle_info({Port, {data, {eol, "READY!"}}}, State)->
+  ?DBG_MODULE_INFO("handle_info {eol, READY} start monitor: -> ~n", [?MODULE]),
+  %spawn(fun() ->ibot_nodes_monitor_srv:start_link(State#state.node_name) end),
+  case whereis('bar_monitor') of
+    undefined ->
+      ?DBG_MODULE_INFO("handle_info 'bar@alex-N550JK_monitor' : -> undefined ~n", [?MODULE]),
+      ok;
+    _ ->
+      ?DBG_MODULE_INFO("handle_info gen_server:call('bar@alex-N550JK_monitor', stop)~n", [?MODULE]),
+      %gen_server:call('bar_monitor', stop),
+      receive
+        _ -> ok
+      end
+  end,
+  ibot_nodes_monitor_srv:start_link(State#state.node_name),
+  ?DBG_MODULE_INFO("handle_info ibot_nodes_monitor_srv:start_link(State#state.node_name): -> ~n", [?MODULE]),
+  {noreply, State};
 handle_info(Msg, State)->
   ?DBG_MODULE_INFO("Get Message ~p~n", [?MODULE, Msg]),
   {noreply, State};
@@ -127,14 +146,16 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
 wait_for_ready(State = #state{node_port = Port}) ->
   receive
     {Port, {data, {eol, "READY"}}} ->
-      process_flag(trap_exit, true),
-      true = erlang:monitor_node(list_to_atom(State#state.node_name), true),
-      case handle_info("READY", State) of
-        {noreply, NewState} ->
-          wait_for_ready(NewState);
-        {stop, Reason, _NewState} ->
-          {stop, Reason}
-      end,
+      %process_flag(trap_exit, true),
+      %true = erlang:monitor_node(list_to_atom(State#state.node_name), true),
+      ?DBG_MODULE_INFO("wait_for_ready {eol, READY} start monitor: -> ~p~n", [?MODULE, Port]),
+      %ibot_nodes_monitor_srv:start_link(State#state.node_name),
+      %case handle_info("READY", State) of
+      %  {noreply, NewState} ->
+      %    wait_for_ready(NewState);
+      %  {stop, Reason, _NewState} ->
+      %    {stop, Reason}
+      %end,
       {ok, State};
     Info ->
       case handle_info(Info, State) of

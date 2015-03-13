@@ -48,6 +48,8 @@ init([]) ->
     nodePostArguments = []},
 
 
+
+
     IBot_Comm_Db_Child = ?CHILD(ibot_nodes_comm_db_srv, worker),
     IBot_Comm_Topic_Child = ?CHILD(ibot_nodes_comm_topic_srv, worker),
     IBot_Nodes_Registrator = ?CHILD(ibot_nodes_registrator_srv, worker),

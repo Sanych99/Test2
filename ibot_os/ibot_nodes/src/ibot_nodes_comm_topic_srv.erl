@@ -54,12 +54,10 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
-handle_info({?REG_SUBSRC, MBoxName, NodeServerName, TopicName}, State) ->
-  ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSRC, MBoxName, NodeServerName, TopicName]]),
+handle_info({?REG_SUBSRC, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSRC, MBoxName, NodeServerName, TopicName]]),
   ibot_nodes_comm_db_srv:add_node_to_topic(TopicName, MBoxName, NodeServerName), %% Add subscribe node info
   {noreply, State};
-handle_info(_Info, State) ->
-  ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
+handle_info(_Info, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
   {noreply, State}.
 
 

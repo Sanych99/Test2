@@ -53,6 +53,7 @@ handle_call({?ADD_RECORD, TableName, Key, Value}, _From, State) ->
   {reply, ok, State};
 
 handle_call({?GET_RECORD, TableName, Key}, _From, State) ->
+  ?DBG_MODULE_INFO("handle_call({?GET_RECORD, TableName, Key}: ~p~n", [?MODULE, {?GET_RECORD, TableName, Key}]),
   io:format("handle_call: ~p~n", [ibot_core_db_func:get(TableName, Key)]),
   case ibot_core_db_func:get(TableName, Key) of %% Получить данные
     [{Key, Value}] ->
@@ -91,7 +92,7 @@ add_record(TableName, Key, Value) ->
   gen_server:call(?IBOT_CORE_DB_SRV, {add_record, TableName, Key, Value}).
 
 get_record(TableName, Key) ->
-  gen_server:call(?IBOT_CORE_DB_SRV, {add_record, TableName, Key}).
+  gen_server:call(?IBOT_CORE_DB_SRV, {get_record, TableName, Key}).
 
 delete_table(TableName) ->
   gen_server:call(?IBOT_CORE_DB_SRV, {delete_table, TableName}).
@@ -104,4 +105,4 @@ set_project_full_path(Path) ->
   gen_server:call(?IBOT_CORE_DB_SRV, {add_record, ?TABLE_CONFIG, ?FULL_PROJECT_PATH, Path}).
 
 get_project_full_path() ->
-  gen_server:call(?IBOT_CORE_DB_SRV, {add_record, ?TABLE_CONFIG, ?FULL_PROJECT_PATH}).
+  gen_server:call(?IBOT_CORE_DB_SRV, {get_record, ?TABLE_CONFIG, ?FULL_PROJECT_PATH}).
