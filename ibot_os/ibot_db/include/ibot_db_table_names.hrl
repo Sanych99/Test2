@@ -4,9 +4,6 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 20:04
+%%% Created : 14. Mar 2015 10:29 PM
 %%%-------------------------------------------------------------------
--define(ADD_RECORD, add_record).
--define(GET_RECORD, get_record).
-
--define(DELETE_TABLE, delete_table).
+-define(TABLE_CONFIG, ibot_config).

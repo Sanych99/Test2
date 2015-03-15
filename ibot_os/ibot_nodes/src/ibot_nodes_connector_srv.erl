@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 22. Февр. 2015 21:43
 %%%-------------------------------------------------------------------
--module(ibot_nodes_connector).
+-module(ibot_nodes_connector_srv).
 -author("alex").
 
 -behaviour(gen_server).
@@ -37,8 +37,8 @@ start_link([NodeInfo | NodeInfoTopic]) ->
 
 
 init([NodeInfo | NodeInfoTopic]) -> ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE, [NodeInfo | NodeInfoTopic]]),
-  ibot_core_db_srv:add_record(node_registrator_db, 'bar@alex-N550JK', NodeInfo),
-  ibot_core_db_srv:add_record(node_registrator_db, 'bar_topic@alex-N550JK', NodeInfoTopic),
+  ibot_db_srv:add_record(node_registrator_db, 'bar@alex-N550JK', NodeInfo),
+  ibot_db_srv:add_record(node_registrator_db, 'bar_topic@alex-N550JK', NodeInfoTopic),
   run_node(NodeInfo),
   %run_node(NodeInfoTopic),
   {ok, #state{node_name = NodeInfo#node_info.nodeNameServer}}.
@@ -78,6 +78,7 @@ handle_info({Port, {data, {eol, "READY!"}}}, State)->
         _ -> ok
       end
   end,
+  %spawn_link(fun() ->ibot_nodes_monitor_srv:start_link(State#state.node_name) end),
   ibot_nodes_monitor_srv:start_link(State#state.node_name),
   ?DBG_MODULE_INFO("handle_info ibot_nodes_monitor_srv:start_link(State#state.node_name): -> ~n", [?MODULE]),
   {noreply, State};
@@ -129,39 +130,9 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
           [{line,1000}, stderr_to_stdout,
             {args, ArgumentList}]),
       ?DBG_MODULE_INFO("Port value: -> ~p~n", [?MODULE, Port])
-      %% Ожидаем подтверждения запуска узла
-      %case wait_for_ready(#state{node_port = Port, node_name = NodeNameServer}) of
-      %  {ok, State} -> ok;
-      %  {stop, Reason} -> ok
-      %end
-  end.
-
-%% @doc
-%% Ожидаем запуск узла
-%% при удачном запуске, создаем наблюдатель за узлом
-%% @spec wait_for_ready(State) -> {stop, Reason} | {ok, State} when State :: #state{}, Reason :: term().
-%% @end
--spec wait_for_ready(State) -> {stop, Reason} | {ok, State}
-  when State :: #state{}, Reason :: term().
-wait_for_ready(State = #state{node_port = Port}) ->
-  receive
-    {Port, {data, {eol, "READY"}}} ->
-      %process_flag(trap_exit, true),
-      %true = erlang:monitor_node(list_to_atom(State#state.node_name), true),
-      ?DBG_MODULE_INFO("wait_for_ready {eol, READY} start monitor: -> ~p~n", [?MODULE, Port]),
-      %ibot_nodes_monitor_srv:start_link(State#state.node_name),
-      %case handle_info("READY", State) of
-      %  {noreply, NewState} ->
-      %    wait_for_ready(NewState);
-      %  {stop, Reason, _NewState} ->
-      %    {stop, Reason}
-      %end,
-      {ok, State};
-    Info ->
-      case handle_info(Info, State) of
-        {noreply, NewState} ->
-          wait_for_ready(NewState);
-        {stop, Reason, _NewState} ->
-          {stop, Reason}
-      end
+  %% Ожидаем подтверждения запуска узла
+  %case wait_for_ready(#state{node_port = Port, node_name = NodeNameServer}) of
+  %  {ok, State} -> ok;
+  %  {stop, Reason} -> ok
+  %end
   end.

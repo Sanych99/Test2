@@ -1,10 +1,9 @@
 -module(ibot_core_app).
 
 -include("debug.hrl").
--include("config_db_keys.hrl").
 -include("env_params.hrl").
--include("ibot_gen_srvs.hrl").
--include("ibot_table_names.hrl").
+-include("../../ibot_db/include/ibot_db_table_names.hrl").
+-include("../../ibot_db/include/ibot_db_project_config_param.hrl").
 
 -behaviour(application).
 

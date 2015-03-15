@@ -4,6 +4,6 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 17:39
+%%% Created : 14. Mar 2015 10:36 PM
 %%%-------------------------------------------------------------------
--define(TABLE_CONFIG, ibot_config).
+-define(IBOT_DB_SRV ,ibot_db_srv).

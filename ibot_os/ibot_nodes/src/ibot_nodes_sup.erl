@@ -56,6 +56,6 @@ init([]) ->
     %%IBot_Nodes_Connecor = ?CHILD(ibot_nodes_connector, worker),, IBot_Nodes_Connecor
 
     %IB2 = ?CHILD_PARAM({local, ibot_nodes_connector5}, ibot_nodes_connector, worker, NodeInfoTopic),
-    IB1 = ?CHILD_PARAM({lcoal, ibot_nodes_connector}, ibot_nodes_connector, worker, [NodeInfo | NodeInfoTopic]),
+    IB1 = ?CHILD_PARAM(ibot_nodes_connector_srv, ibot_nodes_connector_srv, worker, [NodeInfo | NodeInfoTopic]),
     {ok, { {one_for_one, 5, 10}, [IBot_Comm_Db_Child, IBot_Comm_Topic_Child, IBot_Nodes_Registrator, IB1]} }.
 

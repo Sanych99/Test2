@@ -42,7 +42,7 @@ start_link() ->
 
 init([]) ->
   % Создание ETS таблицы для хранения данных об узлах
-  ibot_core_db_func:create_db(?NODE_REGISTRATOR_DB),
+  ibot_db_func:create_db(?NODE_REGISTRATOR_DB),
   {ok, #state{}}.
 
 
@@ -95,7 +95,7 @@ code_change(_OldVsn, State, _Extra) ->
 %%%===================================================================
 
 get_node_info(NodeName) ->
-  ibot_core_db_srv:get_record(?NODE_REGISTRATOR_DB, NodeName).
+  ibot_db_srv:get_record(?NODE_REGISTRATOR_DB, NodeName).
 
 add_node_info(Key, Val) ->
-  ibot_core_db_srv:add_record(?NODE_REGISTRATOR_DB, Key, Val).
+  ibot_db_srv:add_record(?NODE_REGISTRATOR_DB, Key, Val).

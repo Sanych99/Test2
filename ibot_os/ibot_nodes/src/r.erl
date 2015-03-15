@@ -12,7 +12,7 @@
 -include("debug.hrl").
 -include("ibot_comm_records.hrl").
 %% API
--export([start/0, c/0, s/0]).
+-export([start/0, c/0, s/0, test/0]).
 
 start() ->
   Info = gen_server:start({local, ibot_nodes_connector}, ibot_nodes_connector, [], []),
@@ -20,6 +20,7 @@ start() ->
   ok.
 
 c() ->
+  ibot_db_app:start(normal, []),
   ibot_core_app:start(normal, []),
   ibot_nodes_app:start(normal, []),
 
@@ -60,8 +61,8 @@ test() ->
 
   %%ibot_nodes_connector:run_node(NodeInfo),
   %%ibot_nodes_connector:run_node(NodeInfoTopic),
-  gen_server:start({local, ibot_nodes_connector2}, ibot_nodes_connector, [NodeInfoTopic], []),
+  gen_server:start({local, ibot_nodes_connector2}, ibot_nodes_connector_srv, [NodeInfoTopic | []], []),
   ?DBG_INFO("ibot_nodes_connector2 run...~n", []),
-  gen_server:start({local, ibot_nodes_connector}, ibot_nodes_connector, [NodeInfo], []),
+  gen_server:start({local, ibot_nodes_connector}, ibot_nodes_connector_srv, [NodeInfo | []], []),
   ?DBG_INFO("ibot_nodes_connector run...~n", []),
   ok.

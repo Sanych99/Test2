@@ -4,6 +4,9 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 17:21
+%%% Created : 14. Mar 2015 10:34 PM
 %%%-------------------------------------------------------------------
--define(IBOT_CORE_DB_SRV ,ibot_core_db_srv).
+-define(ADD_RECORD, add_record).
+-define(GET_RECORD, get_record).
+
+-define(DELETE_TABLE, delete_table).

@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 28. Feb 2015 12:01 AM
 %%%-------------------------------------------------------------------
--module(ibot_core_db_func).
+-module(ibot_db_func).
 
 -export([create_db/1, add/3, get/2, delete_table/1]).
 

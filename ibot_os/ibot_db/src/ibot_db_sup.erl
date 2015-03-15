@@ -1,8 +1,7 @@
--module(ibot_core_sup).
+
+-module(ibot_db_sup).
 
 -behaviour(supervisor).
-
--include("debug.hrl").
 
 %% API
 -export([start_link/0]).
@@ -25,5 +24,6 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+    IBOT_DB_SRV = ?CHILD(ibot_db_srv, worker), %% Run ibot_db_srv server
+    {ok, { {one_for_one, 5, 10}, [IBOT_DB_SRV]} }.
 
