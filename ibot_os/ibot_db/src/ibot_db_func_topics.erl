@@ -4,64 +4,19 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 19:57
+%%% Created : 18. Mar 2015 2:20 AM
 %%%-------------------------------------------------------------------
--module(ibot_nodes_comm_db_srv).
-
--behaviour(gen_server).
+-module(ibot_db_func_topics).
+-author("alex").
 
 %% API
--export([start_link/0]).
-
-%% gen_server callbacks
--export([init/1,
-  handle_call/3,
-  handle_cast/2,
-  handle_info/2,
-  terminate/2,
-  code_change/3]).
-
 -export([add_node_to_topic/3, get_topic_nodes/1]).
 
--define(SERVER, ?MODULE).
-
--include("debug.hrl").
--include("ibot_comm_tables.hrl").
--include("ibot_comm_records.hrl").
--include("../../ibot_db/include/ibot_db_table_commands.hrl").
--include("../../ibot_db/include/ibot_db_modules.hrl").
-
--record(state, {}).
-
-
-start_link() ->
-  gen_server:start_link({local, ?SERVER}, ?MODULE, [], []). %% Start server
-
-
-init([]) ->
-  ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
-  {ok, #state{}}.
-
-
-handle_call(_Request, _From, State) ->
-  {reply, ok, State}.
-
-
-handle_cast(_Request, State) ->
-  {noreply, State}.
-
-
-handle_info(_Info, State) ->
-  {noreply, State}.
-
-
-terminate(_Reason, _State) ->
-  ok.
-
-
-code_change(_OldVsn, State, _Extra) ->
-  {ok, State}.
-
+-include("../../ibot_core/include/debug.hrl").
+-include("ibot_db_table_names.hrl").
+-include("ibot_db_records.hrl").
+-include("ibot_db_table_commands.hrl").
+-include("ibot_db_modules.hrl").
 
 %%============================
 %% API finctions
@@ -76,7 +31,7 @@ add_node_to_topic(TopicName, NodeName, ServerName) -> ?DBG_INFO("add_node_to_top
 
     Vals -> ?DBG_INFO("add_node_to_topic topic ~p not found...~n", [TopicName]),  ?DBG_INFO("add_node_to_topic format ~p ...~n", [Vals]),
       gen_server:call(?IBOT_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,
-      #topic_info{subscribeNodes = [#node_pubsub_info{nodeName = NodeName, serverName = ServerName}]}})
+        #topic_info{subscribeNodes = [#node_pubsub_info{nodeName = NodeName, serverName = ServerName}]}})
   end.
 
 get_topic_nodes(TopicName) ->

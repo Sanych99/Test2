@@ -4,8 +4,7 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 20:06
+%%% Created : 18. Mar 2015 2:24 AM
 %%%-------------------------------------------------------------------
-
 -record(node_pubsub_info, {nodeName :: atom(), serverName :: atom()}).
 -record(topic_info, {subscribeNodes = [] :: list()}).

@@ -4,6 +4,9 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 10. Март 2015 19:40
+%%% Created : 18. Mar 2015 2:20 AM
 %%%-------------------------------------------------------------------
--define(TABLE_TOPICS, ibot_topics).
+-module(ibot_db_func_services).
+-author("alex").
+
+

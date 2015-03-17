@@ -41,6 +41,7 @@ start_link() ->
 
 init([]) ->
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
+  ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
   {ok, #state{}}.
 
 

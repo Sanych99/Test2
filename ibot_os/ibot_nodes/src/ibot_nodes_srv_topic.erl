@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 10. Март 2015 20:37
 %%%-------------------------------------------------------------------
--module(ibot_nodes_comm_topic_srv).
+-module(ibot_nodes_srv_topic).
 
 -behaviour(gen_server).
 
@@ -22,11 +22,11 @@
   code_change/3]).
 
 -define(SERVER, ?MODULE).
--define(REG_SUBSRC, reg_subscr).
+-define(REG_SUBSCR, reg_subscr).
 
 -include("debug.hrl").
 -include("ibot_comm_commands.hrl").
--include("ibot_comm_records.hrl").
+-include("../../ibot_db/include/ibot_db_records.hrl").
 
 -record(state, {}).
 
@@ -44,7 +44,7 @@ handle_call(_Request, _From, State) ->
 
 
 handle_cast({?BROADCAST, TopicName, Message}, State) ->
-  case ibot_nodes_comm_db_srv:get_topic_nodes(TopicName) of
+  case ibot_db_func_topics:get_topic_nodes(TopicName) of
     [] -> ok;
     NodeInfoList ->
       spawn(fun() -> message_broadcast(NodeInfoList, Message) end)
@@ -54,8 +54,8 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
-handle_info({?REG_SUBSRC, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSRC, MBoxName, NodeServerName, TopicName]]),
-  ibot_nodes_comm_db_srv:add_node_to_topic(TopicName, MBoxName, NodeServerName), %% Add subscribe node info
+handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSCR, MBoxName, NodeServerName, TopicName]]),
+  ibot_db_func_topics:add_node_to_topic(TopicName, MBoxName, NodeServerName), %% Add subscribe node info
   {noreply, State};
 handle_info(_Info, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
   {noreply, State}.

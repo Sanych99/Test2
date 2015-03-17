@@ -19,7 +19,7 @@ start(_StartType, _StartArgs) ->
     ibot_core_sup:start_link().
 
 stop(_State) ->
-    ibot_core_db_srv:delete_table(?TABLE_CONFIG), %% Удаляем таблицу с данными конфируции проекта
+    ibot_db_func:delete_table(?TABLE_CONFIG), %% Удаляем таблицу с данными конфируции проекта
     ok.
 
 
@@ -30,12 +30,11 @@ stop(_State) ->
   when Dir :: string(), Path :: string(), Reason :: term().
 
 create_project(Path, Dir) ->
-  ibot_core_db_srv:add_record(?TABLE_CONFIG,
+  ibot_db_func:add_record(?TABLE_CONFIG,
     ?FULL_PROJECT_PATH, string:join([Path, Dir], ?DELIM_PATH_SYMBOL)), %% Add project full path to config
   ibot_core_cmd_cdir:create_project(Path, Dir). %% Create project directories
 
 
-create_node(NodeName, NodeLang) ->
-  ?DBG_INFO("func create_node NodeName: ~p, NodeLang: ~p ...........~n", [NodeName, NodeLang]),
+create_node(NodeName, NodeLang) -> ?DBG_MODULE_INFO("create_node(NodeName, NodeLang) NodeName: ~p, NodeLang: ~p ...........~n", [?MODULE, NodeName, NodeLang]),
   ibot_core_cmd_cdir:create_node(NodeName, list_to_atom(NodeLang)),
   ok.

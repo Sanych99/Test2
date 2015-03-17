@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 22. Февр. 2015 21:43
 %%%-------------------------------------------------------------------
--module(ibot_nodes_connector_srv).
+-module(ibot_nodes_srv_connector).
 -author("alex").
 
 -behaviour(gen_server).
@@ -45,13 +45,13 @@ init([NodeInfo | NodeInfoTopic]) -> ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE
 
 
 handle_call({?RESTART_NODE, NodeName}, _From, State) -> ?DBG_MODULE_INFO("handle_call: ~p~n", [?MODULE, [?RESTART_NODE, NodeName]]),
-  case gen_server:call(?IBOT_NODES_REGISTRATOR, {?GET_NODE_INFO, NodeName}) of
+  case gen_server:call(?IBOT_NODES_SRV_REGISTRATOR, {?GET_NODE_INFO, NodeName}) of
     [{NodeName, NodeInfoRecord}] -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
+      run_node(NodeInfoRecord); %% Run new node (Restart)
+    {response, {ok, NodeInfoRecord}} -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
       run_node(NodeInfoRecord); %% Run new node (Restart)
     [] -> ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
       ok;
-    {response, {ok, NodeInfoRecord}} -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
-      run_node(NodeInfoRecord); %% Run new node (Restart)
     Vals -> ?DBG_MODULE_INFO("handle_call: ~p ~n", [?MODULE, Vals]),
       ok
   end,
@@ -64,30 +64,11 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
-handle_info({Port, {data, {eol, "READY!"}}}, State)->
-  ?DBG_MODULE_INFO("handle_info {eol, READY} start monitor: -> ~n", [?MODULE]),
-  %spawn(fun() ->ibot_nodes_monitor_srv:start_link(State#state.node_name) end),
-  case whereis('bar_monitor') of
-    undefined ->
-      ?DBG_MODULE_INFO("handle_info 'bar@alex-N550JK_monitor' : -> undefined ~n", [?MODULE]),
-      ok;
-    _ ->
-      ?DBG_MODULE_INFO("handle_info gen_server:call('bar@alex-N550JK_monitor', stop)~n", [?MODULE]),
-      %gen_server:call('bar_monitor', stop),
-      receive
-        _ -> ok
-      end
-  end,
-  %spawn_link(fun() ->ibot_nodes_monitor_srv:start_link(State#state.node_name) end),
-  ibot_nodes_monitor_srv:start_link(State#state.node_name),
-  ?DBG_MODULE_INFO("handle_info ibot_nodes_monitor_srv:start_link(State#state.node_name): -> ~n", [?MODULE]),
+handle_info({_Port, {data, {eol, "READY!"}}}, State)-> ?DBG_MODULE_INFO("handle_info {eol, READY} start monitor: -> ~n", [?MODULE]),
+  ibot_nodes_srv_monitor:start_link(State#state.node_name),
   {noreply, State};
-handle_info(Msg, State)->
-  ?DBG_MODULE_INFO("Get Message ~p~n", [?MODULE, Msg]),
-  {noreply, State};
-handle_info({nodedown, JavaNode}, State = #state{node_name = JavaNode}) ->
-  ?DBG_MODULE_INFO("Get Message ~p~n", [?MODULE, "Java node is down!"]),
-  {stop, nodedown, State}.
+handle_info(Msg, State)-> ?DBG_MODULE_INFO("handle_info(Msg, State) ~p~n", [?MODULE, Msg]),
+  {noreply, State}.
 
 
 terminate(_Reason, _State) ->
@@ -108,14 +89,12 @@ code_change(_OldVsn, State, _Extra) ->
 -spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
   nodeLang = NodeLang, nodeExecutable = NodeExecutable,
-  nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) ->
-  ?DBG_MODULE_INFO("#node_info value: -> ~p~n", [?MODULE, NodeInfo]),
+  nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, NodeInfo]),
   %% Проверка наличия исполняющего файла java
   case os:find_executable(NodeExecutable) of
     [] ->
       throw({stop, executable_file_missing});
     ExecutableFile ->
-      %Classpath = "C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\_RobotOS\\RobotOS\\_RobOS\\test\\nodes\\java;C:\\_RobotOS\\RobotOS\\_RobOS\\langlib\\java\\lib\\Node.jar",% ++ [$: | Priv ++ "/*"],
       ArgumentList = lists:append([NodePreArguments, % Аргументы для исполняемого файла
         [NodeName, % Имя запускаемого узла
           % Передаем параметры в узел
@@ -125,14 +104,5 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
       ),
       % Выполянем комманду по запуску узла
-      Port =
-        erlang:open_port({spawn_executable, ExecutableFile},
-          [{line,1000}, stderr_to_stdout,
-            {args, ArgumentList}]),
-      ?DBG_MODULE_INFO("Port value: -> ~p~n", [?MODULE, Port])
-  %% Ожидаем подтверждения запуска узла
-  %case wait_for_ready(#state{node_port = Port, node_name = NodeNameServer}) of
-  %  {ok, State} -> ok;
-  %  {stop, Reason} -> ok
-  %end
+      erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
   end.

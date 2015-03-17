@@ -10,7 +10,7 @@
 -author("alex").
 -include("nodes_registration_info.hrl").
 -include("debug.hrl").
--include("ibot_comm_records.hrl").
+-include("../../ibot_db/include/ibot_db_records.hrl").
 %% API
 -export([start/0, c/0, s/0, test/0]).
 
@@ -27,7 +27,7 @@ c() ->
   ok.
 
 s() ->
-  case ibot_nodes_comm_db_srv:get_topic_nodes(test_topic) of
+  case ibot_db_func_topics:get_topic_nodes(test_topic) of
     NodeInfoList ->
       ?DBG_MODULE_INFO("get info: ~p~n", [?MODULE, NodeInfoList]),
       spawn(fun() -> message_broadcast(NodeInfoList, {"Hello from Erlang!"}) end);

@@ -8,7 +8,7 @@
 %%% @end
 %%% Created : 22. Февр. 2015 17:54
 %%%-------------------------------------------------------------------
--module(ibot_nodes_registrator_srv).
+-module(ibot_nodes_srv_registrator).
 
 -behaviour(gen_server).
 
@@ -67,7 +67,7 @@ handle_info({?REG_INFO, MBoxName, NodeServerName}, State) ->
   {noreply, State};
 
 handle_info({?EXTNODE, Parameters}, State) ->
-      ?DBG_MODULE_INFO("message from node: ~p~n", [?MODULE, {?EXTNODE, Parameters}]),
+      ?DBG_MODULE_INFO("handle_info({?EXTNODE, Parameters}, State): ~p~n", [?MODULE, {?EXTNODE, Parameters}]),
       % Регистрационные данные узла
       {NodeName, NodeServer, NodeNameServer, NodeLang, NodeExecutable, NodePreArguments, NodePostArguments} = Parameters,
       % Добавляем дaнне об узле в таблицу
