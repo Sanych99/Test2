@@ -1,0 +1,12 @@
+{application, ibot_ri,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { ibot_ri_app, []}},
+  {env, []}
+ ]}.

@@ -1,4 +1,4 @@
-class IBotNode:
+class BotNode:
 
     def __init__(self, otpNodeName, currentServerName, coreNodeName,
                  otpMboxName, registratorCoreNode, publisherCoreNode, coreCoockes):
@@ -13,7 +13,7 @@ class IBotNode:
 
 
 if __name__ == "__main__":
-    ibot = IBotNode("ClientTest", "alexandr", "bar@alexandr", "Java", "java", "", "")
+    ibot = BotNode("ClientTest", "alexandr", "bar@alexandr", "Java", "java", "", "")
     print ibot.coreNodeName
     print ibot.registratorCoreNode
     print "Hellow"

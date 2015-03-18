@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/ibot_events/ibot_events.iml" filepath="$PROJECT_DIR$/ibot_events/ibot_events.iml" />
       <module fileurl="file://$PROJECT_DIR$/ibot_generator/ibot_generator.iml" filepath="$PROJECT_DIR$/ibot_generator/ibot_generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/ibot_nodes/ibot_nodes.iml" filepath="$PROJECT_DIR$/ibot_nodes/ibot_nodes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ibot_ri/ibot_ri.iml" filepath="$PROJECT_DIR$/ibot_ri/ibot_ri.iml" />
     </modules>
   </component>
 </project>
