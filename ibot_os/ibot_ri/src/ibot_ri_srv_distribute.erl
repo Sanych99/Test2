@@ -22,8 +22,14 @@
   terminate/2,
   code_change/3]).
 
+-export([cast_handle/1]).
+
+-export([cast_remote_node/4, call_remote_node/6]).
+
 -define(SERVER, ?MODULE).
 -define(IBOT_RI_RESPONSE_TIMEOUT, 5000).
+-define(ERROR_REMOTE_NODE_CALL, error_remote_node_call).
+-define(IBOT_RI_REMOTE_CALL_TIMEOUT, ibot_ri_remote_call_timeout).
 
 -include("../../ibot_core/include/debug.hrl").
 -include("ibot_ri_command.hrl").
@@ -36,6 +42,7 @@ start_link() ->
 
 
 init([]) ->
+  ?DBG_MODULE_INFO("node: ~p init ~n", [?MODULE, node()]),
   {ok, #state{}}.
 
 
@@ -45,9 +52,10 @@ handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
 
-handle_cast({?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}, State) ->
+handle_cast({?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}, State) -> ?DBG_MODULE_INFO("handle_cast({?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}, State): ~p~n", [?MODULE, {node(), ?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}]),
+  %gen_server:cast({?MODULE, CallingNodeName}, {?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}),
   {noreply, State};
-handle_cast(_Request, State) ->
+handle_cast(_Request, State) -> ?DBG_MODULE_INFO("handle_cast(_Request, State): ~p~n", [?MODULE, _Request]),
   {noreply, State}.
 
 
@@ -80,10 +88,10 @@ code_change(_OldVsn, State, _Extra) ->
 %% @end
 
 -spec cast_remote_node(RemoteCore, CallingNodeName, CallingRegName, Message) -> ok
-  when CurrentNodeName :: node(), CurrentRegName :: atom(), RemoteCore :: node(), CallingNodeName :: atom(), CallingRegName :: atom(), Message :: term().
+  when RemoteCore :: node(), CallingNodeName :: atom(), CallingRegName :: atom(), Message :: term().
 
 cast_remote_node(RemoteCore, CallingNodeName, CallingRegName, Message) ->
-  rpc:call(RemoteCore, ?MODULE, handle_cast, [{?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}], ?IBOT_RI_RESPONSE_TIMEOUT),
+  gen_server:cast({?MODULE, RemoteCore}, {?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}),
   ok.
 
 
@@ -100,8 +108,23 @@ cast_remote_node(RemoteCore, CallingNodeName, CallingRegName, Message) ->
   when CurrentNodeName :: node(), CurrentRegName :: atom(), RemoteCore :: node(), CallingNodeName :: atom(), CallingRegName :: atom(), Message :: term().
 
 call_remote_node(CurrentNodeName, CurrentRegName, RemoteCore, CallingNodeName, CallingRegName, Message) ->
-  case rpc:call(RemoteCore, ?MODULE, handle_call, [{?IBOT_RI_REMOTE_CALL, CallingNodeName, CallingRegName, Message}], ?IBOT_RI_RESPONSE_TIMEOUT) of
-    {badrpc, Reason} -> erlang:send({CurrentRegName, CurrentNodeName}, {?IBOT_RI_BADRPC ,Reason});
-    Res -> erlang:send({CurrentRegName, CurrentNodeName}, {?IBOT_RI_RESPONSE ,Res})
+  spawn(fun() -> call_remote_handle(CurrentNodeName, CurrentRegName, RemoteCore, CallingNodeName, CallingRegName, Message) end),
+  ok.
+
+
+
+call_remote_handle(CurrentNodeName, CurrentRegName, RemoteCore, CallingNodeName, CallingRegName, Message) ->
+  gen_server:cast({?MODULE, RemoteCore}, {?IBOT_RI_REMOTE_CALL, CurrentNodeName, CallingNodeName, CallingRegName, Message}),
+  receive
+    {ok, Response} -> erlang:send({CurrentRegName, CurrentNodeName}, {?IBOT_RI_BADRPC ,Response});
+    {?ERROR_REMOTE_NODE_CALL, Reason} -> erlang:send({CurrentRegName, CurrentNodeName}, {?ERROR_REMOTE_NODE_CALL ,Reason})
+  after ?IBOT_RI_RESPONSE_TIMEOUT -> ?IBOT_RI_REMOTE_CALL_TIMEOUT
   end,
+  ok.
+
+
+
+cast_handle({?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}) ->
+  ?DBG_INFO("test ~p ~n", [{node(), ?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}]),
+  gen_server:cast(?MODULE, {?IBOT_RI_REMOTE_CAST, CallingNodeName, CallingRegName, Message}),
   ok.

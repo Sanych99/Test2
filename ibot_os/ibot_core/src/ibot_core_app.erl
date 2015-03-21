@@ -16,6 +16,7 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
+    ibot_ri_app:start(normal, []),
     ibot_core_sup:start_link().
 
 stop(_State) ->
