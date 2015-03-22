@@ -1,10 +1,15 @@
--module(r2).
+-module(pingpong).
 -compile(export_all).
 
-start() -> register(pingpong, spawn(?MODULE, loop, [])).
+start() -> register(pingpong, spawn(?MODULE, loop, [])),
+  io:format("start"),
+  receive
+    Var -> okey
+  end, io:format("end").
 stop()  -> pingpong ! stop.
 
 loop() ->
+  io:format("loop"),
   receive
     stop ->
       io:fwrite("Stop: ~w~n", [self()]),
