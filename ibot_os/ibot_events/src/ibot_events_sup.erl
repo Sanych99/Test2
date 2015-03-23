@@ -18,8 +18,8 @@
 
 start_link() ->
   %%{ok, Pid} = gen_event:start_link("my_event_bus"),
-  {ok, Pid} = gen_server:start_link({local, test1}, test, [], []),
-  io:format("~p~n", [Pid]),
+  %{ok, Pid} = gen_server:start_link({local, test1}, test, [], []),
+  %io:format("~p~n", [Pid]),
   supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 %% ===================================================================

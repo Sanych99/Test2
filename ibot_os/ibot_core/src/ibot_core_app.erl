@@ -31,7 +31,7 @@ stop(_State) ->
   when Dir :: string(), Path :: string(), Reason :: term().
 
 create_project(Path, Dir) ->
-  ibot_db_func:add_record(?TABLE_CONFIG,
+  ibot_db_func:add(?TABLE_CONFIG,
     ?FULL_PROJECT_PATH, string:join([Path, Dir], ?DELIM_PATH_SYMBOL)), %% Add project full path to config
   ibot_core_cmd_cdir:create_project(Path, Dir). %% Create project directories
 

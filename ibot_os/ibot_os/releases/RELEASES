@@ -1,0 +1,8 @@
+[{release,"ibot_os","1","6.3",
+          [{kernel,"3.1",
+                   "/home/alex/iBotOS/iBotOS/ibot_os/ibot_os/lib/kernel-3.1"},
+           {stdlib,"2.3",
+                   "/home/alex/iBotOS/iBotOS/ibot_os/ibot_os/lib/stdlib-2.3"},
+           {sasl,"2.4.1",
+                 "/home/alex/iBotOS/iBotOS/ibot_os/ibot_os/lib/sasl-2.4.1"}],
+          permanent}].

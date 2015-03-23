@@ -13,6 +13,7 @@
 -include("project_create_commands.hrl").
 -include("result_atoms.hrl").
 -include("../../ibot_db/include/ibot_db_project_config_param.hrl").
+-include("../../ibot_db/include/ibot_db_table_names.hrl").
 
 %% @doc Создание директории проекта и необходимых файлов
 %% для начала работы
@@ -31,18 +32,18 @@ create_project(Path, Folder) ->
     ok ->
       Full_Project_Path = ?MKDIR_PROJECT_FOLDER(Path, Folder), % Полный путь до проекта
       ?DBG_INFO("full_project_path...================... ~p~n", [Full_Project_Path]),
-      ibot_core_cmd:exec(atom_to_list(Full_Project_Path)), % Создаем директорию проекта
+      ibot_core_cmd:run_exec(atom_to_list(Full_Project_Path)), % Создаем директорию проекта
 
       Dev_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ibot_core_env:env_dev_folder()), % Пут до директории с откомпилированными библиотеками проекта файлами проекта
       ?DBG_INFO("dev_folder ~p~n", [Dev_Folder]),
-      ibot_core_cmd:exec(atom_to_list(Dev_Folder)), % Создаем директорию для откопированных / сгенерированных файлов проекта
+      ibot_core_cmd:run_exec(atom_to_list(Dev_Folder)), % Создаем директорию для откопированных / сгенерированных файлов проекта
 
       Dev_Folder_SubDirs = ?DEV_FOLDER_LIST(Path, Folder, ibot_core_env:env_dev_folder()), %% Dev folder subdirectories
       create_folder_comand(Dev_Folder_SubDirs), %% Create Dev folder subdirectories
 
       Src_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ibot_core_env:env_src_folder()), % Пут до директории с исходными файлами проекта
       ?DBG_INFO("src_folder ~p~n", [Src_Folder]),
-      ibot_core_cmd:exec(atom_to_list(Src_Folder)), % Создаем директорию исходных файлов проекта
+      ibot_core_cmd:run_exec(atom_to_list(Src_Folder)), % Создаем директорию исходных файлов проекта
       ?DBG_INFO("project directories created successfull...================... ~n", []),
 
 
@@ -100,7 +101,7 @@ create_java_node(NodeName) ->
     Res -> ?DBG_INFO("config table exist: ~p ...........~n", [Res])
   end,
 
-  case ibot_core_config_db:get(?FULL_PROJECT_PATH) of % Try get full path to project folder
+  case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of % Try get full path to project folder
     [{?FULL_PROJECT_PATH, Full_Path}] ->
       ?DBG_INFO("full_project_path: ~p...........~n", [Full_Path]),
       case filelib:ensure_dir(Full_Path) of % Ensure that the folder exisit

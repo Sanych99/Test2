@@ -1,0 +1,8 @@
+run_erl [15720] Tue Mar 24 01:45:12 2015
+Args before exec of shell:
+run_erl [15720] Tue Mar 24 01:45:12 2015
+argv[0] = sh
+run_erl [15720] Tue Mar 24 01:45:12 2015
+argv[1] = -c
+run_erl [15720] Tue Mar 24 01:45:12 2015
+argv[2] = exec /home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/bin/ibot_os console \'\' 

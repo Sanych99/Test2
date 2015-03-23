@@ -1,0 +1,8 @@
+{application, ibot_webi, [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [kernel,stdlib,crypto,cowboy,compiler,lager,syntax_tools]},
+  {mod, { ibot_webi_app, []}},
+  {env, []}
+]}.
