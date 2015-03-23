@@ -12,17 +12,17 @@ init({tcp, http}, _Req, _Opts) ->
 
 
 handle(Req, State) ->
-  lager:debug("Request not expected: ~p", [Req]),
+  %lager:debug("Request not expected: ~p", [Req]),
   {ok, Req2} = cowboy_http_req:reply(404, [{'Content-Type', <<"text/html">>}]),
   {ok, Req2, State}.
 
 
 websocket_init(_TransportName, Req, _Opts) ->
-  lager:debug("init websocket"),
+  %lager:debug("init websocket"),
   {ok, Req, undefined_state}.
 
 websocket_handle({text, Msg}, Req, State) ->
-  lager:debug("Got Data: ~p", [Msg]),
+  %lager:debug("Got Data: ~p", [Msg]),
   {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
 
 
@@ -33,7 +33,7 @@ websocket_info({timeout, _Ref, Msg}, Req, State) ->
   {reply, {text, Msg}, Req, State};
 
 websocket_info(_Info, Req, State) ->
-  lager:debug("websocket info"),
+  %lager:debug("websocket info"),
   {ok, Req, State, hibernate}.
 
 websocket_terminate(_Reason, _Req, _State) ->
