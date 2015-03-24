@@ -11,7 +11,7 @@
        {rel, "start_clean", "",
         [
          kernel,
-         stdlib
+         stdlib, sasl, crypto, cowboy, lager, syntax_tools, ibot_core, ibot_db, ibot_generator, ibot_webi
         ]},
        {boot_rel, "ibot_os"},
        {profile, embedded},

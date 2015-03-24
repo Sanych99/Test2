@@ -9,7 +9,7 @@
 
 %% Application callbacks
 -export([start/2, stop/1]).
--export([create_project/2, create_node/2]).
+-export([create_project/2, create_node/2, connect_to_project/1, get_project_nodes/0]).
 
 %% ===================================================================
 %% Application callbacks
@@ -39,3 +39,17 @@ create_project(Path, Dir) ->
 create_node(NodeName, NodeLang) -> ?DBG_MODULE_INFO("create_node(NodeName, NodeLang) NodeName: ~p, NodeLang: ~p ...........~n", [?MODULE, NodeName, NodeLang]),
   ibot_core_cmd_cdir:create_node(NodeName, list_to_atom(NodeLang)),
   ok.
+
+connect_to_project(ProjectPath) ->
+  ibot_db_func:add(?TABLE_CONFIG,
+    ?FULL_PROJECT_PATH, ProjectPath),
+  ok.
+
+get_project_nodes() ->
+  ?DBG_MODULE_INFO("src folder: ~p~n", [?MODULE, string:join([ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH), ?SRC_FOLDER], "/")]),
+  case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of
+    [{?FULL_PROJECT_PATH, ProjectPath}] ->
+      ?DBG_MODULE_INFO("get_project_nodes() : ~p~n", [?MODULE, file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))]),
+      file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"));
+    _ -> {error}
+  end.

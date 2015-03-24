@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    function createProject()
+    {
+        var jsonQ = "{\"createProject\" : {\"projectName\" : \""+ $("#projectNameInput").val() +
+                "\", \"projectPath\" : \"" + $("#projectPathInput").val() + "\"}}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+</script>
+
+<div class="componentGroupDvi">
+    <div class="componentDiv">
+        <span>Project name:</span>
+        <br/>
+        <input type="text" id="projectNameInput"/>
+    </div>
+    <div class="componentDiv">
+        <span>Project path:</span>
+        <br/>
+        <input type="text" id="projectPathInput"/>
+    </div>
+    <div class="componentDiv">
+        <input type="button" id="projectCreateButton" value="Create project..." onclick="createProject()" />
+    </div>
+</div>

@@ -1,7 +1,12 @@
 -module(ibot_webi_handler).
+
 -behaviour(cowboy_http_handler).
 -behaviour(cowboy_websocket_handler).
+
+-include("../../ibot_core/include/debug.hrl").
+
 -export([init/3, handle/2, terminate/3]).
+
 -export([
   websocket_init/3, websocket_handle/3,
   websocket_info/3, websocket_terminate/3
@@ -22,8 +27,49 @@ websocket_init(_TransportName, Req, _Opts) ->
   {ok, Req, undefined_state}.
 
 websocket_handle({text, Msg}, Req, State) ->
-  %lager:debug("Got Data: ~p", [Msg]),
-  {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+  ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) Mgs: ~p~n", [?MODULE, binary_to_list(Msg)]),
+  ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) decode: ~p~n", [?MODULE, jiffy:decode(Msg)]),
+
+  try jiffy:decode(Msg) of
+    {[{A, B}]}->
+      case A of
+        <<"connectToProject">> ->
+          ibot_core_app:connect_to_project(binary_to_list(B)),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"createProject">> ->
+          case B of
+            {[{_, ProjectNameBin}, {_, ProjectPath}]} ->
+              ibot_core_app:create_project(binary_to_list(ProjectPath), binary_to_list(ProjectNameBin)),
+              {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+            _ -> error
+          end,
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"createNode">> ->
+          case B of
+            {[{_, NodeNameBin}, {_, NodeLang}]} ->
+              ibot_core_app:create_node(binary_to_list(NodeNameBin), binary_to_list(NodeLang)),
+              {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+            _ -> error
+          end,
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"getNodes">> ->
+          ?DBG_MODULE_INFO("<<getNodes>> : ~p~n", [?MODULE, ibot_core_app:get_project_nodes()]),
+          case ibot_core_app:get_project_nodes() of
+            {ok, ProjectNodes} ->
+              ProjectNodesBin = list_to_binary(string:join(ProjectNodes, "|")),
+              {reply, {text, jiffy:encode({[{responseType, nodeslist}, {responseJson, <<ProjectNodesBin/binary>>}]})}, Req, State};
+            _ -> {reply, {text, jiffy:encode({[{error,<<"get nodes error...">>}]})}, Req, State}
+          end;
+        _ -> {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
+      end;
+
+      %{reply, {text, jiffy:encode({[{registered,B}]})}, Req, State};
+    _ ->
+      {reply, {text, jiffy:encode({[{error,<<"invalid json">>}]})}, Req, State}
+  catch
+    _:_ ->
+      {reply, {text, jiffy:encode({[{error,<<"invalid json">>}]})}, Req, State}
+  end;
 
 
 websocket_handle(_Any, Req, State) ->

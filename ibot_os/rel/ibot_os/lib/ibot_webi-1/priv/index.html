@@ -1,14 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <link rel="stylesheet" href="/cssStyle" />
+    <script type="text/javascript" src="/jsJquery"></script>
 <script type="text/javascript">
 var ws = new Object;
-
-function send()
-{
-    ws.send("hi!");
-    console.log('sent');
-}
 
 function open()
 {
@@ -25,8 +21,24 @@ function open()
     {
         var received_msg = evt.data;
         console.log("Received: " + received_msg);
+
         var txt = document.createTextNode("Got from server: " + received_msg);
         document.getElementById('messages').appendChild(txt);
+
+        var response = JSON.parse(received_msg);
+        alert(response['responseType']);
+        alert(response['responseJson']);
+
+        switch (response['responseType'])
+        {
+            case "nodeslist" :
+                var nodesList = response['responseJson'].split("|");
+                    var nodeListHtml = "";
+                    for(var i=0; i<nodesList.length; i++)
+                    nodeListHtml += generateNodeItem(nodesList[i]);
+                    $('#nodeListDiv').html(nodeListHtml);
+                break;
+        }
     };
     ws.onclose = function()
     {
@@ -34,12 +46,41 @@ function open()
         console.log('close');
     };
 }
+
+    function loadConnectToProject()
+    {
+        $('#contentDiv').load('/pageConnectToProject');
+    }
+
+    function loadCreateProject()
+    {
+        $('#contentDiv').load('/pageCreateProject');
+    }
+
+    function loadCreateNode()
+    {
+        $('#contentDiv').load('/pageCreateNode');
+    }
+
+    function loadProjectNodes()
+    {
+        $('#contentDiv').load('/pageNodeList', function () {
+            ws.send("{\"getNodes\" : \"\"}");
+        });
+    }
 </script>
 </head>
 <body>
 <div id="sse">
    <a href="javascript:open()">Open WebSocket</a><br/>
-   <a href="javascript:send()">Send hi</a>
+    <a href="javascript:loadConnectToProject()">Connect to project</a><br/>
+    <a href="javascript:loadCreateProject()">Create project</a><br/>
+    <a href="javascript:loadCreateNode()">Create node</a><br/>
+    <a href="javascript:loadProjectNodes()">Project node list</a><br/>
+    <br />
+    <div id="contentDiv" class="contentDiv">
+
+    </div>
 </div>
 <div id="messages">
 </div>

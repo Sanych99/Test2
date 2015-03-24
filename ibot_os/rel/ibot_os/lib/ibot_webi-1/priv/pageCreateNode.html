@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    function createNode()
+    {
+        var jsonQ = "{\"createNode\" : {\"nodeName\" : \""+ $("#nodeNameInput").val() +
+                "\", \"nodeLang\" : \"" + $("#nodeLangInput").val() + "\"}}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+</script>
+
+<div class="componentGroupDvi">
+    <div class="componentDiv">
+        <span>Node name:</span>
+        <br/>
+        <input type="text" id="nodeNameInput"/>
+    </div>
+    <div class="componentDiv">
+        <span>Node language:</span>
+        <br/>
+        <!--<input type="text" id="nodeLangInput"/>
+        <br/>-->
+        <select id="nodeLangInput">
+            <option id="java">java</option>
+            <option id="python">python</option>
+            <option id="cpp">cpp</option>
+        </select>
+    </div>
+    <div class="componentDiv">
+        <input type="button" id="projectNodeButton" value="Create node..." onclick="createNode()" />
+    </div>
+</div>
