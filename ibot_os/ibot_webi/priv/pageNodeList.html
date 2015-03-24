@@ -1,10 +1,20 @@
 <script type="text/javascript">
     function generateNodeItem(nodeName)
     {
-        return "<div>"+nodeName+"</div><br/>";
+        return "<div><span>"+nodeName+"</span></div><br/>";
+    }
+
+    function generateMsgs()
+    {
+        var jsonQ = "{\"generateAllMsgs\" : \"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
     }
 </script>
 
+<div class="componentDiv">
+    <input type="button" id="generateMsgButton" value="Generate msg" onclick="generateMsgs()" />
+</div>
 <div id="nodeListDiv" class="componentGroupDvi">
 
 </div>

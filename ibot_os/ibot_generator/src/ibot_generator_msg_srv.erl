@@ -8,16 +8,17 @@
 %%%-------------------------------------------------------------------
 -module(ibot_generator_msg_srv).
 
--include("config_db_keys.hrl").
--include("debug.hrl").
+-include("../../ibot_core/include/debug.hrl").
 -include("msg_srv_java_generate_templates.hrl").
 -include("msg_srv_compile_commands.hrl").
 -include("project_paths.hrl").
 -include("spec_file_ext.hrl").
+-include("../../ibot_db/include/ibot_db_table_names.hrl").
+-include("../../ibot_db/include/ibot_db_project_config_param.hrl").
 
 
 %% API
--export([generate_msg_srv/1]).
+-export([generate_msg_srv/1, generate_all_msg_srv/0]).
 
 %% @doc
 %% Generate message files
@@ -30,6 +31,17 @@
 generate_msg_srv(ProjectDir) ->
   generate_msg_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
     ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg and srv source files
+  ok.
+
+
+generate_all_msg_srv() ->
+  case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of
+    [{?FULL_PROJECT_PATH, ProjectPath}] ->
+      generate_msg_srv_source_files(filelib:wildcard(string:join([ProjectPath, ?SRC_FOLDER, "*",
+      ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectPath); %% Generate all msg and srv source files
+    _ ->
+      {error, project_full_path_not_found}
+  end,
   ok.
 
 

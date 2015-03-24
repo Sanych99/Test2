@@ -60,6 +60,9 @@ websocket_handle({text, Msg}, Req, State) ->
               {reply, {text, jiffy:encode({[{responseType, nodeslist}, {responseJson, <<ProjectNodesBin/binary>>}]})}, Req, State};
             _ -> {reply, {text, jiffy:encode({[{error,<<"get nodes error...">>}]})}, Req, State}
           end;
+        <<"generateAllMsgs">> ->
+          ibot_generator_msg_srv:generate_all_msg_srv(),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         _ -> {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
       end;
 

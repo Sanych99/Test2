@@ -26,8 +26,6 @@ function open()
         document.getElementById('messages').appendChild(txt);
 
         var response = JSON.parse(received_msg);
-        alert(response['responseType']);
-        alert(response['responseJson']);
 
         switch (response['responseType'])
         {
