@@ -11,7 +11,7 @@
 
 -include("debug.hrl").
 -include("project_create_commands.hrl").
--include("result_atoms.hrl").
+-include("ibot_core_reserve_atoms.hrl").
 -include("../../ibot_db/include/ibot_db_project_config_param.hrl").
 -include("../../ibot_db/include/ibot_db_table_names.hrl").
 

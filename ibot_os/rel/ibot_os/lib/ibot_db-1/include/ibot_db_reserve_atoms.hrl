@@ -4,9 +4,8 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 14. Mar 2015 10:29 PM
+%%% Created : 25. Mar 2015 8:16 PM
 %%%-------------------------------------------------------------------
--define(TABLE_CONFIG, ibot_config).
--define(TABLE_TOPICS, ibot_topics).
--define(TABLE_SERVICES, ibot_table_services).
--define(TABLE_NODE_INFO, ibot_node_info_table).
+-define(FULL_PROJECT_PATH_NOT_FOUND, full_project_path_not_found).
+
+-define(NODE_INFO_NOT_FOUND, node_info_not_found).

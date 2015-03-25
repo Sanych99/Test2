@@ -20,5 +20,11 @@
 %% nodeNameServer - Соедененное значения имени узла и сервера
 %% nodeLang - Язык программирования на котором написан узел
 %% nodeExecutable - исполняемы файл для запуска узла (java, python, gcc)
--record(node_info, {nodeName :: string(), nodeServer :: string(), nodeNameServer :: string(), nodeLang :: string(),
-  nodeExecutable :: string(), nodePreArguments :: list(), nodePostArguments :: list()}).
+-record(node_info, {
+  nodeName :: string(), atomNodeName :: atom(),
+  nodeServer :: string(), atomNodeServer :: atom(),
+  nodeNameServer :: string(), atomNodeNameServer :: atom(),
+  nodeLang :: string(), atomNodeLang :: atom(),
+  nodeExecutable :: string(),
+  nodePreArguments :: list(),
+  nodePostArguments :: list()}).

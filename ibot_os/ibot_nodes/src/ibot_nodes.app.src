@@ -5,7 +5,7 @@
   {registered, []},
   {applications, [
                   kernel,
-                  stdlib
+                  stdlib, ibot_db
                  ]},
   {mod, { ibot_nodes_app, []}},
   {env, []}

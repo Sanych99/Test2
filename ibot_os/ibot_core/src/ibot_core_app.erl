@@ -1,9 +1,9 @@
 -module(ibot_core_app).
 
 -include("debug.hrl").
--include("env_params.hrl").
 -include("../../ibot_db/include/ibot_db_table_names.hrl").
 -include("../../ibot_db/include/ibot_db_project_config_param.hrl").
+-include("ibot_core_create_project_paths.hrl").
 
 -behaviour(application).
 
@@ -41,8 +41,27 @@ create_node(NodeName, NodeLang) -> ?DBG_MODULE_INFO("create_node(NodeName, NodeL
   ok.
 
 connect_to_project(ProjectPath) ->
-  ibot_db_func:add(?TABLE_CONFIG,
-    ?FULL_PROJECT_PATH, ProjectPath),
+  ibot_db_func_config:set_full_project_path(ProjectPath),
+  case ibot_core_app:get_project_nodes() of
+    {error} -> error;
+    {ok, ProjectNodes} ->
+      parse_nodes_config_file(ProjectNodes)
+  end,
+  ok.
+
+parse_nodes_config_file([NodeItem | NodesList]) ->
+  case ?PATH_TO_NODE(NodeItem) of
+    ?ACTION_ERROR -> ?ACTION_ERROR;
+    ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND;
+    NodePath ->
+      case filelib:is_file(NodePath) of
+        true -> ibot_core_srv_project_info_loader:read_node_config(NodePath);
+        false -> ?DBG_MODULE_INFO("parse_nodes_config_file([NodeItem | NodesList]) -> node ~p NOT FOUND... ~n", [?MODULE, NodePath])
+      end
+  end,
+  parse_nodes_config_file(NodesList),
+  ok;
+parse_nodes_config_file([]) ->
   ok.
 
 get_project_nodes() ->

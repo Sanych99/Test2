@@ -7,6 +7,7 @@
 %%%-------------------------------------------------------------------
 -include("env_params.hrl").
 
+
 -define(MKDIR_PROJECT_FOLDER(Path, Folder), list_to_atom(string:join(["mkdir \"" , Path, ?DELIM_PATH_SYMBOL,Folder, "\""], ""))).
 -define(MKDIR_PROJECT_SUB_FOLDER(Path, Prohect_Folder, Folder),
   list_to_atom(string:join(["mkdir \"", Path, ?DELIM_PATH_SYMBOL, Prohect_Folder, ?DELIM_PATH_SYMBOL, Folder, "\""], ""))).
