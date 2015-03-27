@@ -25,7 +25,6 @@
   terminate/2,
   code_change/3]).
 
--export([read_node_config/1]).
 
 -define(SERVER, ?MODULE).
 
@@ -47,6 +46,9 @@ handle_call({?LOAD_PROJECT_ALL_NODES_INFO}, _From, State) ->
       %% load nodes information to db
       {reply, {ok, ProjectPath}, State}
   end;
+handle_call({?LOAD_PROJECT_NODE_INFO, NodePath}, _From, State) ->
+  ibot_core_srv_project_info_loader:read_node_config(NodePath), %% parse node configuration file
+  {reply, ok, State};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
@@ -70,11 +72,17 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
+%% @doc
+%%
+%% Read node configuration file
+%%
+%% @spec read_node_config(NodePath) -> ok when NodePath :: string().
+%% @end
+
+-spec read_node_config(NodePath) -> ok when NodePath :: string().
+
 read_node_config(NodePath) ->
-  ?DBG_MODULE_INFO("read_node_config(NodeName) -> ~p~n", [?MODULE, {NodePath}]),
-  ?DBG_MODULE_INFO("read_node_config(NodeName) NodePath -> ~p~n", [?MODULE, NodePath]),
   {ok, FileContent} = file:read_file(NodePath),
-  ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~n", [?MODULE]),
   case jiffy:decode(FileContent) of
     {NodeConfigFileList} ->
       ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, NodeConfigFileList]),
@@ -82,6 +90,17 @@ read_node_config(NodePath) ->
   end,
   ok.
 
+
+%% @doc
+%%
+%% Create node configuration record from node configuration file
+%%
+%% @spec create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -> ok when NodeConfigItem :: string(),
+%% NodeConfigList :: list(), NodeConfigRecord :: #node_info{}.
+%% @end
+
+-spec create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -> ok when NodeConfigItem :: string(),
+  NodeConfigList :: list(), NodeConfigRecord :: #node_info{}.
 
 create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) ->
   {Key, Val} = NodeConfigItem,

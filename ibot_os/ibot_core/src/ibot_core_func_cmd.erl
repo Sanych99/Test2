@@ -5,7 +5,7 @@
 %%%
 %%% @end
 %%%-------------------------------------------------------------------
--module(ibot_core_cmd).
+-module(ibot_core_func_cmd).
 
 -include("debug.hrl").
 

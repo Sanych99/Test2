@@ -49,7 +49,7 @@ public class BotNode {
     //Creation Methods
 
     //OtpNode create method
-    private OtpNode createNode(String otpNodeName, String coreCoockes) throws Exception
+    public OtpNode createNode(String otpNodeName, String coreCoockes) throws Exception
     {
         return new OtpNode(otpNodeName, coreCoockes);
     }
