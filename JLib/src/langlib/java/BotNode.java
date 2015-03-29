@@ -3,9 +3,11 @@ package langlib.java;
 import com.ericsson.otp.erlang.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Dictionary;
 
 //Java Otp Node Connector Class
-public class BotNode extends CallBack {
+public class BotNode {
 
     private String currenServerName; //Current server name machime_name
 
@@ -24,6 +26,10 @@ public class BotNode extends CallBack {
     private String publisherCoreNode; //Core message publisher module
 
     private String coreCoockies; //Core node coockies
+
+    private String methodName;
+
+    private Dictionary<OtpErlangAtom, String> subscribeDic;
 
     //private CallBack subscribeCallBacks; //Callback for subscribe topic
 
@@ -140,5 +146,24 @@ public class BotNode extends CallBack {
     private void set_otpMbox(OtpMbox otpMbox)
     {
         this.otpMbox = otpMbox;
+    }
+
+    public void set_methodName(String methodName)
+    {
+        this.methodName = methodName;
+    }
+
+
+    public void invoke(Object... parameters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+        Method method = this.getClass().getMethod(methodName, getParameterClasses(parameters));
+        method.invoke(this, parameters);
+    }
+
+    private Class[] getParameterClasses(Object... parameters) {
+        Class[] classes = new Class[parameters.length];
+        for (int i=0; i < classes.length; i++) {
+            classes[i] = parameters[i].getClass();
+        }
+        return classes;
     }
 }
