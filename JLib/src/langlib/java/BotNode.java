@@ -5,7 +5,7 @@ import com.ericsson.otp.erlang.*;
 import java.lang.reflect.InvocationTargetException;
 
 //Java Otp Node Connector Class
-public class BotNode {
+public class BotNode extends CallBack {
 
     private String currenServerName; //Current server name machime_name
 
@@ -25,7 +25,7 @@ public class BotNode {
 
     private String coreCoockies; //Core node coockies
 
-    private CallBack subscribeCallBacks; //Callback for subscribe topic
+    //private CallBack subscribeCallBacks; //Callback for subscribe topic
 
     //Class constructor
     public BotNode(Class<?> subscribeClass, String otpNodeName, String currenServerName, String coreNodeName,
@@ -42,7 +42,7 @@ public class BotNode {
         this.registratorCoreNode = registratorCoreNode;
         this.publisherCoreNode = publisherCoreNode;
         this.coreCoockies = coreCoockes;
-        this.subscribeCallBacks = new CallBack(subscribeClass);
+        //this.subscribeCallBacks = new CallBack(subscribeClass);
     }
 
 
@@ -89,7 +89,7 @@ public class BotNode {
 
     public void subscribe(String methodName)
     {
-        this.subscribeCallBacks.set_methodName(methodName);
+        this.set_methodName(methodName);
         try {
             receive();
         } catch (IllegalAccessException e) {
@@ -106,7 +106,7 @@ public class BotNode {
     public void receive() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         try {
             OtpErlangTuple par = (OtpErlangTuple) this.otpMbox.receive();
-             subscribeCallBacks.invoke(par);
+             invoke(par);
         } catch (OtpErlangExit otpErlangExit) {
             otpErlangExit.printStackTrace();
         } catch (OtpErlangDecodeException e) {

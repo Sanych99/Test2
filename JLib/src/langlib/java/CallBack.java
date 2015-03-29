@@ -11,22 +11,22 @@ import java.util.Objects;
  */
 public class CallBack {
     private String methodName;
-    private Class<?> scope;
+    //private Class<?> scope;
 
-    public CallBack(Class<?> scope) {
-        this.methodName = methodName;
-        this.scope = scope;
-    }
+    //public CallBack(Class<?> scope) {
+        //this.methodName = methodName;
+        //this.scope = scope;
+    //}
 
     public void set_methodName(String methodName)
     {
         this.methodName = methodName;
     }
 
-    public Class<?> get_scope()
-    {
-        return this.scope;
-    }
+    //public Class<?> get_scope()
+    //{
+    //    return this.scope;
+    //}
 
     //public Object invoke(Object... parameters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
     //    Method method = scope.getMethod(methodName, getParameterClasses(parameters));
@@ -34,8 +34,8 @@ public class CallBack {
     //}
 
     public void invoke(Object... parameters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
-        Method method = scope.getMethod(methodName, getParameterClasses(parameters));
-        method.invoke(scope.newInstance(), parameters);
+        Method method = this.getClass().getMethod(methodName, getParameterClasses(parameters));
+        method.invoke(this, parameters);
     }
 
     private Class[] getParameterClasses(Object... parameters) {
