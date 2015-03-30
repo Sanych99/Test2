@@ -1,3 +1,8 @@
 1) iBotOS source languge - Erlang
 
 2) C++ Erlang lib - tinch_pp
+
+
+Tasks ...
+1) Review ibot_db module:
+  - ibot_db_config, ibot_db_topic, ibot_db_service - replace invoke add / get data. Execute this operations from ibot_db_srv add_record / get_record / delete_record.
