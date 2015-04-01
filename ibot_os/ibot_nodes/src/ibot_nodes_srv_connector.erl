@@ -27,7 +27,7 @@
 -include("../../ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
 -include("ibot_nodes_modules.hrl").
--include("nodes_registration_info.hrl").
+-include("ibot_nodes_registration_info.hrl").
 
 -record(state, {node_port, node_name}).
 

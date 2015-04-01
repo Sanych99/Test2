@@ -27,7 +27,7 @@
 
 -include("../../ibot_core/include/debug.hrl").
 -include("tables_names.hrl").
--include("nodes_registration_info.hrl").
+-include("ibot_nodes_registration_info.hrl").
 
 -define(SERVER, ?MODULE).
 -define(EXTNODE, external_node).

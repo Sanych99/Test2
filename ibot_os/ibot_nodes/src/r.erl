@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(r).
 -author("alex").
--include("nodes_registration_info.hrl").
+-include("ibot_nodes_registration_info.hrl").
 -include("debug.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 %% API

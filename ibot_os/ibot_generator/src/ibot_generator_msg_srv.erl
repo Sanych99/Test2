@@ -37,11 +37,13 @@ generate_msg_srv(ProjectDir) ->
 generate_all_msg_srv() ->
   case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of
     [{?FULL_PROJECT_PATH, ProjectPath}] ->
+      ?DBG_MODULE_INFO("generate_all_msg_srv() -> start method ~n", [?MODULE]),
       generate_msg_srv_source_files(filelib:wildcard(string:join([ProjectPath, ?SRC_FOLDER, "*",
       ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectPath); %% Generate all msg and srv source files
     _ ->
       {error, project_full_path_not_found}
   end,
+  ?DBG_MODULE_INFO("generate_all_msg_srv() -> end method ~n", [?MODULE]),
   ok.
 
 
@@ -73,7 +75,7 @@ generate_msg_srv_source_files([FileName | FilesList], ProjectDir) ->
   ok;
 generate_msg_srv_source_files([], _ProjectDir) ->
   %% Create JAR library for JAVA messages
-  ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
+  %% ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
   ok.
 
 
@@ -92,6 +94,7 @@ for_each_line_in_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
   file:write(GeneratedFile, ?JAVA_MSG_FILE_HEADER(RawFileName)), %% Write header template
   for_each_line(Device, GeneratedFile, RawFileName, 0, []),
+  ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
   ok.
 
 
@@ -105,6 +108,7 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
 
       file:close(Device),
       file:close(GeneratedFile),
+      ?DBG_MODULE_INFO("for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) -> all files closed...  ~n", [?MODULE]),
       ok;
     Line ->
       ?DBG_INFO("line: ~p~n", [Line]),
@@ -115,7 +119,9 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
   end,
   ok.
 
-getters_setters_generation(_, []) -> ok;
+getters_setters_generation(_, []) ->
+  ?DBG_MODULE_INFO("getters_setters_generation(_, []) -> end method ~n", [?MODULE]),
+  ok;
 getters_setters_generation(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
   ?DBG_INFO("generated info: ~p~n", [{Type, Name, ObjCount}]),
   file:write(GeneratedFile, ?GETTER_SETTER_GENERATE(Type, Name, ObjCount)),
