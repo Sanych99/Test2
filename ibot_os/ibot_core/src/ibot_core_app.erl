@@ -12,6 +12,8 @@
 -export([start/2, stop/1]).
 -export([create_project/2, create_node/2, connect_to_project/1, get_project_nodes/0]).
 -export([get_cur_dir/0]).
+-export([add_node_name_to_config/1]).
+-export([start_project/0]).
 
 %% ===================================================================
 %% Application callbacks
@@ -48,8 +50,18 @@ connect_to_project(ProjectPath) ->
     {error} -> error;
     {ok, ProjectNodes} ->
       parse_nodes_config_file(ProjectNodes),
+      {ok, ExistingNodes} = get_project_nodes(),
+      add_node_name_to_config(ExistingNodes),
       ok
   end.
+
+
+%%% ====== parse_nodes_config_file mathod start ======
+
+%% @doc
+%%
+%% Parse node config file
+%% @end
 
 parse_nodes_config_file([NodeItem | NodesList]) ->
   case ?PATH_TO_NODE(NodeItem) of
@@ -66,14 +78,43 @@ parse_nodes_config_file([NodeItem | NodesList]) ->
 parse_nodes_config_file([]) ->
   ok.
 
+%%% ====== parse_nodes_config_file mathod end ======
+
+
+
+
+%%% ====== get_project_nodes mathod start ======
+
+%% @doc
+%%
+%% Get project nodes list
+%% @end
+
 get_project_nodes() ->
   ?DBG_MODULE_INFO("src folder: ~p~n", [?MODULE, string:join([ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH), ?SRC_FOLDER], "/")]),
-  case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of
-    [{?FULL_PROJECT_PATH, ProjectPath}] ->
+  case ibot_db_func_config:get_full_project_path() of
+    ?FULL_PROJECT_PATH_NOT_FOUND -> {?FULL_PROJECT_PATH_NOT_FOUND};
+    ProjectPath ->
       ?DBG_MODULE_INFO("get_project_nodes() : ~p~n", [?MODULE, file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))]),
-      file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"));
-    _ -> {error}
+      file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))
   end.
+
+%%% ====== get_project_nodes mathod end ======
+
+add_node_name_to_config([NodeName| NodeNamesList])->
+  ibot_db_func_config:add_node_name_to_config(NodeName),
+  add_node_name_to_config(NodeNamesList),
+  ok;
+add_node_name_to_config([]) ->
+  ?DBG_MODULE_INFO("add_node_name_to_config([]) -> ~p~n", [?MODULE, ibot_db_func_config:get_node_name_from_config()]),
+  ok.
 
 get_cur_dir() ->
   ?DBG_MODULE_INFO("get_cur_dir() -> ~p~n", [?MODULE, file:get_cwd()]).
+
+
+start_project() ->
+  Nodes = ['BLA_BLA_BLA', 'test_from_CONNECT'],
+  ibot_nodes_srv_connector:run_node(ibot_db_func_config:get_node_info('BLA_BLA_BLA')),
+  ibot_nodes_srv_connector:run_node(ibot_db_func_config:get_node_info('test_from_CONNECT')),
+  ok.

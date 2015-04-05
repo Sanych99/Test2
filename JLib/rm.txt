@@ -51,7 +51,7 @@ javac -classpath "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home
 
 
 Comipe ClientTest
-javac -classpath "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java" "/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java/ClientTest.java"
++
 
 
 

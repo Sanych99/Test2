@@ -3,6 +3,8 @@
 %%% @copyright (C) 2015
 %%% @doc
 %%%
+%%% Load project information to data base.
+%%%
 %%% @end
 %%% Created : 25. Mar 2015 8:00 PM
 %%%-------------------------------------------------------------------
@@ -24,6 +26,8 @@
   handle_info/2,
   terminate/2,
   code_change/3]).
+
+-export([read_node_config/1]).
 
 
 -define(SERVER, ?MODULE).
@@ -111,6 +115,9 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
     <<"nodeLang">> ->
       StrVal = binary_to_list(Val),
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodeLang = StrVal, atomNodeLang = list_to_atom(StrVal)};
+    <<"nodeExecutable">> ->
+      StrVal = binary_to_list(Val),
+      NewNodeConfigRecord = NodeConfigRecord#node_info{nodeExecutable = StrVal};
     <<"runPreAgruments">> ->
       StrVal = binary_to_list(Val),
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodePreArguments = StrVal};

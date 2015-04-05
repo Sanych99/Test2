@@ -6,12 +6,12 @@
         [
          kernel,
          stdlib,
-         sasl, crypto, cowboy, syntax_tools, jiffy, ibot_core, ibot_db, ibot_generator, ibot_webi
+         sasl, crypto, cowboy, syntax_tools, jiffy, ibot_core, ibot_db, ibot_generator, ibot_webi, ibot_nodes
         ]},
        {rel, "start_clean", "",
         [
          kernel,
-         stdlib, sasl, crypto, cowboy, lager, syntax_tools, jiffy, ibot_core, ibot_db, ibot_generator, ibot_webi
+         stdlib, sasl, crypto, cowboy, lager, syntax_tools, jiffy, ibot_core, ibot_db, ibot_generator, ibot_webi, ibot_nodes
         ]},
        {boot_rel, "ibot_os"},
        {profile, embedded},

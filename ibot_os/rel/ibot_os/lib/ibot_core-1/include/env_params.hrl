@@ -9,6 +9,10 @@
 -define(DEV_FOLDER, "dev").
 -define(SRC_FOLDER, "src").
 
+-define(NODES_FOLDER, "nodes").
+
+-define(JAVA_NODE_SRC, "src").
+
 -define(PROJECT_SRC, "src").
 
 -define(MESSAGE_DIR, "msg"). %% Node messages directory name

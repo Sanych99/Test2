@@ -3,6 +3,8 @@
 %%% @copyright (C) 2015, <COMPANY>
 %%% @doc
 %%%
+%%% Compilation prject nodes.
+%%%
 %%% @end
 %%% Created : 27. Mar 2015 1:10 AM
 %%%-------------------------------------------------------------------
@@ -10,6 +12,11 @@
 -author("alex").
 
 -behaviour(gen_server).
+
+-include("debug.hrl").
+-include("ibot_core_node_compilation_commands.hrl").
+-include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("env_params.hrl").
 
 %% API
 -export([start_link/0]).
@@ -22,125 +29,95 @@
   terminate/2,
   code_change/3]).
 
+-export([compile_all_nodes/0]).
+
 -define(SERVER, ?MODULE).
 
 -record(state, {}).
 
-%%%===================================================================
-%%% API
-%%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @doc
-%% Starts the server
-%%
-%% @end
-%%--------------------------------------------------------------------
--spec(start_link() ->
-  {ok, Pid :: pid()} | ignore | {error, Reason :: term()}).
 start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
-%%%===================================================================
-%%% gen_server callbacks
-%%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Initializes the server
-%%
-%% @spec init(Args) -> {ok, State} |
-%%                     {ok, State, Timeout} |
-%%                     ignore |
-%%                     {stop, Reason}
-%% @end
-%%--------------------------------------------------------------------
--spec(init(Args :: term()) ->
-  {ok, State :: #state{}} | {ok, State :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term()} | ignore).
 init([]) ->
   {ok, #state{}}.
 
-%%--------------------------------------------------------------------
-%% @private
+
+
+%% === handle_call method start ===
+
 %% @doc
-%% Handling call messages
 %%
-%% @end
-%%--------------------------------------------------------------------
--spec(handle_call(Request :: term(), From :: {pid(), Tag :: term()},
-    State :: #state{}) ->
-  {reply, Reply :: term(), NewState :: #state{}} |
-  {reply, Reply :: term(), NewState :: #state{}, timeout() | hibernate} |
-  {noreply, NewState :: #state{}} |
-  {noreply, NewState :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term(), Reply :: term(), NewState :: #state{}} |
-  {stop, Reason :: term(), NewState :: #state{}}).
+%% Compile all nodes command
+
+handle_call({?COMPILE_ALL_NODES}, _From, State) ->
+  ?DBG_MODULE_INFO("handle_call({?COMPILE_ALL_NODES}, _From, State) -> ~p~n", [?MODULE, {?COMPILE_ALL_NODES}]),
+  ibot_core_srv_compile_nodes:compile_all_nodes(),
+  {reply, ok, State};
+
+%% @doc
+%%
+%% Compile one node
+
+handle_call({?COMPILE_NODE, NodeName}, _From, State) ->
+  {reply, ok, State};
+
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling cast messages
-%%
-%% @end
-%%--------------------------------------------------------------------
--spec(handle_cast(Request :: term(), State :: #state{}) ->
-  {noreply, NewState :: #state{}} |
-  {noreply, NewState :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term(), NewState :: #state{}}).
+%% === handle_call method end ===
+
+
+
 handle_cast(_Request, State) ->
   {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling all non call/cast messages
-%%
-%% @spec handle_info(Info, State) -> {noreply, State} |
-%%                                   {noreply, State, Timeout} |
-%%                                   {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
--spec(handle_info(Info :: timeout() | term(), State :: #state{}) ->
-  {noreply, NewState :: #state{}} |
-  {noreply, NewState :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term(), NewState :: #state{}}).
+
 handle_info(_Info, State) ->
   {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% This function is called by a gen_server when it is about to
-%% terminate. It should be the opposite of Module:init/1 and do any
-%% necessary cleaning up. When it returns, the gen_server terminates
-%% with Reason. The return value is ignored.
-%%
-%% @spec terminate(Reason, State) -> void()
-%% @end
-%%--------------------------------------------------------------------
--spec(terminate(Reason :: (normal | shutdown | {shutdown, term()} | term()),
-    State :: #state{}) -> term()).
+
 terminate(_Reason, _State) ->
   ok.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Convert process state when code is changed
-%%
-%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}
-%% @end
-%%--------------------------------------------------------------------
--spec(code_change(OldVsn :: term() | {down, term()}, State :: #state{},
-    Extra :: term()) ->
-  {ok, NewState :: #state{}} | {error, Reason :: term()}).
+
 code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 
 %%%===================================================================
 %%% Internal functions
 %%%===================================================================
+
+%%% ====== compile_all_nodes function start ======
+
+compile_all_nodes() ->
+
+  case ibot_db_func_config:get_node_name_from_config() of
+    {ok, NodesList} ->
+      case ibot_db_func_config:get_full_project_path() of
+        ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND;
+        Full_Project_Path ->
+          compile_node(NodesList, Full_Project_Path)
+      end,
+      ok;
+    _ -> ?DBG_MODULE_INFO("compile_all_nodes() -> error from ibot_db_func_config:get_node_name_from_config() ~n", [?MODULE])
+  end,
+  ok.
+
+%%% ====== compile_all_nodes function end ======
+
+
+compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
+  NodeCompilePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER, NodeName], ?DELIM_PATH_SYMBOL),
+
+  ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
+  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java/",
+    string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
+
+  ibot_core_func_cmd:run_exec(ExecuteCommand),
+
+  compile_node(NodeNamesList, Full_Project_Path),
+  ok;
+compile_node([],Full_Project_Path) -> ok.
+

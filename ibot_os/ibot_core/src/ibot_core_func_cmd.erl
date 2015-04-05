@@ -24,7 +24,7 @@ exec(Command) when is_atom(Command) ->
 -spec run_exec(Command) -> ok when Command :: list() | string().
 run_exec(Command) ->
   % Откарываем порт
-  Port = open_port({spawn, Command}, [stream, in, eof, hide, exit_status]),
+  Port = open_port({spawn, Command}, [stream, in, eof, hide, exit_status, stderr_to_stdout]),
   % Ожидаем завершения выполнения комманды
   case get_data(Port, []) of
     true -> ok;
@@ -38,8 +38,10 @@ run_exec(Command) ->
 get_data(Port, Sofar) ->
   receive
     {Port, {data, Bytes}} ->
+      ?DBG_INFO("{Port, {data, Bytes}} ->... ~p~n", [{Port, {data, Bytes}}]),
       get_data(Port, [Sofar|Bytes]);
     {Port, eof} ->
+      ?DBG_INFO("{Port, eof} ->... ~p~n", [{Port, eof}]),
       Port ! {self(), close},
       receive
         {Port, closed} ->

@@ -4,6 +4,8 @@
 -behaviour(cowboy_websocket_handler).
 
 -include("../../ibot_core/include/debug.hrl").
+-include("../../ibot_core/include/ibot_core_modules_names.hrl").
+-include("../../ibot_core/include/ibot_core_node_compilation_commands.hrl").
 
 -export([init/3, handle/2, terminate/3]).
 
@@ -33,6 +35,9 @@ websocket_handle({text, Msg}, Req, State) ->
   try jiffy:decode(Msg) of
     {[{A, B}]}->
       case A of
+        <<"compileAllNodes">> ->
+          gen_server:call(?IBOT_CORE_SRV_COMPILE_NODES, {?COMPILE_ALL_NODES}),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         <<"connectToProject">> ->
           ibot_core_app:connect_to_project(binary_to_list(B)),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
@@ -62,6 +67,9 @@ websocket_handle({text, Msg}, Req, State) ->
           end;
         <<"generateAllMsgs">> ->
           ibot_generator_msg_srv:generate_all_msg_srv(),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"startProject">> ->
+          ibot_core_app:start_project(),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         _ -> {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
       end;

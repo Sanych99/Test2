@@ -1,4 +1,4 @@
-%% rel generated at {2015,4,1} {18,27,39}
+%% rel generated at {2015,4,6} {4,4,11}
 {release,{"start_clean",[]},
          {erts,"6.3"},
          [{kernel,"3.1"},
@@ -17,7 +17,7 @@
           {ibot_db,"1"},
           {ibot_generator,"1"},
           {ibot_webi,"1"},
+          {ibot_nodes,"1"},
           {ibot_events,"1",load},
-          {ibot_nodes,"1",load},
           {ibot_ri,"1",load}]}.
 

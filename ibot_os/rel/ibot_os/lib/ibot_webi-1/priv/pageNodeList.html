@@ -10,10 +10,30 @@
         ws.send(jsonQ);
         console.log(jsonQ);
     }
+
+    function compileAllNode()
+    {
+        var jsonQ = "{\"compileAllNodes\" : \"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+
+    function startProject()
+    {
+        var jsonQ = "{\"startProject\" : \"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
 </script>
 
 <div class="componentDiv">
     <input type="button" id="generateMsgButton" value="Generate msg" onclick="generateMsgs()" />
+</div>
+<div class="componentDiv">
+    <input type="button" id="projectCompileNodeButton" value="Compile all nodes..." onclick="compileAllNode()" />
+</div>
+<div class="componentDiv">
+    <input type="button" id="startProjectButton" value="Compile all nodes..." onclick="startProject()" />
 </div>
 <div id="nodeListDiv" class="componentGroupDvi">
 

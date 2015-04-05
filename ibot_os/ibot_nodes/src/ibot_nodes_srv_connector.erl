@@ -95,7 +95,10 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
     [] ->
       throw({stop, executable_file_missing});
     ExecutableFile ->
-      ArgumentList = lists:append([NodePreArguments, % Аргументы для исполняемого файла
+      ArgumentList = lists:append([
+        ["-classpath",
+          "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
+        %NodePreArguments, % Аргументы для исполняемого файла
         [NodeName, % Имя запускаемого узла
           % Передаем параметры в узел
           atom_to_list(node()), % Имя текущего узла

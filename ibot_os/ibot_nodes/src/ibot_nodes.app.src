@@ -7,6 +7,6 @@
                   kernel,
                   stdlib, ibot_db
                  ]},
-  {mod, { ibot_nodes_app, []}},
+  {mod, { ibot_nodes_app, [ibot_nodes_srv_connector]}},
   {env, []}
  ]}.
