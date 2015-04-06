@@ -20,7 +20,7 @@
 
 %% API
 -export([get_full_project_path/0, set_full_project_path/1, set_node_info/1, get_node_info/1, get_all_registered_nodes/0]).
--export([add_node_name_to_config/1, get_node_name_from_config/0]).
+-export([add_node_name_to_config/1, get_nodes_name_from_config/0]).
 
 
 %%% ====== full project path mathods start ======
@@ -67,21 +67,28 @@ add_node_name_to_config(NodeName) ->
   end,
   ok.
 
-get_node_name_from_config() ->
+get_nodes_name_from_config() ->
   ?DBG_MODULE_INFO("get_node_name_from_config() -> ~p~n", [?MODULE, gen_server:call(?IBOT_DB_SRV, {?GET_RECORD, ?TABLE_CONFIG, ?PROJECT_NODES_LIST})]),
-  gen_server:call(?IBOT_DB_SRV, {?GET_RECORD, ?TABLE_CONFIG, ?PROJECT_NODES_LIST}).
+  %gen_server:call(?IBOT_DB_SRV, {?GET_RECORD, ?TABLE_CONFIG, ?PROJECT_NODES_LIST}).
+  case ibot_db_srv:get_record(?TABLE_CONFIG, ?PROJECT_NODES_LIST) of
+    {ok, NodesNameList} -> NodesNameList;
+    _ -> error
+  end.
 
 
 
 
 set_node_info(NodeInfoRecord) ->
-  ibot_db_func:add(?TABLE_NODE_INFO, NodeInfoRecord#node_info.atomNodeName, NodeInfoRecord),
+  ibot_db_srv:add_record(?TABLE_NODE_INFO, NodeInfoRecord#node_info.atomNodeName, NodeInfoRecord),
+  %ibot_db_func:add(?TABLE_NODE_INFO, NodeInfoRecord#node_info.atomNodeName, NodeInfoRecord),
   ?DBG_MODULE_INFO("set_node_info(NodeInfoRecord) -> -> ~p~n", [?MODULE, NodeInfoRecord]),
   ok.
 
 get_node_info(AtomNodeName) ->
-  case ibot_db_func:get(?TABLE_NODE_INFO, AtomNodeName) of
-    [{AtomNodeName, NodeInfoRecord}] -> NodeInfoRecord;
+  ?DBG_MODULE_INFO("get_node_info(AtomNodeName) -> ~p~n", [?MODULE, ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName)]),
+  %case ibot_db_func:get(?TABLE_NODE_INFO, AtomNodeName) of
+  case ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName) of
+    {ok, NodeInfoRecord} -> NodeInfoRecord;
     [] -> ?NODE_INFO_NOT_FOUND;
     _ -> ?ACTION_ERROR
   end.

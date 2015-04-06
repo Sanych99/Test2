@@ -93,15 +93,15 @@ code_change(_OldVsn, State, _Extra) ->
 
 compile_all_nodes() ->
 
-  case ibot_db_func_config:get_node_name_from_config() of
-    {ok, NodesList} ->
+  case ibot_db_func_config:get_nodes_name_from_config() of
+    NodesList ->
       case ibot_db_func_config:get_full_project_path() of
         ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND;
         Full_Project_Path ->
           compile_node(NodesList, Full_Project_Path)
       end,
       ok;
-    _ -> ?DBG_MODULE_INFO("compile_all_nodes() -> error from ibot_db_func_config:get_node_name_from_config() ~n", [?MODULE])
+    _ -> ?DBG_MODULE_INFO("compile_all_nodes() -> error from ibot_db_func_config:get_nodes_name_from_config() ~n", [?MODULE])
   end,
   ok.
 

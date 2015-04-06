@@ -26,7 +26,7 @@
 -export([add_node_info/2, get_node_info/1]).
 
 -include("../../ibot_core/include/debug.hrl").
--include("tables_names.hrl").
+-include("../../ibot_db/include/ibot_db_table_names.hrl").
 -include("ibot_nodes_registration_info.hrl").
 
 -define(SERVER, ?MODULE).
@@ -42,7 +42,7 @@ start_link() ->
 
 init([]) ->
   % Создание ETS таблицы для хранения данных об узлах
-  ibot_db_func:create_db(?NODE_REGISTRATOR_DB),
+  %ibot_db_func:create_db(?NODE_REGISTRATOR_DB),
   ?DBG_MODULE_INFO("init([]) -> ~n", [?MODULE]),
   {ok, #state{}}.
 
@@ -84,7 +84,7 @@ handle_info(_Info, State) ->
 
 terminate(_Reason, _State) ->
   % Удаление ETS таблицы
-  ets:delete(?NODE_REGISTRATOR_DB),
+  %ets:delete(?NODE_REGISTRATOR_DB),
   ok.
 
 

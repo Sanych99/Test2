@@ -43,6 +43,7 @@ init([]) ->
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
   ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
   ibot_db_func:create_db(?TABLE_NODE_INFO), %% Create node info table
+  ibot_db_func:create_db(?NODE_REGISTRATOR_DB),
   {ok, #state{}}.
 
 
@@ -82,6 +83,7 @@ terminate(_Reason, _State) ->
   ibot_db_func:delete_table(?TABLE_CONFIG), %% Delete congiguration table
   ibot_db_func:delete_table(?TABLE_TOPICS), %% Delete topics table
   ibot_db_func:delete_table(?TABLE_NODE_INFO), %% Delete node info table
+  ibot_db_func:delete_table(?NODE_REGISTRATOR_DB),
   ok.
 
 

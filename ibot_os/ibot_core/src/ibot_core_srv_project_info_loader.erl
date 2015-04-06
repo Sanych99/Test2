@@ -111,7 +111,11 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
   case Key of
     <<"nodeName">> ->
       StrVal = binary_to_list(Val),
-      NewNodeConfigRecord = NodeConfigRecord#node_info{nodeName = StrVal, atomNodeName = list_to_atom(StrVal)};
+      NewNodeConfigRecord = NodeConfigRecord#node_info{nodeName = StrVal, atomNodeName = list_to_atom(StrVal),
+        nodePreArguments = ["-classpath",
+          string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/", StrVal], "")],
+        nodePostArguments = []};
+
     <<"nodeLang">> ->
       StrVal = binary_to_list(Val),
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodeLang = StrVal, atomNodeLang = list_to_atom(StrVal)};
@@ -120,10 +124,10 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodeExecutable = StrVal};
     <<"runPreAgruments">> ->
       StrVal = binary_to_list(Val),
-      NewNodeConfigRecord = NodeConfigRecord#node_info{nodePreArguments = StrVal};
+      NewNodeConfigRecord = NodeConfigRecord; %NodeConfigRecord#node_info{nodePreArguments = StrVal};
     <<"runPostArguments">> ->
       StrVal = binary_to_list(Val),
-      NewNodeConfigRecord = NodeConfigRecord#node_info{nodePostArguments = StrVal}
+      NewNodeConfigRecord = NodeConfigRecord %NodeConfigRecord#node_info{nodePostArguments = StrVal}
   end,
   create_node_config_record(NodeConfigList, NewNodeConfigRecord);
 create_node_config_record([], NodeConfigRecord) ->
