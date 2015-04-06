@@ -115,6 +115,17 @@ get_cur_dir() ->
 
 start_project() ->
   Nodes = ['BLA_BLA_BLA', 'test_from_CONNECT'],
-  ibot_nodes_srv_connector:run_node(ibot_db_func_config:get_node_info('BLA_BLA_BLA')),
-  ibot_nodes_srv_connector:run_node(ibot_db_func_config:get_node_info('test_from_CONNECT')),
+  %ibot_nodes_srv_connector:run_node(ibot_db_func_config:get_node_info('BLA_BLA_BLA')),
+  %ibot_nodes_srv_connector:run_node(ibot_db_func_config:get_node_info('test_from_CONNECT')),
+
+  NodeInfoTopic2 = #node_info{nodeName = "BLA_BLA_BLA", nodeServer = "alex-N550JK", nodeNameServer = "BLA_BLA_BLA",
+    nodeLang = "Java", nodeExecutable = "java",
+    %nodePreArguments = ["-classpath",
+    %  "C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\_RobotOS\\RobotOS\\_RobOS\\test\\nodes\\java;C:\\_RobotOS\\RobotOS\\_RobOS\\langlib\\java\\lib\\Node.jar"],
+    nodePreArguments = ["-classpath",
+      "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA"],
+    nodePostArguments = []},
+
+  %ibot_nodes_srv_connector:run_node(NodeInfoTopic2),
+  gen_server:cast(ibot_nodes_srv_connector, {start_node, NodeInfoTopic2}),
   ok.

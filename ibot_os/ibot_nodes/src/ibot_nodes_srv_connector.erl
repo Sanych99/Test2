@@ -37,9 +37,9 @@ start_link([NodeInfo | NodeInfoTopic]) ->
 
 
 init([NodeInfo | NodeInfoTopic]) -> ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE, [NodeInfo | NodeInfoTopic]]),
-  ibot_db_srv:add_record(node_registrator_db, 'bar@alex-N550JK', NodeInfo),
-  ibot_db_srv:add_record(node_registrator_db, 'bar_topic@alex-N550JK', NodeInfoTopic),
-  run_node(NodeInfo),
+  %ibot_db_srv:add_record(node_registrator_db, 'bar@alex-N550JK', NodeInfo),
+  %ibot_db_srv:add_record(node_registrator_db, 'bar_topic@alex-N550JK', NodeInfoTopic),
+  %run_node(NodeInfo),
   %run_node(NodeInfoTopic),
   {ok, #state{node_name = NodeInfo#node_info.nodeNameServer}}.
 
@@ -60,6 +60,9 @@ handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
 
+handle_cast({start_node, NodeInfo},State) ->
+  run_node(NodeInfo),
+  {noreply, State};
 handle_cast(_Request, State) ->
   {noreply, State}.
 
@@ -87,6 +90,9 @@ code_change(_OldVsn, State, _Extra) ->
 %% @spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
 %% @end
 -spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
+run_node([]) ->
+  ?DBG_MODULE_INFO("run_node([]) -> ...~n", [?MODULE]),
+  ok;
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
   nodeLang = NodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, NodeInfo]),
@@ -96,9 +102,9 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
       throw({stop, executable_file_missing});
     ExecutableFile ->
       ArgumentList = lists:append([
-        ["-classpath",
-          "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
-        %NodePreArguments, % Аргументы для исполняемого файла
+        %["-classpath",
+        %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
+        NodePreArguments, % Аргументы для исполняемого файла
         [NodeName, % Имя запускаемого узла
           % Передаем параметры в узел
           atom_to_list(node()), % Имя текущего узла
@@ -108,4 +114,5 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
       ),
       % Выполянем комманду по запуску узла
       erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
+      %erlang:open_port({spawn, "java"}, [{line,1000}, stderr_to_stdout, {args, [" -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"]}])
   end.

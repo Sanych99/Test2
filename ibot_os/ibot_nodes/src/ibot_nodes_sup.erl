@@ -55,5 +55,5 @@ init([]) ->
 
     IB1 = ?CHILD_PARAM(ibot_nodes_srv_connector, ibot_nodes_srv_connector, worker, [NodeInfo | NodeInfoTopic]),
     {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IBot_Nodes_Registrator, IB1]} },
-  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IBot_Nodes_Registrator]} }.
+  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IBot_Nodes_Registrator, IB1]} }.
 
