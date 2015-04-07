@@ -37,7 +37,7 @@ start_link(NodeName) -> ?DBG_MODULE_INFO("start link node name:~p~n", [?MODULE, 
 
 init([NodeName]) -> ?DBG_MODULE_INFO("init node name:~p~n", [?MODULE, NodeName]),
   process_flag(trap_exit, true), %% Прием сообщени о завершении работы узла
-  true = erlang:monitor_node('bar@alex-N550JK', true), %% Устанавливаем мониторинг за узлом
+  true = erlang:monitor_node('BLA_BLA_BLA@alex-N550JK', true), %% Устанавливаем мониторинг за узлом
   {ok, #state{nodeName = list_to_atom(NodeName)}}.
 
 
@@ -56,11 +56,11 @@ handle_cast(_Request, State) ->
 
 
 handle_info({nodedown, _ExternalNodeNode}, State = #state{nodeName = NodeName}) -> ?DBG_MODULE_INFO("handle_info {nodedown, _JavaNode}:~p node Name ~p~n", [?MODULE, {nodedown, _ExternalNodeNode}, NodeName]),
-  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
+  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, 'BLA_BLA_BLA'}), %% Рестарт упавшего узла
   {stop, normal, State};
 
 handle_info({'EXIT',_Info, P1, P2}, State) -> ?DBG_MODULE_INFO("handle_info {'EXIT',_Info, P1, P2}:~p~n", [?MODULE, {'EXIT',_Info, P1, P2}]),
-  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, 'bar@alex-N550JK'}), %% Рестарт упавшего узла
+  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, 'BLA_BLA_BLA'}), %% Рестарт упавшего узла
   {noreply, State};
 
 handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info _Info:~p~n", [?MODULE, _Info]),

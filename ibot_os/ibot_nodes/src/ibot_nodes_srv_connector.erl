@@ -1,20 +1,17 @@
 %%%-------------------------------------------------------------------
-%%% @author alex
-%%% @copyright (C) 2015, <COMPANY>
+%%% @author Tsaregorodtsev Alexandr
+%%% @copyright (C) 2015
 %%% @doc
 %%%
 %%% @end
 %%% Created : 22. Февр. 2015 21:43
 %%%-------------------------------------------------------------------
 -module(ibot_nodes_srv_connector).
--author("alex").
 
 -behaviour(gen_server).
 
-%% API
 -export([start_link/1, run_node/1]).
 
-%% gen_server callbacks
 -export([init/1,
   handle_call/3,
   handle_cast/2,
@@ -45,16 +42,20 @@ init([NodeInfo | NodeInfoTopic]) -> ?DBG_MODULE_INFO("run nodes: ~p~n", [?MODULE
 
 
 handle_call({?RESTART_NODE, NodeName}, _From, State) -> ?DBG_MODULE_INFO("handle_call: ~p~n", [?MODULE, [?RESTART_NODE, NodeName]]),
-  case gen_server:call(?IBOT_NODES_SRV_REGISTRATOR, {?GET_NODE_INFO, NodeName}) of
-    [{NodeName, NodeInfoRecord}] -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
-      run_node(NodeInfoRecord); %% Run new node (Restart)
-    {response, {ok, NodeInfoRecord}} -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
-      run_node(NodeInfoRecord); %% Run new node (Restart)
-    [] -> ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
-      ok;
-    Vals -> ?DBG_MODULE_INFO("handle_call: ~p ~n", [?MODULE, Vals]),
-      ok
+  case ibot_db_func_config:get_node_info(NodeName) of
+    [] -> ok;
+    NodeInfo -> run_node(NodeInfo)
   end,
+  %case gen_server:call(?IBOT_NODES_SRV_REGISTRATOR, {?GET_NODE_INFO, NodeName}) of
+  %  [{NodeName, NodeInfoRecord}] -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
+  %    run_node(NodeInfoRecord); %% Run new node (Restart)
+  %  {response, {ok, NodeInfoRecord}} -> ?DBG_MODULE_INFO("handle_call: ~p node found: ~p~n", [?MODULE, [?RESTART_NODE, NodeName], [{NodeName, NodeInfoRecord}]]),
+  %    run_node(NodeInfoRecord); %% Run new node (Restart)
+  %  [] -> ?DBG_MODULE_INFO("handle_call: ~p node info not found ~n", [?MODULE, [?RESTART_NODE, NodeName]]),
+  %    ok;
+  %  Vals -> ?DBG_MODULE_INFO("handle_call: ~p ~n", [?MODULE, Vals]),
+  %    ok
+  %end,
   {reply, ok, State};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
