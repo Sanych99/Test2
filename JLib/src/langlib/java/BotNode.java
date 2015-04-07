@@ -4,10 +4,11 @@ import com.ericsson.otp.erlang.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Dictionary;
+import java.util.*;
 
 //Java Otp Node Connector Class
 public class BotNode {
+
 
     private String currenServerName; //Current server name machime_name
 
@@ -21,34 +22,71 @@ public class BotNode {
 
     private String coreNodeName; //Server name core@machime_name
 
-    private String registratorCoreNode; //Core node registrator module
+    //private String registratorCoreNode;// DELETE //Core node registrator module
 
     private String publisherCoreNode; //Core message publisher module
 
-    private String coreCoockies; //Core node coockies
+    private String coreCookie; //Core node cookies
 
-    private String methodName;
+    //private String methodName; // DELETE
 
-    private Dictionary<OtpErlangAtom, String> subscribeDic;
+    private Map<String, Set<CollectionSubscribe>> subscribeDic;
 
     //private CallBack subscribeCallBacks; //Callback for subscribe topic
 
+    private Thread receiveMBoxMessageThread = new Thread(new Runnable() {
+        public void run()
+        {
+            try {
+                OtpErlangTuple rMessage = receive(); // receive message from mail box
+                if(rMessage != null) // if message exist
+                {
+                    String msgType = ((OtpErlangString)rMessage.elementAt(0)).stringValue(); // message type
+                    switch (msgType)
+                    {
+                        // message from subscribe topic
+                        case "subscribe" :
+                            System.out.println("subscribe");
+                            String topicName = ((OtpErlangString)rMessage.elementAt(1)).stringValue(); // get topic name
+                            OtpErlangTuple subscribeMessage = (OtpErlangTuple)rMessage.elementAt(2); // get topic message
+
+                            invokeSubscribeMethodByTopicName(topicName, subscribeMessage); // invoke callback method with message parameter
+                            break;
+
+                        // system message
+                        case "sysMsg" :
+                            System.out.println("sysMsg");
+                            break;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    });
+
     //Class constructor
     public BotNode(Class<?> subscribeClass, String otpNodeName, String currenServerName, String coreNodeName,
-                String otpMboxName, String registratorCoreNode, String publisherCoreNode, String coreCoockes)
+                String otpMboxName, String registratorCoreNode, String publisherCoreNode, String coreCookie)
             throws Exception
     {
-        set_otpNode(createNode(otpNodeName, coreCoockes));
+        //subscribeClass.getDeclaredConstructor(IBotMsgInterface.class).newInstance("1");
+        set_otpNode(createNode(otpNodeName, coreCookie));
         set_otpMbox(createMbox(otpMboxName));
-        this.otpNodeName = otpNodeName;
-        this.otpMboxName = otpMboxName;
-        //Mss mss = new Mss();
-        this.currenServerName = currenServerName;
-        this.coreNodeName = coreNodeName;
-        this.registratorCoreNode = registratorCoreNode;
-        this.publisherCoreNode = publisherCoreNode;
-        this.coreCoockies = coreCoockes;
-        //this.subscribeCallBacks = new CallBack(subscribeClass);
+        this.otpNodeName = otpNodeName; // init node name
+        this.otpMboxName = otpMboxName; // init mail box name
+        this.currenServerName = currenServerName; // init current server name
+        this.coreNodeName = coreNodeName; // init core node name
+        //this.registratorCoreNode = registratorCoreNode; // DELETE
+        this.publisherCoreNode = publisherCoreNode; // init publisher node name
+        this.coreCookie = coreCookie; // init core node cookie
+
+        this.subscribeDic = new HashMap<String, Set<CollectionSubscribe>>(); // init subscribers collection
+
+
+        receiveMBoxMessageThread.start();
     }
 
 
@@ -67,8 +105,7 @@ public class BotNode {
     }
 
 
-    public void subscribeToTopic(String topicName)
-    {
+    public void subscribeToTopic(String topicName, String callbackMethodName, Class<?> callbackMethodMessageType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[4];
         subscribeObject[0] = new OtpErlangAtom("reg_subscr");
         subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
@@ -76,6 +113,30 @@ public class BotNode {
         subscribeObject[3] = new OtpErlangAtom(topicName);
         this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("subscribeToTopic " + topicName);
+
+
+        Method findMethod = getObjectMethod(callbackMethodName, callbackMethodMessageType);
+
+        CollectionSubscribe collectionSubscribe = new CollectionSubscribe(callbackMethodName, findMethod, callbackMethodMessageType);
+
+        synchronized (this.subscribeDic) { // lock access to map from other thread
+
+            if (this.subscribeDic.containsKey(topicName)) // add subscribe information to dictionary, if
+            {
+                Set<CollectionSubscribe> collectionSubscribesSet = this.subscribeDic.get(topicName);
+
+                if (!collectionSubscribesSet.contains(collectionSubscribe)) {
+                    collectionSubscribesSet.add(collectionSubscribe);
+                }
+
+                this.subscribeDic.put(topicName, collectionSubscribesSet);
+
+            } else {
+                Set<CollectionSubscribe> collectionSubscribesSet = new HashSet<CollectionSubscribe>();
+                collectionSubscribesSet.add(collectionSubscribe);
+                this.subscribeDic.put(topicName, collectionSubscribesSet);
+            }
+        }
     }
 
 
@@ -95,7 +156,7 @@ public class BotNode {
 
     public void subscribe(String methodName)
     {
-        this.set_methodName(methodName);
+        //this.set_methodName(methodName); DELETE
         try {
             receive();
         } catch (IllegalAccessException e) {
@@ -109,15 +170,18 @@ public class BotNode {
         }
     }
 
-    public void receive() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
+    public OtpErlangTuple receive() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         try {
-            OtpErlangTuple par = (OtpErlangTuple) this.otpMbox.receive();
-             invoke(par);
+            //OtpErlangTuple par = (OtpErlangTuple) this.otpMbox.receive();
+            //invoke(par);
+            return (OtpErlangTuple) this.otpMbox.receive();
         } catch (OtpErlangExit otpErlangExit) {
             otpErlangExit.printStackTrace();
         } catch (OtpErlangDecodeException e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 
 
@@ -148,17 +212,45 @@ public class BotNode {
         this.otpMbox = otpMbox;
     }
 
-    public void set_methodName(String methodName)
-    {
-        this.methodName = methodName;
-    }
+    //DELETE
+    //public void set_methodName(String methodName)
+    //{
+    //    this.methodName = methodName;
+    //}
 
 
+
+
+    // ====== Invoke callback method start ======
+
+    // Invoke method
     public void invoke(Object... parameters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
-        Method method = this.getClass().getMethod(methodName, getParameterClasses(parameters));
-        method.invoke(this, parameters);
+        Method method = this.getClass().getMethod("method name", getParameterClasses(parameters)); // get link to method from current object
+        method.invoke(this, parameters); // invoke callback method
     }
 
+    public void invokeCallbackMethod(Method callbackMethod, Object... parameters) throws InvocationTargetException, IllegalAccessException {
+        callbackMethod.invoke(this, parameters);
+    }
+
+    private void invokeSubscribeSet(Set<CollectionSubscribe> collectionSubscribeSet, Object... parameters) throws InvocationTargetException, IllegalAccessException {
+        for(CollectionSubscribe collectionSubscribe : collectionSubscribeSet)
+        {
+            invokeCallbackMethod(collectionSubscribe.get_MethodObj(), parameters);
+        }
+    }
+
+    private void invokeSubscribeMethodByTopicName(String topicName, Object... parameters) throws InvocationTargetException, IllegalAccessException {
+        synchronized (this.subscribeDic) { // lock access to map from other thread
+            invokeSubscribeSet(this.subscribeDic.get(topicName), parameters);
+        }
+    }
+
+    private Method getObjectMethod(String methodName, Class<?> methodParams) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
+        return this.getClass().getMethod(methodName, getParameterClasses(methodParams.newInstance()));
+    }
+
+    //Find method from current class
     private Class[] getParameterClasses(Object... parameters) {
         Class[] classes = new Class[parameters.length];
         for (int i=0; i < classes.length; i++) {
@@ -166,4 +258,6 @@ public class BotNode {
         }
         return classes;
     }
+
+    // ====== Invoke callback method end ======
 }

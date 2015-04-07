@@ -1,3 +1,6 @@
+%%DELETE
+
+
 %%%-------------------------------------------------------------------
 %%% @author alex
 %%% @copyright (C) 2015
@@ -10,93 +13,93 @@
 %%%-------------------------------------------------------------------
 -module(ibot_nodes_srv_registrator).
 
--behaviour(gen_server).
+%-behaviour(gen_server).
 
 %% API
--export([start_link/0]).
+%-export([start_link/0]).
 
 %% gen_server callbacks
--export([init/1,
-  handle_call/3,
-  handle_cast/2,
-  handle_info/2,
-  terminate/2,
-  code_change/3]).
+%-export([init/1,
+%  handle_call/3,
+%  handle_cast/2,
+%  handle_info/2,
+%  terminate/2,
+%  code_change/3]).
 
--export([add_node_info/2, get_node_info/1]).
+%-export([add_node_info/2, get_node_info/1]).
 
--include("../../ibot_core/include/debug.hrl").
--include("../../ibot_db/include/ibot_db_table_names.hrl").
--include("ibot_nodes_registration_info.hrl").
+%-include("../../ibot_core/include/debug.hrl").
+%-include("../../ibot_db/include/ibot_db_table_names.hrl").
+%-include("ibot_nodes_registration_info.hrl").
 
--define(SERVER, ?MODULE).
--define(EXTNODE, external_node).
--define(REG_INFO, reg_info).
+%-define(SERVER, ?MODULE).
+%-define(EXTNODE, external_node).
+%-define(REG_INFO, reg_info).
 
--record(state, {}).
-
-
-start_link() ->
-  gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
+%-record(state, {}).
 
 
-init([]) ->
-  % Создание ETS таблицы для хранения данных об узлах
-  %ibot_db_func:create_db(?NODE_REGISTRATOR_DB),
-  ?DBG_MODULE_INFO("init([]) -> ~n", [?MODULE]),
-  {ok, #state{}}.
+%start_link() ->
+%  gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 
-handle_call({?GET_NODE_INFO, NodeName}, _From, State) ->
-  case get_node_info(NodeName) of
-    [] ->
-      {reply, {?RESPONSE, ?NO_NODE_INFO}, State};
-    NodeInfo ->
-      {reply, {?RESPONSE, NodeInfo}, State}
-  end;
-handle_call(_Request, _From, State) ->
-  {reply, ok, State}.
+%init([]) ->
+%  % Создание ETS таблицы для хранения данных об узлах
+%  %ibot_db_func:create_db(?NODE_REGISTRATOR_DB),
+%  ?DBG_MODULE_INFO("init([]) -> ~n", [?MODULE]),
+%  {ok, #state{}}.
 
 
-handle_cast(_Request, State) ->
-  {noreply, State}.
+%handle_call({?GET_NODE_INFO, NodeName}, _From, State) ->
+%  case get_node_info(NodeName) of
+%    [] ->
+%      {reply, {?RESPONSE, ?NO_NODE_INFO}, State};
+%    NodeInfo ->
+%      {reply, {?RESPONSE, NodeInfo}, State}
+%  end;
+%handle_call(_Request, _From, State) ->
+%  {reply, ok, State}.
+
+
+%handle_cast(_Request, State) ->
+%  {noreply, State}.
 
 
 
 
-handle_info({?REG_INFO, MBoxName, NodeServerName}, State) ->
-  {noreply, State};
+%handle_info({?REG_INFO, MBoxName, NodeServerName}, State) ->
+%  {noreply, State};
 
-handle_info({?EXTNODE, Parameters}, State) ->
-      ?DBG_MODULE_INFO("handle_info({?EXTNODE, Parameters}, State): ~p~n", [?MODULE, {?EXTNODE, Parameters}]),
-      % Регистрационные данные узла
-      {NodeName, NodeServer, NodeNameServer, NodeLang, NodeExecutable, NodePreArguments, NodePostArguments} = Parameters,
-      % Добавляем дaнне об узле в таблицу
-      add_node_info(NodeName, #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
-        nodeLang = NodeLang, nodeExecutable = NodeExecutable,
-        nodePreArguments = NodePreArguments, nodePostArguments = NodePostArguments}),
-  {noreply, State};
+%handle_info({?EXTNODE, Parameters}, State) ->
+%      ?DBG_MODULE_INFO("handle_info({?EXTNODE, Parameters}, State): ~p~n", [?MODULE, {?EXTNODE, Parameters}]),
+%      % Регистрационные данные узла
+%      {NodeName, NodeServer, NodeNameServer, NodeLang, NodeExecutable, NodePreArguments, NodePostArguments} = Parameters,
+%      % Добавляем дaнне об узле в таблицу
+%      add_node_info(NodeName, #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
+%        nodeLang = NodeLang, nodeExecutable = NodeExecutable,
+%        nodePreArguments = NodePreArguments, nodePostArguments = NodePostArguments}),
+%  {noreply, State};
 
-handle_info(_Info, State) ->
-  ?DBG_MODULE_INFO("unknow message: ~p~n", [?MODULE, {_Info}]),
-  {noreply, State}.
+%handle_info(_Info, State) ->
+%  ?DBG_MODULE_INFO("unknow message: ~p~n", [?MODULE, {_Info}]),
+%  {noreply, State}.
 
 
-terminate(_Reason, _State) ->
+%terminate(_Reason, _State) ->
   % Удаление ETS таблицы
   %ets:delete(?NODE_REGISTRATOR_DB),
-  ok.
+%  ok.
 
 
-code_change(_OldVsn, State, _Extra) ->
-  {ok, State}.
+%code_change(_OldVsn, State, _Extra) ->
+%  {ok, State}.
 
 %%%===================================================================
 %%% API functions
 %%%===================================================================
 
-get_node_info(NodeName) ->
-  ibot_db_srv:get_record(?NODE_REGISTRATOR_DB, NodeName).
+%get_node_info(NodeName) ->
+%  ibot_db_srv:get_record(?NODE_REGISTRATOR_DB, NodeName).
 
-add_node_info(Key, Val) ->
-  ibot_db_srv:add_record(?NODE_REGISTRATOR_DB, Key, Val).
+%add_node_info(Key, Val) ->
+%  ibot_db_srv:add_record(?NODE_REGISTRATOR_DB, Key, Val).

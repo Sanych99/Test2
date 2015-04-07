@@ -14,10 +14,24 @@ public class Run extends ParentClass {
         System.out.print(var1.toString());
     }
 
+
+    public Run(){
+        super();
+        System.out.println("Run");
+    }
+
+
+
     public static void main(String [] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        ChildClass childClass = new ChildClass();
-        childClass.test();
-        childClass.var1 = 999;
-        childClass.test();
+        //ChildClass childClass = new ChildClass();
+        //childClass.test();
+        //childClass.var1 = 999;
+        //childClass.test();
+
+        Run run = new Run();
+
+        for(Integer i=0; i<200; i++)
+            System.out.println("in main " + i.toString());
+
     }
 }
