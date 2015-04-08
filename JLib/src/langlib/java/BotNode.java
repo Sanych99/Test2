@@ -37,33 +37,34 @@ public class BotNode {
     private Thread receiveMBoxMessageThread = new Thread(new Runnable() {
         public void run()
         {
-            try {
-                OtpErlangTuple rMessage = receive(); // receive message from mail box
-                if(rMessage != null) // if message exist
-                {
-                    String msgType = ((OtpErlangString)rMessage.elementAt(0)).stringValue(); // message type
-                    switch (msgType)
+            while (true) {
+                try {
+                    OtpErlangTuple rMessage = receive(); // receive message from mail box
+                    System.out.println("message was receive...");
+                    invokeSubscribeMethodByTopicName("test_topic", rMessage);
+                    if (rMessage != null) // if message exist
                     {
-                        // message from subscribe topic
-                        case "subscribe" :
-                            System.out.println("subscribe");
-                            String topicName = ((OtpErlangString)rMessage.elementAt(1)).stringValue(); // get topic name
-                            OtpErlangTuple subscribeMessage = (OtpErlangTuple)rMessage.elementAt(2); // get topic message
+                        String msgType = ((OtpErlangString) rMessage.elementAt(0)).stringValue(); // message type
+                        switch (msgType) {
+                            // message from subscribe topic
+                            case "subscribe":
+                                System.out.println("subscribe");
+                                String topicName = ((OtpErlangString) rMessage.elementAt(1)).stringValue(); // get topic name
+                                OtpErlangTuple subscribeMessage = (OtpErlangTuple) rMessage.elementAt(2); // get topic message
 
-                            invokeSubscribeMethodByTopicName(topicName, subscribeMessage); // invoke callback method with message parameter
-                            break;
+                                invokeSubscribeMethodByTopicName(topicName, subscribeMessage); // invoke callback method with message parameter
+                                break;
 
-                        // system message
-                        case "sysMsg" :
-                            System.out.println("sysMsg");
-                            break;
+                            // system message
+                            case "sysMsg":
+                                System.out.println("sysMsg");
+                                break;
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-
-
         }
     });
 
@@ -247,7 +248,9 @@ public class BotNode {
     }
 
     private Method getObjectMethod(String methodName, Class<?> methodParams) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
-        return this.getClass().getMethod(methodName, getParameterClasses(methodParams.newInstance()));
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[1];
+        subscribeObject[0] = new OtpErlangString("reg_subscr");
+        return this.getClass().getMethod(methodName, getParameterClasses(new OtpErlangTuple(subscribeObject)));
     }
 
     //Find method from current class

@@ -684,3 +684,13 @@
 2015-04-07 23:31:17.647 [warning] <0.346.0> lager_error_logger_h dropped 57 messages in the last second that exceeded the limit of 50 messages/sec
 2015-04-07 23:40:54.660 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
 2015-04-07 23:41:08.585 [warning] <0.346.0> lager_error_logger_h dropped 59 messages in the last second that exceeded the limit of 50 messages/sec
+2015-04-09 01:24:55.011 [info] <0.347.0> Application lager started on node 'ibot_os@127.0.0.1'
+2015-04-09 01:25:32.936 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
+2015-04-09 01:40:00.222 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
+2015-04-09 01:41:38.145 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
+2015-04-09 01:42:24.931 [warning] <0.346.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-04-09 01:43:07.448 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
+2015-04-09 01:51:47.641 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
+2015-04-09 01:55:00.292 [warning] <0.346.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-04-09 01:59:35.307 [info] <0.347.0> Application lager started on node 'core@alex-N550JK'
+2015-04-09 02:03:02.239 [warning] <0.346.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
