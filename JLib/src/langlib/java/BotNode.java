@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 //Java Otp Node Connector Class
-public class BotNode {
+public abstract class BotNode implements IBotNode {
 
 
     private String currenServerName; //Current server name machime_name
@@ -21,8 +21,6 @@ public class BotNode {
     private String otpMboxName; //Otp node mail box name
 
     private String coreNodeName; //Server name core@machime_name
-
-    //private String registratorCoreNode;// DELETE //Core node registrator module
 
     private String publisherCoreNode; //Core message publisher module
 
@@ -69,23 +67,20 @@ public class BotNode {
     });
 
     //Class constructor
-    public BotNode(Class<?> subscribeClass, String otpNodeName, String currenServerName, String coreNodeName,
-                String otpMboxName, String registratorCoreNode, String publisherCoreNode, String coreCookie)
+    public BotNode(String[] args)
             throws Exception
     {
-        //subscribeClass.getDeclaredConstructor(IBotMsgInterface.class).newInstance("1");
-        set_otpNode(createNode(otpNodeName, coreCookie));
-        set_otpMbox(createMbox(otpMboxName));
-        this.otpNodeName = otpNodeName; // init node name
-        this.otpMboxName = otpMboxName; // init mail box name
-        this.currenServerName = currenServerName; // init current server name
-        this.coreNodeName = coreNodeName; // init core node name
-        //this.registratorCoreNode = registratorCoreNode; // DELETE
-        this.publisherCoreNode = publisherCoreNode; // init publisher node name
-        this.coreCookie = coreCookie; // init core node cookie
+        this.otpNodeName = args[0]; // init node name
+        this.currenServerName = args[1]; // init current server name
+        this.coreNodeName = args[2]; // init core node name
+        this.otpMboxName = args[0] + "MBox"; // init mail box name
+        this.publisherCoreNode = args[3]; // init publisher node name
+        this.coreCookie = args[4]; // init core node cookie
 
         this.subscribeDic = new HashMap<String, Set<CollectionSubscribe>>(); // init subscribers collection
 
+        set_otpNode(createNode(otpNodeName, coreCookie));
+        set_otpMbox(createMbox(otpMboxName));
 
         receiveMBoxMessageThread.start();
     }
@@ -94,9 +89,9 @@ public class BotNode {
     //Creation Methods
 
     //OtpNode create method
-    public OtpNode createNode(String otpNodeName, String coreCoockes) throws Exception
+    public OtpNode createNode(String otpNodeName, String coreCookies) throws Exception
     {
-        return new OtpNode(otpNodeName, coreCoockes);
+        return new OtpNode(otpNodeName, coreCookies);
     }
 
     //OtpMbox create method
@@ -106,7 +101,7 @@ public class BotNode {
     }
 
 
-    public void subscribeToTopic(String topicName, String callbackMethodName, Class<?> callbackMethodMessageType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public void subscribeToTopic(String topicName, String callbackMethodName, Class<IBotMsgInterface> callbackMethodMessageType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[4];
         subscribeObject[0] = new OtpErlangAtom("reg_subscr");
         subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
@@ -230,27 +225,30 @@ public class BotNode {
         method.invoke(this, parameters); // invoke callback method
     }
 
-    public void invokeCallbackMethod(Method callbackMethod, Object... parameters) throws InvocationTargetException, IllegalAccessException {
-        callbackMethod.invoke(this, parameters);
+    public void invokeCallbackMethod(Method callbackMethod, Class<IBotMsgInterface> obj, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException {
+        IBotMsgInterface msg = obj.newInstance();
+        callbackMethod.invoke(this, msg);
     }
 
-    private void invokeSubscribeSet(Set<CollectionSubscribe> collectionSubscribeSet, Object... parameters) throws InvocationTargetException, IllegalAccessException {
+    private void invokeSubscribeSet(Set<CollectionSubscribe> collectionSubscribeSet, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException {
         for(CollectionSubscribe collectionSubscribe : collectionSubscribeSet)
         {
-            invokeCallbackMethod(collectionSubscribe.get_MethodObj(), parameters);
+            invokeCallbackMethod(collectionSubscribe.get_MethodObj(), collectionSubscribe.get_MethodMessageType(), parameters);
         }
     }
 
-    private void invokeSubscribeMethodByTopicName(String topicName, Object... parameters) throws InvocationTargetException, IllegalAccessException {
+    private void invokeSubscribeMethodByTopicName(String topicName, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException {
         synchronized (this.subscribeDic) { // lock access to map from other thread
             invokeSubscribeSet(this.subscribeDic.get(topicName), parameters);
         }
     }
 
     private Method getObjectMethod(String methodName, Class<?> methodParams) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
-        OtpErlangObject[] subscribeObject = new OtpErlangObject[1];
-        subscribeObject[0] = new OtpErlangString("reg_subscr");
-        return this.getClass().getMethod(methodName, getParameterClasses(new OtpErlangTuple(subscribeObject)));
+        //OtpErlangObject[] subscribeObject = new OtpErlangObject[1];
+        //subscribeObject[0] = new OtpErlangString("reg_subscr");
+        //return this.getClass().getMethod(methodName, getParameterClasses(new OtpErlangTuple(subscribeObject)));
+        IBotMsgInterface obj = (IBotMsgInterface) methodParams.newInstance();
+        return this.getClass().getMethod(methodName, getParameterClasses(obj));
     }
 
     //Find method from current class

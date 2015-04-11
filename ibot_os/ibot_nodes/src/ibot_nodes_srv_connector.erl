@@ -69,7 +69,7 @@ handle_cast(_Request, State) ->
 
 
 handle_info({_Port, {data, {eol, "READY!"}}}, State)-> ?DBG_MODULE_INFO("handle_info {eol, READY} start monitor: -> ~n", [?MODULE]),
-  ibot_nodes_srv_monitor:start_link(State#state.node_name),
+  ibot_nodes_srv_monitor:start_link("BLA_BLA_BLA@alex-N550JK"),
   {noreply, State};
 handle_info(Msg, State)-> ?DBG_MODULE_INFO("handle_info(Msg, State) ~p~n", [?MODULE, Msg]),
   {noreply, State}.
@@ -96,7 +96,7 @@ run_node([]) ->
   ok;
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
   nodeLang = NodeLang, nodeExecutable = NodeExecutable,
-  nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, NodeInfo]),
+  nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
   %% Проверка наличия исполняющего файла java
   case os:find_executable(NodeExecutable) of
     [] ->
@@ -106,12 +106,16 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         %["-classpath",
         %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
         NodePreArguments, % Аргументы для исполняемого файла
+        %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
         [NodeName, % Имя запускаемого узла
+          NodeName, % mail box name
+          net_adm:localhost(), % host name
           % Передаем параметры в узел
           atom_to_list(node()), % Имя текущего узла
-          NodeNameServer, % Имя сервера
-          erlang:get_cookie()], % Значение Cookies для узла
-        NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
+          "ibot_nodes_srv_topic", % Topic registrator
+          erlang:get_cookie()]%, % Значение Cookies для узла
+        %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
+      ]
       ),
       % Выполянем комманду по запуску узла
       erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])

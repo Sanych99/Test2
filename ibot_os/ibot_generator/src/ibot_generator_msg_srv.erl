@@ -22,7 +22,7 @@
 
 %% @doc
 %% Generate message files
-%%
+%%]
 %% @spec generate_msg_srv(ProjectDir)
 %% @end
 
@@ -103,6 +103,11 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
     eof ->
       file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
       file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
+
+      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName)),
+      parameters_constructor_generate(GeneratedFile, AllFieldsList),
+      file:write(GeneratedFile, ?CONSTRUCTOR_END_WITH_PARAMS()),
+
       getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
       file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
 
@@ -126,3 +131,8 @@ getters_setters_generation(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList])
   ?DBG_INFO("generated info: ~p~n", [{Type, Name, ObjCount}]),
   file:write(GeneratedFile, ?GETTER_SETTER_GENERATE(Type, Name, ObjCount)),
   getters_setters_generation(GeneratedFile, FieldsList).
+
+parameters_constructor_generate(_, []) -> ok;
+parameters_constructor_generate(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
+  file:write(GeneratedFile, ?CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjCount)),
+  parameters_constructor_generate(GeneratedFile , FieldsList).

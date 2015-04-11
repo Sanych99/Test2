@@ -109,7 +109,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 message_broadcast([], _) -> ok;
 message_broadcast([NodeInfo | NodeInfoList], Msg) ->
-  erlang:send({NodeInfo#node_pubsub_info.nodeName, NodeInfo#node_pubsub_info.serverName}, Msg),
+  erlang:send({NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, Msg),
   message_broadcast(NodeInfoList, Msg),
   ok.
 

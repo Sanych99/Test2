@@ -58,6 +58,19 @@
   ?TAB_STRING(["}"], 1)
 ], ?NEW_LINE)).
 
+%% Constructor message class
+-define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name), string:join([?NEW_LINE, ?NEW_LINE, ?TAB(1), "public ", Name, "(OtpErlangTuple msg) throws Exception {"], "")).
+-define(CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjectNum), string:join([
+  ?CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum)
+], ?NEW_LINE)).
+
+-define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
+  string:join([?NEW_LINE, ?TAB(2), "this.", Name, " = ", "((", ?OTP_TYPE(Type), ")msg.elementAt(", io_lib:format("~p", [ObjectNum]), ")).", ?CONVERT_FROM_OTP_TO_JAVA_METHODS(Type), ";"], "")
+).
+
+-define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
+
+
 
 %% Create OTP message from java types
 -define(GET_OTP_TYPE_MSG, string:join([
@@ -111,6 +124,14 @@
   case Type of
     "String" -> "String";
     "BigInt" -> "BigInteger";
+    _ -> "UNDEFINE"
+  end
+).
+
+-define(CONVERT_FROM_OTP_TO_JAVA_METHODS(Type),
+  case Type of
+    "String" -> "stringValue()";
+    "BigInt" -> "longValue()";
     _ -> "UNDEFINE"
   end
 ).

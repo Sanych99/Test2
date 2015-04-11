@@ -37,8 +37,8 @@ s() ->
 
 message_broadcast([], _) -> ok;
 message_broadcast([NodeInfo | NodeInfoList], Msg) ->
-  erlang:send({ NodeInfo#node_pubsub_info.nodeName, NodeInfo#node_pubsub_info.serverName}, Msg),
-  ?DBG_MODULE_INFO("send values: ~p~n", [?MODULE, {NodeInfo#node_pubsub_info.nodeName, NodeInfo#node_pubsub_info.serverName}]),
+  erlang:send({ NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, Msg),
+  ?DBG_MODULE_INFO("send values: ~p~n", [?MODULE, {NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}]),
   message_broadcast(NodeInfoList, Msg),
   ok.
 

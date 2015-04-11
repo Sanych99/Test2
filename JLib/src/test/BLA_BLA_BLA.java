@@ -11,8 +11,11 @@ public class BLA_BLA_BLA extends BotNode {
         System.out.println("OutPutMessageMethod" + ((OtpErlangString)msg.elementAt(0)).stringValue());
     }
 
-    public BLA_BLA_BLA() throws Exception {
-        super(BLA_BLA_BLA.class, "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "facserver", "ibot_nodes_srv_registrator", "ibot_nodes_srv_topic", "jv");
+    public BLA_BLA_BLA(String[] args) throws Exception {
+        //String[] args2 = new String[5];
+        //super(BLA_BLA_BLA.class, "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "facserver", "ibot_nodes_srv_registrator", "ibot_nodes_srv_topic", "jv");
+        super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"});
+        //super(args);
     }
 
     public void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException {
@@ -24,7 +27,7 @@ public class BLA_BLA_BLA extends BotNode {
             e.printStackTrace();
         }
 
-        subscribeToTopic("test_topic", "OutPutMessageMethod", OtpErlangTuple.class);
+        //subscribeToTopic("test_topic", "OutPutMessageMethod", OtpErlangTuple.class);
         System.out.println("subscribeToTopic...");
         try {
             Thread.sleep(5000);
@@ -41,7 +44,7 @@ public class BLA_BLA_BLA extends BotNode {
     }
 
     public static void main (String[] args) throws Exception {
-        BLA_BLA_BLA bla_bla_bla = new BLA_BLA_BLA();
+        BLA_BLA_BLA bla_bla_bla = new BLA_BLA_BLA(args);
         bla_bla_bla.Action();
     }
 }
