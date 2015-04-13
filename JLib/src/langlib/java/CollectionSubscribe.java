@@ -8,9 +8,9 @@ import java.lang.reflect.Method;
 public class CollectionSubscribe {
     private String methodName;
     private Method methodObj;
-    private Class<IBotMsgInterface> methodMessageType;
+    private Class<? extends IBotMsgInterface> methodMessageType;
 
-    public CollectionSubscribe(String methodName, Method methodObj, Class<IBotMsgInterface> methodMessageType)
+    public CollectionSubscribe(String methodName, Method methodObj, Class<? extends IBotMsgInterface> methodMessageType)
     {
         this.methodName = methodName;
         this.methodObj = methodObj;
@@ -27,7 +27,7 @@ public class CollectionSubscribe {
         return this.methodObj;
     }
 
-    public Class<IBotMsgInterface> get_MethodMessageType()
+    public Class<? extends IBotMsgInterface> get_MethodMessageType()
     {
         return this.methodMessageType;
     }

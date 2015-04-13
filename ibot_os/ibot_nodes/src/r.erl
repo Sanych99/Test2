@@ -30,7 +30,7 @@ s() ->
   case ibot_db_func_topics:get_topic_nodes(test_topic) of
     NodeInfoList ->
       ?DBG_MODULE_INFO("get info: ~p~n", [?MODULE, NodeInfoList]),
-      spawn(fun() -> message_broadcast(NodeInfoList, {"Hello from Erlang!"}) end);
+      spawn(fun() -> message_broadcast(NodeInfoList, {"Hello from Erlang! yes!!!", 1, "qwerty!"}) end);
     [] -> ok
   end,
   ok.

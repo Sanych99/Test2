@@ -6,32 +6,61 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-//Java Otp Node Connector Class
+/**
+ * Java Otp Node Connector Class
+ */
 public abstract class BotNode implements IBotNode {
 
+    /**
+     * Current server name machine name
+     */
+    private String currentServerName;
 
-    private String currenServerName; //Current server name machime_name
+    /**
+     * Java Otp node
+     */
+    private OtpNode otpNode;
 
-    private OtpNode otpNode; //Java Otp node
+    /**
+     * Java Otp node name
+     */
+    private String otpNodeName;
 
-    private String otpNodeName; //Java Otp node name
+    /**
+     * Otp node mail box
+     */
+    private OtpMbox otpMbox;
 
-    private OtpMbox otpMbox; //Otp node mail box
+    /**
+     * Otp node mail box name
+     */
+    private String otpMboxName;
 
-    private String otpMboxName; //Otp node mail box name
+    /**
+     * Server name core@machine_name
+     */
+    private String coreNodeName;
 
-    private String coreNodeName; //Server name core@machime_name
+    /**
+     * Core message publisher module
+     */
+    private String publisherCoreNode;
 
-    private String publisherCoreNode; //Core message publisher module
+    /**
+     * Core node cookies
+     */
+    private String coreCookie;
 
-    private String coreCookie; //Core node cookies
 
-    //private String methodName; // DELETE
-
+    /**
+     * Subscribe callback methods collection
+     */
     private Map<String, Set<CollectionSubscribe>> subscribeDic;
 
-    //private CallBack subscribeCallBacks; //Callback for subscribe topic
 
+    /**
+     * Receive message thread from node mailbox
+     */
     private Thread receiveMBoxMessageThread = new Thread(new Runnable() {
         public void run()
         {
@@ -66,12 +95,16 @@ public abstract class BotNode implements IBotNode {
         }
     });
 
-    //Class constructor
+    /**
+     * Class constructor
+     * @param args Init parameters
+     * @throws Exception
+     */
     public BotNode(String[] args)
             throws Exception
     {
         this.otpNodeName = args[0]; // init node name
-        this.currenServerName = args[1]; // init current server name
+        this.currentServerName = args[1]; // init current server name
         this.coreNodeName = args[2]; // init core node name
         this.otpMboxName = args[0] + "MBox"; // init mail box name
         this.publisherCoreNode = args[3]; // init publisher node name
@@ -86,26 +119,45 @@ public abstract class BotNode implements IBotNode {
     }
 
 
-    //Creation Methods
+    /* ====== Creation Methods Start ====== */
 
-    //OtpNode create method
+    /**
+     * OtpNode create method
+     * @param otpNodeName Node name
+     * @param coreCookies Core node cookie
+     * @return Node object
+     * @throws Exception
+     */
     public OtpNode createNode(String otpNodeName, String coreCookies) throws Exception
     {
         return new OtpNode(otpNodeName, coreCookies);
     }
 
-    //OtpMbox create method
+    /**
+     * OtpMbox create method
+     * @param otpMboxName Node main box name
+     * @return Node mail box object
+     */
     private OtpMbox createMbox(String otpMboxName)
     {
         return get_otpNode().createMbox(otpMboxName);
     }
 
 
-    public void subscribeToTopic(String topicName, String callbackMethodName, Class<IBotMsgInterface> callbackMethodMessageType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+    /**
+     * Subscribe node to topic
+     * @param topicName Topic name
+     * @param callbackMethodName Callback method name for invoke on message
+     * @param callbackMethodMessageType Callback message type class
+     * @throws IllegalAccessException
+     * @throws NoSuchMethodException
+     * @throws InstantiationException
+     */
+    public void subscribeToTopic(String topicName, String callbackMethodName, Class<? extends IBotMsgInterface> callbackMethodMessageType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[4];
         subscribeObject[0] = new OtpErlangAtom("reg_subscr");
         subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
-        subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currenServerName);
+        subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         subscribeObject[3] = new OtpErlangAtom(topicName);
         this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("subscribeToTopic " + topicName);
@@ -135,8 +187,10 @@ public abstract class BotNode implements IBotNode {
         }
     }
 
+    /* ====== Creation Methods End ====== */
 
-    //Action Methods
+
+    /* ====== Action Methods Start ====== */
 
     //Message publish method
     public void publishMsg(OtpErlangTuple tuple)
@@ -144,10 +198,23 @@ public abstract class BotNode implements IBotNode {
         this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, tuple);
     }
 
-    public void publishMessage(Object msg) throws Exception
+    public void publishMessage(String topicName, Object msg) throws Exception
     {
+        System.out.println("publishMessage start... " + topicName);
+
         IBotMsgInterface msgIn = (IBotMsgInterface)msg;
-        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, msgIn.get_Msg());
+
+        System.out.println("publishMessage IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
+
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[5];
+        subscribeObject[0] = new OtpErlangAtom("broadcast");
+        subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
+        subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
+        subscribeObject[3] = new OtpErlangAtom(topicName);
+        subscribeObject[4] = msgIn.get_Msg();
+        System.out.println("publishMessage subscribeObject[4] = msgIn.get_Msg();... ");
+        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        System.out.println("publishMessage " + topicName);
     }
 
     public void subscribe(String methodName)
@@ -208,16 +275,12 @@ public abstract class BotNode implements IBotNode {
         this.otpMbox = otpMbox;
     }
 
-    //DELETE
-    //public void set_methodName(String methodName)
-    //{
-    //    this.methodName = methodName;
-    //}
+    /* ====== Action Methods End ====== */
 
 
 
 
-    // ====== Invoke callback method start ======
+    /* ====== Invoke callback method Start ====== */
 
     // Invoke method
     public void invoke(Object... parameters) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
@@ -225,33 +288,59 @@ public abstract class BotNode implements IBotNode {
         method.invoke(this, parameters); // invoke callback method
     }
 
-    public void invokeCallbackMethod(Method callbackMethod, Class<IBotMsgInterface> obj, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException {
-        IBotMsgInterface msg = obj.newInstance();
+    public void invokeCallbackMethod(Method callbackMethod, Class<? extends IBotMsgInterface> obj, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+        IBotMsgInterface msg = obj.getDeclaredConstructor(OtpErlangTuple.class).newInstance(parameters);
         callbackMethod.invoke(this, msg);
     }
 
-    private void invokeSubscribeSet(Set<CollectionSubscribe> collectionSubscribeSet, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException {
+    /**
+     * Invoke all methods subscribed to topic
+     * @param collectionSubscribeSet Subscribed methods list
+     * @param parameters method parameter
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    private void invokeSubscribeSet(Set<CollectionSubscribe> collectionSubscribeSet, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
         for(CollectionSubscribe collectionSubscribe : collectionSubscribeSet)
         {
             invokeCallbackMethod(collectionSubscribe.get_MethodObj(), collectionSubscribe.get_MethodMessageType(), parameters);
         }
     }
 
-    private void invokeSubscribeMethodByTopicName(String topicName, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException {
+    /**
+     * Invoke callback method subscribed to topic
+     * @param topicName Topic name
+     * @param parameters Method parameter
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    private void invokeSubscribeMethodByTopicName(String topicName, Object... parameters) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
         synchronized (this.subscribeDic) { // lock access to map from other thread
             invokeSubscribeSet(this.subscribeDic.get(topicName), parameters);
         }
     }
 
+    /**
+     * Find callback method
+     * @param methodName Method name
+     * @param methodParams Method parameters
+     * @return Callback method link
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws NoSuchMethodException
+     */
     private Method getObjectMethod(String methodName, Class<?> methodParams) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
-        //OtpErlangObject[] subscribeObject = new OtpErlangObject[1];
-        //subscribeObject[0] = new OtpErlangString("reg_subscr");
-        //return this.getClass().getMethod(methodName, getParameterClasses(new OtpErlangTuple(subscribeObject)));
         IBotMsgInterface obj = (IBotMsgInterface) methodParams.newInstance();
         return this.getClass().getMethod(methodName, getParameterClasses(obj));
     }
 
-    //Find method from current class
+    /**
+     * Find method from current class
+     * @param parameters Method parameters
+     * @return Class
+     */
     private Class[] getParameterClasses(Object... parameters) {
         Class[] classes = new Class[parameters.length];
         for (int i=0; i < classes.length; i++) {
@@ -260,5 +349,5 @@ public abstract class BotNode implements IBotNode {
         return classes;
     }
 
-    // ====== Invoke callback method end ======
+    /* ====== Invoke callback method End ====== */
 }

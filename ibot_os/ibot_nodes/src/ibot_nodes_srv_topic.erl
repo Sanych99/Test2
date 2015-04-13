@@ -73,6 +73,13 @@ handle_cast(_Request, State) ->
 handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSCR, MBoxName, NodeServerName, TopicName]]),
   ibot_db_func_topics:add_node_to_topic(TopicName, MBoxName, NodeServerName), %% Add subscribe node info
   {noreply, State};
+handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) ->
+  case ibot_db_func_topics:get_topic_nodes(TopicName) of
+    [] -> ok;
+    NodeInfoList ->
+      spawn(fun() -> message_broadcast(NodeInfoList, Message) end)
+  end,
+  {noreply, State};
 handle_info(_Info, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
   {noreply, State}.
 

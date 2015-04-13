@@ -61,3 +61,7 @@ javac -classpath "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home
 
 
 java -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA BLA_BLA_BLA
+
+
+
+java -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA BLA_BLA_BLA BLA_BLA_BLA alex-N550JK core@alex-N550JK ibot_nodes_srv_topic jv
