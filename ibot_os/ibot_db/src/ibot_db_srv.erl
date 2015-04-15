@@ -46,6 +46,8 @@ init([]) ->
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
   ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
   ibot_db_func:create_db(?TABLE_NODE_INFO), %% Create node info table
+  ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
+  ibot_db_func:create_db(?TABLE_SERVICES_SERVER), %% Create server service table
   {ok, #state{}}.
 
 %% ====== init function end ======
@@ -116,6 +118,8 @@ terminate(_Reason, _State) ->
   ibot_db_func:delete_table(?TABLE_CONFIG), %% Delete congiguration table
   ibot_db_func:delete_table(?TABLE_TOPICS), %% Delete topics table
   ibot_db_func:delete_table(?TABLE_NODE_INFO), %% Delete node info table
+  ibot_db_func:delete_table(?TABLE_SERVICES_CLIENT), %% Delete cilent service table
+  ibot_db_func:delete_table(?TABLE_SERVICES_SERVER), %% Delete server service table
   ok.
 %% ====== terminate function end ======
 

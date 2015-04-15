@@ -7,7 +7,6 @@
 %%% Created : 25. Mar 2015 8:14 PM
 %%%-------------------------------------------------------------------
 -module(ibot_db_func_config).
--author("alex").
 
 -include("../../ibot_core/include/debug.hrl").
 -include("ibot_db_reserve_atoms.hrl").

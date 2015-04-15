@@ -57,6 +57,15 @@ public abstract class BotNode implements IBotNode {
      */
     private Map<String, Set<CollectionSubscribe>> subscribeDic;
 
+    /**
+     * Async client services collection
+     */
+    private Map<String, Set<CollectionServiceClient>> asyncServiceClientDic;
+
+    /**
+     * Async server services collection
+     */
+    private Map<String, Set<CollectionServiceServer>> asyncServiceServerDic;
 
     /**
      * Operation in action
@@ -127,7 +136,10 @@ public abstract class BotNode implements IBotNode {
         this.publisherCoreNode = args[3]; // init publisher node name
         this.coreCookie = args[4]; // init core node cookie
 
-        this.subscribeDic = new HashMap<String, Set<CollectionSubscribe>>(); // init subscribers collection
+        this.subscribeDic = new HashMap<>(); // init subscribers collection
+
+        this.asyncServiceClientDic = new HashMap<>();
+        this.asyncServiceServerDic = new HashMap<>();
 
         set_otpNode(createNode(otpNodeName, coreCookie));
         set_otpMbox(createMbox(otpMboxName));
@@ -316,6 +328,51 @@ public abstract class BotNode implements IBotNode {
 
 
 
+    /* ====== Service methods Start ====== */
+
+    public void registerServiceClient(String serverServiceMethodName, String clientServiceMethodName,
+                                  Class<IBotMsgInterface> serviceRequest, Class<IBotMsgInterface> serviceResponse) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+
+        OtpErlangObject[] clientServiceObject = new OtpErlangObject[4];
+        clientServiceObject[0] = new OtpErlangAtom("reg_async_client_service_callback");
+        clientServiceObject[1] = new OtpErlangAtom(this.otpMboxName);
+        clientServiceObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
+        clientServiceObject[3] = new OtpErlangAtom(serverServiceMethodName);
+        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(clientServiceObject));
+        System.out.println("registerServiceClient " + serverServiceMethodName);
+
+        synchronized (this.asyncServiceClientDic) {
+
+            Method serviceMethod = getServiceObjectMethod(clientServiceMethodName, serviceRequest, serviceResponse);
+
+            if(serviceMethod != null) {
+
+                CollectionServiceClient serviceClient = new CollectionServiceClient(serverServiceMethodName,
+                        serviceRequest, serviceResponse, serviceMethod);
+
+                if (this.asyncServiceClientDic.containsKey(serverServiceMethodName)) {
+                    Set<CollectionServiceClient> serviceClientSet = this.asyncServiceClientDic.get(serverServiceMethodName);
+
+                    if (!serviceClientSet.contains(serviceClient)) {
+                        serviceClientSet.add(serviceClient);
+                    }
+
+                    this.asyncServiceClientDic.put(serverServiceMethodName, serviceClientSet);
+
+                } else {
+                    Set<CollectionServiceClient> collectionSubscribesSet = new HashSet<>();
+                    collectionSubscribesSet.add(serviceClient);
+                    this.asyncServiceClientDic.put(serverServiceMethodName, collectionSubscribesSet);
+                }
+            }
+        }
+
+    }
+
+    /* ====== Service methods End ====== */
+
+
+
     /* ====== Invoke callback method Start ====== */
 
     // Invoke method
@@ -370,6 +427,22 @@ public abstract class BotNode implements IBotNode {
     private Method getObjectMethod(String methodName, Class<?> methodParams) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
         IBotMsgInterface obj = (IBotMsgInterface) methodParams.newInstance();
         return this.getClass().getMethod(methodName, getParameterClasses(obj));
+    }
+
+    /**
+     * Find callback service method
+     * @param methodName Method name
+     * @param methodParamRequest Method request type
+     * @param methodParamResponse Method response type
+     * @return Callback method link
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws NoSuchMethodException
+     */
+    private Method getServiceObjectMethod(String methodName, Class<?> methodParamRequest, Class<?> methodParamResponse) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
+        IBotMsgInterface objReq = (IBotMsgInterface) methodParamRequest.newInstance();
+        IBotMsgInterface objResp = (IBotMsgInterface) methodParamResponse.newInstance();
+        return this.getClass().getMethod(methodName, getParameterClasses(objReq, objResp));
     }
 
     /**
