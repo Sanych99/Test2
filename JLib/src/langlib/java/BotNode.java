@@ -59,32 +59,49 @@ public abstract class BotNode implements IBotNode {
 
 
     /**
+     * Operation in action
+     */
+    private volatile boolean coreIsActive;
+    /**
+     * Operation in action locker
+     */
+    private Object coreIsActiveLocker;
+
+
+    /**
      * Receive message thread from node mailbox
      */
     private Thread receiveMBoxMessageThread = new Thread(new Runnable() {
         public void run()
         {
-            while (true) {
+            while (ok()) {
                 try {
                     OtpErlangTuple rMessage = receive(); // receive message from mail box
-                    System.out.println("message was receive...");
-                    invokeSubscribeMethodByTopicName("test_topic", rMessage);
+                    //System.out.println("message was receive...");
+                    //invokeSubscribeMethodByTopicName("test_topic", rMessage);
                     if (rMessage != null) // if message exist
                     {
-                        String msgType = ((OtpErlangString) rMessage.elementAt(0)).stringValue(); // message type
+                        String msgType = ((OtpErlangAtom) rMessage.elementAt(0)).toString(); // message type
                         switch (msgType) {
                             // message from subscribe topic
                             case "subscribe":
                                 System.out.println("subscribe");
-                                String topicName = ((OtpErlangString) rMessage.elementAt(1)).stringValue(); // get topic name
+                                String topicName = ((OtpErlangAtom) rMessage.elementAt(1)).toString(); // get topic name
                                 OtpErlangTuple subscribeMessage = (OtpErlangTuple) rMessage.elementAt(2); // get topic message
 
                                 invokeSubscribeMethodByTopicName(topicName, subscribeMessage); // invoke callback method with message parameter
                                 break;
 
                             // system message
-                            case "sysMsg":
-                                System.out.println("sysMsg");
+                            case "system":
+                                String systemAction = ((OtpErlangAtom) rMessage.elementAt(1)).toString(); // system action
+
+                                switch (systemAction) {
+                                    case "exit" : set_coreIsActive(false);
+                                        break;
+                                }
+
+                                //System.out.println("sysMsg");
                                 break;
                         }
                     }
@@ -114,6 +131,9 @@ public abstract class BotNode implements IBotNode {
 
         set_otpNode(createNode(otpNodeName, coreCookie));
         set_otpMbox(createMbox(otpMboxName));
+
+        this.coreIsActive = true;
+        this.coreIsActiveLocker = new Object();
 
         receiveMBoxMessageThread.start();
     }
@@ -273,6 +293,22 @@ public abstract class BotNode implements IBotNode {
     private void set_otpMbox(OtpMbox otpMbox)
     {
         this.otpMbox = otpMbox;
+    }
+
+
+    public boolean ok() {
+        boolean isOk;
+        synchronized (coreIsActiveLocker)
+        {
+            isOk = this.coreIsActive;
+        }
+        return isOk;
+    }
+
+    public void set_coreIsActive(boolean isActive) {
+        synchronized (coreIsActiveLocker) {
+            this.coreIsActive = isActive;
+        }
     }
 
     /* ====== Action Methods End ====== */

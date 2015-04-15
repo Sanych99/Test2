@@ -9,3 +9,5 @@
 -define(BROADCAST, broadcast).
 
 -define(RESTART_NODE, restart_node).
+
+-define(SUBSRIBE , subscribe).

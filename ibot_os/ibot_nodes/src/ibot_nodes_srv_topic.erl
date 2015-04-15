@@ -53,7 +53,7 @@ handle_cast({?BROADCAST, TopicName, Message}, State) ->
   case ibot_db_func_topics:get_topic_nodes(TopicName) of
     [] -> ok;
     NodeInfoList ->
-      spawn(fun() -> message_broadcast(NodeInfoList, Message) end)
+      spawn(fun() -> message_broadcast(NodeInfoList, Message, TopicName) end)
   end,
   {noreply, State};
 handle_cast(_Request, State) ->
@@ -77,7 +77,7 @@ handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) -
   case ibot_db_func_topics:get_topic_nodes(TopicName) of
     [] -> ok;
     NodeInfoList ->
-      spawn(fun() -> message_broadcast(NodeInfoList, Message) end)
+      spawn(fun() -> message_broadcast(NodeInfoList, Message, TopicName) end)
   end,
   {noreply, State};
 handle_info(_Info, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
@@ -114,10 +114,10 @@ code_change(_OldVsn, State, _Extra) ->
 %% Broadcast message function
 %% @end
 
-message_broadcast([], _) -> ok;
-message_broadcast([NodeInfo | NodeInfoList], Msg) ->
-  erlang:send({NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, Msg),
-  message_broadcast(NodeInfoList, Msg),
+message_broadcast([], _, _) -> ok;
+message_broadcast([NodeInfo | NodeInfoList], Msg, TopicName) ->
+  erlang:send({NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}),
+  message_broadcast(NodeInfoList, Msg, TopicName),
   ok.
 
 %% ====== message_broadcast function start ======
