@@ -12,6 +12,8 @@
 -behaviour(gen_server).
 
 -include("ibot_nodes_service.hrl").
+-include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("../../ibot_db/include/ibot_db_records_service.hrl").
 
 %% API
 -export([start_link/0]).
@@ -23,6 +25,8 @@
   handle_info/2,
   terminate/2,
   code_change/3]).
+
+-export([sendMessageToService/7]).
 
 -define(SERVER, ?MODULE).
 
@@ -47,16 +51,24 @@ handle_cast(_Request, State) ->
 
 %%% ====== handle_info Start ======
 
-handle_info({?REG_ASYNC_CLIENT_SERVICE, MailBoxName, NodeFullName, ClientMethodName}, State) ->
+handle_info({?REG_ASYNC_CLIENT_SERVICE, MailBoxName, NodeFullName, ClientMethodName, ServerMethodName}, State) ->
+  ibot_db_func_services:register_client_service(ServerMethodName, ClientMethodName, MailBoxName, NodeFullName),
   {noreply, State};
 
 handle_info({?REG_ASYNC_SERVER_SERVICE, MailBoxName, NodeFullName, ServerServiceMethodName}, State) ->
+  ibot_db_func_services:register_server_service(ServerServiceMethodName, MailBoxName, NodeFullName),
   {noreply, State};
 
-handle_info({?REQUEST_MESSAGE, serviceMethodName, RequestMessage}, State) ->
+handle_info({?REQUEST_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, ServiceMethodName, RequestMessage}, State) ->
+  case ibot_db_func_services:get_server_service(ServiceMethodName) of
+    ?RECORD_NOT_FOUND -> ?RECORD_NOT_FOUND;
+    Record -> sendMessageToService(Record#service_server.mailBox, Record#service_server.nodeFullName, ServiceMethodName,
+      ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage)
+  end,
   {noreply, State};
 
-handle_info({?RESPONSE_MESSAGE, serviceMethodName, ResponseMessage}, State) ->
+handle_info({?RESPONSE_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage}, State) ->
+  sendMessageToClient(ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage),
   {noreply, State};
 
 handle_info(_Info, State) ->
@@ -75,3 +87,10 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
+sendMessageToService(ServiceMailBoxName, ServiceNodeFullName, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage) ->
+  erlang:send({ServiceMailBoxName, ServiceNodeFullName}, {?CALL_SERVICE_METHOD, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage}),
+  ok.
+
+sendMessageToClient(ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponceMessage) ->
+  erlang:send({ClientMailBoxName, ClientNodeFullName}, {?CALL_CLIENT_SERVICE_CALLBACK_METHOD, ClientMethodName, RequestMessage, ResponceMessage}),
+  ok.

@@ -65,7 +65,7 @@ public abstract class BotNode implements IBotNode {
     /**
      * Async server services collection
      */
-    private Map<String, Set<CollectionServiceServer>> asyncServiceServerDic;
+    private Map<String, CollectionServiceServer> asyncServiceServerDic;
 
     /**
      * Operation in action
@@ -99,6 +99,21 @@ public abstract class BotNode implements IBotNode {
                                 OtpErlangTuple subscribeMessage = (OtpErlangTuple) rMessage.elementAt(2); // get topic message
 
                                 invokeSubscribeMethodByTopicName(topicName, subscribeMessage); // invoke callback method with message parameter
+                                break;
+
+                            case "call_service_method":
+                                String serviceMethodName = ((OtpErlangString) rMessage.elementAt(1)).stringValue();
+                                OtpErlangAtom clientMailBoxName = (OtpErlangAtom) rMessage.elementAt(2);
+                                OtpErlangAtom clientNodeFullName = (OtpErlangAtom) rMessage.elementAt(3);
+                                String clientMethodNameCallback = ((OtpErlangString) rMessage.elementAt(4)).stringValue();
+                                OtpErlangTuple requestMessageFromClient = (OtpErlangTuple) rMessage.elementAt(5);
+                                break;
+
+                            case "call_client_service_callback_method":
+                                String clientMethodName = ((OtpErlangString) rMessage.elementAt(1)).stringValue();
+                                OtpErlangTuple requestMessage = (OtpErlangTuple) rMessage.elementAt(2);
+                                OtpErlangTuple responseMessage = (OtpErlangTuple) rMessage.elementAt(3);
+                                invokeClientServiceMethodCallback(clientMethodName, requestMessage, responseMessage);
                                 break;
 
                             // system message
@@ -459,4 +474,11 @@ public abstract class BotNode implements IBotNode {
     }
 
     /* ====== Invoke callback method End ====== */
+
+    private void invokeClientServiceMethodCallback(String clientServiceMethodName, Object... parameters)
+            throws InvocationTargetException, IllegalAccessException {
+        for(CollectionServiceClient client : this.asyncServiceClientDic.get(clientServiceMethodName)) {
+            client.getClientServiceCallback().invoke(this, parameters);
+        }
+    }
 }

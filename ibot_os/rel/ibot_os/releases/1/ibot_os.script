@@ -1,4 +1,4 @@
-%% script generated at {2015,4,15} {12,42,39}
+%% script generated at {2015,4,17} {2,54,7}
 {script,
     {"ibot_os","1"},
     [{preLoaded,[]},
@@ -102,8 +102,8 @@
      {path,["$ROOT/lib/ibot_nodes-1/ebin"]},
      {primLoad,
          [ibot_nodes_app,ibot_nodes_srv_connector,ibot_nodes_srv_monitor,
-          ibot_nodes_srv_registrator,ibot_nodes_srv_topic,ibot_nodes_sup,
-          pingpong,r]},
+          ibot_nodes_srv_registrator,ibot_nodes_srv_service,
+          ibot_nodes_srv_topic,ibot_nodes_sup,pingpong,r]},
      {path,["$ROOT/lib/ibot_events-1/ebin"]},
      {primLoad,[ibot_events_app,ibot_events_evs,ibot_events_sup,test]},
      {path,["$ROOT/lib/ibot_ri-1/ebin"]},
@@ -465,7 +465,8 @@
                    {modules,
                        [ibot_nodes_app,ibot_nodes_srv_connector,
                         ibot_nodes_srv_monitor,ibot_nodes_srv_registrator,
-                        ibot_nodes_srv_topic,ibot_nodes_sup,pingpong,r]},
+                        ibot_nodes_srv_service,ibot_nodes_srv_topic,
+                        ibot_nodes_sup,pingpong,r]},
                    {registered,[]},
                    {applications,[kernel,stdlib,ibot_db]},
                    {included_applications,[]},

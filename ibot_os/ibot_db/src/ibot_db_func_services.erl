@@ -11,8 +11,9 @@
 -include("../../ibot_core/include/debug.hrl").
 -include("ibot_db_records_service.hrl").
 -include("ibot_db_table_names.hrl").
+-include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
 
--export([register_client_service/4]).
+-export([register_client_service/4, get_client_service/2, register_server_service/3, get_server_service/1]).
 
 
 %%% ====== Client service methods Start ======
@@ -28,17 +29,31 @@
   when ServerMethodName::atom(), ClientMethodName::atom(), MailBoxName::atom(), NodeFullName::atom().
 
 register_client_service(ServerMethodName, ClientMethodName, MailBoxName, NodeFullName) ->
-  ClientService = #service_client{clientMethodName = ClientMethodName, mailBoxName = MailBoxName, nodeFullName = NodeFullName},
-  ibot_db_srv:add_record(?TABLE_SERVICES_CLIENT, ServerMethodName, ClientService),
+  ClientService = #service_client{serverMethodNameAtom = list_to_atom(ServerMethodName), serverMethodName = ServerMethodName,
+    clientMethodNameAtom = list_to_atom(ClientMethodName), clientMethodName = ClientMethodName,
+    mailBoxName = MailBoxName, nodeFullName = NodeFullName},
+  ibot_db_srv:add_record(?TABLE_SERVICES_CLIENT, {ClientMethodName, NodeFullName}, ClientService),
   ok.
 
 
-get_client_service(ServerMethodName) ->
-  case ibot_db_srv:get_record(?TABLE_SERVICES_CLIENT, ServerMethodName) of
+get_client_service(ClientMethodName, NodeFullName) ->
+  case ibot_db_srv:get_record(?TABLE_SERVICES_CLIENT, {ClientMethodName, NodeFullName}) of
     {ok, Value} -> Value;
-    _ -> not_found
+    _ -> ?RECORD_NOT_FOUND
   end.
 
 %%% ====== Client service methods End ======
 
 
+
+register_server_service(ServerServiceName, MailBox, NodeFullName) ->
+  ServerService = #service_server{serverServiceMethodName = ServerServiceName, serverServiceMethodNameAtom = list_to_atom(ServerServiceName),
+  mailBox = MailBox, nodeFullName = NodeFullName},
+  ibot_db_srv:add_record(?TABLE_SERVICES_SERVER, ServerService#service_server.serverServiceMethodNameAtom, ServerService),
+  ok.
+
+get_server_service(ServerServiceNameAtom) ->
+  case ibot_db_srv:get_record(?TABLE_SERVICES_SERVER, ServerServiceNameAtom) of
+    {ok, Value} -> Value;
+    _ -> ?RECORD_NOT_FOUND
+  end.

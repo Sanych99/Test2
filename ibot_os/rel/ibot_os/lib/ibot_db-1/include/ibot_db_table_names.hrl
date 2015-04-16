@@ -8,5 +8,6 @@
 %%%-------------------------------------------------------------------
 -define(TABLE_CONFIG, ibot_config).
 -define(TABLE_TOPICS, ibot_topics).
--define(TABLE_SERVICES, ibot_table_services).
+-define(TABLE_SERVICES_CLIENT, ibot_table_services_client).
+-define(TABLE_SERVICES_SERVER, ibot_table_services_server).
 -define(TABLE_NODE_INFO, ibot_node_info_table).

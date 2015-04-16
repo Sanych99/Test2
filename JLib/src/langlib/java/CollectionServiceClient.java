@@ -6,30 +6,30 @@ import java.lang.reflect.Method;
  * Created by alex on 4/16/15.
  */
 public class CollectionServiceClient {
-    private String serviceName;
+    private String clientMethodName;
     private Class<? extends IBotMsgInterface> serviceRequest;
     private Class<? extends IBotMsgInterface> serviceResponse;
-    private Method serviceCallback;
+    private Method clientServiceCallback;
 
     public CollectionServiceClient() {
     }
 
-    public CollectionServiceClient(String serviceName,
+    public CollectionServiceClient(String clientMethodName,
                                    Class<? extends IBotMsgInterface> serviceRequest,
                                    Class<? extends IBotMsgInterface> serviceResponse,
-                                   Method serviceCallback) {
-        this.serviceName = serviceName;
+                                   Method clientServiceCallback) {
+        this.clientMethodName = clientMethodName;
         this.serviceRequest = serviceRequest;
         this.serviceResponse = serviceResponse;
-        this.serviceCallback = serviceCallback;
+        this.clientServiceCallback = clientServiceCallback;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getClientMethodName() {
+        return clientMethodName;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setClientMethodName(String clientMethodName) {
+        this.clientMethodName = clientMethodName;
     }
 
     public Class<? extends IBotMsgInterface> getServiceRequest() {
@@ -48,11 +48,11 @@ public class CollectionServiceClient {
         this.serviceResponse = serviceResponse;
     }
 
-    public Method getServiceCallback() {
-        return serviceCallback;
+    public Method getClientServiceCallback() {
+        return clientServiceCallback;
     }
 
-    public void setServiceCallback(Method serviceCallback) {
-        this.serviceCallback = serviceCallback;
+    public void setClientServiceCallback(Method clientServiceCallback) {
+        this.clientServiceCallback = clientServiceCallback;
     }
 }
