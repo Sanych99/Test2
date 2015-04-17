@@ -11,6 +11,7 @@
 
 -behaviour(gen_server).
 
+-include("../../ibot_core/include/debug.hrl").
 -include("ibot_nodes_service.hrl").
 -include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
 -include("../../ibot_db/include/ibot_db_records_service.hrl").
@@ -56,6 +57,7 @@ handle_info({?REG_ASYNC_CLIENT_SERVICE, MailBoxName, NodeFullName, ClientMethodN
   {noreply, State};
 
 handle_info({?REG_ASYNC_SERVER_SERVICE, MailBoxName, NodeFullName, ServerServiceMethodName}, State) ->
+  ?DBG_MODULE_INFO("handle_info ~p~n...", [?MODULE, {?REG_ASYNC_SERVER_SERVICE, MailBoxName, NodeFullName, ServerServiceMethodName}]),
   ibot_db_func_services:register_server_service(ServerServiceMethodName, MailBoxName, NodeFullName),
   {noreply, State};
 
@@ -71,7 +73,7 @@ handle_info({?RESPONSE_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, C
   sendMessageToClient(ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage),
   {noreply, State};
 
-handle_info(_Info, State) ->
+handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info Not handle...~p~n", [?MODULE, _Info]),
   {noreply, State}.
 
 %%% ====== handle_info End ======

@@ -11,15 +11,25 @@ public class BLA_BLA_BLA extends BotNode {
         System.out.println("OutPutMessageMethod" + ((OtpErlangString)msg.elementAt(0)).stringValue());
     }
 
+    public TestSrvResp testService(TestSrvReq req) throws Exception {
+        TestSrvResp resp = new TestSrvResp();
+        resp.set_bla1("Hello=)");
+        resp.set_bla2(10);
+        resp.set_bla3("WORLD!");
+        return resp;
+    }
+
     public BLA_BLA_BLA(String[] args) throws Exception {
         //String[] args2 = new String[5];
-        //super(BLA_BLA_BLA.class, "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "facserver", "ibot_nodes_srv_registrator", "ibot_nodes_srv_topic", "jv");
-        super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"});
+        //super("BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "jv");
+        super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
         //super(args);
     }
 
     public void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException {
         System.out.println("READY!");
+
+        this.registerServiceServer("testService", TestSrvReq.class, TestSrvResp.class);
 
         try {
             Thread.sleep(5000);

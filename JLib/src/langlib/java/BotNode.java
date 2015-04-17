@@ -29,11 +29,15 @@ public abstract class BotNode implements IBotNode {
     /**
      * Otp node mail box
      */
-    private OtpMbox otpMbox;
+    private OtpMbox otpMboxAsync;
 
     /**
      * Otp node mail box name
      */
+    private String otpMboxNameAsync;
+
+    private OtpMbox otpMbox;
+
     private String otpMboxName;
 
     /**
@@ -45,6 +49,8 @@ public abstract class BotNode implements IBotNode {
      * Core message publisher module
      */
     private String publisherCoreNode;
+
+    private String serviceCoreNode;
 
     /**
      * Core node cookies
@@ -60,7 +66,7 @@ public abstract class BotNode implements IBotNode {
     /**
      * Async client services collection
      */
-    private Map<String, Set<CollectionServiceClient>> asyncServiceClientDic;
+    private Map<String, CollectionServiceClient> asyncServiceClientDic;
 
     /**
      * Async server services collection
@@ -147,17 +153,20 @@ public abstract class BotNode implements IBotNode {
         this.otpNodeName = args[0]; // init node name
         this.currentServerName = args[1]; // init current server name
         this.coreNodeName = args[2]; // init core node name
+        this.otpMboxNameAsync = args[0] + "MBoxAsync"; // init asynchronous mail box name
         this.otpMboxName = args[0] + "MBox"; // init mail box name
         this.publisherCoreNode = args[3]; // init publisher node name
-        this.coreCookie = args[4]; // init core node cookie
+        this.serviceCoreNode = args[4]; // init service node name
+        this.coreCookie = args[5]; // init core node cookie
 
         this.subscribeDic = new HashMap<>(); // init subscribers collection
 
         this.asyncServiceClientDic = new HashMap<>();
         this.asyncServiceServerDic = new HashMap<>();
 
-        set_otpNode(createNode(otpNodeName, coreCookie));
-        set_otpMbox(createMbox(otpMboxName));
+        setOtpNode(createNode(otpNodeName, coreCookie));
+        setOtpMboxAsync(createMbox(otpMboxNameAsync));
+        setOtpMbox(createMbox(otpMboxName));
 
         this.coreIsActive = true;
         this.coreIsActiveLocker = new Object();
@@ -187,7 +196,7 @@ public abstract class BotNode implements IBotNode {
      */
     private OtpMbox createMbox(String otpMboxName)
     {
-        return get_otpNode().createMbox(otpMboxName);
+        return getOtpNode().createMbox(otpMboxName);
     }
 
 
@@ -203,10 +212,10 @@ public abstract class BotNode implements IBotNode {
     public void subscribeToTopic(String topicName, String callbackMethodName, Class<? extends IBotMsgInterface> callbackMethodMessageType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[4];
         subscribeObject[0] = new OtpErlangAtom("reg_subscr");
-        subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
+        subscribeObject[1] = new OtpErlangAtom(this.otpMboxNameAsync);
         subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         subscribeObject[3] = new OtpErlangAtom(topicName);
-        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("subscribeToTopic " + topicName);
 
 
@@ -242,7 +251,7 @@ public abstract class BotNode implements IBotNode {
     //Message publish method
     public void publishMsg(OtpErlangTuple tuple)
     {
-        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, tuple);
+        this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, tuple);
     }
 
     public void publishMessage(String topicName, Object msg) throws Exception
@@ -255,12 +264,12 @@ public abstract class BotNode implements IBotNode {
 
         OtpErlangObject[] subscribeObject = new OtpErlangObject[5];
         subscribeObject[0] = new OtpErlangAtom("broadcast");
-        subscribeObject[1] = new OtpErlangAtom(this.otpMboxName);
+        subscribeObject[1] = new OtpErlangAtom(this.otpMboxNameAsync);
         subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         subscribeObject[3] = new OtpErlangAtom(topicName);
         subscribeObject[4] = msgIn.get_Msg();
         System.out.println("publishMessage subscribeObject[4] = msgIn.get_Msg();... ");
-        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("publishMessage " + topicName);
     }
 
@@ -282,9 +291,9 @@ public abstract class BotNode implements IBotNode {
 
     public OtpErlangTuple receive() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         try {
-            //OtpErlangTuple par = (OtpErlangTuple) this.otpMbox.receive();
+            //OtpErlangTuple par = (OtpErlangTuple) this.otpMboxAsync.receive();
             //invoke(par);
-            return (OtpErlangTuple) this.otpMbox.receive();
+            return (OtpErlangTuple) this.otpMboxAsync.receive();
         } catch (OtpErlangExit otpErlangExit) {
             otpErlangExit.printStackTrace();
         } catch (OtpErlangDecodeException e) {
@@ -295,33 +304,61 @@ public abstract class BotNode implements IBotNode {
     }
 
 
+    /**
+     * Call sync service
+     * @param serviceMethodName call service name
+     * @param req Request object
+     * @param <TResp> Request object type
+     * @param <TReq> Response object type
+     * @return Response object
+     */
+    public <TResp extends IBotMsgInterface, TReq extends IBotMsgInterface> TResp syncServiceRequest(String serviceMethodName, TReq req) {
+        return null;
+    }
+
+
     //Getters and Setters
 
     //otpNode Getter
-    public OtpNode get_otpNode()
+    public OtpNode getOtpNode()
     {
         return this.otpNode;
     }
 
     //otpNode Setter
-    private void set_otpNode(OtpNode otpNode)
+    private void setOtpNode(OtpNode otpNode)
     {
         this.otpNode = otpNode;
     }
 
 
-    //otpMbox Getter
-    public OtpMbox get_otpMbox()
+    //otpMboxAsync Getter
+    public OtpMbox getOtpMboxAsync()
     {
-        return  this.otpMbox;
+        return  this.otpMboxAsync;
     }
 
-    //otpMbox Setter
-    private void set_otpMbox(OtpMbox otpMbox)
+    //otpMboxAsync Setter
+    private void setOtpMboxAsync(OtpMbox otpMbox)
     {
+        this.otpMboxAsync = otpMbox;
+    }
+
+    public OtpMbox getOtpMbox() {
+        return otpMbox;
+    }
+
+    public void setOtpMbox(OtpMbox otpMbox) {
         this.otpMbox = otpMbox;
     }
 
+    public String getOtpMboxName() {
+        return otpMboxName;
+    }
+
+    public void setOtpMboxName(String otpMboxName) {
+        this.otpMboxName = otpMboxName;
+    }
 
     public boolean ok() {
         boolean isOk;
@@ -346,42 +383,46 @@ public abstract class BotNode implements IBotNode {
     /* ====== Service methods Start ====== */
 
     public void registerServiceClient(String serverServiceMethodName, String clientServiceMethodName,
-                                  Class<IBotMsgInterface> serviceRequest, Class<IBotMsgInterface> serviceResponse) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+                                  Class<? extends IBotMsgInterface> serviceRequest, Class<? extends IBotMsgInterface> serviceResponse) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
 
         OtpErlangObject[] clientServiceObject = new OtpErlangObject[4];
         clientServiceObject[0] = new OtpErlangAtom("reg_async_client_service_callback");
-        clientServiceObject[1] = new OtpErlangAtom(this.otpMboxName);
+        clientServiceObject[1] = new OtpErlangAtom(this.otpMboxNameAsync);
         clientServiceObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         clientServiceObject[3] = new OtpErlangAtom(serverServiceMethodName);
-        this.otpMbox.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(clientServiceObject));
+        this.otpMboxAsync.send(this.serviceCoreNode, this.coreNodeName, new OtpErlangTuple(clientServiceObject));
         System.out.println("registerServiceClient " + serverServiceMethodName);
 
         synchronized (this.asyncServiceClientDic) {
 
-            Method serviceMethod = getServiceObjectMethod(clientServiceMethodName, serviceRequest, serviceResponse);
+            Method serviceMethod = getServiceClientCallbackObjectMethod(clientServiceMethodName, serviceRequest, serviceResponse);
 
             if(serviceMethod != null) {
 
                 CollectionServiceClient serviceClient = new CollectionServiceClient(serverServiceMethodName,
                         serviceRequest, serviceResponse, serviceMethod);
 
-                if (this.asyncServiceClientDic.containsKey(serverServiceMethodName)) {
-                    Set<CollectionServiceClient> serviceClientSet = this.asyncServiceClientDic.get(serverServiceMethodName);
-
-                    if (!serviceClientSet.contains(serviceClient)) {
-                        serviceClientSet.add(serviceClient);
-                    }
-
-                    this.asyncServiceClientDic.put(serverServiceMethodName, serviceClientSet);
-
-                } else {
-                    Set<CollectionServiceClient> collectionSubscribesSet = new HashSet<>();
-                    collectionSubscribesSet.add(serviceClient);
-                    this.asyncServiceClientDic.put(serverServiceMethodName, collectionSubscribesSet);
-                }
+                this.asyncServiceClientDic.put(serverServiceMethodName, serviceClient);
             }
         }
 
+    }
+
+
+    public void registerServiceServer(String serviceMethodName, Class<? extends IBotMsgInterface> requestType, Class<? extends IBotMsgInterface> responseType) throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+        OtpErlangObject[] clientServiceObject = new OtpErlangObject[4];
+        clientServiceObject[0] = new OtpErlangAtom("reg_async_server_service_callback");
+        clientServiceObject[1] = new OtpErlangAtom(this.otpMboxNameAsync);
+        clientServiceObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
+        clientServiceObject[3] = new OtpErlangString(serviceMethodName);
+        this.otpMboxAsync.send(this.serviceCoreNode, this.coreNodeName, new OtpErlangTuple(clientServiceObject));
+
+        Method serviceMethod = getServiceObjectMethod(serviceMethodName, requestType);
+
+        if (serviceMethod != null) {
+            CollectionServiceServer serviceServer = new CollectionServiceServer(serviceMethodName, requestType, responseType, serviceMethod);
+            this.asyncServiceServerDic.put(serviceMethodName, serviceServer);
+        }
     }
 
     /* ====== Service methods End ====== */
@@ -454,10 +495,16 @@ public abstract class BotNode implements IBotNode {
      * @throws InstantiationException
      * @throws NoSuchMethodException
      */
-    private Method getServiceObjectMethod(String methodName, Class<?> methodParamRequest, Class<?> methodParamResponse) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
+    private Method getServiceClientCallbackObjectMethod(String methodName, Class<?> methodParamRequest, Class<?> methodParamResponse) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
         IBotMsgInterface objReq = (IBotMsgInterface) methodParamRequest.newInstance();
         IBotMsgInterface objResp = (IBotMsgInterface) methodParamResponse.newInstance();
         return this.getClass().getMethod(methodName, getParameterClasses(objReq, objResp));
+    }
+
+
+    private Method getServiceObjectMethod(String methodName, Class<?> methodParamRequest) throws IllegalAccessException, InstantiationException, NoSuchMethodException {
+        IBotMsgInterface objReq = (IBotMsgInterface) methodParamRequest.newInstance();
+        return this.getClass().getMethod(methodName, getParameterClasses(objReq));
     }
 
     /**
@@ -477,8 +524,7 @@ public abstract class BotNode implements IBotNode {
 
     private void invokeClientServiceMethodCallback(String clientServiceMethodName, Object... parameters)
             throws InvocationTargetException, IllegalAccessException {
-        for(CollectionServiceClient client : this.asyncServiceClientDic.get(clientServiceMethodName)) {
+        CollectionServiceClient client = this.asyncServiceClientDic.get(clientServiceMethodName);
             client.getClientServiceCallback().invoke(this, parameters);
-        }
     }
 }

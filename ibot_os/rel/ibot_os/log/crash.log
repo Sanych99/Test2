@@ -1,0 +1,56 @@
+2015-04-18 01:36:09 =ERROR REPORT====
+** Generic server ibot_nodes_srv_service terminating 
+** Last message in was {reg_async_server_service,'BLA_BLA_BLAMBox','BLA_BLA_BLA@alex-N550JK',testService}
+** When Server state == {state}
+** Reason for termination == 
+** {badarg,[{io,format,[<0.551.0>,"Module ~p: -> handle_info Not handle...~p~n",[{reg_async_server_service,'BLA_BLA_BLAMBox','BLA_BLA_BLA@alex-N550JK',testService}]],[]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,76}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-04-18 01:36:09 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_service:init/1
+    pid: <0.556.0>
+    registered_name: ibot_nodes_srv_service
+    exception exit: {{badarg,[{io,format,[<0.551.0>,"Module ~p: -> handle_info Not handle...~p~n",[{reg_async_server_service,'BLA_BLA_BLAMBox','BLA_BLA_BLA@alex-N550JK',testService}]],[]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,76}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.552.0>]
+    messages: []
+    links: [<0.553.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 165
+  neighbours:
+2015-04-18 01:36:09 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{io,format,[<0.551.0>,"Module ~p: -> handle_info Not handle...~p~n",[{reg_async_server_service,'BLA_BLA_BLAMBox','BLA_BLA_BLA@alex-N550JK',testService}]],[]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,76}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.556.0>},{name,ibot_nodes_srv_service},{mfargs,{ibot_nodes_srv_service,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-04-18 01:37:45 =ERROR REPORT====
+** Generic server ibot_nodes_srv_service terminating 
+** Last message in was {reg_async_server_service_callback,'BLA_BLA_BLAMBox','BLA_BLA_BLA@alex-N550JK',testService}
+** When Server state == {state}
+** Reason for termination == 
+** {badarg,[{erlang,list_to_atom,[testService],[]},{ibot_db_func_services,register_server_service,3,[{file,"src/ibot_db_func_services.erl"},{line,50}]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,61}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-04-18 01:37:45 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_service:init/1
+    pid: <0.556.0>
+    registered_name: ibot_nodes_srv_service
+    exception exit: {{badarg,[{erlang,list_to_atom,[testService],[]},{ibot_db_func_services,register_server_service,3,[{file,"src/ibot_db_func_services.erl"},{line,50}]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,61}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.552.0>]
+    messages: []
+    links: [<0.553.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 166
+  neighbours:
+2015-04-18 01:37:45 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,list_to_atom,[testService],[]},{ibot_db_func_services,register_server_service,3,[{file,"src/ibot_db_func_services.erl"},{line,50}]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,61}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.556.0>},{name,ibot_nodes_srv_service},{mfargs,{ibot_nodes_srv_service,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+

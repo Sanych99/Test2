@@ -11,6 +11,16 @@ public class CollectionServiceServer {
     private Class<? extends IBotMsgInterface> serviceResponse;
     private Method serviceCallback;
 
+    public CollectionServiceServer(String serviceName,
+                                   Class<? extends IBotMsgInterface> serviceRequest,
+                                   Class<? extends IBotMsgInterface> serviceResponse,
+                                   Method serviceCallback) {
+        this.serviceName = serviceName;
+        this.serviceRequest = serviceRequest;
+        this.serviceResponse = serviceResponse;
+        this.serviceCallback = serviceCallback;
+    }
+
     public String getServiceName() {
         return serviceName;
     }

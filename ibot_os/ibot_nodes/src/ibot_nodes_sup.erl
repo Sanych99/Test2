@@ -54,6 +54,7 @@ init([]) ->
     %IBot_Nodes_Registrator = ?CHILD(ibot_nodes_srv_registrator, worker),
 
     IB1 = ?CHILD_PARAM(ibot_nodes_srv_connector, ibot_nodes_srv_connector, worker, [NodeInfo | NodeInfoTopic]),
-    {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1]} },
-  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1]} }.
+    IBot_Nodes_Srv_Service = ?CHILD(ibot_nodes_srv_service, worker),
+    {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service]} },
+  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service]} }.
 
