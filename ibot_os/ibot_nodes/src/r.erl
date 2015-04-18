@@ -12,7 +12,7 @@
 -include("debug.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 %% API
--export([start/0, c/0, s/0, test/0]).
+-export([start/0, c/0, s/0, test/0, tss/0, tsc/0]).
 
 start() ->
   Info = gen_server:start({local, ibot_nodes_connector}, ibot_nodes_connector, [], []),
@@ -33,6 +33,16 @@ s() ->
       spawn(fun() -> message_broadcast(NodeInfoList, {"Hello from Erlang! yes!!!", 1, "qwerty!"}) end);
     [] -> ok
   end,
+  ok.
+
+tss() ->
+  ?DBG_MODULE_INFO("tss: ~n", [?MODULE]),
+  erlang:send({'BLA_BLA_SMBoxAsync', 'BLA_BLA_S@alex-N550JK'}, {call_service_method, "testService", clientMailBoxName, clientNodeFullName, "test_cli", {"One", 2, "Three"}}),
+  ok.
+
+tsc() ->
+  ?DBG_MODULE_INFO("tss: ~n", [?MODULE]),
+  erlang:send({'BLA_BLA_CMBoxAsync', 'BLA_BLA_C@alex-N550JK'}, {call_client_service_callback_method, "testServiceClient", {"One", 2, "Three"}, {"Hello=)", 11, "World!"}}),
   ok.
 
 message_broadcast([], _) -> ok;

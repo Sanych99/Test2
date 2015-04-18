@@ -111,8 +111,27 @@ public abstract class BotNode implements IBotNode {
                                 String serviceMethodName = ((OtpErlangString) rMessage.elementAt(1)).stringValue();
                                 OtpErlangAtom clientMailBoxName = (OtpErlangAtom) rMessage.elementAt(2);
                                 OtpErlangAtom clientNodeFullName = (OtpErlangAtom) rMessage.elementAt(3);
-                                String clientMethodNameCallback = ((OtpErlangString) rMessage.elementAt(4)).stringValue();
+                                OtpErlangString clientMethodNameCallback = (OtpErlangString) rMessage.elementAt(4);
                                 OtpErlangTuple requestMessageFromClient = (OtpErlangTuple) rMessage.elementAt(5);
+
+
+                                System.out.println("call_service_method");
+
+                                IBotMsgInterface response = invokeServerServiceMethod(serviceMethodName, requestMessageFromClient);
+
+                                System.out.println("call_service_method response...");
+
+
+                                OtpErlangObject[] serviceResponseObject = new OtpErlangObject[6];
+                                serviceResponseObject[0] = new OtpErlangAtom("response_service_message");
+                                serviceResponseObject[1] = clientMailBoxName;
+                                serviceResponseObject[2] = clientNodeFullName;
+                                serviceResponseObject[3] = clientMethodNameCallback;
+                                serviceResponseObject[4] = requestMessageFromClient;
+                                serviceResponseObject[5] = response.get_Msg();
+
+                                otpMboxAsync.send(serviceCoreNode, coreNodeName, new OtpErlangTuple(serviceResponseObject));
+
                                 break;
 
                             case "call_client_service_callback_method":
@@ -317,6 +336,22 @@ public abstract class BotNode implements IBotNode {
     }
 
 
+
+    public void asyncServiceRequest(String serviceMethodName, IBotMsgInterface req) throws Exception {
+        CollectionServiceClient serviceClient = this.asyncServiceClientDic.get(serviceMethodName);
+        OtpErlangObject[] requestServiceObject = new OtpErlangObject[5];
+        requestServiceObject[0] = new OtpErlangAtom("request_service_message");
+        requestServiceObject[1] = new OtpErlangAtom(this.otpMboxNameAsync);
+        requestServiceObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
+        requestServiceObject[3] = new OtpErlangString(serviceClient.getClientMethodCallbackName());
+        requestServiceObject[4] = new OtpErlangString(serviceMethodName);
+        requestServiceObject[5] = req.get_Msg();
+
+        this.otpMboxAsync.send(this.serviceCoreNode, this.coreNodeName, new OtpErlangTuple(requestServiceObject));
+    }
+
+
+
     //Getters and Setters
 
     //otpNode Getter
@@ -399,10 +434,10 @@ public abstract class BotNode implements IBotNode {
 
             if(serviceMethod != null) {
 
-                CollectionServiceClient serviceClient = new CollectionServiceClient(serverServiceMethodName,
+                CollectionServiceClient serviceClient = new CollectionServiceClient(serverServiceMethodName, clientServiceMethodName,
                         serviceRequest, serviceResponse, serviceMethod);
 
-                this.asyncServiceClientDic.put(serverServiceMethodName, serviceClient);
+                this.asyncServiceClientDic.put(clientServiceMethodName, serviceClient);
             }
         }
 
@@ -523,8 +558,18 @@ public abstract class BotNode implements IBotNode {
     /* ====== Invoke callback method End ====== */
 
     private void invokeClientServiceMethodCallback(String clientServiceMethodName, Object... parameters)
-            throws InvocationTargetException, IllegalAccessException {
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         CollectionServiceClient client = this.asyncServiceClientDic.get(clientServiceMethodName);
-            client.getClientServiceCallback().invoke(this, parameters);
+        if(client!=null) {
+            IBotMsgInterface request = client.getServiceRequest().getDeclaredConstructor(OtpErlangTuple.class).newInstance(parameters[0]);
+            IBotMsgInterface response = client.getServiceResponse().getDeclaredConstructor(OtpErlangTuple.class).newInstance(parameters[1]);
+            client.getClientServiceCallback().invoke(this, request, response);
+        }
+    }
+
+    private <T extends IBotMsgInterface> T invokeServerServiceMethod(String serviceMethodName, Object requestMessage) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+        CollectionServiceServer serviceServer = this.asyncServiceServerDic.get(serviceMethodName);
+        IBotMsgInterface request = serviceServer.getServiceRequest().getDeclaredConstructor(OtpErlangTuple.class).newInstance(requestMessage);
+        return (T) serviceServer.getServiceCallback().invoke(this, request);
     }
 }

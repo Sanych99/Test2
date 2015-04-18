@@ -70,6 +70,7 @@ handle_info({?REQUEST_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, Cl
   {noreply, State};
 
 handle_info({?RESPONSE_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage}, State) ->
+  ?DBG_MODULE_INFO("handle_info: ~p~n", [?MODULE, {?RESPONSE_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage}]),
   sendMessageToClient(ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage),
   {noreply, State};
 

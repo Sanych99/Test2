@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
  */
 public class CollectionServiceClient {
     private String serviceMethodName;
+    private String clientMethodCallbackName;
     private Class<? extends IBotMsgInterface> serviceRequest;
     private Class<? extends IBotMsgInterface> serviceResponse;
     private Method clientServiceCallback;
@@ -19,10 +20,12 @@ public class CollectionServiceClient {
     }
 
     public CollectionServiceClient(String serviceMethodName,
+                                   String clientMethodCallbackName,
                                    Class<? extends IBotMsgInterface> serviceRequest,
                                    Class<? extends IBotMsgInterface> serviceResponse,
                                    Method clientServiceCallback) {
         this.serviceMethodName = serviceMethodName;
+        this.clientMethodCallbackName = clientMethodCallbackName;
         this.serviceRequest = serviceRequest;
         this.serviceResponse = serviceResponse;
         this.clientServiceCallback = clientServiceCallback;
@@ -74,5 +77,13 @@ public class CollectionServiceClient {
 
     public void setServiceNode(OtpErlangAtom serviceNode) {
         this.serviceNode = serviceNode;
+    }
+
+    public String getClientMethodCallbackName() {
+        return clientMethodCallbackName;
+    }
+
+    public void setClientMethodCallbackName(String clientMethodCallbackName) {
+        this.clientMethodCallbackName = clientMethodCallbackName;
     }
 }
