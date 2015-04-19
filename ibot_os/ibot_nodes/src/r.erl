@@ -42,7 +42,7 @@ tss() ->
 
 tsc() ->
   ?DBG_MODULE_INFO("tss: ~n", [?MODULE]),
-  erlang:send({'BLA_BLA_CMBoxAsync', 'BLA_BLA_C@alex-N550JK'}, {call_client_service_callback_method, "testServiceClient", {"One", 2, "Three"}, {"Hello=)", 11, "World!"}}),
+  erlang:send({'BLA_BLA_CMBoxAsync', 'BLA_BLA_C@alex-N550JK'}, {call_client_service_callback_method, "testService", "testServiceClient", {"One", 2, "Three"}, {"Hello=)", 11, "World!"}}),
   ok.
 
 message_broadcast([], _) -> ok;

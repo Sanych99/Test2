@@ -62,16 +62,20 @@ handle_info({?REG_ASYNC_SERVER_SERVICE, MailBoxName, NodeFullName, ServerService
   {noreply, State};
 
 handle_info({?REQUEST_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, ServiceMethodName, RequestMessage}, State) ->
-  case ibot_db_func_services:get_server_service(ServiceMethodName) of
+  case ibot_db_func_services:get_server_service(list_to_atom(ServiceMethodName)) of
     ?RECORD_NOT_FOUND -> ?RECORD_NOT_FOUND;
-    Record -> sendMessageToService(Record#service_server.mailBox, Record#service_server.nodeFullName, ServiceMethodName,
-      ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage)
+    Record -> spawn(fun() ->
+      sendMessageToService(Record#service_server.mailBox, Record#service_server.nodeFullName, ServiceMethodName,
+        ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage)
+    end)
   end,
   {noreply, State};
 
-handle_info({?RESPONSE_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage}, State) ->
+handle_info({?RESPONSE_SERVICE_MESSAGE, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage}, State) ->
   ?DBG_MODULE_INFO("handle_info: ~p~n", [?MODULE, {?RESPONSE_SERVICE_MESSAGE, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage}]),
-  sendMessageToClient(ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage),
+  spawn(fun() ->
+    sendMessageToClient(ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponseMessage)
+  end),
   {noreply, State};
 
 handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info Not handle...~p~n", [?MODULE, _Info]),
@@ -94,6 +98,6 @@ sendMessageToService(ServiceMailBoxName, ServiceNodeFullName, ServiceMethodName,
   erlang:send({ServiceMailBoxName, ServiceNodeFullName}, {?CALL_SERVICE_METHOD, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage}),
   ok.
 
-sendMessageToClient(ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponceMessage) ->
-  erlang:send({ClientMailBoxName, ClientNodeFullName}, {?CALL_CLIENT_SERVICE_CALLBACK_METHOD, ClientMethodName, RequestMessage, ResponceMessage}),
+sendMessageToClient(ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage, ResponceMessage) ->
+  erlang:send({ClientMailBoxName, ClientNodeFullName}, {?CALL_CLIENT_SERVICE_CALLBACK_METHOD, ServiceMethodName, ClientMethodName, RequestMessage, ResponceMessage}),
   ok.

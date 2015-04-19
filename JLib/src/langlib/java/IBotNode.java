@@ -5,5 +5,5 @@ package langlib.java;
  */
 public interface IBotNode {
     //Main action node method
-    void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException;
+    void Action() throws Exception;
 }

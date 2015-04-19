@@ -15,7 +15,7 @@ public class BLA_BLA_C extends BotNode {
         super(new String[] {"BLA_BLA_C", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
     }
 
-    public void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public void Action() throws Exception {
         System.out.println("READY!");
 
 
@@ -25,6 +25,14 @@ public class BLA_BLA_C extends BotNode {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+
+        for(int i=0; i<500; i++) {
+            TestSrvReq req = new TestSrvReq();
+            req.set_bla1("Hello: " + i);
+            req.set_bla2(i);
+            req.set_bla3("World: " + i);
+            this.asyncServiceRequest("testService", req);
         }
         
         System.out.println("subscribeToTopic...");
