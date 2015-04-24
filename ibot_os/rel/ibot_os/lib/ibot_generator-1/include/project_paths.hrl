@@ -11,5 +11,8 @@
 
 -define(DEV_MESSAGE_FOLDER, "msg").
 
--define(DEV_MSG_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?DEV_FOLDER, ?DELIM_SYMBOL, ?DEV_MSG_PATH], "")).
+-define(DEV_MSG_PATH_DIR(Path), string:join([Path, ?DELIM_SYMBOL, ?DEV_FOLDER, ?DELIM_SYMBOL, ?DEV_MSG_PATH], "")).
+-define(DEV_SRV_PATH_DIR(Path), string:join([Path, ?DELIM_SYMBOL, ?DEV_FOLDER, ?DELIM_SYMBOL, ?DEV_SRV_PATH], "")).
+
 -define(DEV_MSG_JAVA_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?JAVA_FOLDER], "")).
+-define(DEV_SRV_JAVA_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?JAVA_FOLDER], "")).

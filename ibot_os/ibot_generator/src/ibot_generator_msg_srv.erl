@@ -29,8 +29,11 @@
 -spec generate_msg_srv(ProjectDir) -> ok when ProjectDir :: string().
 
 generate_msg_srv(ProjectDir) ->
-  generate_msg_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg and srv source files
+  generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
+    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg source files
+
+  generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
+    ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
   ok.
 
 
@@ -38,8 +41,9 @@ generate_all_msg_srv() ->
   case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of
     [{?FULL_PROJECT_PATH, ProjectPath}] ->
       ?DBG_MODULE_INFO("generate_all_msg_srv() -> start method ~n", [?MODULE]),
-      generate_msg_srv_source_files(filelib:wildcard(string:join([ProjectPath, ?SRC_FOLDER, "*",
-      ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectPath); %% Generate all msg and srv source files
+      %%generate_msg_source_files(filelib:wildcard(string:join([ProjectPath, ?SRC_FOLDER, "*",
+      %%?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectPath); %% Generate all msg and srv source files
+      generate_msg_srv(ProjectPath);
     _ ->
       {error, project_full_path_not_found}
   end,
@@ -55,29 +59,61 @@ generate_all_msg_srv() ->
 %% @spec
 %% @end
 
--spec generate_msg_srv_source_files([FileName | FilesList], ProjectDir) -> ok when FileName ::string(),
+-spec generate_msg_source_files([FileName | FilesList], ProjectDir) -> ok when FileName ::string(),
   FilesList :: string(), ProjectDir :: string().
 
-generate_msg_srv_source_files([FileName | FilesList], ProjectDir) ->
+generate_msg_source_files([FileName | FilesList], ProjectDir) ->
   ?DBG_INFO("files for generate: ~p~n", [[FileName | FilesList]]),
 
   RawFileName = filename:basename(FileName, ".msg"), %% File name without path and extension
 
-  ProjectMsgPath = ?DEV_MSG_PATH(ProjectDir), %% Project path
+  ProjectMsgPath = ?DEV_MSG_PATH_DIR(ProjectDir), %% Project path
 
   JavaProjectMsgPath = ?DEV_MSG_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
 
   {ok, GeneratedFile} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".java"], ""), [write]), %% Open generated file
 
-  for_each_line_in_file(FileName, GeneratedFile,RawFileName), %% Generate properties code
+  for_each_line_in_msg_file(FileName, GeneratedFile,RawFileName), %% Generate properties code
 
-  generate_msg_srv_source_files(FilesList, ProjectDir), %% Generate next file
+  generate_msg_source_files(FilesList, ProjectDir), %% Generate next file
   ok;
-generate_msg_srv_source_files([], _ProjectDir) ->
+generate_msg_source_files([], _ProjectDir) ->
   %% Create JAR library for JAVA messages
   %% ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
   ok.
 
+
+
+%% @doc
+%% Generate services source files for language
+%%
+%% @spec
+%% @end
+
+-spec generate_srv_source_files([FileName | FilesList], ProjectDir) -> ok when FileName ::string(),
+  FilesList :: string(), ProjectDir :: string().
+
+generate_srv_source_files([FileName | FilesList], ProjectDir) ->
+  ?DBG_INFO("files for generate: ~p~n", [[FileName | FilesList]]),
+
+  RawFileName = filename:basename(FileName, ".srv"), %% File name without path and extension
+
+  ProjectMsgPath = ?DEV_SRV_PATH_DIR(ProjectDir), %% Project path
+
+  JavaProjectMsgPath = ?DEV_SRV_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
+
+  {ok, GeneratedFileReq} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Req.java"], ""), [write]), %% Open generated file
+
+  {ok, GeneratedFileResp} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Resp.java"], ""), [write]), %% Open generated file
+
+  for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp,RawFileName), %% Generate properties code
+
+  generate_srv_source_files(FilesList, ProjectDir), %% Generate next file
+  ok;
+generate_srv_source_files([], _ProjectDir) ->
+  %% Create JAR library for JAVA messages
+  %% ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
+  ok.
 
 
 
@@ -87,20 +123,45 @@ generate_msg_srv_source_files([], _ProjectDir) ->
 %% @spec
 %% @end
 
--spec for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> ok when FileName :: string(), GeneratedFile :: term(),
+-spec for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName) -> ok when FileName :: string(), GeneratedFile :: term(),
   RawFileName :: string().
 
-for_each_line_in_file(FileName, GeneratedFile, RawFileName) ->
+for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
   file:write(GeneratedFile, ?JAVA_MSG_FILE_HEADER(RawFileName)), %% Write header template
   for_each_line(Device, GeneratedFile, RawFileName, 0, []),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
+
+  file:close(Device),
+  ok.
+
+
+%% @doc
+%% Read lines from message files
+%%
+%% @spec
+%% @end
+
+-spec for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp, RawFileName) -> ok when FileName :: string(), GeneratedFileReq :: term(),
+  GeneratedFileResp :: term(), RawFileName :: string().
+
+for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp, RawFileName) ->
+  {ok, Device} = file:open(FileName, [read]),
+  file:write(GeneratedFileReq, ?JAVA_MSG_FILE_HEADER(string:join([RawFileName, "Req"], ""))), %% Write header template
+  for_each_line(Device, GeneratedFileReq, string:join([RawFileName, "Req"], ""), 0, []),
+  ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
+
+  file:write(GeneratedFileResp, ?JAVA_MSG_FILE_HEADER(string:join([RawFileName, "Resp"], ""))),
+  for_each_line(Device, GeneratedFileResp, string:join([RawFileName, "Resp"], ""), 0, []),
+  ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
+
+  file:close(Device),
   ok.
 
 
 for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
   case io:get_line(Device, "") of
-    eof ->
+    EndPath when EndPath == eof;EndPath == "---\n" ->
       file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
       file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
 
@@ -111,7 +172,6 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
       getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
       file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
 
-      file:close(Device),
       file:close(GeneratedFile),
       ?DBG_MODULE_INFO("for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) -> all files closed...  ~n", [?MODULE]),
       ok;

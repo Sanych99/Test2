@@ -8,8 +8,10 @@
 %%%-------------------------------------------------------------------
 -define(DEV_FOLDER, "dev").
 -define(DEV_MSG_PATH, "msg").
+-define(DEV_SRV_PATH, "srv").
 
 -define(MESSAGE_DIR, "msg").
+-define(SERVICE_DIR, "srv").
 -define(SRC_FOLDER, "src").
 
 -define(JAVA_FOLDER, "java").
