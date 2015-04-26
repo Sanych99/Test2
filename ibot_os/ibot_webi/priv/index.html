@@ -6,6 +6,7 @@
 <script type="text/javascript">
 var ws = new Object;
 
+/*Open websocket connection to iBotOS core*/
 function open()
 {
     if (!("WebSocket" in window)) {
@@ -45,21 +46,25 @@ function open()
     };
 }
 
+    /*Load connect to project page*/
     function loadConnectToProject()
     {
         $('#contentDiv').load('/pageConnectToProject');
     }
 
+    /*Loanf create new project page*/
     function loadCreateProject()
     {
         $('#contentDiv').load('/pageCreateProject');
     }
 
+    /*Load create new node page*/
     function loadCreateNode()
     {
         $('#contentDiv').load('/pageCreateNode');
     }
 
+    /*Load project nodes list page*/
     function loadProjectNodes()
     {
         $('#contentDiv').load('/pageNodeList', function () {

@@ -13,7 +13,7 @@
 -export([create_project/2, create_node/2, connect_to_project/1, get_project_nodes/0]).
 -export([get_cur_dir/0]).
 -export([add_node_name_to_config/1]).
--export([start_project/0]).
+-export([start_project/0, start_node/1]).
 
 %% ===================================================================
 %% Application callbacks
@@ -117,6 +117,10 @@ start_project() ->
   Nodes = ibot_db_func_config:get_nodes_name_from_config(),
   ?DBG_MODULE_INFO("start_project() -> ~p~n", [?MODULE, Nodes]),
   run_project_node(Nodes),
+  ok.
+
+start_node(NodeName) ->
+  run_project_node([NodeName]),
   ok.
 
 run_project_node([NodeName | NodeNamesList]) ->

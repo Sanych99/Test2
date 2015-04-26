@@ -10,7 +10,7 @@
 
 -behaviour(gen_server).
 
--export([start_link/1, run_node/1]).
+-export([start_link/1, run_node/1, stop_node/1]).
 
 -export([init/1,
   handle_call/3,
@@ -90,34 +90,57 @@ code_change(_OldVsn, State, _Extra) ->
 %% Запуск узла
 %% @spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
 %% @end
+
 -spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
+
 run_node([]) ->
   ?DBG_MODULE_INFO("run_node([]) -> ...~n", [?MODULE]),
   ok;
+
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
-  nodeLang = NodeLang, nodeExecutable = NodeExecutable,
+  nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
-  %% Проверка наличия исполняющего файла java
-  case os:find_executable(NodeExecutable) of
-    [] ->
-      throw({stop, executable_file_missing});
-    ExecutableFile ->
-      ArgumentList = lists:append([
-        %["-classpath",
-        %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
-        NodePreArguments, % Аргументы для исполняемого файла
-        %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
-        [NodeName, % Имя запускаемого узла
-          NodeName, % mail box name
-          net_adm:localhost(), % host name
-          % Передаем параметры в узел
-          atom_to_list(node()), % Имя текущего узла
-          "ibot_nodes_srv_topic", % Topic registrator
-          erlang:get_cookie()]%, % Значение Cookies для узла
-        %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
-      ]
-      ),
-      % Выполянем комманду по запуску узла
-      erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
+
+  case AtomNodeLang of
+    java ->
+      %% Проверка наличия исполняющего файла java
+      case os:find_executable(NodeExecutable) of
+        [] ->
+          throw({stop, executable_file_missing});
+        ExecutableFile ->
+          ArgumentList = lists:append([
+            %["-classpath",
+            %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
+            NodePreArguments, % Аргументы для исполняемого файла
+            %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
+            [NodeName, % Имя запускаемого узла
+              NodeName, % mail box name
+              net_adm:localhost(), % host name
+              % Передаем параметры в узел
+              atom_to_list(node()), % Имя текущего узла
+              "ibot_nodes_srv_topic", % Topic registrator
+              erlang:get_cookie()]%, % Значение Cookies для узла
+            %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
+          ]
+          ),
+          % Выполянем комманду по запуску узла
+          erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
       %erlang:open_port({spawn, "java"}, [{line,1000}, stderr_to_stdout, {args, [" -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"]}])
+      end;
+
+    _ -> error
   end.
+
+
+stop_node([NodeName | NodeList]) ->
+  ?DBG_MODULE_INFO("stop_node([NodeName | NodeList]): ~p~n", [?MODULE, NodeName]),
+  case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of
+    [] -> ok;
+    NodeInfo ->
+      ?DBG_MODULE_INFO("stop_node([NodeName | NodeList]) -> try exit from node... ~p~n", [?MODULE, {NodeInfo#node_info.atomNodeSystemMailBox, NodeInfo#node_info.atomNodeServer}]),
+      erlang:send({NodeInfo#node_info.atomNodeSystemMailBox, NodeInfo#node_info.atomNodeNameServer}, {system, exit})
+  end,
+  stop_node(NodeList);
+stop_node([]) ->
+  ok.
+

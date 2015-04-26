@@ -145,10 +145,12 @@ public abstract class BotNode implements IBotNode {
 
                             // system message
                             case "system":
+                                System.out.println("case system: " + ok());
                                 String systemAction = ((OtpErlangAtom) rMessage.elementAt(1)).toString(); // system action
 
                                 switch (systemAction) {
                                     case "exit" : set_coreIsActive(false);
+                                        System.out.println("Exit message complete... current value: " + ok());
                                         break;
                                 }
 
@@ -160,6 +162,7 @@ public abstract class BotNode implements IBotNode {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Node finished work...");
         }
     });
 
@@ -174,8 +177,8 @@ public abstract class BotNode implements IBotNode {
         this.otpNodeName = args[0]; // init node name
         this.currentServerName = args[1]; // init current server name
         this.coreNodeName = args[2]; // init core node name
-        this.otpMboxNameAsync = args[0] + "MBoxAsync"; // init asynchronous mail box name
-        this.otpMboxName = args[0] + "MBox"; // init mail box name
+        this.otpMboxNameAsync = args[0] + "_MBoxAsync"; // init asynchronous mail box name
+        this.otpMboxName = args[0] + "_MBox"; // init mail box name
         this.publisherCoreNode = args[3]; // init publisher node name
         this.serviceCoreNode = args[4]; // init service node name
         this.coreCookie = args[5]; // init core node cookie

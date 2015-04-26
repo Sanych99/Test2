@@ -16,12 +16,14 @@
 
 %% @doc
 %% nodeName - Наименование узла
+%% nodeSystemMailBox - Системный почтовый ящик узла
 %% nodeServer - Имя сервера на котором запущен узел
 %% nodeNameServer - Соедененное значения имени узла и сервера
 %% nodeLang - Язык программирования на котором написан узел
 %% nodeExecutable - исполняемы файл для запуска узла (java, python, gcc)
 -record(node_info, {
   nodeName :: string(), atomNodeName :: atom(),
+  nodeSystemMailBox :: string(), atomNodeSystemMailBox :: atom(),
   nodeServer :: string(), atomNodeServer :: atom(),
   nodeNameServer :: string(), atomNodeNameServer :: atom(),
   nodeLang :: string(), atomNodeLang :: atom(),

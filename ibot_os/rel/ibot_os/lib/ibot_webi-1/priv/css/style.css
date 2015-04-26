@@ -1,7 +1,7 @@
 input[type=button] {
-    border: 1px solid #40d110;
+    border: 1px solid #C8C8C8;
     height: 35px;
-    background-color: #40d110;
+    background-color: rgba(138, 223, 59, 0.94);
     color: #555555;
 }
 

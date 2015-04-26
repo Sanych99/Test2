@@ -38,6 +38,9 @@ websocket_handle({text, Msg}, Req, State) ->
         <<"compileAllNodes">> ->
           gen_server:call(?IBOT_CORE_SRV_COMPILE_NODES, {?COMPILE_ALL_NODES}),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"compileOneNode">> ->
+          gen_server:call(?IBOT_CORE_SRV_COMPILE_NODES, {?COMPILE_NODE, binary_to_list(B)}),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         <<"connectToProject">> ->
           ibot_core_app:connect_to_project(binary_to_list(B)),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
@@ -70,6 +73,12 @@ websocket_handle({text, Msg}, Req, State) ->
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         <<"startProject">> ->
           ibot_core_app:start_project(),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"startNode">> ->
+          ibot_core_app:start_node(binary_to_list(B)),
+          {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+        <<"stopNode">> ->
+          ibot_nodes_srv_connector:stop_node([binary_to_list(B)]),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         _ -> {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
       end;

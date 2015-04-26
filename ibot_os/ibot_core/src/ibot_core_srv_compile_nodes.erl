@@ -16,6 +16,8 @@
 -include("debug.hrl").
 -include("ibot_core_node_compilation_commands.hrl").
 -include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
+-include("../../ibot_core/include/ibot_core_reserve_atoms.hrl").
 -include("env_params.hrl").
 
 %% API
@@ -29,7 +31,7 @@
   terminate/2,
   code_change/3]).
 
--export([compile_all_nodes/0]).
+-export([compile_all_nodes/0, compile_one_node/1]).
 
 -define(SERVER, ?MODULE).
 
@@ -53,7 +55,7 @@ init([]) ->
 
 handle_call({?COMPILE_ALL_NODES}, _From, State) ->
   ?DBG_MODULE_INFO("handle_call({?COMPILE_ALL_NODES}, _From, State) -> ~p~n", [?MODULE, {?COMPILE_ALL_NODES}]),
-  ibot_core_srv_compile_nodes:compile_all_nodes(),
+  ibot_core_srv_compile_nodes:compile_all_nodes(), %% compile all nodes
   {reply, ok, State};
 
 %% @doc
@@ -61,6 +63,7 @@ handle_call({?COMPILE_ALL_NODES}, _From, State) ->
 %% Compile one node
 
 handle_call({?COMPILE_NODE, NodeName}, _From, State) ->
+  ibot_core_srv_compile_nodes:compile_one_node(NodeName), %% compile node by name
   {reply, ok, State};
 
 handle_call(_Request, _From, State) ->
@@ -89,35 +92,75 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
-%%% ====== compile_all_nodes function start ======
+%%% ====== compile nodes functions start ======
 
+
+%% @doc
+%%
+%% Compile all nodes in project
+%% @spec compile_all_nodes() -> ok.
+%% @end
+
+-spec compile_all_nodes() -> ok.
 compile_all_nodes() ->
-
-  case ibot_db_func_config:get_nodes_name_from_config() of
+  case ibot_db_func_config:get_nodes_name_from_config() of %% get all nodes name
     NodesList ->
-      case ibot_db_func_config:get_full_project_path() of
-        ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND;
+      case ibot_db_func_config:get_full_project_path() of %% get full path to project directory
+        ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND; %% full ptoject path not found
         Full_Project_Path ->
-          compile_node(NodesList, Full_Project_Path)
-      end,
-      ok;
+          compile_node(NodesList, Full_Project_Path) %% compile all nodes
+      end;
     _ -> ?DBG_MODULE_INFO("compile_all_nodes() -> error from ibot_db_func_config:get_nodes_name_from_config() ~n", [?MODULE])
   end,
   ok.
 
-%%% ====== compile_all_nodes function end ======
 
+%% @doc
+%%
+%% Compile one node by name
+%% @spec compile_one_node(NodeName) -> ok when NodeName :: string().
+%% @end
+
+-spec compile_one_node(NodeName) -> ok when NodeName :: string().
+compile_one_node(NodeName) ->
+  case ibot_db_func_config:get_full_project_path() of %% get full path to project directory
+    ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND; %% full ptoject path not found
+    Full_Project_Path ->
+      compile_node([NodeName], Full_Project_Path) %% compile node
+  end,
+  ok.
+
+%%% ====== compile nodes functions end ======
+
+
+
+%% @doc
+%%
+%% Компиляция узла
+%% @spec compile_node([NodeName | NodeNamesList], Full_Project_Path) -> ok
+%% when NodeName :: string(), NodeNamesList :: list(), Full_Project_Path :: string().
+%% @end
+
+-spec compile_node([NodeName | NodeNamesList], Full_Project_Path) -> ok
+  when NodeName :: string(), NodeNamesList :: list(), Full_Project_Path :: string().
 
 compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
-  NodeCompilePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER, NodeName], ?DELIM_PATH_SYMBOL),
+  NodeCompilePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER, NodeName], ?DELIM_PATH_SYMBOL), %% node compilation directory
 
-  ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
-  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/srv/java",
-    string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
+  case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of %% get node info from config db
+    ?NODE_INFO_NOT_FOUND -> error; %% node info not found in config db
+    ?ACTION_ERROR -> error; %% action error
+    NodeInfoRecord ->
+      case NodeInfoRecord#node_info.atomNodeLang of %% chack node lang
+        %% compile java node
+        java -> ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
+          "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/srv/java",
+          string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
+          ibot_core_func_cmd:run_exec(ExecuteCommand);
 
-  ibot_core_func_cmd:run_exec(ExecuteCommand),
-
-  compile_node(NodeNamesList, Full_Project_Path),
-  ok;
-compile_node([],Full_Project_Path) -> ok.
+        _ -> error
+      end
+  end,
+  compile_node(NodeNamesList, Full_Project_Path); %% compile next node
+compile_node([],_) -> ok.
 
