@@ -10,6 +10,10 @@
 
 -export([create_db/1, add/3, get/2, delete_table/1]).
 
+-export([add_to_mnesia/1, get_from_mnesia/2]).
+
+
+
 create_db(TableName) ->
   ets:new(TableName, [named_table, public]).
 
@@ -21,3 +25,10 @@ get(TableName, Key) ->
 
 delete_table(TableName) ->
   ets:delete(TableName).
+
+
+add_to_mnesia(Record) ->
+  mnesia:transaction(fun() -> mnesia:write(Record) end).
+
+get_from_mnesia(Table, Key) ->
+  mnesia:transaction(fun() -> mnesia:read(Table, Key) end).

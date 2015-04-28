@@ -22,6 +22,8 @@
 -include("ibot_db_table_names.hrl").
 -include("ibot_db_table_commands.hrl").
 
+-include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
+
 -record(state, {}).
 
 %% ====== start_link function start ======
@@ -48,6 +50,11 @@ init([]) ->
   ibot_db_func:create_db(?TABLE_NODE_INFO), %% Create node info table
   ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
   ibot_db_func:create_db(?TABLE_SERVICES_SERVER), %% Create server service table
+
+  mnesia:start(),
+  mnesia:create_schema([node()]),
+  mnesia:create_table(node_info,
+    [{attributes, record_info(fields, node_info)}]),
   {ok, #state{}}.
 
 %% ====== init function end ======
@@ -120,6 +127,9 @@ terminate(_Reason, _State) ->
   ibot_db_func:delete_table(?TABLE_NODE_INFO), %% Delete node info table
   ibot_db_func:delete_table(?TABLE_SERVICES_CLIENT), %% Delete cilent service table
   ibot_db_func:delete_table(?TABLE_SERVICES_SERVER), %% Delete server service table
+
+  mnesia:delete_table(node_info),
+  mnesia:stop(),
   ok.
 %% ====== terminate function end ======
 

@@ -1,4 +1,4 @@
-%% rel generated at {2015,4,27} {2,46,31}
+%% rel generated at {2015,4,29} {1,33,5}
 {release,{"ibot_os","1"},
          {erts,"6.3"},
          [{kernel,"3.1"},
@@ -18,6 +18,7 @@
           {lager,"2.1.1"},
           {ibot_webi,"1"},
           {ibot_nodes,"1"},
+          {mnesia,"4.12.4"},
           {ibot_events,"1",load},
           {ibot_ri,"1",load}]}.
 

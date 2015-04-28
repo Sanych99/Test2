@@ -42,3 +42,31 @@ Ranch listener http had connection process started with cowboy_protocol:start_li
      Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
      Offender:   [{pid,<0.555.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[[{node_info,"ClientTest",undefined,undefined,undefined,"alex-N550JK",undefined,"bar@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[]}|{node_info,"ClientTestTopic",undefined,undefined,undefined,"alex-N550JK",undefined,"bar_topic@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[]}]]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
 
+2015-04-29 01:29:07 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{atomic,[{node_info,'BLA_BLA_BLA',"BLA_BLA_BLA","BLA_BLA_BLA_MBoxAsync",'BLA_BLA_BLA_MBoxAsync',"alex-N550JK",'alex-N550JK',"BLA_BLA_BLA@alex-N550JK",'BLA_BLA_BLA@alex-N550JK',"java",java,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA"],[]}]}}}
+** When Server state == {state,undefined,"bar@alex-N550JK"}
+** Reason for termination == 
+** {function_clause,[{ibot_nodes_srv_connector,run_node,[{atomic,[{node_info,'BLA_BLA_BLA',"BLA_BLA_BLA","BLA_BLA_BLA_MBoxAsync",'BLA_BLA_BLA_MBoxAsync',"alex-N550JK",'alex-N550JK',"BLA_BLA_BLA@alex-N550JK",'BLA_BLA_BLA@alex-N550JK',"java",java,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA"],[]}]}],[{file,"src/ibot_nodes_srv_connector.erl"},{line,96}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-04-29 01:29:07 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.601.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{ibot_nodes_srv_connector,run_node,[{atomic,[{node_info,'BLA_BLA_BLA',"BLA_BLA_BLA","BLA_BLA_BLA_MBoxAsync",'BLA_BLA_BLA_MBoxAsync',"alex-N550JK",'alex-N550JK',"BLA_BLA_BLA@alex-N550JK",'BLA_BLA_BLA@alex-N550JK',"java",java,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA"],[]}]}],[{file,"src/ibot_nodes_srv_connector.erl"},{line,96}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.598.0>]
+    messages: []
+    links: [<0.599.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 313
+  neighbours:
+2015-04-29 01:29:07 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{ibot_nodes_srv_connector,run_node,[{atomic,[{node_info,'BLA_BLA_BLA',"BLA_BLA_BLA","BLA_BLA_BLA_MBoxAsync",'BLA_BLA_BLA_MBoxAsync',"alex-N550JK",'alex-N550JK',"BLA_BLA_BLA@alex-N550JK",'BLA_BLA_BLA@alex-N550JK',"java",java,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/nodes/BLA_BLA_BLA"],[]}]}],[{file,"src/ibot_nodes_srv_connector.erl"},{line,96}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.601.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[[{node_info,undefined,"ClientTest",undefined,undefined,"alex-N550JK",undefined,"bar@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[]}|{node_info,undefined,"ClientTestTopic",undefined,undefined,"alex-N550JK",undefined,"bar_topic@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[]}]]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+

@@ -22,7 +22,7 @@
 %% nodeLang - Язык программирования на котором написан узел
 %% nodeExecutable - исполняемы файл для запуска узла (java, python, gcc)
 -record(node_info, {
-  nodeName :: string(), atomNodeName :: atom(),
+  atomNodeName :: atom(), nodeName :: string(),
   nodeSystemMailBox :: string(), atomNodeSystemMailBox :: atom(),
   nodeServer :: string(), atomNodeServer :: atom(),
   nodeNameServer :: string(), atomNodeNameServer :: atom(),

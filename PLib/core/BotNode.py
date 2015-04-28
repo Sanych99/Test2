@@ -1,56 +1,45 @@
-import pyerl
-import time
+from py_interface import erl_node
+from py_interface import erl_opts
 
-class BotNode:
+# BotNode class for create iBotOS node on python language
+class BotNode():
 
-    def __init__(self, otpNodeName, currentServerName, coreNodeName,
-                 otpMboxName, registratorCoreNode, publisherCoreNode, coreCoockie):
+    # class constructor
+    def __init__(self, args):  # class constructor
 
-        self.otpNodeName = otpNodeName
-        self.currentServerName = currentServerName
-        self.coreNodeName = coreNodeName
-        self.registratorCoreNode = registratorCoreNode
-        self.otpMboxName = otpMboxName
-        self.publisherCoreNode = publisherCoreNode
-        self.coreCoockie = coreCoockie
+        self.otpNodeName = args[0]                      # init node name
+        self.currentServerName = args[1]                # init current server name
+        self.coreNodeName = args[2]                     # init core node name
+        self.otpMboxNameAsync = args[0] + "_MBoxAsync"  # init asynchronous mail box name
+        self.otpMboxName = args[0] + "_MBox"            # init mail box name
+        self.publisherCoreNode = args[3]                # init publisher node name
+        self.serviceCoreNode = args[4]                  # init service node name
+        self.coreCookie = args[5]                       # init core node cookie
 
-        self.currentNode =
+        self.createNode() # create node
+        self.otpMboxAsync = self.createMbox(self.otpMboxNameAsync) # create async system mail box
+        self.otpMbox = self.createMbox(self.otpMboxName) # create synchronous mail box
 
-        print "Constructor"
+        self.subscribeDic = {} # subscribe callback methods collection
+        self.asyncServiceClientDic = {} # async client services collection
+        self.asyncServiceServerDic = {} # aync server services collection
+        self.coreIsActive = True # operation in action
+        self.coreIsActiveLocker = object # operation in action locker
 
-    def createNode(self, otpNodeName, currentServerName):
-        return pyerl.connect_xinit(currentServerName, otpNodeName, otpNodeName + "@" + currentServerName, "127.0.0.1", cookie, 1)
+        print "BotNode constructor is complete..."
 
 
-if __name__ == "__main__":
-    ibot = BotNode("ClientTest", "alexandr", "bar@alexandr", "Java", "java", "", "")
 
+    # === create node elements methods start ===
 
-    host = "localhost"
-    name = "test"
-    node = name + "@" + host
-    cookie = "jv"
-    ret = pyerl.connect_xinit(host, name, node, "127.0.0.1", cookie, 1)
-    #self.assertEqual(ret, 1);
-    retry = 0
-    while True:
-        while True:
-            time.sleep(1)
-            sock = pyerl.xconnect("127.0.0.1", "node3")
-            if sock > 0: break
-            if retry > 3: break
-            retry += 1
-        #self.assertEqual(sock > 0, True)
-        atom = pyerl.mk_atom("ping")
-        args = pyerl.mk_list([atom]);
-        eterm = pyerl.rpc(sock, "pingpong", "ping", args);
-        print eterm
-        ret = pyerl.close_connection(sock);
-        #self.assertEqual(ret, 0);
-        #self.assertEqual(eterm.type, pyerl.ATOM);
-        #self.assertEqual(eterm.is_atom(), True);
-        #self.assertEqual(str(eterm), "pong");
+    # create node method
+    def createNode(self):
+        self.otpNode = erl_node.ErlNode(self.otpNodeName, erl_opts.ErlNodeOpts(cookie=self.coreCookie))
 
-    print ibot.coreNodeName
-    print ibot.registratorCoreNode
-    print "Hellow"
+    # create mail box
+    def createMbox(self, otpMboxName):
+        mbox = self.otpNode.CreateMBox()
+        mbox.RegisterName(otpMboxName)
+        return mbox
+
+    # === create node elements methods end ===

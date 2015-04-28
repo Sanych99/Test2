@@ -78,18 +78,22 @@ get_nodes_name_from_config() ->
 
 
 set_node_info(NodeInfoRecord) ->
-  ibot_db_srv:add_record(?TABLE_NODE_INFO, NodeInfoRecord#node_info.atomNodeName, NodeInfoRecord),
-  %ibot_db_func:add(?TABLE_NODE_INFO, NodeInfoRecord#node_info.atomNodeName, NodeInfoRecord),
+  ibot_db_func:add_to_mnesia(NodeInfoRecord),
+  %ibot_db_srv:add_record(?TABLE_NODE_INFO, NodeInfoRecord#node_info.atomNodeName, NodeInfoRecord),
   ?DBG_MODULE_INFO("set_node_info(NodeInfoRecord) -> -> ~p~n", [?MODULE, NodeInfoRecord]),
   ok.
 
 get_node_info(AtomNodeName) ->
   ?DBG_MODULE_INFO("get_node_info(AtomNodeName) -> ~p~n", [?MODULE, ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName)]),
-  %case ibot_db_func:get(?TABLE_NODE_INFO, AtomNodeName) of
-  case ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName) of
-    {ok, NodeInfoRecord} -> NodeInfoRecord;
-    [] -> ?NODE_INFO_NOT_FOUND;
-    _ -> ?ACTION_ERROR
+  %case ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName) of
+  %  {ok, NodeInfoRecord} -> NodeInfoRecord;
+  %  [] -> ?NODE_INFO_NOT_FOUND;
+  %  _ -> ?ACTION_ERROR
+  %end.
+  ?DBG_MODULE_INFO("get_node_info(AtomNodeName) -> ~p~n", [?MODULE, ibot_db_func:get_from_mnesia(node_info, AtomNodeName)]),
+  case ibot_db_func:get_from_mnesia(node_info, AtomNodeName) of
+    [] -> not_found;
+    {atomic, [Vals]} -> Vals
   end.
 
 get_all_registered_nodes() ->

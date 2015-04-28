@@ -33,6 +33,8 @@
                       "/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_webi-1"},
            {ibot_nodes,"1",
                        "/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_nodes-1"},
+           {mnesia,"4.12.4",
+                   "/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/mnesia-4.12.4"},
            {ibot_events,"1",
                         "/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_events-1"},
            {ibot_ri,"1",
