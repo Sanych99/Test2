@@ -47,13 +47,18 @@ get_client_service(ClientMethodName, NodeFullName) ->
 
 
 register_server_service(ServerServiceName, MailBox, NodeFullName) ->
-  ServerService = #service_server{serverServiceMethodName = ServerServiceName, serverServiceMethodNameAtom = list_to_atom(ServerServiceName),
+  ServerService = #service_server{serverServiceMethodNameAtom = list_to_atom(ServerServiceName), serverServiceMethodName = ServerServiceName,
   mailBox = MailBox, nodeFullName = NodeFullName},
-  ibot_db_srv:add_record(?TABLE_SERVICES_SERVER, ServerService#service_server.serverServiceMethodNameAtom, ServerService),
+  %ibot_db_srv:add_record(?TABLE_SERVICES_SERVER, ServerService#service_server.serverServiceMethodNameAtom, ServerService),
+  ibot_db_func:add_to_mnesia(ServerService),
   ok.
 
 get_server_service(ServerServiceNameAtom) ->
-  case ibot_db_srv:get_record(?TABLE_SERVICES_SERVER, ServerServiceNameAtom) of
-    {ok, Value} -> Value;
-    _ -> ?RECORD_NOT_FOUND
+  %case ibot_db_srv:get_record(?TABLE_SERVICES_SERVER, ServerServiceNameAtom) of
+  %  {ok, Value} -> Value;
+  %  _ -> ?RECORD_NOT_FOUND
+  %end.
+  case ibot_db_func:get_from_mnesia(service_server, ServerServiceNameAtom) of
+    [] -> not_found;
+    {atomic, [Vals]} -> Vals
   end.

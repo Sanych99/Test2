@@ -84,7 +84,7 @@ set_node_info(NodeInfoRecord) ->
   ok.
 
 get_node_info(AtomNodeName) ->
-  ?DBG_MODULE_INFO("get_node_info(AtomNodeName) -> ~p~n", [?MODULE, ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName)]),
+  %?DBG_MODULE_INFO("get_node_info(AtomNodeName) -> ~p~n", [?MODULE, ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName)]),
   %case ibot_db_srv:get_record(?TABLE_NODE_INFO, AtomNodeName) of
   %  {ok, NodeInfoRecord} -> NodeInfoRecord;
   %  [] -> ?NODE_INFO_NOT_FOUND;

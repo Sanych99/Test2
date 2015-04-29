@@ -13,7 +13,8 @@
 %% clientMethodNameAtom - client method name atom
 %% mailBoxName - client mail box
 %% nodeFullName - client node full name
--record(service_client, {serverMethodName::string(), serverMethodNameAtom::atom(),
+-record(service_client, {id::tuple(),
+  serverMethodName::string(), serverMethodNameAtom::atom(),
   clientMethodName::string(), clientMethodNameAtom::atom(),
   mailBoxName::atom(), nodeFullName::atom()}).
 
@@ -22,5 +23,5 @@
 %% serverServiceMethodNameAtom - service mathod atom
 %% mailBox - service mail box
 %% nodeFullName - service node full name
--record(service_server, {serverServiceMethodName::string(), serverServiceMethodNameAtom::atom(),
+-record(service_server, {serverServiceMethodNameAtom::atom(), serverServiceMethodName::string(),
   mailBox::atom(), nodeFullName::atom()}).

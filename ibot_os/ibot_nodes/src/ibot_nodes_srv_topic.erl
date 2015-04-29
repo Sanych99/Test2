@@ -67,12 +67,26 @@ handle_cast(_Request, State) ->
 
 %% @doc
 %%
+%% @spec handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State) -> {noreply, State}
+%% when MBoxName :: atom(), NodeServerName :: atom(), TopicName :: atom().
+%%
 %% Subscribe node to topic
 %% @end
 
 handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info -> ~p~n", [[?REG_SUBSCR, MBoxName, NodeServerName, TopicName]]),
+  ?DBG_MODULE_INFO("handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State): ~p~n", [?MODULE, {?REG_SUBSCR, MBoxName, NodeServerName, TopicName}]),
   ibot_db_func_topics:add_node_to_topic(TopicName, MBoxName, NodeServerName), %% Add subscribe node info
   {noreply, State};
+
+
+%% @doc
+%%
+%% @spec handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) ->-> {noreply, State}
+%% when MBoxName :: atom(), NodeServerName :: atom(), TopicName :: atom(), Message :: tuple().
+%%
+%% Broadcats message to subscribers
+%% @end
+
 handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) ->
   case ibot_db_func_topics:get_topic_nodes(TopicName) of
     [] -> ok;

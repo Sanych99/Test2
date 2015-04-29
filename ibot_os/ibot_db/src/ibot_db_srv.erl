@@ -21,6 +21,8 @@
 -include("ibot_db_modules.hrl").
 -include("ibot_db_table_names.hrl").
 -include("ibot_db_table_commands.hrl").
+-include("ibot_db_records_service.hrl").
+-include("ibot_db_records.hrl").
 
 -include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
 
@@ -46,15 +48,22 @@ start_link() ->
 
 init([]) ->
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
-  ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
-  ibot_db_func:create_db(?TABLE_NODE_INFO), %% Create node info table
+  %ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
+  %ibot_db_func:create_db(?TABLE_NODE_INFO), %% Create node info table
   ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
-  ibot_db_func:create_db(?TABLE_SERVICES_SERVER), %% Create server service table
+  %ibot_db_func:create_db(?TABLE_SERVICES_SERVER), %% Create server service table
 
   mnesia:start(),
   mnesia:create_schema([node()]),
+
   mnesia:create_table(node_info,
     [{attributes, record_info(fields, node_info)}]),
+
+  mnesia:create_table(topic_info,
+    [{attributes, record_info(fields, topic_info)}]),
+
+  mnesia:create_table(service_server,
+    [{attributes, record_info(fields, service_server)}]),
   {ok, #state{}}.
 
 %% ====== init function end ======
@@ -123,12 +132,14 @@ handle_info(_Info, State) ->
 %% @end
 terminate(_Reason, _State) ->
   ibot_db_func:delete_table(?TABLE_CONFIG), %% Delete congiguration table
-  ibot_db_func:delete_table(?TABLE_TOPICS), %% Delete topics table
-  ibot_db_func:delete_table(?TABLE_NODE_INFO), %% Delete node info table
+  %ibot_db_func:delete_table(?TABLE_TOPICS), %% Delete topics table
+  %ibot_db_func:delete_table(?TABLE_NODE_INFO), %% Delete node info table
   ibot_db_func:delete_table(?TABLE_SERVICES_CLIENT), %% Delete cilent service table
-  ibot_db_func:delete_table(?TABLE_SERVICES_SERVER), %% Delete server service table
+  %ibot_db_func:delete_table(?TABLE_SERVICES_SERVER), %% Delete server service table
 
   mnesia:delete_table(node_info),
+  mnesia:delete_table(topic_info),
+  mnesia:delete_table(service_server),
   mnesia:stop(),
   ok.
 %% ====== terminate function end ======
