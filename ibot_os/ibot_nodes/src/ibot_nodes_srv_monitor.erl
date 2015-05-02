@@ -28,18 +28,26 @@
 -include("ibot_nodes_modules.hrl").
 -include("ibot_comm_commands.hrl").
 
--record(state, {nodeName :: atom()}).
+-record(state, {nodeNameString :: string(), nodeName :: atom(), nodeServer :: atom(), nodeNameAndServer :: atom()}).
 
 
-start_link(NodeName) -> ?DBG_MODULE_INFO("start link node name:~p~n", [?MODULE, NodeName]),
-  gen_server:start_link({local, 'bar_monitor'}, ?MODULE, [NodeName], []). %% Запусе наблюдателя за узлом, передаем имя узла
+%start_link(NodeName) -> ?DBG_MODULE_INFO("start link node name:~p~n", [?MODULE, NodeName]),
+%  gen_server:start_link({local, 'bar_monitor'}, ?MODULE, [NodeName], []). %% Запусе наблюдателя за узлом, передаем имя узла
 
 
-init([NodeName]) -> ?DBG_MODULE_INFO("init node name:~p~n", [?MODULE, NodeName]),
+start_link({NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}) -> ?DBG_MODULE_INFO("start link node name:~p~n", [?MODULE, {NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}]),
+  gen_server:start_link({local, list_to_atom(string:join([NodeNameString, "monitor"], "_"))}, ?MODULE, [{NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}], []). %% Запусе наблюдателя за узлом, передаем имя узла
+
+%init([{NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}]) -> ?DBG_MODULE_INFO("init node name:~p~n", [?MODULE, {NodeNameAtom, NodeServerAtom}]),
+%  process_flag(trap_exit, true), %% Прием сообщени о завершении работы узла
+%  true = erlang:monitor_node('BLA_BLA_BLA@alex-N550JK', true), %% Устанавливаем мониторинг за узлом
+%  {ok, #state{nodeName = NodeNameAtom, nodeServer = NodeServerAtom, nodeNameAndServer = NodeNameAndServerAtom}}.
+
+
+init([{NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}]) -> ?DBG_MODULE_INFO("init node name:~p~n", [?MODULE, {NodeNameAtom, NodeServerAtom}]),
   process_flag(trap_exit, true), %% Прием сообщени о завершении работы узла
-  true = erlang:monitor_node('BLA_BLA_BLA@alex-N550JK', true), %% Устанавливаем мониторинг за узлом
-  {ok, #state{nodeName = list_to_atom(NodeName)}}.
-
+  true = erlang:monitor_node(NodeNameAndServerAtom, true), %% Устанавливаем мониторинг за узлом
+  {ok, #state{nodeNameString = NodeNameString, nodeName = NodeNameAtom, nodeServer = NodeServerAtom, nodeNameAndServer = NodeNameAndServerAtom}}.
 
 
 handle_call(stop,  _From, State) ->
@@ -56,11 +64,11 @@ handle_cast(_Request, State) ->
 
 
 handle_info({nodedown, _ExternalNodeNode}, State = #state{nodeName = NodeName}) -> ?DBG_MODULE_INFO("handle_info {nodedown, _JavaNode}:~p node Name ~p~n", [?MODULE, {nodedown, _ExternalNodeNode}, NodeName]),
-  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, 'BLA_BLA_BLA'}), %% Рестарт упавшего узла
+  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
   {stop, normal, State};
 
-handle_info({'EXIT',_Info, P1, P2}, State) -> ?DBG_MODULE_INFO("handle_info {'EXIT',_Info, P1, P2}:~p~n", [?MODULE, {'EXIT',_Info, P1, P2}]),
-  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, 'BLA_BLA_BLA'}), %% Рестарт упавшего узла
+handle_info({'EXIT',_Info, P1, P2}, State = #state{nodeName = NodeName}) -> ?DBG_MODULE_INFO("handle_info {'EXIT',_Info, P1, P2}:~p~n", [?MODULE, {'EXIT',_Info, P1, P2}]),
+  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
   {noreply, State};
 
 handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info _Info:~p~n", [?MODULE, _Info]),

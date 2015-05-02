@@ -23,7 +23,6 @@
 -include("ibot_db_table_commands.hrl").
 -include("ibot_db_records_service.hrl").
 -include("ibot_db_records.hrl").
-
 -include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
 
 -record(state, {}).

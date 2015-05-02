@@ -68,9 +68,20 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
-handle_info({_Port, {data, {eol, "READY!"}}}, State)-> ?DBG_MODULE_INFO("handle_info {eol, READY} start monitor: -> ~n", [?MODULE]),
-  ibot_nodes_srv_monitor:start_link("BLA_BLA_BLA@alex-N550JK"),
+%handle_info({_Port, {data, {eol, "READY!"}}}, State)-> ?DBG_MODULE_INFO("handle_info {eol, READY} start monitor: -> ~n", [?MODULE]),
+%  ibot_nodes_srv_monitor:start_link("BLA_BLA_BLA@alex-N550JK"),
+%  {noreply, State};
+
+
+handle_info({start_monitor, NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}, State) ->
+  ibot_nodes_srv_monitor:start_link({NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}),
   {noreply, State};
+
+handle_info({stop_monitor, NodeNameString}, State) ->
+  gen_server:call({string:join([NodeNameString, "monitor"], "_"), node()}, {stop}),
+  %erlang:send({local, string:join([NodeNameString, "monitor"], "_")}, {}),
+  {noreply, State};
+
 handle_info(Msg, State)-> ?DBG_MODULE_INFO("handle_info(Msg, State) ~p~n", [?MODULE, Msg]),
   {noreply, State}.
 

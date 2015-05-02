@@ -52,6 +52,8 @@ public abstract class BotNode implements IBotNode {
 
     private String serviceCoreNode;
 
+    private String connectorCodeNode;
+
     /**
      * Core node cookies
      */
@@ -81,6 +83,11 @@ public abstract class BotNode implements IBotNode {
      * Operation in action locker
      */
     private Object coreIsActiveLocker;
+
+    /**
+     * Node has monitor
+     */
+    private boolean isMonitor;
 
 
     /**
@@ -150,8 +157,19 @@ public abstract class BotNode implements IBotNode {
 
                                 switch (systemAction) {
                                     case "exit" : set_coreIsActive(false);
+                                        monitorStop(); // stop monitor is exist
                                         System.out.println("Exit message complete... current value: " + ok());
                                         break;
+
+                                    case "monitor" : //monitor actions
+                                        String monitorAction = ((OtpErlangString) rMessage.elementAt(1)).stringValue();
+                                        switch (monitorAction) {
+                                            // when monitor was started
+                                            case "monitorIsStart" : isMonitor = true;
+                                                break;
+                                            default:isMonitor = false;
+                                                break;
+                                        }
                                 }
 
                                 //System.out.println("sysMsg");
@@ -179,9 +197,10 @@ public abstract class BotNode implements IBotNode {
         this.coreNodeName = args[2]; // init core node name
         this.otpMboxNameAsync = args[0] + "_MBoxAsync"; // init asynchronous mail box name
         this.otpMboxName = args[0] + "_MBox"; // init mail box name
-        this.publisherCoreNode = args[3]; // init publisher node name
-        this.serviceCoreNode = args[4]; // init service node name
-        this.coreCookie = args[5]; // init core node cookie
+        this.connectorCodeNode = args[3];  // init connector node name
+        this.publisherCoreNode = args[4]; // init publisher node name
+        this.serviceCoreNode = args[5]; // init service node name
+        this.coreCookie = args[6]; // init core node cookie
 
         this.subscribeDic = new HashMap<>(); // init subscribers collection
 
@@ -472,6 +491,47 @@ public abstract class BotNode implements IBotNode {
     }
 
     /* ====== Service methods End ====== */
+
+
+
+
+
+    /* ====== Monitor start / stop functions Start ====== */
+
+    /**
+     * Start node monitor
+     */
+    public void monitorStart() {
+        if(!isMonitor) {
+            OtpErlangObject[] monitorObject = new OtpErlangObject[5];
+            monitorObject[0] = new OtpErlangAtom("start_monitor");
+            monitorObject[1] = new OtpErlangString(this.otpNodeName);
+            monitorObject[2] = new OtpErlangAtom(this.otpNodeName);
+            monitorObject[3] = new OtpErlangAtom(this.currentServerName);
+            monitorObject[4] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
+            this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
+
+            isMonitor = true;
+        }
+    }
+
+    /**
+     * Stop node monitor
+     */
+    public void monitorStop() {
+        if(isMonitor) {
+            OtpErlangObject[] monitorObject = new OtpErlangObject[2];
+            monitorObject[0] = new OtpErlangAtom("stop_monitor");
+            monitorObject[1] = new OtpErlangString(this.otpNodeName);
+            this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
+        }
+
+        isMonitor = false;
+    }
+
+    /* ====== Monitor start / stop functions End ====== */
+
+
 
 
 

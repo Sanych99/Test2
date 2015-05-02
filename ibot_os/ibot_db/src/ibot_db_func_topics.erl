@@ -31,7 +31,7 @@ add_node_to_topic(TopicName, NodeName, ServerName) -> ?DBG_INFO("add_node_to_top
       %  #topic_info{subscribeNodes = [#node_pubsub_info{nodeMBoxName = NodeName, nodeServerName = ServerName}]}})
       ibot_db_func:add_to_mnesia(#topic_info{id = TopicName, subscribeNodes = [#node_pubsub_info{nodeMBoxName = NodeName, nodeServerName = ServerName}]});
 
-    {atomic, TopicInfo} -> ?DBG_INFO("add_node_to_topic find -> ~p~n", [{TopicName, TopicInfo}]),
+    {atomic, [TopicInfo]} -> ?DBG_INFO("add_node_to_topic find -> ~p~n", [{TopicName, TopicInfo}]),
       SubscribeNodeInfo = #node_pubsub_info{nodeMBoxName = NodeName, nodeServerName = ServerName},%% new subscribe node info
       DeleteExistFromTopicInfo = lists:delete(SubscribeNodeInfo, TopicInfo#topic_info.subscribeNodes), %% remove old node info if exist
       %gen_server:call(?IBOT_DB_SRV, {?ADD_RECORD, ?TABLE_TOPICS, TopicName,

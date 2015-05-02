@@ -15,6 +15,12 @@
 -define(NO_NODE_INFO, no_node_info).
 
 %% @doc
+%% needMonitor - необходимость подключения монитора
+%% restartNumber - максимальное количество рестартов для узла
+%% currentRestartNumber - текущее чилсо рестартов узла
+-record(node_monitor_settings, {needMonitor :: boolean(), restartNumber :: integer(), currentRestartNumber :: integer()}).
+
+%% @doc
 %% nodeName - Наименование узла
 %% nodeSystemMailBox - Системный почтовый ящик узла
 %% nodeServer - Имя сервера на котором запущен узел
@@ -29,4 +35,6 @@
   nodeLang :: string(), atomNodeLang :: atom(),
   nodeExecutable :: string(),
   nodePreArguments :: list(),
-  nodePostArguments :: list()}).
+  nodePostArguments :: list(),
+  monitorSettings :: #node_monitor_settings{}
+}).

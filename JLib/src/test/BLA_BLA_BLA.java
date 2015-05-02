@@ -22,12 +22,14 @@ public class BLA_BLA_BLA extends BotNode {
     public BLA_BLA_BLA(String[] args) throws Exception {
         //String[] args2 = new String[5];
         //super("BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "jv");
-        super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+        super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
         //super(args);
     }
 
     public void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException {
-        System.out.println("READY!");
+        //System.out.println("READY!");
+
+        this.monitorStart();
 
         this.registerServiceServer("testService", TestSrvReq.class, TestSrvResp.class);
 
