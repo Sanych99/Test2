@@ -130,7 +130,10 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       NewNodeConfigRecord = NodeConfigRecord; %NodeConfigRecord#node_info{nodePreArguments = StrVal};
     <<"runPostArguments">> ->
       StrVal = binary_to_list(Val),
-      NewNodeConfigRecord = NodeConfigRecord %NodeConfigRecord#node_info{nodePostArguments = StrVal}
+      NewNodeConfigRecord = NodeConfigRecord; %NodeConfigRecord#node_info{nodePostArguments = StrVal}
+    Val ->
+      ?DBG_MODULE_INFO("=====> .... try monitor: ~p~n", [?MODULE, Val]),
+      NewNodeConfigRecord = NodeConfigRecord
   end,
   create_node_config_record(NodeConfigList, NewNodeConfigRecord);
 create_node_config_record([], NodeConfigRecord) ->

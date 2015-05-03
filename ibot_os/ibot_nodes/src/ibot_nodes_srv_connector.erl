@@ -78,7 +78,7 @@ handle_info({start_monitor, NodeNameString, NodeNameAtom, NodeServerAtom, NodeNa
   {noreply, State};
 
 handle_info({stop_monitor, NodeNameString}, State) ->
-  gen_server:call({string:join([NodeNameString, "monitor"], "_"), node()}, {stop}),
+  %gen_server:call({string:join([NodeNameString, "monitor"], "_"), node()}, {stop}),
   %erlang:send({local, string:join([NodeNameString, "monitor"], "_")}, {}),
   {noreply, State};
 
