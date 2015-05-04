@@ -7,6 +7,6 @@
                   kernel,
                   stdlib
                  ]},
-  {mod, { ibot_core_app, []}},
+  {mod, { ibot_core_app, [ibot_core_func_cmd, ibot_core_func_cmd_cdir]}},
   {env, []}
  ]}.

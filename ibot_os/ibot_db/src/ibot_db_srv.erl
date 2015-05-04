@@ -12,7 +12,7 @@
 
 -export([start_link/0]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
--export([add_record/3, get_record/2, delete_table/1]).
+-export([add_record/3, get_record/2, delete_table/1, start_m/0]).
 
 -define(SERVER, ?MODULE).
 
@@ -47,13 +47,14 @@ start_link() ->
 
 init([]) ->
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
-  %ibot_db_func:create_db(?TABLE_TOPICS), %% Create topics table
-  %ibot_db_func:create_db(?TABLE_NODE_INFO), %% Create node info table
   ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
-  %ibot_db_func:create_db(?TABLE_SERVICES_SERVER), %% Create server service table
+  start_m(),
+  {ok, #state{}}.
 
-  mnesia:start(),
-  mnesia:create_schema([node()]),
+start_m() ->
+  mnesia:create_schema([node() | nodes()]),
+
+  application:start(mnesia),
 
   mnesia:create_table(node_info,
     [{attributes, record_info(fields, node_info)}]),
@@ -63,7 +64,7 @@ init([]) ->
 
   mnesia:create_table(service_server,
     [{attributes, record_info(fields, service_server)}]),
-  {ok, #state{}}.
+  ok.
 
 %% ====== init function end ======
 
@@ -131,15 +132,12 @@ handle_info(_Info, State) ->
 %% @end
 terminate(_Reason, _State) ->
   ibot_db_func:delete_table(?TABLE_CONFIG), %% Delete congiguration table
-  %ibot_db_func:delete_table(?TABLE_TOPICS), %% Delete topics table
-  %ibot_db_func:delete_table(?TABLE_NODE_INFO), %% Delete node info table
   ibot_db_func:delete_table(?TABLE_SERVICES_CLIENT), %% Delete cilent service table
-  %ibot_db_func:delete_table(?TABLE_SERVICES_SERVER), %% Delete server service table
 
   mnesia:delete_table(node_info),
   mnesia:delete_table(topic_info),
   mnesia:delete_table(service_server),
-  mnesia:stop(),
+  application:stop(mnesia),
   ok.
 %% ====== terminate function end ======
 

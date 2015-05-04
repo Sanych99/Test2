@@ -12,7 +12,7 @@ public class BLA_BLA_C extends BotNode {
 
     public BLA_BLA_C(String[] args) throws Exception {
         //super(args);
-        super(new String[] {"BLA_BLA_C", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+        super(new String[] {"BLA_BLA_C", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
     }
 
     public void Action() throws Exception {

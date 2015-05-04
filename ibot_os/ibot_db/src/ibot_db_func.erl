@@ -31,4 +31,7 @@ add_to_mnesia(Record) ->
   mnesia:transaction(fun() -> mnesia:write(Record) end).
 
 get_from_mnesia(Table, Key) ->
-  mnesia:transaction(fun() -> mnesia:read(Table, Key) end).
+  case mnesia:transaction(fun() -> mnesia:read(Table, Key) end) of
+    {atomic, []} -> not_found;
+    {atomic, [Item]} -> Item
+  end.

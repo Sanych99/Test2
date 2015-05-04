@@ -16,7 +16,7 @@ public class BLA_BLA_S extends BotNode {
 
     public BLA_BLA_S(String[] args) throws Exception {
         //super(args);
-        super(new String[] {"BLA_BLA_S", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+        super(new String[] {"BLA_BLA_S", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
     }
 
     public void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException {

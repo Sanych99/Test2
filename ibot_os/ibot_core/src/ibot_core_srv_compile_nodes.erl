@@ -156,6 +156,7 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
         java -> ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
           "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:/home/alex/ErlangTest/test_from_bowser/dev/srv/java",
           string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
+          ?DBG_MODULE_INFO("compile_node: ~p~n", [?MODULE, ExecuteCommand]),
           ibot_core_func_cmd:run_exec(ExecuteCommand);
 
         _ -> error

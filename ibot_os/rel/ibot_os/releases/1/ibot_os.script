@@ -1,4 +1,4 @@
-%% script generated at {2015,5,4} {0,29,20}
+%% script generated at {2015,5,5} {2,46,51}
 {script,
     {"ibot_os","1"},
     [{preLoaded,[]},
@@ -330,7 +330,9 @@
                    {env,[]},
                    {maxT,infinity},
                    {maxP,infinity},
-                   {mod,{ibot_core_app,[]}}]}]}},
+                   {mod,
+                       {ibot_core_app,
+                           [ibot_core_func_cmd,ibot_core_func_cmd_cdir]}}]}]}},
      {apply,
          {application,load,
              [{application,ibot_db,

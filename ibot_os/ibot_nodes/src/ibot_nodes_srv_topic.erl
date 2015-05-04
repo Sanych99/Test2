@@ -130,6 +130,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 message_broadcast([], _, _) -> ok;
 message_broadcast([NodeInfo | NodeInfoList], Msg, TopicName) ->
+  ?DBG_MODULE_INFO(" => message_broadcast: ~p~n", [?MODULE, {{NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}}]),
   erlang:send({NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}),
   message_broadcast(NodeInfoList, Msg, TopicName),
   ok.

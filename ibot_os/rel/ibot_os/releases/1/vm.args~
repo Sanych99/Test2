@@ -4,6 +4,8 @@
 ## Cookie for distributed erlang
 -setcookie jv
 
+-mnesia dir '/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os'
+
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
 ##-heart

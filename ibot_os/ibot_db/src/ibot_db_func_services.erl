@@ -54,11 +54,8 @@ register_server_service(ServerServiceName, MailBox, NodeFullName) ->
   ok.
 
 get_server_service(ServerServiceNameAtom) ->
-  %case ibot_db_srv:get_record(?TABLE_SERVICES_SERVER, ServerServiceNameAtom) of
-  %  {ok, Value} -> Value;
-  %  _ -> ?RECORD_NOT_FOUND
+  %case ibot_db_func:get_from_mnesia(service_server, ServerServiceNameAtom) of
+  %  [] -> not_found;
+  %  Item -> Item
   %end.
-  case ibot_db_func:get_from_mnesia(service_server, ServerServiceNameAtom) of
-    [] -> not_found;
-    {atomic, [Vals]} -> Vals
-  end.
+  ibot_db_func:get_from_mnesia(service_server, ServerServiceNameAtom).

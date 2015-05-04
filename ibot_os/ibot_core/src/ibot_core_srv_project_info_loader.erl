@@ -42,6 +42,7 @@ start_link() ->
 init([]) ->
   {ok, #state{}}.
 
+%% NOT USE
 handle_call({?LOAD_PROJECT_ALL_NODES_INFO}, _From, State) ->
   case ibot_db_func_config:get_full_project_path() of
     ?ACTION_ERROR -> {reply, {?ACTION_ERROR}, State};
