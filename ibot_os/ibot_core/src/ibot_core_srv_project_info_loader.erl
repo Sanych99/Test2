@@ -15,9 +15,11 @@
 
 -include("debug.hrl").
 -include("ibot_core_create_project_paths.hrl").
+-include("../../ibot_db/include/ibot_db_records.hrl").
 
 %% API
 -export([start_link/0]).
+-export([load_info_from_core_config/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -141,3 +143,30 @@ create_node_config_record([], NodeConfigRecord) ->
   ?DBG_MODULE_INFO("create_node_config_record([], NodeConfigRecord) -> ~p~n", [?MODULE, NodeConfigRecord]),
   ibot_db_func_config:set_node_info(NodeConfigRecord),
   ok.
+
+
+%% ====== Read Project Configuraion File Start ======
+
+load_info_from_core_config() ->
+  case file:read_file(string:join([file:get_cwd(), "core.config"], "/")) of
+    {ok, FileContent} ->
+      case jiffy:decode(FileContent) of
+        {CoreConfigFileList} ->
+          ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
+          create_core_config_record(CoreConfigFileList, #core_info{})
+      end;
+    _ -> error
+  end.
+
+create_core_config_record([], CoreInfoRecord) ->
+
+  ok;
+create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
+  {Key, Val} = CoreInfo,
+  case Key of
+    <<"projectPath">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{projectPath = binary_to_list(Val)};
+    _ -> ok
+  end,
+  create_core_config_record(CoreInfoList, CoreInfoRecord).
+%% ====== Read Project Configuraion File End ======

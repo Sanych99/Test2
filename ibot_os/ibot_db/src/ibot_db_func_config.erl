@@ -16,10 +16,13 @@
 -include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
 -include("ibot_db_modules.hrl").
 -include("ibot_db_table_commands.hrl").
+-include("ibot_db_records.hrl").
 
 %% API
 -export([get_full_project_path/0, set_full_project_path/1, set_node_info/1, get_node_info/1, get_all_registered_nodes/0]).
 -export([add_node_name_to_config/1, get_nodes_name_from_config/0]).
+-export([add_project_config_info/1, get_project_config_info/0]).
+-export([add_core_config_info/1, get_core_config_info/0]).
 
 
 %%% ====== full project path mathods start ======
@@ -93,3 +96,49 @@ get_node_info(AtomNodeName) ->
 
 get_all_registered_nodes() ->
   ok.
+
+
+%% ====== Core Config Information Start ======
+
+add_core_config_info(CoreConfigInfo) ->
+  ibot_db_srv:add_record(?TABLE_CONFIG, core_info, CoreConfigInfo),
+  ok.
+
+get_core_config_info() ->
+  case ibot_db_srv:get_record(?TABLE_CONFIG, core_info) of
+    record_not_found -> [];
+    CoreConfigInfo -> CoreConfigInfo
+  end.
+
+%% ====== Core Config Information End ======
+
+
+
+
+%%% ====== Project Config Information Start ======
+
+%% @doc
+%%
+%% Add information from project configuration file
+%% @spec add_project_config_info(ProjectInfo) -> ok when ProjectInfo :: #project_info{}.
+%% @end
+-spec add_project_config_info(ProjectInfo) -> ok when ProjectInfo :: #project_info{}.
+
+add_project_config_info(ProjectInfo) ->
+  ibot_db_srv:add_record(?TABLE_CONFIG, project_config_info, ProjectInfo),
+  ok.
+
+%% @doc
+%%
+%% Get information about project from DB
+%% @spec get_project_config_info() -> [] | #project_info{}.
+%% @end
+-spec get_project_config_info() -> [] | #project_info{}.
+
+get_project_config_info() ->
+  case ibot_db_srv:get_record(?TABLE_CONFIG, project_config_info) of
+    record_not_found -> [];
+    ProjectInfo -> ProjectInfo
+  end.
+
+%%% ====== Project Config Information End ======
