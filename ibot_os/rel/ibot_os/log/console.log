@@ -17,3 +17,9 @@
 2015-05-05 02:42:29.000 [info] <0.365.0> Application lager started on node 'core@alex-N550JK'
 2015-05-05 02:46:57.641 [info] <0.365.0> Application lager started on node 'core@alex-N550JK'
 2015-05-05 02:48:24.756 [info] <0.365.0> Application lager started on node 'core@alex-N550JK'
+2015-05-17 19:10:31.764 [info] <0.365.0> Application lager started on node 'core@alex-K55A'
+2015-05-17 20:11:17.362 [info] <0.365.0> Application lager started on node 'core@alex-K55A'
+2015-05-17 20:15:29.720 [info] <0.365.0> Application lager started on node 'core@alex-K55A'
+2015-05-17 20:21:57.760 [warning] <0.364.0> lager_error_logger_h dropped 59 messages in the last second that exceeded the limit of 50 messages/sec
+2015-05-17 20:40:18.012 [info] <0.365.0> Application lager started on node 'core@alex-K55A'
+2015-05-17 20:41:04.214 [warning] <0.364.0> lager_error_logger_h dropped 59 messages in the last second that exceeded the limit of 50 messages/sec
