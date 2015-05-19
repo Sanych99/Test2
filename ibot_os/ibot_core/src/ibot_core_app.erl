@@ -69,7 +69,7 @@ parse_nodes_config_file([NodeItem | NodesList]) ->
     ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND;
     NodePath ->
       case filelib:is_file(NodePath) of
-        true -> gen_server:call(?IBOT_CORE_SRC_PROJECT_INFO_LOADER, {?LOAD_PROJECT_NODE_INFO, NodePath});
+        true -> gen_server:call(?IBOT_CORE_SRV_PROJECT_INFO_LOADER, {?LOAD_PROJECT_NODE_INFO, NodePath});
         false -> ?DBG_MODULE_INFO("parse_nodes_config_file([NodeItem | NodesList]) -> node ~p NOT FOUND... ~n", [?MODULE, NodePath])
       end
   end,

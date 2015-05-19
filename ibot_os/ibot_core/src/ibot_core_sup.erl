@@ -26,7 +26,7 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    IBOT_CORE_SRV_PIL = ?CHILD(?IBOT_CORE_SRC_PROJECT_INFO_LOADER, worker),
+    IBOT_CORE_SRV_PIL = ?CHILD(?IBOT_CORE_SRV_PROJECT_INFO_LOADER, worker),
     IBOT_CORE_COMPILE_NODES = ?CHILD(?IBOT_CORE_SRV_COMPILE_NODES, worker),
     {ok, { {one_for_one, 5, 10}, [IBOT_CORE_SRV_PIL, IBOT_CORE_COMPILE_NODES]} }.
 

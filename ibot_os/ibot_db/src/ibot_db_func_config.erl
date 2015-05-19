@@ -101,6 +101,7 @@ get_all_registered_nodes() ->
 %% ====== Core Config Information Start ======
 
 add_core_config_info(CoreConfigInfo) ->
+  ?DBG_MODULE_INFO("add_core_config_info(CoreConfigInfo) -> ~p~n", [?MODULE, CoreConfigInfo]),
   ibot_db_srv:add_record(?TABLE_CONFIG, core_info, CoreConfigInfo),
   ok.
 

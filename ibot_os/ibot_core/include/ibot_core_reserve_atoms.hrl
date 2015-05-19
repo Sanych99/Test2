@@ -12,6 +12,8 @@
 
 -define(LOAD_PROJECT_ALL_NODES_INFO, load_project_all_nodes_info).
 -define(LOAD_PROJECT_NODE_INFO, load_project_node_info).
+-define(LOAD_CORE_CONFIG, load_core_config).
+-define(LOAD_PROJECT_CONFIG, load_project_config).
 
 -define(ACTION_ERROR, action_error).
 -define(UNDEFINE_ERROR, undefine_error).
