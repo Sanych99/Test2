@@ -10,8 +10,10 @@
 
 -record(project_info, {
   projectName :: string(), projectNameAtom :: atom(),
-  mainProject :: boolean(),
-  childrenProjects :: list()
+  mainProject = true :: boolean() | undefined,
+  distributedProject = false :: boolean() | undefined,
+  projectAutoRun = false :: boolean() | undefined,
+  childrenProjects :: list() | undefined
 }).
 
 -record(project_chldren, {

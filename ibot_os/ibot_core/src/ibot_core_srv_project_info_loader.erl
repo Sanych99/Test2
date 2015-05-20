@@ -94,17 +94,17 @@ code_change(_OldVsn, State, _Extra) ->
 %%
 %% @spec read_node_config(NodePath) -> ok when NodePath :: string().
 %% @end
-
 -spec read_node_config(NodePath) -> ok when NodePath :: string().
 
 read_node_config(NodePath) ->
   {ok, FileContent} = file:read_file(NodePath),
   case jiffy:decode(FileContent) of
     {NodeConfigFileList} ->
-      ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, NodeConfigFileList]),
+      %?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, NodeConfigFileList]),
       create_node_config_record(NodeConfigFileList, #node_info{})
   end,
   ok.
+
 
 
 %% @doc
@@ -114,7 +114,6 @@ read_node_config(NodePath) ->
 %% @spec create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -> ok when NodeConfigItem :: string(),
 %% NodeConfigList :: list(), NodeConfigRecord :: #node_info{}.
 %% @end
-
 -spec create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -> ok when NodeConfigItem :: string(),
   NodeConfigList :: list(), NodeConfigRecord :: #node_info{}.
 
@@ -149,7 +148,7 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
   end,
   create_node_config_record(NodeConfigList, NewNodeConfigRecord);
 create_node_config_record([], NodeConfigRecord) ->
-  ?DBG_MODULE_INFO("create_node_config_record([], NodeConfigRecord) -> ~p~n", [?MODULE, NodeConfigRecord]),
+  %?DBG_MODULE_INFO("create_node_config_record([], NodeConfigRecord) -> ~p~n", [?MODULE, NodeConfigRecord]),
   ibot_db_func_config:set_node_info(NodeConfigRecord),
   ok.
 
@@ -159,13 +158,11 @@ create_node_config_record([], NodeConfigRecord) ->
 %% @doc API load core info
 %% @spec load_core_config() -> ok.
 %% @end
-
 -spec load_core_config() -> ok.
 
 load_core_config() ->
-  ?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
-  %%gen_server:call({local, ?IBOT_CORE_SRV_PROJECT_INFO_LOADER}, {?LOAD_CORE_CONFIG}),
-  load_info_from_core_config(),
+  %?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
+  load_info_from_core_config(), %% Parse core.conf file
   ok.
 
 
@@ -174,23 +171,22 @@ load_core_config() ->
 %% Parse core.conf file
 %% @spec load_info_from_core_config() -> ok | error.
 %% @end
-
 -spec load_info_from_core_config() -> ok | error.
 
 load_info_from_core_config() ->
   case file:get_cwd() of %% get CORE path
     {ok, CorePath} ->
-      ?DBG_MODULE_INFO("load_info_from_core_config() -> CorePath: ~p~n", [?MODULE, CorePath]),
-      ?DBG_MODULE_INFO("load_info_from_core_config() -> Path Delim Symbol: ~p~n", [?MODULE, ?PATH_DELIMETER_SYMBOL]),
-      ?DBG_MODULE_INFO("load_info_from_core_config() -> Full Path: ~p~n", [?MODULE, string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)]),
+      %?DBG_MODULE_INFO("load_info_from_core_config() -> CorePath: ~p~n", [?MODULE, CorePath]),
+      %?DBG_MODULE_INFO("load_info_from_core_config() -> Path Delim Symbol: ~p~n", [?MODULE, ?PATH_DELIMETER_SYMBOL]),
+      %?DBG_MODULE_INFO("load_info_from_core_config() -> Full Path: ~p~n", [?MODULE, string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)]),
 
       case file:read_file(string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
         {ok, FileContent} ->
-          ?DBG_MODULE_INFO("load_info_from_core_config() -> Core Config Content: ~p~n", [?MODULE, FileContent]),
-          ?DBG_MODULE_INFO("load_info_from_core_config() -> jiffy:decode(FileContent): ~p~n", [?MODULE, jiffy:decode(FileContent)]),
+          %?DBG_MODULE_INFO("load_info_from_core_config() -> Core Config Content: ~p~n", [?MODULE, FileContent]),
+          %?DBG_MODULE_INFO("load_info_from_core_config() -> jiffy:decode(FileContent): ~p~n", [?MODULE, jiffy:decode(FileContent)]),
           case jiffy:decode(FileContent) of %% Parse JSON from core.conf file
             {CoreConfigFileList} ->
-              ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
+              %?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
               FullProjectPath = create_core_config_record(CoreConfigFileList, #core_info{}), %% Parse core.conf
               load_project_config(FullProjectPath) %% Parse project.conf
           end,
@@ -207,13 +203,12 @@ load_info_from_core_config() ->
 %% @spec create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) -> string()
 %% when CoreInfo :: term(), CoreInfoList :: list(), CoreInfoRecord :: #core_info{}.
 %% @end
-
 -spec create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) -> string()
   when CoreInfo :: term(), CoreInfoList :: list(), CoreInfoRecord :: #core_info{}.
 
 create_core_config_record([], CoreInfoRecord) ->
   ibot_db_func_config:add_core_config_info(CoreInfoRecord),
-  ?DBG_MODULE_INFO("create_core_config_record([], CoreInfoRecord) -> get from core config record db: ~p~n", [?MODULE, ibot_db_func_config:get_core_config_info()]),
+  %?DBG_MODULE_INFO("create_core_config_record([], CoreInfoRecord) -> get from core config record db: ~p~n", [?MODULE, ibot_db_func_config:get_core_config_info()]),
   CoreInfoRecord#core_info.projectPath;
 create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
   {Key, Val} = CoreInfo,
@@ -234,19 +229,37 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
 
 
 
-%% ====== Read Core Configuraion File Start ======
+%% ====== Read Project Configuraion File Start ======
+
+%% @doc
+%%
+%% load project configuration
+%% @spec load_project_config(FullProjectPath) -> ok when FullProjectPath :: string().
+%% @end
+-spec load_project_config(FullProjectPath) -> ok when FullProjectPath :: string().
 
 load_project_config(FullProjectPath) ->
   %%gen_server:call({local, ?IBOT_CORE_SRV_PROJECT_INFO_LOADER}, {?LOAD_PROJECT_CONFIG, FullProjectPath}),
   load_info_from_project_config(FullProjectPath),
   ok.
 
+
+
+%% @doc
+%%
+%% Read project configuration file
+%% @spec load_info_from_project_config(FullProjectPath) -> ok | error when FullProjectPath :: string().
+%% @end
+-spec load_info_from_project_config(FullProjectPath) -> ok | error when FullProjectPath :: string().
+
 load_info_from_project_config(FullProjectPath) ->
+  %?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> ~p~n", [?MODULE, string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)]),
+  %?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> FileContent: ~p~n", [?MODULE, file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL))]),
   case file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
     {ok, FileContent} ->
       case jiffy:decode(FileContent) of %% Parse JSON from core.conf file
         {ProjectConfigFileList} ->
-          ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
+          %?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
           create_project_config_record(ProjectConfigFileList, #project_info{}), %% Parse project.config
           ibot_core_app:connect_to_project(FullProjectPath)
       end,
@@ -254,7 +267,46 @@ load_info_from_project_config(FullProjectPath) ->
     _ -> error
   end.
 
+
+
+%% @doc
+%%
+%% Parse and save project configuration info
+%% @spec create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigRecord) -> ok
+%% when ProjectConfig :: term(), ProjectConfigList :: list(), ProjectConfigRecord :: #project_info{}.
+%% @end
+-spec create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigRecord) -> ok
+  when ProjectConfig :: term(), ProjectConfigList :: list(), ProjectConfigRecord :: #project_info{}.
+
 create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigRecord) ->
+  {Key, Val} = ProjectConfig,
+  case Key of
+    <<"projectName">> -> %% Имя проекта (Project name)
+      ProjectNameStr = binary_to_list(Val),
+      ProjectInfoRecordNew = ProjectConfigRecord#project_info{projectName = ProjectNameStr, projectNameAtom = list_to_atom(ProjectNameStr)}; %% project name
+    <<"mainProject">> -> %% Проект является родительским (Project is parent)
+      ProjectInfoRecordNew = ProjectConfigRecord#project_info{mainProject = case binary_to_list(Val) of
+                                                                              "false" -> false;
+                                                                              _ -> true
+                                                                            end}; %% main project
+    <<"distributedProject">> -> %% Проект распределенный (Project is destributed)
+      ProjectInfoRecordNew = ProjectConfigRecord#project_info{distributedProject = case binary_to_list(Val) of
+                                                                              "false" -> false;
+                                                                              _ -> true
+                                                                            end}; %% distributed project
+    <<"projectAutoRun">> -> %% Автозапуск узлов после запуска ядра (Auto run nodes)
+      ProjectInfoRecordNew = ProjectConfigRecord#project_info{projectAutoRun = case binary_to_list(Val) of
+                                                                                     "false" -> false;
+                                                                                     _ -> true
+                                                                                   end}; %% distributed project
+    _ ->
+      ProjectInfoRecordNew = ProjectConfigRecord
+  end,
+  create_project_config_record(ProjectConfigList, ProjectInfoRecordNew);
+
+create_project_config_record([], ProjectInfoRecord) ->
+  %?DBG_MODULE_INFO("create_project_config_record([], ProjectInfoRecord) -> ProjectInfoRecord: ~p~n", [?MODULE, ProjectInfoRecord]),
+  ibot_db_func_config:add_project_config_info(ProjectInfoRecord),
   ok.
 
-%% ====== Read Core Configuraion File End ======
+%% ====== Read Project Configuraion File End ======
