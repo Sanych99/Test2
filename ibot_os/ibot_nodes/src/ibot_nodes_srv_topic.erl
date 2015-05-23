@@ -88,6 +88,8 @@ handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_I
 %% @end
 
 handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) ->
+  ?DBG_MODULE_INFO("handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) -> ~p~n", [?MODULE, {?BROADCAST, MBoxName, NodeServerName, TopicName, Message}]),
+  ?DBG_MODULE_INFO("handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) -> ~p~n", [?MODULE, ibot_db_func_topics:get_topic_nodes(TopicName)]),
   case ibot_db_func_topics:get_topic_nodes(TopicName) of
     [] -> ok;
     NodeInfoList ->
@@ -128,7 +130,9 @@ code_change(_OldVsn, State, _Extra) ->
 %% Broadcast message function
 %% @end
 
-message_broadcast([], _, _) -> ok;
+message_broadcast([], _, _) ->
+  ?DBG_MODULE_INFO(" => message_broadcast: ~p~n", [?MODULE, "End function"]),
+  ok;
 message_broadcast([NodeInfo | NodeInfoList], Msg, TopicName) ->
   ?DBG_MODULE_INFO(" => message_broadcast: ~p~n", [?MODULE, {{NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}}]),
   erlang:send({NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}),

@@ -24,7 +24,7 @@ class BotNode():
         self.asyncServiceClientDic = {} # async client services collection
         self.asyncServiceServerDic = {} # aync server services collection
         self.coreIsActive = True # operation in action
-        self.coreIsActiveLocker = object # operation in action locker
+        ##self.coreIsActiveLocker = object # operation in action locker
 
         print "BotNode constructor is complete..."
 

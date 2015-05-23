@@ -128,7 +128,7 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       nodeServer = Hostname, atomNodeServer = list_to_atom(Hostname),
       nodeNameServer = string:join([StrVal, "@", Hostname], ""), atomNodeNameServer = list_to_atom(string:join([StrVal, "@", Hostname], "")),
         nodePreArguments = ["-classpath",
-          string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/nodes/", StrVal], "")],
+          string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:", ibot_db_func_config:get_full_project_path(),"/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/nodes/", StrVal], "")],
         nodePostArguments = []};
     <<"nodeLang">> ->
       StrVal = binary_to_list(Val),

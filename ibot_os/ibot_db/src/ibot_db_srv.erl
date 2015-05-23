@@ -48,6 +48,7 @@ start_link() ->
 init([]) ->
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
   ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
+  %%net_adm:ping('core1@alex-K55A1'),
   start_m(),
   {ok, #state{}}.
 
@@ -56,14 +57,11 @@ start_m() ->
 
   application:start(mnesia),
 
-  mnesia:create_table(node_info,
-    [{attributes, record_info(fields, node_info)}]),
+  mnesia:create_table(node_info, [{attributes, record_info(fields, node_info)}]),
 
-  mnesia:create_table(topic_info,
-    [{attributes, record_info(fields, topic_info)}]),
+  mnesia:create_table(topic_info, [{attributes, record_info(fields, topic_info)}]),
 
-  mnesia:create_table(service_server,
-    [{attributes, record_info(fields, service_server)}]),
+  mnesia:create_table(service_server, [{attributes, record_info(fields, service_server)}]),
   ok.
 
 %% ====== init function end ======

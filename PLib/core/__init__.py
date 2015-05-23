@@ -1,1 +1,1 @@
-__all__ = ["BotNode", "Pet", "test"]
+__all__ = ["BotNode", "test"]

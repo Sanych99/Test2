@@ -207,7 +207,7 @@ public abstract class BotNode implements IBotNode {
         this.asyncServiceClientDic = new HashMap<>();
         this.asyncServiceServerDic = new HashMap<>();
 
-        setOtpNode(createNode(otpNodeName, coreCookie));
+        setOtpNode(createNode(this.otpNodeName + "@" + this.currentServerName, coreCookie));
         setOtpMboxAsync(createMbox(otpMboxNameAsync));
         setOtpMbox(createMbox(otpMboxName));
 
