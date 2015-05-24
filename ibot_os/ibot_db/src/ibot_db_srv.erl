@@ -12,7 +12,8 @@
 
 -export([start_link/0]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
--export([add_record/3, get_record/2, delete_table/1, start_m/0]).
+-export([add_record/3, get_record/2, delete_table/1]).
+-export([start_distibuted_db/0, stop_distributed_db/0, create_distributed_shema/0, create_distributed_tables/0]).
 
 -define(SERVER, ?MODULE).
 
@@ -46,16 +47,25 @@ start_link() ->
 %% @end
 
 init([]) ->
+  stop_distributed_db(), %% Stop Mnesia applcation
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
   ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
-  %%net_adm:ping('core1@alex-K55A1'),
-  start_m(),
   {ok, #state{}}.
 
-start_m() ->
-  mnesia:create_schema([node() | nodes()]),
+create_distributed_shema() ->
+  mnesia:create_schema([node() | nodes()]).
 
-  application:start(mnesia),
+start_distibuted_db() ->
+  application:start(mnesia).
+
+stop_distributed_db() ->
+  case application:ensure_started(mnesia) of
+    ok -> application:stop(mnesia);
+    _ -> error
+  end.
+
+
+create_distributed_tables() ->
 
   mnesia:create_table(node_info, [{attributes, record_info(fields, node_info)}]),
 

@@ -1,5 +1,5 @@
 %%%-------------------------------------------------------------------
-%%% @author alex
+%%% @author alexProjectConfigRecord
 %%% @copyright (C) 2015, <COMPANY>
 %%% @doc
 %%%
@@ -11,13 +11,16 @@
 -record(project_info, {
   projectName :: string(), projectNameAtom :: atom(),
   mainProject = true :: boolean() | undefined,
+  mainProjectInfo :: string(),
   distributedProject = false :: boolean() | undefined,
   projectAutoRun = false :: boolean() | undefined,
-  childrenProjects :: list() | undefined
+  childrenProjects = [] :: list(),
+  childrenProjectName = [] :: list()
 }).
 
--record(project_chldren, {
-  childrenName :: string(), childrenNameAtom :: atom()
+-record(project_children, {
+  childrenName :: string(), childrenNameAtom :: atom(),
+  distributed_db_start = false :: boolean()
 }).
 
 -record(node_pubsub_info, {nodeMBoxName :: atom(), nodeServerName :: atom()}).

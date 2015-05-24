@@ -161,8 +161,9 @@ create_node_config_record([], NodeConfigRecord) ->
 -spec load_core_config() -> ok.
 
 load_core_config() ->
-  %?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
+  ?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
   load_info_from_core_config(), %% Parse core.conf file
+  %% todo  Создание схемы расределенной бд. Запуск Mnesia.
   ok.
 
 
@@ -176,17 +177,17 @@ load_core_config() ->
 load_info_from_core_config() ->
   case file:get_cwd() of %% get CORE path
     {ok, CorePath} ->
-      %?DBG_MODULE_INFO("load_info_from_core_config() -> CorePath: ~p~n", [?MODULE, CorePath]),
-      %?DBG_MODULE_INFO("load_info_from_core_config() -> Path Delim Symbol: ~p~n", [?MODULE, ?PATH_DELIMETER_SYMBOL]),
-      %?DBG_MODULE_INFO("load_info_from_core_config() -> Full Path: ~p~n", [?MODULE, string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)]),
+      ?DBG_MODULE_INFO("load_info_from_core_config() -> CorePath: ~p~n", [?MODULE, CorePath]),
+      ?DBG_MODULE_INFO("load_info_from_core_config() -> Path Delim Symbol: ~p~n", [?MODULE, ?PATH_DELIMETER_SYMBOL]),
+      ?DBG_MODULE_INFO("load_info_from_core_config() -> Full Path: ~p~n", [?MODULE, string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)]),
 
       case file:read_file(string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
         {ok, FileContent} ->
-          %?DBG_MODULE_INFO("load_info_from_core_config() -> Core Config Content: ~p~n", [?MODULE, FileContent]),
-          %?DBG_MODULE_INFO("load_info_from_core_config() -> jiffy:decode(FileContent): ~p~n", [?MODULE, jiffy:decode(FileContent)]),
+          ?DBG_MODULE_INFO("load_info_from_core_config() -> Core Config Content: ~p~n", [?MODULE, FileContent]),
+          ?DBG_MODULE_INFO("load_info_from_core_config() -> jiffy:decode(FileContent): ~p~n", [?MODULE, jiffy:decode(FileContent)]),
           case jiffy:decode(FileContent) of %% Parse JSON from core.conf file
             {CoreConfigFileList} ->
-              %?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
+              ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
               FullProjectPath = create_core_config_record(CoreConfigFileList, #core_info{}), %% Parse core.conf
               load_project_config(FullProjectPath) %% Parse project.conf
           end,
@@ -208,7 +209,7 @@ load_info_from_core_config() ->
 
 create_core_config_record([], CoreInfoRecord) ->
   ibot_db_func_config:add_core_config_info(CoreInfoRecord),
-  %?DBG_MODULE_INFO("create_core_config_record([], CoreInfoRecord) -> get from core config record db: ~p~n", [?MODULE, ibot_db_func_config:get_core_config_info()]),
+  ?DBG_MODULE_INFO("create_core_config_record([], CoreInfoRecord) -> get from core config record db: ~p~n", [?MODULE, ibot_db_func_config:get_core_config_info()]),
   CoreInfoRecord#core_info.projectPath;
 create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
   {Key, Val} = CoreInfo,
@@ -253,13 +254,13 @@ load_project_config(FullProjectPath) ->
 -spec load_info_from_project_config(FullProjectPath) -> ok | error when FullProjectPath :: string().
 
 load_info_from_project_config(FullProjectPath) ->
-  %?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> ~p~n", [?MODULE, string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)]),
-  %?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> FileContent: ~p~n", [?MODULE, file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL))]),
+  ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> ~p~n", [?MODULE, string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)]),
+  ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> FileContent: ~p~n", [?MODULE, file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL))]),
   case file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
     {ok, FileContent} ->
       case jiffy:decode(FileContent) of %% Parse JSON from core.conf file
         {ProjectConfigFileList} ->
-          %?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
+          ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
           create_project_config_record(ProjectConfigFileList, #project_info{}), %% Parse project.config
           ibot_core_app:connect_to_project(FullProjectPath)
       end,
@@ -280,6 +281,7 @@ load_info_from_project_config(FullProjectPath) ->
 
 create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigRecord) ->
   {Key, Val} = ProjectConfig,
+  ?DBG_INFO("===> ~p~n", [ProjectConfig]),
   case Key of
     <<"projectName">> -> %% Имя проекта (Project name)
       ProjectNameStr = binary_to_list(Val),
@@ -299,14 +301,54 @@ create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigR
                                                                                      "false" -> false;
                                                                                      _ -> true
                                                                                    end}; %% distributed project
+    <<"childrenProjects">> ->
+      %[{[{V1, V2}]}] = Val,
+      ?DBG_MODULE_INFO("create_project_config_record -> ~p~n",[?MODULE, {Val}]),
+      ProjectInfoRecordNew = parse_project_config_children_projects(Val, ProjectConfigRecord);
+      %ChildrenProjects = 0,
+      %ProjectInfoRecordNew =
+      %  ProjectConfigRecord#project_info{childrenProjects = [ProjectConfigRecord#project_info.childrenProjects
+      %    | ChildrenProjects]};
+
+    %[{[{<<"projectName">>,<<"Test1@alex-N55A">>}]},
+    %  {[{<<"projectName">>,<<"Test2@alex-N55A">>}]}]
+
     _ ->
       ProjectInfoRecordNew = ProjectConfigRecord
   end,
   create_project_config_record(ProjectConfigList, ProjectInfoRecordNew);
 
 create_project_config_record([], ProjectInfoRecord) ->
-  %?DBG_MODULE_INFO("create_project_config_record([], ProjectInfoRecord) -> ProjectInfoRecord: ~p~n", [?MODULE, ProjectInfoRecord]),
+  ?DBG_MODULE_INFO("create_project_config_record([], ProjectInfoRecord) -> ProjectInfoRecord: ~p~n", [?MODULE, ProjectInfoRecord]),
   ibot_db_func_config:add_project_config_info(ProjectInfoRecord),
   ok.
+
+
+parse_project_config_children_projects([], ProjectConfigRecord) ->
+  ?DBG_MODULE_INFO("parse_project_config_children_projects([], ProjectConfigRecord) -> ~p~n", [?MODULE, ProjectConfigRecord]),
+  ProjectConfigRecord;
+parse_project_config_children_projects([{ChildrenProject} | ChildrenProjectList], ProjectConfigRecord) ->
+  ?DBG_MODULE_INFO("parse_project_config_children_projects -> ~p~n", [?MODULE, ChildrenProject]),
+  ProjectConfigRecordNew = parse_children_list(ChildrenProject, ProjectConfigRecord, #project_children{}),
+  parse_project_config_children_projects(ChildrenProjectList, ProjectConfigRecordNew).
+
+parse_children_list([], ProjectConfigRecord, ChildrenRecord) ->
+  ?DBG_MODULE_INFO("parse_children_list FINAL -> ~p~n", [?MODULE, ProjectConfigRecord]),
+  ?DBG_MODULE_INFO("parse_children_list FINAL -> ~p~n", [?MODULE, ProjectConfigRecord#project_info{childrenProjects = lists:append(ProjectConfigRecord#project_info.childrenProjects, [ChildrenRecord])}]),
+  ProjectConfigRecord#project_info{childrenProjects = lists:append(ProjectConfigRecord#project_info.childrenProjects, [ChildrenRecord])};
+parse_children_list([Children | ChildrenList], ProjectConfigRecord, ChildrenRecord) ->
+  {Key, Val} = Children,
+  case Key of
+    <<"projectName">> ->
+      StrVal = binary_to_list(Val),
+      AtomVal = list_to_atom(StrVal),
+      ChildrenRecordNew = ChildrenRecord#project_children{childrenName = StrVal, childrenNameAtom = AtomVal},
+      ProjectConfigRecordNew = ProjectConfigRecord#project_info{childrenProjectName = lists:append(ProjectConfigRecord#project_info.childrenProjectName, [AtomVal])};
+    _ ->
+      ChildrenRecordNew = ChildrenRecord,
+      ProjectConfigRecordNew = ProjectConfigRecord
+  end,
+  ?DBG_MODULE_INFO("parse_children_list -> ~p~n", [?MODULE, ChildrenRecordNew]),
+  parse_children_list(ChildrenList, ProjectConfigRecordNew, ChildrenRecordNew).
 
 %% ====== Read Project Configuraion File End ======

@@ -22,7 +22,7 @@
 -export([get_full_project_path/0, set_full_project_path/1, set_node_info/1, get_node_info/1, get_all_registered_nodes/0]).
 -export([add_node_name_to_config/1, get_nodes_name_from_config/0]).
 -export([add_project_config_info/1, get_project_config_info/0]).
--export([add_core_config_info/1, get_core_config_info/0]).
+-export([add_core_config_info/1, get_core_config_info/0, get_children_project_names_list/0]).
 
 
 %%% ====== full project path mathods start ======
@@ -139,7 +139,14 @@ add_project_config_info(ProjectInfo) ->
 get_project_config_info() ->
   case ibot_db_srv:get_record(?TABLE_CONFIG, project_config_info) of
     record_not_found -> [];
-    ProjectInfo -> ProjectInfo
+    {ok, ProjectInfo} -> ProjectInfo
   end.
 
+get_children_project_names_list() ->
+  ?DBG_MODULE_INFO("get_children_project_names_list() -> ~p~n", [?MODULE, get_project_config_info()]),
+  %case get_project_config_info() of
+  %  [] -> [];
+  %  ProjectInfo -> ProjectInfo#project_info.childrenProjectName
+  %end.
+[].
 %%% ====== Project Config Information End ======
