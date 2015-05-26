@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/ibot_generator/ibot_generator.iml" filepath="$PROJECT_DIR$/ibot_generator/ibot_generator.iml" />
       <module fileurl="file://$PROJECT_DIR$/ibot_nodes/ibot_nodes.iml" filepath="$PROJECT_DIR$/ibot_nodes/ibot_nodes.iml" />
       <module fileurl="file://$PROJECT_DIR$/ibot_ri/ibot_ri.iml" filepath="$PROJECT_DIR$/ibot_ri/ibot_ri.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ibot_ui_interaction/ibot_ui_interaction.iml" filepath="$PROJECT_DIR$/ibot_ui_interaction/ibot_ui_interaction.iml" />
       <module fileurl="file://$PROJECT_DIR$/ibot_webi/ibot_webi.iml" filepath="$PROJECT_DIR$/ibot_webi/ibot_webi.iml" />
     </modules>
   </component>
