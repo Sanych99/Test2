@@ -140,3 +140,4 @@
 2015-05-22 02:00:12.348 [info] <0.367.0> Application lager started on node 'core1@alex-K55A'
 2015-05-22 02:00:26.640 [warning] <0.366.0> lager_error_logger_h dropped 60 messages in the last second that exceeded the limit of 50 messages/sec
 2015-05-22 02:02:39.951 [info] <0.367.0> Application lager started on node 'core1@127.0.0.1'
+2015-05-28 02:34:54.733 [info] <0.367.0> Application lager started on node 'core1@127.0.0.1'

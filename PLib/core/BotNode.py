@@ -1,8 +1,12 @@
+from abc import abstractmethod
+
 from py_interface import erl_node
 from py_interface import erl_opts
+from py_interface import erl_term
+
 
 # BotNode class for create iBotOS node on python language
-class BotNode():
+class BotNode:
 
     # class constructor
     def __init__(self, args):  # class constructor
@@ -28,13 +32,18 @@ class BotNode():
 
         print "BotNode constructor is complete..."
 
-
+    @abstractmethod
+    def Action(self):
+        """
+        override Action method
+        """
 
     # === create node elements methods start ===
 
     # create node method
     def createNode(self):
         self.otpNode = erl_node.ErlNode(self.otpNodeName, erl_opts.ErlNodeOpts(cookie=self.coreCookie))
+        self.otpNode.Publish()
 
     # create mail box
     def createMbox(self, otpMboxName):
@@ -43,3 +52,19 @@ class BotNode():
         return mbox
 
     # === create node elements methods end ===
+
+    def publishMessage(self):
+        print "Send..."
+        self.otpMbox.Send(("ibot_nodes_srv_topic", "core@alex-K55A"),
+                          ("broadcast",
+                           "MBoxName",
+                           "NodeServerName",
+                           "TopicName",
+                           "Message"))
+        print "Send2..."
+
+    def setMethod(self, method):
+        self.em = method
+
+    def execMethod(self):
+        self.em()
