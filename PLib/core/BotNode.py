@@ -2,7 +2,6 @@ from abc import abstractmethod
 
 from py_interface import erl_node
 from py_interface import erl_opts
-from py_interface import erl_term
 
 
 # BotNode class for create iBotOS node on python language
@@ -20,7 +19,8 @@ class BotNode:
         self.serviceCoreNode = args[4]                  # init service node name
         self.coreCookie = args[5]                       # init core node cookie
 
-        self.createNode() # create node
+        self.otpNode = self.createNode() # create node
+        self.otpNode.Publish()
         self.otpMboxAsync = self.createMbox(self.otpMboxNameAsync) # create async system mail box
         self.otpMbox = self.createMbox(self.otpMboxName) # create synchronous mail box
 
@@ -29,8 +29,8 @@ class BotNode:
         self.asyncServiceServerDic = {} # aync server services collection
         self.coreIsActive = True # operation in action
         ##self.coreIsActiveLocker = object # operation in action locker
-
         print "BotNode constructor is complete..."
+
 
     @abstractmethod
     def Action(self):
@@ -42,8 +42,7 @@ class BotNode:
 
     # create node method
     def createNode(self):
-        self.otpNode = erl_node.ErlNode(self.otpNodeName, erl_opts.ErlNodeOpts(cookie=self.coreCookie))
-        self.otpNode.Publish()
+        return erl_node.ErlNode(self.otpNodeName, erl_opts.ErlNodeOpts(cookie="jv"))
 
     # create mail box
     def createMbox(self, otpMboxName):

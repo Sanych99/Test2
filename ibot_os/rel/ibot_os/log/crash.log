@@ -257,3 +257,52 @@ Ranch listener http had connection process started with cowboy_protocol:start_li
      Reason:     {function_clause,[{ibot_nodes_srv_connector,run_node,[not_found],[{file,"src/ibot_nodes_srv_connector.erl"},{line,107}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
      Offender:   [{pid,<0.604.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[[{node_info,undefined,"ClientTest",undefined,undefined,"alex-N550JK",undefined,"bar@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined}|{node_info,undefined,"ClientTestTopic",undefined,undefined,"alex-N550JK",undefined,"bar_topic@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined}]]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
 
+2015-05-28 13:14:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 127.0.0.1 is illegal **
+2015-05-28 13:19:55 =ERROR REPORT====
+** Connection attempt from disallowed node 'BLA_BLA_BLA7@alex-K55A' ** 
+2015-05-28 13:21:59 =ERROR REPORT====
+** Connection attempt from disallowed node 'BLA_BLA_BLA7@alex-K55A' ** 
+2015-05-28 13:23:23 =ERROR REPORT====
+** Connection attempt from disallowed node 'BLA_BLA_BLA7@alex-K55A' ** 
+2015-05-31 20:36:39 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:36:40 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:36:41 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:36:42 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:36:43 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:51:55 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:51:56 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:51:57 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:51:58 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:51:59 =ERROR REPORT====
+** Connection attempt from disallowed node test@localhost ** 
+2015-05-31 20:52:52 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:52:53 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:52:54 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:52:55 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:52:56 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:54:14 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:54:15 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:54:16 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:54:17 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 
+2015-05-31 20:54:18 =ERROR REPORT====
+** Connection attempt from disallowed node 'test@alex-K55A' ** 

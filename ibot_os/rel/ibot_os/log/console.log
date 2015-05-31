@@ -205,3 +205,62 @@
 2015-05-25 02:50:54.506 [info] <0.370.0> Application lager started on node 'core@127.0.0.1'
 2015-05-28 02:33:44.733 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
 2015-05-28 02:54:35.182 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
+2015-05-28 12:54:45.643 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
+2015-05-28 13:07:41.102 [info] <0.370.0> Application lager started on node core@localhost
+2015-05-28 13:14:16.300 [warning] <0.369.0> lager_error_logger_h dropped 63 messages in the last second that exceeded the limit of 50 messages/sec
+2015-05-28 13:14:16.300 [error] <0.632.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 127.0.0.1 is illegal **
+
+2015-05-28 13:18:56.778 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
+2015-05-28 13:19:55.606 [warning] <0.369.0> lager_error_logger_h dropped 59 messages in the last second that exceeded the limit of 50 messages/sec
+2015-05-28 13:19:55.606 [error] <0.666.0> ** Connection attempt from disallowed node 'BLA_BLA_BLA7@alex-K55A' ** 
+
+2015-05-28 13:21:59.273 [error] <0.674.0> ** Connection attempt from disallowed node 'BLA_BLA_BLA7@alex-K55A' ** 
+
+2015-05-28 13:23:23.142 [error] <0.682.0> ** Connection attempt from disallowed node 'BLA_BLA_BLA7@alex-K55A' ** 
+
+2015-05-31 17:42:25.115 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
+2015-05-31 18:27:07.466 [warning] <0.369.0> lager_error_logger_h dropped 60 messages in the last second that exceeded the limit of 50 messages/sec
+2015-05-31 19:39:08.385 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
+2015-05-31 20:36:39.977 [warning] <0.369.0> lager_error_logger_h dropped 61 messages in the last second that exceeded the limit of 50 messages/sec
+2015-05-31 20:36:39.977 [error] <0.692.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:36:40.980 [error] <0.694.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:36:41.983 [error] <0.696.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:36:42.986 [error] <0.698.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:36:43.988 [error] <0.700.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:51:55.223 [error] <0.735.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:51:56.226 [error] <0.737.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:51:57.229 [error] <0.739.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:51:58.231 [error] <0.741.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:51:59.234 [error] <0.743.0> ** Connection attempt from disallowed node test@localhost ** 
+
+2015-05-31 20:52:52.761 [error] <0.745.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:52:53.762 [error] <0.747.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:52:54.765 [error] <0.749.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:52:55.769 [error] <0.751.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:52:56.772 [error] <0.753.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:54:14.242 [error] <0.756.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:54:15.245 [error] <0.758.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:54:16.248 [error] <0.760.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:54:17.251 [error] <0.762.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 20:54:18.255 [error] <0.764.0> ** Connection attempt from disallowed node 'test@alex-K55A' ** 
+
+2015-05-31 22:03:24.587 [info] <0.370.0> Application lager started on node 'core@alex-K55A'
