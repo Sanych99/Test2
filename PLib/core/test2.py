@@ -25,14 +25,14 @@ class RPCTest(unittest.TestCase):
         name = "test"
         node = name + "@" + host
         cookie = "jv"
-        #ret = pyerl.connect_xinit(host, name, node, "127.0.0.1", cookie, 1)
-        ret = pyerl.connect_init(1, cookie, 1)
+        ret = pyerl.connect_xinit(host, name, node, "127.0.0.1", cookie, 1)
+        #ret = pyerl.connect_init(1, cookie, 1)
         self.assertEqual(ret, 1);
         retry = 0
         while True:
             time.sleep(1)
-            #sock = pyerl.xconnect("127.0.0.1", "core")
-            sock = pyerl.connect("core@alex-K55A")
+            sock = pyerl.xconnect("127.0.0.1", "core")
+            #sock = pyerl.connect("core@alex-K55A")
             if sock > 0: break
             if retry > 3: self.fail()
             retry += 1
@@ -47,7 +47,7 @@ class RPCTest(unittest.TestCase):
         msg = pyerl.mk_tuple((pyerl.mk_atom("hello"), pyerl.mk_atom("hello")))
         ls = pyerl.mk_list([to, msg])
         print pyerl.reg_send(sock, "ibot_nodes_srv_topic", msg)
-        print str(eterm)
+        print str(pyerl.xreceive_msg(sock))
         #pyerl.rpc(sock, "erlang", "send", ls);
         #while True: print "123"
         ret = pyerl.close_connection(sock);

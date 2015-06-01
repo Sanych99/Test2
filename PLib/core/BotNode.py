@@ -1,7 +1,11 @@
 from abc import abstractmethod
+import types
 
 from py_interface import erl_node
 from py_interface import erl_opts
+from py_interface import erl_term
+
+import time
 
 
 # BotNode class for create iBotOS node on python language
@@ -15,12 +19,14 @@ class BotNode:
         self.coreNodeName = args[2]                     # init core node name
         self.otpMboxNameAsync = args[0] + "_MBoxAsync"  # init asynchronous mail box name
         self.otpMboxName = args[0] + "_MBox"            # init mail box name
-        self.publisherCoreNode = args[3]                # init publisher node name
-        self.serviceCoreNode = args[4]                  # init service node name
-        self.coreCookie = args[5]                       # init core node cookie
+        self.connectorCodeNode = args[3]
+        self.publisherCoreNode = args[4]                # init publisher node name
+        self.serviceCoreNode = args[5]                  # init service node name
+        self.coreCookie = args[6]                       # init core node cookie
 
         self.otpNode = self.createNode() # create node
         self.otpNode.Publish()
+
         self.otpMboxAsync = self.createMbox(self.otpMboxNameAsync) # create async system mail box
         self.otpMbox = self.createMbox(self.otpMboxName) # create synchronous mail box
 
@@ -29,6 +35,11 @@ class BotNode:
         self.asyncServiceServerDic = {} # aync server services collection
         self.coreIsActive = True # operation in action
         ##self.coreIsActiveLocker = object # operation in action locker
+
+        self.resieveSystemMessageFunctions = {
+            "start": self.runNodeActionMethod
+        }
+
         print "BotNode constructor is complete..."
 
 
@@ -46,7 +57,7 @@ class BotNode:
 
     # create mail box
     def createMbox(self, otpMboxName):
-        mbox = self.otpNode.CreateMBox()
+        mbox = self.otpNode.CreateMBox(self.receiveMBoxMessage)
         mbox.RegisterName(otpMboxName)
         return mbox
 
@@ -67,3 +78,30 @@ class BotNode:
 
     def execMethod(self):
         self.em()
+
+    # ====== System message operations Start ======
+
+    # Get system message from core
+    def receiveMBoxMessage(self, msg):
+        print "Incoming msg=%s" % `msg`
+        if type(msg) == types.TupleType:
+            msgType = str(msg[0])
+            if msgType in self.resieveSystemMessageFunctions:
+                self.resieveSystemMessageFunctions[msgType]()
+            else:
+                print "Message %s type not found ...", msgType
+
+    # Start node Action method
+    def runNodeActionMethod(self):
+        self.Action()
+
+    # ====== System message operations End ======
+
+
+    def subscribeToTopic(self, topicName, callbackMethodName, callbackMethodMessageType):
+        obj0 = erl_term.ErlAtom("reg_subscr")
+        obj1 = erl_term.ErlAtom(self.otpMboxNameAsync)
+        obj2 = erl_term.ErlAtom(self.otpNodeName + "@" + self.currentServerName)
+        obj3 = erl_term.ErlAtom(topicName)
+        self.otpMboxAsync.Send((self.publisherCoreNode, self.coreNodeName),
+                               (obj0, obj1, obj2, obj3))
