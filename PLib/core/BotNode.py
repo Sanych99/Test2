@@ -7,6 +7,7 @@ from py_interface import erl_term
 
 from CollectionSubscribe import CollectionSubscribe
 from CollectionServiceServer import CollectionServiceServer
+from CollectionServiceClient import CollectionServiceClient
 
 import time
 
@@ -37,6 +38,8 @@ class BotNode:
         self.asyncServiceServerDic = {}  # aync server services collection
         self.coreIsActive = True  # operation in action
         ##self.coreIsActiveLocker = object # operation in action locker
+
+        self.isMonitor = False
 
         # System message recieve functions
         self.resieveSystemMessageFunctions = {
@@ -128,6 +131,25 @@ class BotNode:
     # ====== Publish/Subscribe to topic method End ======
 
     # ====== Services methods Start ======
+    def registerServiceClient(self, serverServiceMethodName,
+                              clientServiceMethodName, clientServiceMethod,
+                              serviceRequest, serviceResponse):
+
+        obj0 = erl_term.ErlAtom("reg_async_client_service_callback");
+        obj1 = erl_term.ErlAtom(self.otpMboxNameAsync);
+        obj2 = erl_term.ErlAtom(self.otpNodeName + "@" + self.currentServerName);
+        obj3 = erl_term.ErlAtom(serverServiceMethodName);
+
+        self.otpMboxAsync.Send((self.serviceCoreNode, self.coreNodeName),
+                               (obj0, obj1, obj2, obj3))
+
+        if clientServiceMethod is not None:
+            serviceClient = CollectionServiceClient(serverServiceMethodName, clientServiceMethodName,
+                                                    serviceRequest, serviceResponse, clientServiceMethod)
+
+            self.asyncServiceClientDic[serverServiceMethodName] = serviceClient
+
+
     # Registration service server
     def registerServiceServer(self, serviceMethod, serviceMethodName, requestType, responseType):
         obj0 = erl_term.ErlAtom("reg_async_server_service_callback")
@@ -141,4 +163,47 @@ class BotNode:
             serviceServer = CollectionServiceServer(serviceMethodName, requestType, responseType, serviceMethod)
             self.asyncServiceServerDic[serviceMethodName] = serviceServer
 
+    # Asynchronous service call
+    def asyncServiceRequest(self, serviceMethodName, req):
+        if serviceMethodName in self.asyncServiceClientDic:
+            serviceClient = self.asyncServiceClientDic[serviceMethodName]
+
+            obj0 = erl_term.ErlAtom("request_service_message")
+            obj1 = erl_term.ErlAtom(self.otpMboxNameAsync)
+            obj2 = erl_term.ErlAtom(self.otpNodeName + "@" + self.currentServerName)
+            obj3 = erl_term.ErlString(serviceClient.getClientMethodCallbackName())
+            obj4 = erl_term.ErlString(serviceMethodName)
+            obj5 = req.getMsg()
+
+            self.otpMboxAsync.Send((self.serviceCoreNode, self.coreNodeName),
+                                   (obj0, obj1, obj2, obj3, obj4, obj5))
+        else:
+            print "def asyncServiceRequest(self, serviceMethodName, req): client service not found..."
     # ====== Services methods Start ======
+
+    # ====== Monitor methods Start ======
+    # Start node monitor
+    def monitorStart(self):
+        if not self.isMonitor:
+            obj0 = erl_term.ErlAtom("start_monitor")
+            obj1 = erl_term.ErlString(self.otpNodeName)
+            obj2 = erl_term.ErlAtom(self.otpNodeName)
+            obj3 = erl_term.ErlAtom(self.currentServerName)
+            obj4 = erl_term.ErlAtom(self.otpNodeName + "@" + self.currentServerName)
+
+            self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
+                                   (obj0, obj1, obj2, obj3, obj4))
+
+            self.isMonitor = True
+
+    # Stop node monitor
+    def monitorStop(self):
+        if self.isMonitor:
+            obj0 = erl_term.ErlAtom("stop_monitor")
+            obj1 = erl_term.ErlString(self.otpNodeName)
+
+            self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName), (obj0, obj1))
+
+        self.isMonitor = False
+
+    # ====== Monitor methods End ======
