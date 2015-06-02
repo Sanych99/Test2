@@ -5,10 +5,10 @@ class CollectionServiceServer:
                  serviceRequest,
                  serviceResponse,
                  serviceCallback):
-        self.serviceName;
-        self.serviceRequest;
-        self.serviceResponse;
-        self.serviceCallback;
+        self.serviceName = serviceName
+        self.serviceRequest = serviceRequest
+        self.serviceResponse = serviceResponse
+        self.serviceCallback = serviceCallback
 
     def getServiceName(self):
         return self.serviceName

@@ -36,7 +36,7 @@ class TestNode(BotNode):
 
         #self.publishMessage()
 
-        self.subscribeToTopic("testTopic", self.StartNode, TestNode)
+        self.subscribeToTopic("testTopic", self.StartNode)
 
         #self.publishMessage()
         #while True: print "123"

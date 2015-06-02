@@ -292,10 +292,10 @@ public abstract class BotNode implements IBotNode {
     /* ====== Action Methods Start ====== */
 
     //Message publish method
-    public void publishMsg(OtpErlangTuple tuple)
-    {
-        this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, tuple);
-    }
+    //public void publishMsg(OtpErlangTuple tuple)
+    //{
+    //    this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, tuple);
+    //}
 
     public void publishMessage(String topicName, Object msg) throws Exception
     {
@@ -316,21 +316,21 @@ public abstract class BotNode implements IBotNode {
         System.out.println("publishMessage " + topicName);
     }
 
-    public void subscribe(String methodName)
-    {
-        //this.set_methodName(methodName); DELETE
-        try {
-            receive();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
-    }
+    //public void subscribe(String methodName)
+    //{
+    //    //this.set_methodName(methodName); DELETE
+    //    try {
+    //        receive();
+    //    } catch (IllegalAccessException e) {
+    //        e.printStackTrace();
+    //    } catch (NoSuchMethodException e) {
+    //        e.printStackTrace();
+    //    } catch (InvocationTargetException e) {
+    //        e.printStackTrace();
+    //    } catch (InstantiationException e) {
+    //        e.printStackTrace();
+    //    }
+    //}
 
     public OtpErlangTuple receive() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         try {
