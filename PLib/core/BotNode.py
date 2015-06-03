@@ -22,7 +22,7 @@ class BotNode:
         self.coreNodeName = args[2]  # init core node name
         self.otpMboxNameAsync = args[0] + "_MBoxAsync"  # init asynchronous mail box name
         self.otpMboxName = args[0] + "_MBox"  # init mail box name
-        self.connectorCodeNode = args[3]
+        self.connectorCodeNode = args[3]  # init connector node name
         self.publisherCoreNode = args[4]  # init publisher node name
         self.serviceCoreNode = args[5]  # init service node name
         self.coreCookie = args[6]  # init core node cookie
@@ -42,8 +42,10 @@ class BotNode:
         self.isMonitor = False
 
         # System message recieve functions
-        self.resieveSystemMessageFunctions = {
-            "start": self.runNodeActionMethod  # Run Action method
+        self.receiveSystemMessageFunctions = {
+            "start": self.runNodeActionMethod,  # Run Action method
+            "subscribe": self.subscribeMessageReceive,  # Invoke subscribe callback method
+            "call_service_method": self.callServiceMethod  # Invoke service method
         }
 
         print "BotNode constructor is complete..."
@@ -91,14 +93,64 @@ class BotNode:
         print "Incoming msg=%s" % `msg`
         if type(msg) == types.TupleType:
             msgType = str(msg[0])
-            if msgType in self.resieveSystemMessageFunctions:
-                self.resieveSystemMessageFunctions[msgType]()
+            if msgType in self.receiveSystemMessageFunctions:
+                self.receiveSystemMessageFunctions[msgType](msg)
             else:
                 print "Message %s type not found ...", msgType
 
     # Start node Action method
-    def runNodeActionMethod(self):
+    def runNodeActionMethod(self, msg):
         self.Action()
+
+    # Invoke subscribe callback method
+    def subscribeMessageReceive(self, msg):
+        topicName = str(msg[1]) # get topic name
+        subscribeMessage = msg[2] # get topic message
+
+        callBack = self.subscribeDic[topicName]
+
+        if callBack is not None:
+            callBackMathodArgs = callBack.getMethodMessageType()(subscribeMessage)
+            callBack.getMethodCallBack()(callBackMathodArgs)
+
+    # Invoke service method
+    def callServiceMethod(self, msg):
+        serviceMethodName = str(msg[1])
+        clientMailBoxName = msg[2]  # ErlAtom
+        clientNodeFullName = msg[3]  # ErlAtom
+        clientMethodNameCallback = msg[4] # ErlString
+        requestMessageFromClient = msg[5] # ErlTuple
+
+        serviceMethod = self.asyncServiceServerDic[serviceMethodName]
+
+        if serviceMethod is not None:
+            request = serviceMethod.getServiceRequest()(requestMessageFromClient)
+            response = serviceMethod.getServiceCallback()(request)
+
+            obj0 = erl_term.ErlAtom("response_service_message")
+            obj1 = msg[1]
+            obj2 = clientMailBoxName
+            obj3 = clientNodeFullName
+            obj4 = clientMethodNameCallback
+            obj5 = requestMessageFromClient
+            obj6 = response.getMsg()
+
+            self.otpMboxAsync.Send((self.serviceCoreNode, self.coreNodeName),
+                                   (obj0, obj1, obj2, obj3, obj4, obj5, obj6))
+
+    def callClientServiceCallbackMethod(self, msg):
+        invokedServiceMethodName = str(msg[1])
+        clientMethodName = str(msg[2])
+        requestMessage = msg[3]
+        responseMessage = msg[4]
+
+        clientMethod = self.asyncServiceClientDic[clientMethodName]
+
+        if clientMethod is not None:
+            request = clientMethod.getServiceRequest()(requestMessage)
+            response = clientMethod.getServiceResponse()(responseMessage)
+
+            clientMethod.getClientMethodCallbackName()(request, response)
 
     # ====== System message operations End ======
 

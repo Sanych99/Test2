@@ -1,13 +1,12 @@
 class CollectionSubscribe:
 
-    def __init__(self,
-                 methodName):
+    def __init__(self, methodCallBack, methodMessageType):
 
-        self.methodName
-        self.methodMessageType
+        self.methodCallBack = methodCallBack
+        self.methodMessageType = methodMessageType
 
-    def get_MethodName(self):
-        return self.methodName
+    def getMethodCallBack(self):
+        return self.methodCallBack
 
-    def get_MethodMessageType(self):
+    def getMethodMessageType(self):
         return self.methodMessageType
