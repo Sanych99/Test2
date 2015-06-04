@@ -1,12 +1,13 @@
 import sys
 from BotNode import BotNode
+from TestMsg import TestMsg
 from py_interface import erl_eventhandler, erl_common
 import time
-#erlang:send({'BLA_BLA_BLA_MBox', 'BLA_BLA_BLA@alex-K55A'},{"hello"}).
+#erlang:send({'BLA_BLA_BLA_CLIENT_MBox', 'BLA_BLA_BLA_CLIENT@alex-K55A'},{"start"}).
 class TestNode(BotNode):
 
     def __init__(self, args):
-        argstest = ["BLA_BLA_BLA", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
+        argstest = ["BLA_BLA_BLA_CLIENT", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
         BotNode.__init__(self, argstest)
         #print "from Test node: " + args[1]
 
@@ -36,7 +37,7 @@ class TestNode(BotNode):
 
         #self.publishMessage()
 
-        self.subscribeToTopic("testTopic", self.StartNode)
+        #self.subscribeToTopic("testTopic", self.StartNode)
 
         #self.publishMessage()
         #while True: print "123"
@@ -50,16 +51,22 @@ class TestNode(BotNode):
                            "TopicName",
                            "Message"))
         print "Looping...2"
+
+        self.subscribeToTopic("testTopic", self.cbmMethod, TestMsg)
+        print "subscribe to topic"
         #evhand = erl_eventhandler.GetEventHandler()
         #evhand.Loop()
+
+    def cbmMethod(self, msg):
+        print "receive message ", msg.strParam
 
 def testMethod():
     print "This is test method..."
 
 if __name__ == "__main__":
     bot= TestNode(sys.argv)
-    bot.setMethod(testMethod)
-    bot.execMethod()
+    #bot.setMethod(testMethod)
+    #bot.execMethod()
     bot.StartNode()
     #t1 = threading.Thread(target=bot.StartNode)
     #t1.start()
