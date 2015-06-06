@@ -15,3 +15,4 @@
 -define(SRC_FOLDER, "src").
 
 -define(JAVA_FOLDER, "java").
+-define(PYTHON_FOLDER, "python").

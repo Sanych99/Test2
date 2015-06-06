@@ -4,57 +4,16 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 01. Mar 2015 10:35 PM
+%%% Created : 07. Jun 2015 1:02 AM
 %%%-------------------------------------------------------------------
--module(ibot_generator_msg_srv).
+-module(ibot_generator_func_python).
 
 -include("../../ibot_core/include/debug.hrl").
--include("msg_srv_java_generate_templates.hrl").
--include("msg_srv_compile_commands.hrl").
 -include("project_paths.hrl").
--include("spec_file_ext.hrl").
--include("../../ibot_db/include/ibot_db_table_names.hrl").
--include("../../ibot_db/include/ibot_db_project_config_param.hrl").
-
+-include("msg_srv_python_generate_templates.hrl").
 
 %% API
--export([generate_msg_srv/1, generate_all_msg_srv/0]).
-
-%% @doc
-%% Generate message files
-%%]
-%% @spec generate_msg_srv(ProjectDir)
-%% @end
-
--spec generate_msg_srv(ProjectDir) -> ok when ProjectDir :: string().
-
-generate_msg_srv(ProjectDir) ->
-  generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg source files
-
-  ibot_generator_func_python:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir),
-
-  generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
-  ok.
-
-
-generate_all_msg_srv() ->
-  case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of
-    [{?FULL_PROJECT_PATH, ProjectPath}] ->
-      ?DBG_MODULE_INFO("generate_all_msg_srv() -> start method ~n", [?MODULE]),
-      %%generate_msg_source_files(filelib:wildcard(string:join([ProjectPath, ?SRC_FOLDER, "*",
-      %%?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectPath); %% Generate all msg and srv source files
-      generate_msg_srv(ProjectPath);
-    _ ->
-      {error, project_full_path_not_found}
-  end,
-  ?DBG_MODULE_INFO("generate_all_msg_srv() -> end method ~n", [?MODULE]),
-  ok.
-
-
-
+-export([generate_msg_source_files/2]).
 
 %% @doc
 %% Generate message source files for language
@@ -72,9 +31,9 @@ generate_msg_source_files([FileName | FilesList], ProjectDir) ->
 
   ProjectMsgPath = ?DEV_MSG_PATH_DIR(ProjectDir), %% Project path
 
-  JavaProjectMsgPath = ?DEV_MSG_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
+  PythonProjectMsgPath = ?DEV_MSG_PYTHON_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFile} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".java"], ""), [write]), %% Open generated file
+  {ok, GeneratedFile} = file:open(string:join([PythonProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".py"], ""), [write]), %% Open generated file
 
   for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName), %% Generate properties code
 
@@ -103,11 +62,11 @@ generate_srv_source_files([FileName | FilesList], ProjectDir) ->
 
   ProjectMsgPath = ?DEV_SRV_PATH_DIR(ProjectDir), %% Project path
 
-  JavaProjectMsgPath = ?DEV_SRV_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
+  PythonProjectMsgPath = ?DEV_SRV_PYTHON_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFileReq} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Req.java"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileReq} = file:open(string:join([PythonProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Req.py"], ""), [write]), %% Open generated file
 
-  {ok, GeneratedFileResp} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Resp.java"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileResp} = file:open(string:join([PythonProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Resp.py"], ""), [write]), %% Open generated file
 
   for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp,RawFileName), %% Generate properties code
 
@@ -131,7 +90,7 @@ generate_srv_source_files([], _ProjectDir) ->
 
 for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
-  file:write(GeneratedFile, ?JAVA_MSG_FILE_HEADER(RawFileName)), %% Write header template
+  file:write(GeneratedFile, ?PYTHON_MSG_FILE_HEADER(RawFileName)), %% Write header template
   for_each_line(Device, GeneratedFile, RawFileName, 0, []),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
 
@@ -150,11 +109,11 @@ for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName) ->
 
 for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
-  file:write(GeneratedFileReq, ?JAVA_MSG_FILE_HEADER(string:join([RawFileName, "Req"], ""))), %% Write header template
+  file:write(GeneratedFileReq, ?PYTHON_MSG_FILE_HEADER(string:join([RawFileName, "Req"], ""))), %% Write header template
   for_each_line(Device, GeneratedFileReq, string:join([RawFileName, "Req"], ""), 0, []),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
 
-  file:write(GeneratedFileResp, ?JAVA_MSG_FILE_HEADER(string:join([RawFileName, "Resp"], ""))),
+  file:write(GeneratedFileResp, ?PYTHON_MSG_FILE_HEADER(string:join([RawFileName, "Resp"], ""))),
   for_each_line(Device, GeneratedFileResp, string:join([RawFileName, "Resp"], ""), 0, []),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
 
@@ -182,7 +141,7 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
       ?DBG_INFO("line: ~p~n", [Line]),
       [Type, Name] = re:split(Line,"[ ]",[{return, list}]),
       NewName = Name -- "\n",
-      file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, NewName)),
+      %file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, NewName)),
       for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1, [{Type, NewName, ObjCount} | AllFieldsList])
   end,
   ok.
