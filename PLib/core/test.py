@@ -7,7 +7,7 @@ import time
 class TestNode(BotNode):
 
     def __init__(self, args):
-        argstest = ["BLA_BLA_BLA_CLIENT", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
+        argstest = ["BLA_BLA_BLA_CLIENT1", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
         BotNode.__init__(self, argstest)
         #print "from Test node: " + args[1]
 
@@ -58,7 +58,7 @@ class TestNode(BotNode):
         #evhand.Loop()
 
     def cbmMethod(self, msg):
-        print "receive message ", msg.strParam
+        print "receive message  from new msg: ", msg.strParam
 
 def testMethod():
     print "This is test method..."

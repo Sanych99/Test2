@@ -23,6 +23,7 @@
 -export([add_node_name_to_config/1, get_nodes_name_from_config/0]).
 -export([add_project_config_info/1, get_project_config_info/0]).
 -export([add_core_config_info/1, get_core_config_info/0, get_children_project_names_list/0]).
+-export([generate_nodes_info_to_list/2]).
 
 
 %%% ====== full project path mathods start ======
@@ -95,8 +96,22 @@ get_node_info(AtomNodeName) ->
   ibot_db_func:get_from_mnesia(node_info, AtomNodeName).
 
 get_all_registered_nodes() ->
-  ok.
+  case ibot_db_func_config:get_nodes_name_from_config() of
+    error -> [];
+    NodeNameList ->
+      ibot_db_func_config:generate_nodes_info_to_list(NodeNameList, "")
+  end.
 
+generate_nodes_info_to_list([], NodeInfoList) ->
+  NodeInfoList;
+generate_nodes_info_to_list([NodeName | NodeNameList], NodeInfoList) ->
+  case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of
+    not_found -> NewNodeInfoList = NodeInfoList;
+    Item ->
+      NewNodeInfoList = string:join([NodeInfoList,
+        string:join([Item#node_info.nodeName, Item#node_info.nodeLang], "#")], "&")
+  end,
+  generate_nodes_info_to_list(NodeNameList, NewNodeInfoList).
 
 %% ====== Core Config Information Start ======
 

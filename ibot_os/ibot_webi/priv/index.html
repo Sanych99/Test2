@@ -26,14 +26,17 @@ function open()
         var txt = document.createTextNode("Got from server: " + received_msg);
         document.getElementById('messages').appendChild(txt);
 
+        $('#nodeListDiv').html(received_msg);
         var response = JSON.parse(received_msg);
 
         switch (response['responseType'])
         {
             case "nodeslist" :
-                var nodesList = response['responseJson'].split("|");
-                    var nodeListHtml = "";
-                    for(var i=0; i<nodesList.length; i++)
+                $('#nodeListDiv').html(response);
+                var nodesList = response['responseJson'].split("&");
+                $('#nodeListDiv').html(nodesList);
+                var nodeListHtml = "";
+                    for(var i=1; i<nodesList.length; i++)
                     nodeListHtml += generateNodeItem(nodesList[i]);
                     $('#nodeListDiv').html(nodeListHtml);
                 break;

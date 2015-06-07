@@ -62,9 +62,9 @@ websocket_handle({text, Msg}, Req, State) ->
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
         <<"getNodes">> ->
           ?DBG_MODULE_INFO("<<getNodes>> : ~p~n", [?MODULE, ibot_core_app:get_project_nodes()]),
-          case ibot_core_app:get_project_nodes() of
+          case ibot_core_app:get_project_node_from_config() of
             {ok, ProjectNodes} ->
-              ProjectNodesBin = list_to_binary(string:join(ProjectNodes, "|")),
+              ProjectNodesBin = list_to_binary(ProjectNodes),%(string:join(ProjectNodes, "|")),
               {reply, {text, jiffy:encode({[{responseType, nodeslist}, {responseJson, <<ProjectNodesBin/binary>>}]})}, Req, State};
             _ -> {reply, {text, jiffy:encode({[{error,<<"get nodes error...">>}]})}, Req, State}
           end;

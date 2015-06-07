@@ -163,6 +163,7 @@ create_node_config_record([], NodeConfigRecord) ->
 load_core_config() ->
   ?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
   load_info_from_core_config(), %% Parse core.conf file
+
   %% todo  Создание схемы расределенной бд. Запуск Mnesia.
   ok.
 
@@ -254,6 +255,8 @@ load_project_config(FullProjectPath) ->
 -spec load_info_from_project_config(FullProjectPath) -> ok | error when FullProjectPath :: string().
 
 load_info_from_project_config(FullProjectPath) ->
+  %?DBG_MODULE_INFO("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", [?MODULE]),
+  %ibot_core_app:connect_to_project(FullProjectPath),
   ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> ~p~n", [?MODULE, string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)]),
   ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> FileContent: ~p~n", [?MODULE, file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL))]),
   case file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
@@ -261,8 +264,9 @@ load_info_from_project_config(FullProjectPath) ->
       case jiffy:decode(FileContent) of %% Parse JSON from core.conf file
         {ProjectConfigFileList} ->
           ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
-          create_project_config_record(ProjectConfigFileList, #project_info{}), %% Parse project.config
-          ibot_core_app:connect_to_project(FullProjectPath)
+          ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> , -> ~p~n", [?MODULE, FullProjectPath]),
+          create_project_config_record(ProjectConfigFileList, #project_info{}) %% Parse project.config
+          %ibot_core_app:connect_to_project(FullProjectPath)
       end,
       ok;
     _ -> error

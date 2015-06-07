@@ -13,7 +13,7 @@
 -include("msg_srv_python_generate_templates.hrl").
 
 %% API
--export([generate_msg_source_files/2]).
+-export([generate_msg_source_files/2, generate_srv_source_files/2]).
 
 %% @doc
 %% Generate message source files for language
@@ -129,10 +129,10 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
 
       file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName)),
       parameters_constructor_generate(GeneratedFile, AllFieldsList),
-      file:write(GeneratedFile, ?CONSTRUCTOR_END_WITH_PARAMS()),
+      %file:write(GeneratedFile, ?CONSTRUCTOR_END_WITH_PARAMS()),
 
       getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
-      file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
+      %file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
 
       file:close(GeneratedFile),
       ?DBG_MODULE_INFO("for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) -> all files closed...  ~n", [?MODULE]),

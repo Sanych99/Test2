@@ -10,7 +10,7 @@
 
 %% Application callbacks
 -export([start/2, stop/1]).
--export([create_project/2, create_node/2, connect_to_project/1, get_project_nodes/0]).
+-export([create_project/2, create_node/2, connect_to_project/1, get_project_nodes/0, get_project_node_from_config/0]).
 -export([get_cur_dir/0]).
 -export([add_node_name_to_config/1]).
 -export([start_project/0, start_node/1]).
@@ -98,6 +98,10 @@ get_project_nodes() ->
       ?DBG_MODULE_INFO("get_project_nodes() : ~p~n", [?MODULE, file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))]),
       file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))
   end.
+
+get_project_node_from_config() ->
+  ?DBG_MODULE_INFO("get_project_node_from_config() -> ~p~n", [?MODULE, ibot_db_func_config:get_all_registered_nodes()]),
+  {ok, ibot_db_func_config:get_all_registered_nodes()}.
 
 %%% ====== get_project_nodes mathod end ======
 

@@ -85,5 +85,6 @@ connect_to_distribute_project() ->
   ibot_core_srv_connect:connect_to_distributed_projects(),
   ibot_db_srv:create_distributed_shema(),
   all_children_projects_start_distribute_db(),
-  ibot_db_srv:create_distributed_tables().
+  ibot_db_srv:create_distributed_tables(),
+  ibot_core_app:connect_to_project(ibot_db_func_config:get_full_project_path()).
 

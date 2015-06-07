@@ -25,7 +25,7 @@
 ], ?NEW_LINE)).
 
 %% File end
--define(JAVA_MSG_FILE_END, string:join(["}"], ?NEW_LINE)).
+%-define(JAVA_MSG_FILE_END, string:join(["}"], ?NEW_LINE)).
 
 %% Message class name
 -define(MSG_CLASS_NAME(MsgName), string:join(["class ", MsgName, "():"], "")).
@@ -64,7 +64,7 @@
   string:join([?NEW_LINE, ?TAB(2), "self.", Name, " = ", ?CONVERT_FROM_OTP_TO_PYTHON_METHODS(Type), "(msg[", io_lib:format("~p", [ObjectNum]), "])", ""], "")
 ).
 
--define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
+%-define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
 
 
 
