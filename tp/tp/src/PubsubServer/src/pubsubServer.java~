@@ -1,0 +1,20 @@
+import langlib.java.*;
+
+public class pubsubServer extends BotNode {
+
+	public pubsubServer(String[] args) throws Exception {
+		//super(args);
+		super(new String[] {"pubsubServer", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+	}
+
+
+	public void Action() throws IllegalAccessException, NoSuchMethodException, InstantiationException {
+		System.out.println("READY!");
+	}
+
+	public static void main (String[] args) throws Exception {
+		pubsubServer pubsubserver = new pubsubServer(args);
+		pubsubServer.Action();
+	    }
+
+}
