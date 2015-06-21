@@ -14,14 +14,15 @@ public class BLA_BLA_BLA extends BotNode {
     public BLA_BLA_BLA(String[] args) throws Exception {
         //String[] args2 = new String[5];
         //super("BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "jv");
-        super(new String[] {"BLA_BLA_BLA", "alex-K55A", "core1@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+        //super(new String[] {"BLA_BLA_BLA", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+	super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
         //super(args);
     }
 
     public void Action() throws Exception {
-        //System.out.println("READY!");
+        System.out.println("Monitor Start...");
 
-        //this.monitorStart();
+        this.monitorStart();
 
 	
         

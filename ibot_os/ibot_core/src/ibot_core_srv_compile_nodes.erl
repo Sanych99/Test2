@@ -145,7 +145,8 @@ compile_one_node(NodeName) ->
   when NodeName :: string(), NodeNamesList :: list(), Full_Project_Path :: string().
 
 compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
-  NodeCompilePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER, NodeName], ?DELIM_PATH_SYMBOL), %% node compilation directory
+  CompileDevPath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER], ?DELIM_PATH_SYMBOL),
+  NodeCompilePath = string:join([CompileDevPath, NodeName], ?DELIM_PATH_SYMBOL), %% node compilation directory
 
   case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of %% get node info from config db
     ?NODE_INFO_NOT_FOUND -> error; %% node info not found in config db
@@ -158,6 +159,9 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
           string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
           ?DBG_MODULE_INFO("compile_node: ~p~n", [?MODULE, ExecuteCommand]),
           ibot_core_func_cmd:run_exec(ExecuteCommand);
+
+        python ->
+          ibot_core_func_cmd_cdir:copy_dir(string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL), CompileDevPath);
 
         _ -> error
       end

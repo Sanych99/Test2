@@ -7,7 +7,7 @@
 %%% Created : 19. Февр. 2015 19:20
 %%%-------------------------------------------------------------------
 -module(ibot_core_func_cmd_cdir).
--export([create_project/2, create_node/2]).
+-export([create_project/2, create_node/2, copy_dir/2, move_dir/2]).
 
 -include("debug.hrl").
 -include("project_create_commands.hrl").
@@ -115,3 +115,20 @@ create_java_node(NodeName) ->
     [] -> ?DBG_INFO("full_path_project_undefine: ...........~n", []),
       {error, ?FULL_PATH_PROJECT_UNDEFINE} % If project path not exeist in project db config return error
   end.
+
+
+move_dir(Source, Destination)->
+  %% For Windows
+  %%Command = "MOVE \"" ++ Source ++ "\" \"" ++ Destination ++ "\"",
+  %% For Unix/Linux
+  Command = "mv " ++ Source ++ " " ++ Destination,
+  ?DBG_MODULE_INFO("move_dir(Source, Destination)-> ~p~n", [?MODULE, Command]),
+  spawn(os,cmd,[Command]).
+
+copy_dir(Source, Destination)->
+  %% For Windows
+  %%Command = "XCOPY \"" ++ Source ++ "\" \"" ++ Destination ++ "\"",
+  %% For Unix/Linux
+  Command = "cp -a " ++ Source ++ " " ++ Destination,
+  ?DBG_MODULE_INFO("copy_dir(Source, Destination)-> ~p~n", [?MODULE, Command]),
+  spawn(os,cmd,[Command]).
