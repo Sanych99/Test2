@@ -1,7 +1,9 @@
 {
-"nodeName":"PubsubServer",
-"nodeLang":"java",
-"nodeExecutable":"java",
+"nodeName":"test_py",
+"nodeLang":"python",
+"nodeExecutable":"python",
 "runPreAgruments":"-",
-"runPostArguments":"-"
+"runPostArguments":"-",
+"msgFileList":["TestMsg"],
+"srvFileList":[]
 }

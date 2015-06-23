@@ -148,24 +148,45 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
   CompileDevPath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER], ?DELIM_PATH_SYMBOL),
   NodeCompilePath = string:join([CompileDevPath, NodeName], ?DELIM_PATH_SYMBOL), %% node compilation directory
 
+  MessagePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?MESSAGE_DIR], ?DELIM_PATH_SYMBOL),
+  ServicePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?SERVICE_DIR], ?DELIM_PATH_SYMBOL),
+
+  %ibot_core_func_cmd_cdir:del_dir(NodeCompilePath), %% delete dir from dev folder
+  %ibot_core_func_cmd_cdir:create_dir(NodeCompilePath), %% create new node dir in dev folder
+
   case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of %% get node info from config db
     ?NODE_INFO_NOT_FOUND -> error; %% node info not found in config db
     ?ACTION_ERROR -> error; %% action error
     NodeInfoRecord ->
       case NodeInfoRecord#node_info.atomNodeLang of %% chack node lang
         %% compile java node
-        java -> ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
+        java ->
+          NodeSourcePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC], ?DELIM_PATH_SYMBOL),
+          ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
           string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:", ibot_db_func_config:get_full_project_path(),"/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/srv/java"], ""),
-          string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
+          string:join([NodeSourcePath, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
           ?DBG_MODULE_INFO("compile_node: ~p~n", [?MODULE, ExecuteCommand]),
           ibot_core_func_cmd:run_exec(ExecuteCommand);
 
         python ->
-          ibot_core_func_cmd_cdir:copy_dir(string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL), CompileDevPath);
+          copy_msg_srv_files_to_dev_node(NodeCompilePath, MessagePath, NodeInfoRecord#node_info.messageFile, "python", ".py"),
+          copy_msg_srv_files_to_dev_node(NodeCompilePath, ServicePath, NodeInfoRecord#node_info.serviceFile, "python", ".py"),
+          NodeSourcePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?PYTHON_NODE_SRC], ?DELIM_PATH_SYMBOL),
+          ibot_core_func_cmd_cdir:copy_dir(NodeSourcePath, NodeCompilePath);
 
         _ -> error
       end
   end,
   compile_node(NodeNamesList, Full_Project_Path); %% compile next node
 compile_node([],_) -> ok.
+
+copy_msg_srv_files_to_dev_node(_NodeCompilePath, _SourcePath, [], _Lang, _Ext) ->
+  ok;
+copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, [MsgFile | MsgFileList], Lang, Ext) ->
+  FileName = string:join([MsgFile, Ext], ""),
+  SourcePathFile = string:join([SourcePath, Lang, FileName], ?DELIM_PATH_SYMBOL),
+  DestinationPathFile = string:join([NodeCompilePath, FileName], ?DELIM_PATH_SYMBOL),
+  ?DBG_MODULE_INFO("copy_msg_srv_files_to_dev_node: source: ~p     destination: ~p~n", [?MODULE, SourcePathFile, DestinationPathFile]),
+  file:copy(SourcePathFile, DestinationPathFile),
+  copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, MsgFileList, Lang, Ext).
 

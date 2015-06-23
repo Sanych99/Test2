@@ -88,6 +88,9 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
+
+%% ====== Read node config file Start ======
+
 %% @doc
 %%
 %% Read node configuration file
@@ -100,7 +103,7 @@ read_node_config(NodePath) ->
   {ok, FileContent} = file:read_file(NodePath),
   case jiffy:decode(FileContent) of
     {NodeConfigFileList} ->
-      %?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, NodeConfigFileList]),
+      ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, NodeConfigFileList]),
       create_node_config_record(NodeConfigFileList, #node_info{})
   end,
   ok.
@@ -142,8 +145,12 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
     <<"runPostArguments">> ->
       StrVal = binary_to_list(Val),
       NewNodeConfigRecord = NodeConfigRecord; %NodeConfigRecord#node_info{nodePostArguments = StrVal}
-    Val ->
-      ?DBG_MODULE_INFO("=====> .... try monitor: ~p~n", [?MODULE, Val]),
+    <<"msgFileList">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{messageFile = parse_msg_srv_file_list_from_config(Val, [])};
+    <<"srvFileList">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{serviceFile = parse_msg_srv_file_list_from_config(Val, [])};
+    Other ->
+      ?DBG_MODULE_INFO("=====> .... try monitor: other:~p   val: ~p~n", [?MODULE, Other, Val]),
       NewNodeConfigRecord = NodeConfigRecord
   end,
   create_node_config_record(NodeConfigList, NewNodeConfigRecord);
@@ -151,6 +158,25 @@ create_node_config_record([], NodeConfigRecord) ->
   %?DBG_MODULE_INFO("create_node_config_record([], NodeConfigRecord) -> ~p~n", [?MODULE, NodeConfigRecord]),
   ibot_db_func_config:set_node_info(NodeConfigRecord),
   ok.
+
+
+%% @doc
+%% Parse message and servise file list from node config file
+%% @spec parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) -> FileList
+%% when FileList :: list(), FileName :: binary(), FileNameList :: list().
+%% @end
+
+-spec parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) -> FileList
+  when FileList :: list(), FileName :: binary(), FileNameList :: list().
+
+parse_msg_srv_file_list_from_config([], FileList) ->
+  ?DBG_MODULE_INFO("parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) -> ~p~n", [?MODULE, FileList]),
+  FileList;
+parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) ->
+  NewFileList = lists:append(FileList, [binary_to_list(FileName)]),
+  parse_msg_srv_file_list_from_config(FileNameList, NewFileList).
+
+%% ====== Read node config file End ======
 
 
 %% ====== Read Core Configuraion File Start ======

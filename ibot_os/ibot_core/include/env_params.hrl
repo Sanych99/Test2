@@ -12,6 +12,7 @@
 -define(NODES_FOLDER, "nodes").
 
 -define(JAVA_NODE_SRC, "src").
+-define(PYTHON_NODE_SRC, "src").
 
 -define(PROJECT_SRC, "src").
 

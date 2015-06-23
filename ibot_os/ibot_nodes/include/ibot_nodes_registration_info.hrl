@@ -36,5 +36,7 @@
   nodeExecutable :: string(),
   nodePreArguments :: list(),
   nodePostArguments :: list(),
-  monitorSettings :: #node_monitor_settings{}
+  monitorSettings :: #node_monitor_settings{},
+  messageFile :: list(),
+  serviceFile :: list()
 }).

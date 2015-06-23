@@ -7,7 +7,7 @@
 %%% Created : 19. Февр. 2015 19:20
 %%%-------------------------------------------------------------------
 -module(ibot_core_func_cmd_cdir).
--export([create_project/2, create_node/2, copy_dir/2, move_dir/2]).
+-export([create_project/2, create_node/2, copy_dir/2, move_dir/2, remove_dir/1, create_dir/1, del_dir/1]).
 
 -include("debug.hrl").
 -include("project_create_commands.hrl").
@@ -117,6 +117,41 @@ create_java_node(NodeName) ->
   end.
 
 
+remove_dir(DirPath) ->
+  case filelib:ensure_dir(DirPath) of
+    true ->
+      file:del_dir(DirPath);
+    _ -> ok
+  end.
+
+
+del_dir(Dir) ->
+  lists:foreach(fun(D) ->
+    ok = file:del_dir(D)
+  end, del_all_files([Dir], [])).
+
+del_all_files([], EmptyDirs) ->
+  EmptyDirs;
+del_all_files([Dir | T], EmptyDirs) ->
+  {ok, FilesInDir} = file:list_dir(Dir),
+  {Files, Dirs} = lists:foldl(fun(F, {Fs, Ds}) ->
+    Path = Dir ++ "/" ++ F,
+    case filelib:is_dir(Path) of
+      true ->
+        {Fs, [Path | Ds]};
+      false ->
+        {[Path | Fs], Ds}
+    end
+  end, {[],[]}, FilesInDir),
+  lists:foreach(fun(F) ->
+    ok = file:delete(F)
+  end, Files),
+  del_all_files(T ++ Dirs, [Dir | EmptyDirs]).
+
+
+create_dir(DirPath) ->
+  filelib:ensure_dir(DirPath).
+
 move_dir(Source, Destination)->
   %% For Windows
   %%Command = "MOVE \"" ++ Source ++ "\" \"" ++ Destination ++ "\"",
@@ -129,6 +164,22 @@ copy_dir(Source, Destination)->
   %% For Windows
   %%Command = "XCOPY \"" ++ Source ++ "\" \"" ++ Destination ++ "\"",
   %% For Unix/Linux
-  Command = "cp -a " ++ Source ++ " " ++ Destination,
-  ?DBG_MODULE_INFO("copy_dir(Source, Destination)-> ~p~n", [?MODULE, Command]),
-  spawn(os,cmd,[Command]).
+  %Command = "cp -a " ++ Source ++ " " ++ Destination,
+  %?DBG_MODULE_INFO("copy_dir(Source, Destination)-> ~p~n", [?MODULE, Command]),
+  %spawn(os,cmd,[Command]).
+  case file:list_dir(Source) of
+    {ok, FileList} ->
+      ?DBG_MODULE_INFO("copy_dir: ~p~n", [?MODULE, FileList]),
+      copy_file_from_to_dir(Source, Destination, FileList);
+    {error, Reason} -> ok
+  end.%%filelib:wildcard(string:join([Source, "*"], ?DELIM_PATH_SYMBOL)),
+
+
+copy_file_from_to_dir(Source, Destination, []) ->
+    ok;
+copy_file_from_to_dir(Source, Destination, [FileName | FileList]) ->
+  SourceFile = string:join([Source, FileName], ?DELIM_PATH_SYMBOL),
+  DestinationFile = string:join([Destination, FileName], ?DELIM_PATH_SYMBOL),
+  ?DBG_MODULE_INFO("copy_file_from_to_dir: source: ~p~n   destination: ~p~n", [?MODULE, SourceFile, DestinationFile]),
+  file:copy(SourceFile, DestinationFile),
+  copy_file_from_to_dir(Source, Destination, FileList).
