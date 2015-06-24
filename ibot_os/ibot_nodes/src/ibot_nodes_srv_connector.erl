@@ -25,6 +25,7 @@
 -include("ibot_comm_commands.hrl").
 -include("ibot_nodes_modules.hrl").
 -include("ibot_nodes_registration_info.hrl").
+-include("../../ibot_core/include/env_params.hrl").
 
 -record(state, {node_port, node_name}).
 
@@ -112,6 +113,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
   nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
 
+  FullProjectPath = ibot_db_func_config:get_full_project_path(),
+
   case AtomNodeLang of
     java ->
       %% Проверка наличия исполняющего файла java
@@ -137,6 +140,17 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
           % Выполянем комманду по запуску узла
           erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
       %erlang:open_port({spawn, "java"}, [{line,1000}, stderr_to_stdout, {args, [" -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"]}])
+      end;
+
+    python ->
+      case os:find_executable(NodeExecutable) of
+        [] ->
+          throw({stop, executable_file_missing});
+
+        ExecutableFile ->
+        erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
+          {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?DELIM_PATH_SYMBOL)]}])
+
       end;
 
     _ -> error

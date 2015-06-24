@@ -1,5 +1,5 @@
 import sys
-from BotNode import BotNode
+from core.BotNode import BotNode
 from TestMsg import TestMsg
 from py_interface import erl_eventhandler, erl_common
 import time
