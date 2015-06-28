@@ -1,5 +1,5 @@
 import sys
-from core.BotNode import BotNode
+from py_i_bot_os.BotNode import BotNode
 from TestMsg import TestMsg
 from py_interface import erl_eventhandler, erl_common
 import time
@@ -7,7 +7,7 @@ import time
 class TestNode(BotNode):
 
     def __init__(self, args):
-        argstest = ["BLA_BLA_BLA_CLIENT1", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
+        argstest = ["BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
         BotNode.__init__(self, argstest)
         #print "from Test node: " + args[1]
 
@@ -21,7 +21,7 @@ class TestNode(BotNode):
         print "Looping..."
         evhand.Loop()
 
-    def Action(self):
+    def action(self):
         #i=1000
         #while(i>=0):
         #    i -= 1
@@ -44,15 +44,15 @@ class TestNode(BotNode):
         print "Action Method"
         #time.sleep(5)
         #self.publishMessage()
-        self.otpMbox.Send(("ibot_nodes_srv_topic", "core@alex-K55A"),
-                          ("broadcast",
-                           "MBoxName",
-                           "NodeServerName",
-                           "TopicName",
-                           "Message"))
-        print "Looping...2"
+        #self.otpMbox.Send(("ibot_nodes_srv_topic", "core@alex-K55A"),
+        #                  ("broadcast",
+        #                   "MBoxName",
+        #                   "NodeServerName",
+        #                   "TopicName",
+        #                   "Message"))
+        #print "Looping...2"
 
-        self.subscribeToTopic("testTopic", self.cbmMethod, TestMsg)
+        self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
         print "subscribe to topic"
         #evhand = erl_eventhandler.GetEventHandler()
         #evhand.Loop()

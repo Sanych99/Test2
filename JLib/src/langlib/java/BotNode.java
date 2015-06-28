@@ -162,7 +162,7 @@ public abstract class BotNode implements IBotNode {
                                         break;
 
                                     case "monitor" : //monitor actions
-                                        String monitorAction = ((OtpErlangString) rMessage.elementAt(1)).stringValue();
+                                        String monitorAction = ((OtpErlangString) rMessage.elementAt(2)).stringValue();
                                         switch (monitorAction) {
                                             // when monitor was started
                                             case "monitorIsStart" : isMonitor = true;

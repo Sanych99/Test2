@@ -3,10 +3,10 @@ from distutils.core import setup
 setup(
     name='PLib',
     version='',
-    packages=['core'],
+    packages=['py_i_bot_os'],
     url='',
     license='',
     author='alex',
     author_email='',
-    description=''
+    description='', requires=['py_interface']
 )
