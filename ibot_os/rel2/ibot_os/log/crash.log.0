@@ -1,28 +1,147 @@
-2015-05-05 02:38:26 =ERROR REPORT====
-** Generic server ibot_nodes_srv_topic terminating 
-** Last message in was {reg_subscr,'BLA_BLA_BLA_MBoxAsync','BLA_BLA_BLA@alex-N550JK',test_topic}
+2015-06-24 01:01:44 =ERROR REPORT====
+** Generic server ibot_core_srv_compile_nodes terminating 
+** Last message in was {compile_node,"PubsubServer"}
 ** When Server state == {state}
 ** Reason for termination == 
-** {{case_clause,not_found},[{ibot_db_func_topics,add_node_to_topic,3,[{file,"src/ibot_db_func_topics.erl"},{line,28}]},{ibot_nodes_srv_topic,handle_info,2,[{file,"src/ibot_nodes_srv_topic.erl"},{line,78}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
-2015-05-05 02:38:26 =CRASH REPORT====
+** {{badmatch,{error,enoent}},[{ibot_core_func_cmd_cdir,del_all_files,2,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,136}]},{ibot_core_func_cmd_cdir,del_dir,1,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,131}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,154}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-06-24 01:01:44 =CRASH REPORT====
   crasher:
-    initial call: ibot_nodes_srv_topic:init/1
-    pid: <0.629.0>
-    registered_name: ibot_nodes_srv_topic
-    exception exit: {{{case_clause,not_found},[{ibot_db_func_topics,add_node_to_topic,3,[{file,"src/ibot_db_func_topics.erl"},{line,28}]},{ibot_nodes_srv_topic,handle_info,2,[{file,"src/ibot_nodes_srv_topic.erl"},{line,78}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
-    ancestors: [ibot_nodes_sup,<0.627.0>]
+    initial call: ibot_core_srv_compile_nodes:init/1
+    pid: <0.434.0>
+    registered_name: ibot_core_srv_compile_nodes
+    exception exit: {{{badmatch,{error,enoent}},[{ibot_core_func_cmd_cdir,del_all_files,2,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,136}]},{ibot_core_func_cmd_cdir,del_dir,1,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,131}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,154}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_core_sup,<0.429.0>]
     messages: []
-    links: [<0.628.0>]
+    links: [<0.432.0>]
     dictionary: []
     trap_exit: false
     status: running
-    heap_size: 610
+    heap_size: 1598
     stack_size: 27
-    reductions: 373
+    reductions: 397
   neighbours:
-2015-05-05 02:38:26 =SUPERVISOR REPORT====
+2015-06-24 01:01:44 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_core_sup}
+     Context:    child_terminated
+     Reason:     {{badmatch,{error,enoent}},[{ibot_core_func_cmd_cdir,del_all_files,2,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,136}]},{ibot_core_func_cmd_cdir,del_dir,1,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,131}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,154}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.434.0>},{name,ibot_core_srv_compile_nodes},{mfargs,{ibot_core_srv_compile_nodes,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-06-24 01:01:44 =ERROR REPORT====
+Ranch listener http had connection process started with cowboy_protocol:start_link/4 at <0.633.0> exit with reason: [{reason,{{{badmatch,{error,enoent}},[{ibot_core_func_cmd_cdir,del_all_files,2,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,136}]},{ibot_core_func_cmd_cdir,del_dir,1,[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,131}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,154}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},{gen_server,call,[ibot_core_srv_compile_nodes,{compile_node,"PubsubServer"}]}}},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_webi_handler,websocket_handle,3,[{file,"src/ibot_webi_handler.erl"},{line,42}]},{cowboy_websocket,handler_call,7,[{file,"src/cowboy_websocket.erl"},{line,598}]},{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]},{msg,{text,<<"{\"compileOneNode\" : \"PubsubServer\"}">>}},{req,[{socket,#Port<0.870>},{transport,ranch_tcp},{connection,keepalive},{pid,<0.633.0>},{method,<<"GET">>},{version,'HTTP/1.1'},{peer,{{127,0,0,1},44588}},{host,<<"localhost">>},{host_info,undefined},{port,10101},{path,<<"/websocket">>},{path_info,undefined},{qs,<<>>},{qs_vals,undefined},{bindings,[]},{headers,[{<<"host">>,<<"localhost:10101">>},{<<"connection">>,<<"Upgrade">>},{<<"pragma">>,<<"no-cache">>},{<<"cache-control">>,<<"no-cache">>},{<<"upgrade">>,<<"websocket">>},{<<"origin">>,<<"http://localhost:10101">>},{<<"sec-websocket-version">>,<<"13">>},{<<"user-agent">>,<<"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/39.0.2171.65 Chrome/39.0.2171.65 Safari/537.36">>},{<<"accept-encoding">>,<<"gzip, deflate, sdch">>},{<<"accept-language">>,<<"en-US,en;q=0.8">>},{<<"sec-websocket-key">>,<<"SZgXwEjVPHpznabPeZg9VA==">>},{<<"sec-websocket-extensions">>,<<"permessage-deflate; client_max_window_bits">>}]},{p_headers,[{<<"sec-websocket-extensions">>,[{<<"permessage-deflate">>,[<<"client_max_window_bits">>]}]},{<<"upgrade">>,[<<"websocket">>]},{<<"connection">>,[<<"upgrade">>]}]},{cookies,undefined},{meta,[{websocket_compress,false},{websocket_version,13}]},{body_state,waiting},{multipart,undefined},{buffer,<<>>},{resp_compress,false},{resp_state,done},{resp_headers,[]},{resp_body,<<>>},{onresponse,undefined}]},{state,undefined_state}]
+2015-06-24 01:58:08 =ERROR REPORT====
+** Generic server ibot_core_srv_compile_nodes terminating 
+** Last message in was {compile_node,"test_py"}
+** When Server state == {state}
+** Reason for termination == 
+** {function_clause,[{ibot_core_func_cmd_cdir,copy_file_from_to_dir,["/home/alex/iBotOS/iBotOS/tp/tp/src/test_py/src","/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py",{ok,["__init__.py","test.py"]}],[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-06-24 01:58:08 =CRASH REPORT====
+  crasher:
+    initial call: ibot_core_srv_compile_nodes:init/1
+    pid: <0.434.0>
+    registered_name: ibot_core_srv_compile_nodes
+    exception exit: {{function_clause,[{ibot_core_func_cmd_cdir,copy_file_from_to_dir,["/home/alex/iBotOS/iBotOS/tp/tp/src/test_py/src","/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py",{ok,["__init__.py","test.py"]}],[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_core_sup,<0.429.0>]
+    messages: []
+    links: [<0.432.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 906
+  neighbours:
+2015-06-24 01:58:08 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_core_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{ibot_core_func_cmd_cdir,copy_file_from_to_dir,["/home/alex/iBotOS/iBotOS/tp/tp/src/test_py/src","/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py",{ok,["__init__.py","test.py"]}],[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.434.0>},{name,ibot_core_srv_compile_nodes},{mfargs,{ibot_core_srv_compile_nodes,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-06-24 01:58:08 =ERROR REPORT====
+Ranch listener http had connection process started with cowboy_protocol:start_link/4 at <0.634.0> exit with reason: [{reason,{{function_clause,[{ibot_core_func_cmd_cdir,copy_file_from_to_dir,["/home/alex/iBotOS/iBotOS/tp/tp/src/test_py/src","/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py",{ok,["__init__.py","test.py"]}],[{file,"src/ibot_core_func_cmd_cdir.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_node,2,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,175}]},{ibot_core_srv_compile_nodes,compile_one_node,1,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,129}]},{ibot_core_srv_compile_nodes,handle_call,3,[{file,"src/ibot_core_srv_compile_nodes.erl"},{line,66}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},{gen_server,call,[ibot_core_srv_compile_nodes,{compile_node,"test_py"}]}}},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_webi_handler,websocket_handle,3,[{file,"src/ibot_webi_handler.erl"},{line,42}]},{cowboy_websocket,handler_call,7,[{file,"src/cowboy_websocket.erl"},{line,598}]},{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]},{msg,{text,<<"{\"compileOneNode\" : \"test_py\"}">>}},{req,[{socket,#Port<0.871>},{transport,ranch_tcp},{connection,keepalive},{pid,<0.634.0>},{method,<<"GET">>},{version,'HTTP/1.1'},{peer,{{127,0,0,1},44842}},{host,<<"localhost">>},{host_info,undefined},{port,10101},{path,<<"/websocket">>},{path_info,undefined},{qs,<<>>},{qs_vals,undefined},{bindings,[]},{headers,[{<<"host">>,<<"localhost:10101">>},{<<"connection">>,<<"Upgrade">>},{<<"pragma">>,<<"no-cache">>},{<<"cache-control">>,<<"no-cache">>},{<<"upgrade">>,<<"websocket">>},{<<"origin">>,<<"http://localhost:10101">>},{<<"sec-websocket-version">>,<<"13">>},{<<"user-agent">>,<<"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/39.0.2171.65 Chrome/39.0.2171.65 Safari/537.36">>},{<<"accept-encoding">>,<<"gzip, deflate, sdch">>},{<<"accept-language">>,<<"en-US,en;q=0.8">>},{<<"sec-websocket-key">>,<<"Ey38/I6+WaA4WrAFijnUpg==">>},{<<"sec-websocket-extensions">>,<<"permessage-deflate; client_max_window_bits">>}]},{p_headers,[{<<"sec-websocket-extensions">>,[{<<"permessage-deflate">>,[<<"client_max_window_bits">>]}]},{<<"upgrade">>,[<<"websocket">>]},{<<"connection">>,[<<"upgrade">>]}]},{cookies,undefined},{meta,[{websocket_compress,false},{websocket_version,13}]},{body_state,waiting},{multipart,undefined},{buffer,<<>>},{resp_compress,false},{resp_state,done},{resp_headers,[]},{resp_body,<<>>},{onresponse,undefined}]},{state,undefined_state}]
+2015-06-25 00:35:51 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[]}}}
+** When Server state == {state,undefined,"bar@alex-N550JK"}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,145}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-06-25 00:35:51 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.604.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,145}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.601.0>]
+    messages: []
+    links: [<0.602.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 620
+  neighbours:
+2015-06-25 00:35:51 =SUPERVISOR REPORT====
      Supervisor: {local,ibot_nodes_sup}
      Context:    child_terminated
-     Reason:     {{case_clause,not_found},[{ibot_db_func_topics,add_node_to_topic,3,[{file,"src/ibot_db_func_topics.erl"},{line,28}]},{ibot_nodes_srv_topic,handle_info,2,[{file,"src/ibot_nodes_srv_topic.erl"},{line,78}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
-     Offender:   [{pid,<0.629.0>},{name,ibot_nodes_srv_topic},{mfargs,{ibot_nodes_srv_topic,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,145}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.604.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[[{node_info,undefined,"ClientTest",undefined,undefined,"alex-N550JK",undefined,"bar@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined,undefined,undefined}|{node_info,undefined,"ClientTestTopic",undefined,undefined,"alex-N550JK",undefined,"bar_topic@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined,undefined,undefined}]]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-06-25 00:38:45 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[]}}}
+** When Server state == {state,undefined,"bar@alex-N550JK"}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,150}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-06-25 00:38:45 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.604.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,150}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.601.0>]
+    messages: []
+    links: [<0.602.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 1810
+  neighbours:
+2015-06-25 00:38:45 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,150}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.604.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[[{node_info,undefined,"ClientTest",undefined,undefined,"alex-N550JK",undefined,"bar@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined,undefined,undefined}|{node_info,undefined,"ClientTestTopic",undefined,undefined,"alex-N550JK",undefined,"bar_topic@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined,undefined,undefined}]]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-06-25 00:39:40 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[]}}}
+** When Server state == {state,undefined,"bar@alex-N550JK"}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"/usr/bin/python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,150}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-06-25 00:39:40 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.604.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"/usr/bin/python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,150}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.601.0>]
+    messages: []
+    links: [<0.602.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 1813
+  neighbours:
+2015-06-25 00:39:40 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"/usr/bin/python"},[{line,1000},stderr_to_stdout,{args,"/home/alex/iBotOS/iBotOS/tp/tp/test_py/test_py.py"}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,150}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,65}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.604.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[[{node_info,undefined,"ClientTest",undefined,undefined,"alex-N550JK",undefined,"bar@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined,undefined,undefined}|{node_info,undefined,"ClientTestTopic",undefined,undefined,"alex-N550JK",undefined,"bar_topic@alex-N550JK",undefined,"Java",undefined,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],[],undefined,undefined,undefined}]]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-06-30 23:41:08 =ERROR REPORT====
+Error in process <0.656.0> on node 'core@alex-N550JK' with exit value: {{badrecord,project_children},[{ibot_core_srv_connect,connect_to_node_list,1,[{file,"src/ibot_core_srv_connect.erl"},{line,160}]},{ibot_core_srv_connect,connect_to_distributed_projects,0,[{file,"src/ibot_core_srv... 
 

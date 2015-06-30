@@ -11,6 +11,7 @@
 
 -behaviour(gen_server).
 
+-include("debug.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 
 %% API
@@ -156,8 +157,9 @@ connect_to_distributed_projects() ->
 connect_to_node_list([]) ->
   ok;
 connect_to_node_list([NodeName | NodeList]) ->
-  connect_to_node(NodeName#project_children.childrenNameAtom),
+  connect_to_node(NodeName),
   connect_to_node_list(NodeList).
 
 connect_to_node(Node) ->
+  ?DBG_MODULE_INFO("connect_to_node(Node) -> ~p~n", [?MODULE, Node]),
   net_adm:ping(Node).

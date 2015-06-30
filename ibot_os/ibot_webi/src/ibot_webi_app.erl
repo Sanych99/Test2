@@ -31,7 +31,7 @@ start(_StartType, _StartArgs) ->
       {"/websocket", ibot_webi_handler, []}
     ]}
   ]),
-  {ok, _} = cowboy:start_http(http, 100, [{port, 10101}],
+  {ok, _} = cowboy:start_http(http, 100, [{port, 10100}],
     [{env, [{dispatch, Dispatch}]}]),
     ibot_webi_sup:start_link().
 

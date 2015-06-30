@@ -159,9 +159,8 @@ get_project_config_info() ->
 
 get_children_project_names_list() ->
   ?DBG_MODULE_INFO("get_children_project_names_list() -> ~p~n", [?MODULE, get_project_config_info()]),
-  %case get_project_config_info() of
-  %  [] -> [];
-  %  ProjectInfo -> ProjectInfo#project_info.childrenProjectName
-  %end.
-[].
+  case get_project_config_info() of
+    [] -> [];
+    ProjectInfo -> ProjectInfo#project_info.childrenProjectName
+  end.
 %%% ====== Project Config Information End ======

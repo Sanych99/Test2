@@ -53,6 +53,7 @@ init([]) ->
   {ok, #state{}}.
 
 create_distributed_shema() ->
+  ?DBG_MODULE_INFO("create_distributed_shema() -> ~p~n", [?MODULE, [node() | nodes()]]),
   mnesia:create_schema([node() | nodes()]).
 
 start_distibuted_db() ->

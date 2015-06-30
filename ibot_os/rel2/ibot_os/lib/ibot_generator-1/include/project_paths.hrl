@@ -16,3 +16,7 @@
 
 -define(DEV_MSG_JAVA_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?JAVA_FOLDER], "")).
 -define(DEV_SRV_JAVA_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?JAVA_FOLDER], "")).
+
+
+-define(DEV_MSG_PYTHON_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?PYTHON_FOLDER], "")).
+-define(DEV_SRV_PYTHON_PATH(Path), string:join([Path, ?DELIM_SYMBOL, ?PYTHON_FOLDER], "")).

@@ -1,3 +1,28 @@
-2015-06-15 23:50:07 =ERROR REPORT====
-Error in process <0.626.0> on node 'core@alex-N550JK' with exit value: {{case_clause,{error,enoent}},[{ibot_core_app,connect_to_project,1,[{file,"src/ibot_core_app.erl"},{line,49}]}]}
+2015-06-23 23:54:28 =ERROR REPORT====
+** Generic server ibot_core_srv_project_info_loader terminating 
+** Last message in was {load_project_node_info,"/home/alex/iBotOS/iBotOS/tp/tp/src/test_py/node_config.conf"}
+** When Server state == {state}
+** Reason for termination == 
+** {{case_clause,<<"msgFileList">>},[{ibot_core_srv_project_info_loader,create_node_config_record,2,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,122}]},{ibot_core_srv_project_info_loader,read_node_config,1,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,104}]},{ibot_core_srv_project_info_loader,handle_call,3,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-06-23 23:54:28 =CRASH REPORT====
+  crasher:
+    initial call: ibot_core_srv_project_info_loader:init/1
+    pid: <0.433.0>
+    registered_name: ibot_core_srv_project_info_loader
+    exception exit: {{{case_clause,<<"msgFileList">>},[{ibot_core_srv_project_info_loader,create_node_config_record,2,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,122}]},{ibot_core_srv_project_info_loader,read_node_config,1,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,104}]},{ibot_core_srv_project_info_loader,handle_call,3,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_core_sup,<0.429.0>]
+    messages: []
+    links: [<0.432.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 2610
+  neighbours:
+2015-06-23 23:54:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_core_sup}
+     Context:    child_terminated
+     Reason:     {{case_clause,<<"msgFileList">>},[{ibot_core_srv_project_info_loader,create_node_config_record,2,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,122}]},{ibot_core_srv_project_info_loader,read_node_config,1,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,104}]},{ibot_core_srv_project_info_loader,handle_call,3,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.433.0>},{name,ibot_core_srv_project_info_loader},{mfargs,{ibot_core_srv_project_info_loader,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
 

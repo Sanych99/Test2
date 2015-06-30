@@ -3,13 +3,13 @@ from py_i_bot_os.BotNode import BotNode
 from TestMsg import TestMsg
 from py_interface import erl_eventhandler, erl_common
 import time
-#erlang:send({'BLA_BLA_BLA_CLIENT_MBox', 'BLA_BLA_BLA_CLIENT@alex-K55A'},{"start"}).
+#erlang:send({'BLA_BLA_BLA_CLIENT_MBox', 'BLA_BLA_BLA_CLIENT@alex-N550JK'},{"start"}).
 class TestNode(BotNode):
 
     def __init__(self, args):
-        argstest = ["BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
-        BotNode.__init__(self, argstest)
-        #print "from Test node: " + args[1]
+        #argstest = ["BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
+        BotNode.__init__(self, args[1:])
+        print "from Test node: " + self.otpNodeName
 
     def StartNode(self):
         #time.sleep(5)
@@ -65,6 +65,7 @@ def testMethod():
 
 if __name__ == "__main__":
     bot= TestNode(sys.argv)
+    print "args: ", sys.argv[1:]
     #bot.setMethod(testMethod)
     #bot.execMethod()
     bot.StartNode()

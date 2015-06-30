@@ -1,0 +1,25 @@
+from py_interface import erl_term
+
+class TestMsg():
+
+	private OtpErlangString strParamOtp;
+	private String strParam;
+
+	def __init__(self):
+		self.resultObject = []
+
+	def getMsg(self):
+		return OtpErlangTuple(self.resultObject);
+
+	def __init__(self, msg):
+		self.strParam = str(msg[0])	
+	}
+
+	public String get_strParam() {
+		return strParam;
+	}
+
+	public void set_strParam(String strParam) {
+		this.resultObject[0] = new OtpErlangString(strParam);
+	}
+}
