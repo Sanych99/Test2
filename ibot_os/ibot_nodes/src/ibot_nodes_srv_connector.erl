@@ -10,7 +10,7 @@
 
 -behaviour(gen_server).
 
--export([start_link/1, run_node/1, stop_node/1]).
+-export([start_link/1, run_node/1, stop_node/1, send_start_signal/2]).
 
 -export([init/1,
   handle_call/3,
@@ -83,6 +83,17 @@ handle_info({stop_monitor, NodeNameString}, State) ->
   %erlang:send({local, string:join([NodeNameString, "monitor"], "_")}, {}),
   {noreply, State};
 
+
+%% @doc Pass start signal to node
+%% @spec handle_info({get_me_start_signal, MailBoxName, ClientNodeFullName}, State) -> {noreply, State}
+%% when MailBoxName :: atom(), ClientNodeFullName :: atom().
+%% @end
+
+handle_info({get_me_start_signal, MailBoxName, ClientNodeFullName}, State) ->
+  ?DBG_MODULE_INFO("handle_info(Msg, State) ~p~n", [?MODULE, {get_me_start_signal, MailBoxName, ClientNodeFullName}]),
+  erlang:send({MailBoxName, ClientNodeFullName},{"start"}),
+  {noreply, State};
+
 handle_info(Msg, State)-> ?DBG_MODULE_INFO("handle_info(Msg, State) ~p~n", [?MODULE, Msg]),
   {noreply, State}.
 
@@ -150,7 +161,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         ExecutableFile ->
         erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
           {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?DELIM_PATH_SYMBOL),
-            "BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]}])
+            "BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]}]),
+          timer:apply_after(7000, ibot_nodes_srv_connector, send_start_signal, ['BLA_BLA_BLA_CLIENT_MBoxAsync', 'BLA_BLA_BLA_CLIENT@alex-N550JK'])
 
       end;
 
@@ -169,4 +181,7 @@ stop_node([NodeName | NodeList]) ->
   stop_node(NodeList);
 stop_node([]) ->
   ok.
+
+send_start_signal(MailBoxName, ClientNodeFullName) ->
+  erlang:send({MailBoxName, ClientNodeFullName},{"start"}).
 

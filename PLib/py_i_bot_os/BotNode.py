@@ -68,6 +68,15 @@ class BotNode:
         m_box.RegisterName(otp_m_box_name)
         return m_box
 
+    def get_me_start_signal(self):
+        obj0 = erl_term.ErlAtom("get_me_start_signal")
+        obj1 = erl_term.ErlAtom(self.otpMboxName)
+        obj2 = erl_term.ErlAtom(self.otpNodeName + "@" + self.currentServerName)
+
+        self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
+                               (obj0, obj1, obj2))
+        print "send message"
+
     # === create node elements methods end ===
 
     # def publishMessage(self):

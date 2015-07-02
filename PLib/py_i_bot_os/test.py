@@ -15,6 +15,11 @@ class TestNode(BotNode):
         #time.sleep(5)
         evhand = erl_eventhandler.GetEventHandler()
 
+        self.otpMbox.Send(("ibot_nodes_srv_connector", "core@alex-K55A"),
+                          ("broadcast",
+                           "MBoxName",
+                           "NodeServerName"))
+
         # Schedule to run the RPC after we've started looping
         #evhand.AddTimerEvent(5000, erl_common.Callback(self.Action()))
 
