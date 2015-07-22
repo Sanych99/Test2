@@ -335,6 +335,10 @@ create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigR
       %[{[{V1, V2}]}] = Val,
       ?DBG_MODULE_INFO("create_project_config_record -> ~p~n",[?MODULE, {Val}]),
       ProjectInfoRecordNew = parse_project_config_children_projects(Val, ProjectConfigRecord);
+
+    <<"projectState">> ->
+      ?DBG_MODULE_INFO("create_project_config_record : projectState -> ~p~n",[?MODULE, {Val}]),
+      ProjectInfoRecordNew = ProjectConfigRecord#project_info{projectState = binary_to_atom(Val, utf8)};
       %ChildrenProjects = 0,
       %ProjectInfoRecordNew =
       %  ProjectConfigRecord#project_info{childrenProjects = [ProjectConfigRecord#project_info.childrenProjects
@@ -350,7 +354,7 @@ create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigR
 
 create_project_config_record([], ProjectInfoRecord) ->
   ?DBG_MODULE_INFO("create_project_config_record([], ProjectInfoRecord) -> ProjectInfoRecord: ~p~n", [?MODULE, ProjectInfoRecord]),
-  ibot_db_func_config:add_project_config_info(ProjectInfoRecord),
+  ibot_db_srv_func_project:add_project_config_info(ProjectInfoRecord),
   ok.
 
 

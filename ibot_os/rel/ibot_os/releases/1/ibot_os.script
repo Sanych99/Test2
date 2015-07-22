@@ -1,4 +1,4 @@
-%% script generated at {2015,7,3} {2,50,44}
+%% script generated at {2015,7,23} {3,11,26}
 {script,
     {"ibot_os","1"},
     [{preLoaded,[]},
@@ -72,7 +72,8 @@
      {path,["$ROOT/lib/ibot_db-1/ebin"]},
      {primLoad,
          [ibot_db_app,ibot_db_func,ibot_db_func_config,ibot_db_func_services,
-          ibot_db_func_topics,ibot_db_srv,ibot_db_sup]},
+          ibot_db_func_topics,ibot_db_srv,ibot_db_srv_func_nodes,
+          ibot_db_srv_func_project,ibot_db_sup]},
      {path,["$ROOT/lib/ibot_generator-1/ebin"]},
      {primLoad,
          [ibot_generator_app,ibot_generator_func_python,
@@ -349,6 +350,7 @@
                    {modules,
                        [ibot_db_app,ibot_db_func,ibot_db_func_config,
                         ibot_db_func_services,ibot_db_func_topics,ibot_db_srv,
+                        ibot_db_srv_func_nodes,ibot_db_srv_func_project,
                         ibot_db_sup]},
                    {registered,[]},
                    {applications,[kernel,stdlib]},

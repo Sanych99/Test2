@@ -15,7 +15,8 @@
   distributedProject = false :: boolean() | undefined,
   projectAutoRun = false :: boolean() | undefined,
   childrenProjects = [] :: list(),
-  childrenProjectName = [] :: list()
+  childrenProjectName = [] :: list(),
+  projectState = in_work :: atom() | release
 }).
 
 -record(project_children, {

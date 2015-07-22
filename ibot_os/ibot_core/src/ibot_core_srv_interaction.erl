@@ -79,22 +79,22 @@ connect_to_project() ->
 
 
 start_chiled_core() ->
-  rpc:multicall(ibot_db_func_config:get_children_project_names_list(), ibot_core_srv_interaction, connect_to_project, []).
+  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, connect_to_project, []).
 
 
 
 all_children_projects_start_distribute_db() ->
-  rpc:multicall(ibot_db_func_config:get_children_project_names_list(), ibot_core_srv_interaction, start_distribute_db, []).
+  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, start_distribute_db, []).
 
 all_children_projects_stop_distribute_db() ->
-  rpc:multicall(ibot_db_func_config:get_children_project_names_list(), ibot_core_srv_interaction, stop_distribute_db, []).
+  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, stop_distribute_db, []).
 
 
 connect_to_distribute_project() ->
   case mnesia:stop() of
     _ ->
       mnesia:delete_schema([node()]), % Remove local mnesia schema
-      case ibot_db_func_config:get_project_config_info() of
+      case ibot_db_srv_func_project:get_project_config_info() of
         record_not_found ->
           ok;
 

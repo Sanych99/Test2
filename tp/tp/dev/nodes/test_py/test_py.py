@@ -3,37 +3,26 @@ from py_i_bot_os.BotNode import BotNode
 from TestMsg import TestMsg
 from py_interface import erl_eventhandler, erl_common
 import time
-import thread
 #erlang:send({'BLA_BLA_BLA_CLIENT_MBox', 'BLA_BLA_BLA_CLIENT@alex-N550JK'},{"start"}).
 class TestNode(BotNode):
 
     def __init__(self, args):
-        argstest = ["BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
-        #BotNode.__init__(self, args[1:])
-	BotNode.__init__(self, argstest)
+        argstest = ["BLA_BLA_BLA_CLIENT", "alex-N550JK", "core1@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
+        BotNode.__init__(self, args[1:])
+	#BotNode.__init__(self, argstest)
         print "from Test node: " + self.otpNodeName
-
-    def StartSignal(self):
-	time.sleep(5)
-	self.get_me_start_signal()
-	print "StartSignal"
 
     def StartNode(self):
         #time.sleep(5)
-	
         evhand = erl_eventhandler.GetEventHandler()
-
-	#thread.start_new_thread(self.StartSignal, ())
 
         # Schedule to run the RPC after we've started looping
         #evhand.AddTimerEvent(5000, erl_common.Callback(self.Action()))
 
         print "Looping..."
         evhand.Loop()
-	
 
     def action(self):
-	#self.get_me_start_signal()
         #i=1000
         #while(i>=0):
         #    i -= 1
@@ -77,7 +66,7 @@ def testMethod():
 
 if __name__ == "__main__":
     bot= TestNode(sys.argv)
-    print "args: ", sys.argv[1:]
+    #print "args: ", sys.argv[1:]
     #bot.setMethod(testMethod)
     #bot.execMethod()
     bot.StartNode()

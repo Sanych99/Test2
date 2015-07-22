@@ -161,18 +161,22 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
       case NodeInfoRecord#node_info.atomNodeLang of %% chack node lang
         %% compile java node
         java ->
-          NodeSourcePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?JAVA_NODE_SRC], ?DELIM_PATH_SYMBOL),
+          NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL),
+          NodeSourcePath = string:join([NodePath, ?JAVA_NODE_SRC], ?DELIM_PATH_SYMBOL),
           ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
           string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:", ibot_db_func_config:get_full_project_path(),"/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/srv/java"], ""),
           string:join([NodeSourcePath, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
           ?DBG_MODULE_INFO("compile_node: ~p~n", [?MODULE, ExecuteCommand]),
+          copy_node_config_to_dev_node(NodePath, NodeCompilePath),
           ibot_core_func_cmd:run_exec(ExecuteCommand);
 
         python ->
           copy_msg_srv_files_to_dev_node(NodeCompilePath, MessagePath, NodeInfoRecord#node_info.messageFile, "python", ".py"),
           copy_msg_srv_files_to_dev_node(NodeCompilePath, ServicePath, NodeInfoRecord#node_info.serviceFile, "python", ".py"),
-          NodeSourcePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName, ?PYTHON_NODE_SRC], ?DELIM_PATH_SYMBOL),
-          ibot_core_func_cmd_cdir:copy_dir(NodeSourcePath, NodeCompilePath);
+          NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL),
+          NodeSourcePath = string:join([NodePath, ?PYTHON_NODE_SRC], ?DELIM_PATH_SYMBOL),
+          ibot_core_func_cmd_cdir:copy_dir(NodeSourcePath, NodeCompilePath),
+          copy_node_config_to_dev_node(NodePath, NodeCompilePath);
 
         _ -> error
       end
@@ -190,3 +194,7 @@ copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, [MsgFile | MsgFileLi
   file:copy(SourcePathFile, DestinationPathFile),
   copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, MsgFileList, Lang, Ext).
 
+copy_node_config_to_dev_node(RootNodeFolder, DestinationNodeFolder) ->
+  SourceConfigFilePath = string:join([RootNodeFolder, "node_config.conf"], ?DELIM_PATH_SYMBOL),
+  DestinationConfigFilePath = string:join([DestinationNodeFolder, "node_config.conf"], ?DELIM_PATH_SYMBOL),
+  file:copy(SourceConfigFilePath, DestinationConfigFilePath).

@@ -161,8 +161,12 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         ExecutableFile ->
         erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
           {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?DELIM_PATH_SYMBOL),
-            "BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]}]),
-          timer:apply_after(7000, ibot_nodes_srv_connector, send_start_signal, ['BLA_BLA_BLA_CLIENT_MBoxAsync', 'BLA_BLA_BLA_CLIENT@alex-N550JK'])
+            %"BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"
+            NodeName, net_adm:localhost(), atom_to_list(node()), "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", erlang:get_cookie()
+          ]}]),
+
+          timer:apply_after(7000, ibot_nodes_srv_connector, send_start_signal,
+            [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, net_adm:localhost()], "@"))])
 
       end;
 

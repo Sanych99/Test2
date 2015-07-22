@@ -151,7 +151,7 @@ code_change(_OldVsn, State, _Extra) ->
 
 
 connect_to_distributed_projects() ->
-  connect_to_node_list(ibot_db_func_config:get_children_project_names_list()),
+  connect_to_node_list(ibot_db_srv_func_project:get_children_project_names_list()),
   ok.
 
 connect_to_node_list([]) ->

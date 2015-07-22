@@ -25,5 +25,7 @@ start_link() ->
 
 init([]) ->
     IBOT_DB_SRV = ?CHILD(ibot_db_srv, worker), %% Run ibot_db_srv server
-    {ok, { {one_for_one, 5, 10}, [IBOT_DB_SRV]} }.
+    IBOT_DB_SRV_FUNC_PROJECT = ?CHILD(ibot_db_srv_func_project, worker), %% Run ibot_db_srv server
+    IBOT_DB_SRV_FUNC_NODES = ?CHILD(ibot_db_srv_func_nodes, worker), %% Run ibot_db_srv server
+    {ok, { {one_for_one, 5, 10}, [IBOT_DB_SRV, IBOT_DB_SRV_FUNC_PROJECT, IBOT_DB_SRV_FUNC_NODES]} }.
 

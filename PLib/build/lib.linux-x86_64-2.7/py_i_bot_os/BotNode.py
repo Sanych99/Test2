@@ -1,3 +1,5 @@
+import sys
+
 from abc import abstractmethod
 import types
 
@@ -168,6 +170,7 @@ class BotNode:
         if system_action == "exit":
             self.coreIsActive = False
             self.monitor_stop()
+            sys.exit(0)
 
         elif system_action == "monitor":
             monitor_action = str(msg[2])
