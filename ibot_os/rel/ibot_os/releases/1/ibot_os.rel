@@ -1,4 +1,4 @@
-%% rel generated at {2015,7,23} {3,11,26}
+%% rel generated at {2015,7,25} {2,0,25}
 {release,{"ibot_os","1"},
          {erts,"6.3"},
          [{kernel,"3.1"},
@@ -10,8 +10,8 @@
           {cowboy,"0.9.0"},
           {syntax_tools,"1.6.17"},
           {jiffy,"0.13.3-1-gf92793a"},
-          {ibot_core,"1"},
           {ibot_db,"1"},
+          {ibot_core,"1"},
           {ibot_generator,"1"},
           {compiler,"5.0.3"},
           {goldrush,"0.1.6"},

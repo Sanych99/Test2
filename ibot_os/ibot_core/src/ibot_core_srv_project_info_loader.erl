@@ -21,7 +21,7 @@
 
 %% API
 -export([start_link/0]).
--export([load_core_config/0, load_project_config/1]).
+-export([load_core_config/0, load_project_config/1, load_info_from_core_config/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -32,6 +32,9 @@
   code_change/3]).
 
 -export([read_node_config/1]).
+-export([create_node_config_record/2, parse_msg_srv_file_list_from_config/2, load_info_from_core_config/0,
+  create_core_config_record/2, load_info_from_project_config/1, create_project_config_record/2,
+  parse_project_config_children_projects/2, parse_children_list/3, parse_project_node_list/1]).
 
 
 -define(SERVER, ?MODULE).
@@ -60,10 +63,10 @@ handle_call({?LOAD_PROJECT_NODE_INFO, NodePath}, _From, State) ->
   ibot_core_srv_project_info_loader:read_node_config(NodePath), %% parse node configuration file
   {reply, ok, State};
 handle_call({?LOAD_CORE_CONFIG}, _From, State) ->
-  load_info_from_core_config(),
+  ibot_core_srv_project_info_loader:load_info_from_core_config(),
   {reply, ok, State};
 handle_call({?LOAD_PROJECT_CONFIG, FullProjectPath}, _From, State) ->
-  load_info_from_project_config(FullProjectPath),
+  ibot_core_srv_project_info_loader:load_info_from_project_config(FullProjectPath),
   {reply, ok, State};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
@@ -153,7 +156,7 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       ?DBG_MODULE_INFO("=====> .... try monitor: other:~p   val: ~p~n", [?MODULE, Other, Val]),
       NewNodeConfigRecord = NodeConfigRecord
   end,
-  create_node_config_record(NodeConfigList, NewNodeConfigRecord);
+  ibot_core_srv_project_info_loader:create_node_config_record(NodeConfigList, NewNodeConfigRecord);
 create_node_config_record([], NodeConfigRecord) ->
   %?DBG_MODULE_INFO("create_node_config_record([], NodeConfigRecord) -> ~p~n", [?MODULE, NodeConfigRecord]),
   ibot_db_func_config:set_node_info(NodeConfigRecord),
@@ -174,7 +177,7 @@ parse_msg_srv_file_list_from_config([], FileList) ->
   FileList;
 parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) ->
   NewFileList = lists:append(FileList, [binary_to_list(FileName)]),
-  parse_msg_srv_file_list_from_config(FileNameList, NewFileList).
+  ibot_core_srv_project_info_loader:parse_msg_srv_file_list_from_config(FileNameList, NewFileList).
 
 %% ====== Read node config file End ======
 
@@ -188,7 +191,7 @@ parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) ->
 
 load_core_config() ->
   ?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
-  load_info_from_core_config(), %% Parse core.conf file
+  ibot_core_srv_project_info_loader:load_info_from_core_config(), %% Parse core.conf file
 
   %% todo  Создание схемы расределенной бд. Запуск Mnesia.
   ok.
@@ -216,7 +219,7 @@ load_info_from_core_config() ->
             {CoreConfigFileList} ->
               ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
               FullProjectPath = create_core_config_record(CoreConfigFileList, #core_info{}), %% Parse core.conf
-              load_project_config(FullProjectPath) %% Parse project.conf
+              ibot_core_srv_project_info_loader:load_project_config(FullProjectPath) %% Parse project.conf
           end,
           ok;
         _ -> error
@@ -268,7 +271,7 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
 
 load_project_config(FullProjectPath) ->
   %%gen_server:call({local, ?IBOT_CORE_SRV_PROJECT_INFO_LOADER}, {?LOAD_PROJECT_CONFIG, FullProjectPath}),
-  load_info_from_project_config(FullProjectPath),
+  ibot_core_srv_project_info_loader:load_info_from_project_config(FullProjectPath),
   ok.
 
 
@@ -291,7 +294,7 @@ load_info_from_project_config(FullProjectPath) ->
         {ProjectConfigFileList} ->
           ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
           ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> , -> ~p~n", [?MODULE, FullProjectPath]),
-          create_project_config_record(ProjectConfigFileList, #project_info{}) %% Parse project.config
+          ibot_core_srv_project_info_loader:create_project_config_record(ProjectConfigFileList, #project_info{}) %% Parse project.config
           %ibot_core_app:connect_to_project(FullProjectPath)
       end,
       ok;
@@ -334,11 +337,15 @@ create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigR
     <<"childrenProjects">> ->
       %[{[{V1, V2}]}] = Val,
       ?DBG_MODULE_INFO("create_project_config_record -> ~p~n",[?MODULE, {Val}]),
-      ProjectInfoRecordNew = parse_project_config_children_projects(Val, ProjectConfigRecord);
+      ProjectInfoRecordNew = ibot_core_srv_project_info_loader:parse_project_config_children_projects(Val, ProjectConfigRecord);
 
     <<"projectState">> ->
       ?DBG_MODULE_INFO("create_project_config_record : projectState -> ~p~n",[?MODULE, {Val}]),
       ProjectInfoRecordNew = ProjectConfigRecord#project_info{projectState = binary_to_atom(Val, utf8)};
+
+    <<"projectNodes">> ->
+      ProjectInfoRecordNew = ProjectConfigRecord,
+      ibot_core_srv_project_info_loader:parse_project_node_list(Val);
       %ChildrenProjects = 0,
       %ProjectInfoRecordNew =
       %  ProjectConfigRecord#project_info{childrenProjects = [ProjectConfigRecord#project_info.childrenProjects
@@ -385,4 +392,10 @@ parse_children_list([Children | ChildrenList], ProjectConfigRecord, ChildrenReco
   ?DBG_MODULE_INFO("parse_children_list -> ~p~n", [?MODULE, ChildrenRecordNew]),
   parse_children_list(ChildrenList, ProjectConfigRecordNew, ChildrenRecordNew).
 
+
+parse_project_node_list([]) ->
+  ok;
+parse_project_node_list([NodeName | NodeNameList]) ->
+  ibot_db_func_config:add_node_name_to_config(binary_to_list(NodeName)),
+  ibot_core_srv_project_info_loader:parse_project_node_list(NodeNameList).
 %% ====== Read Project Configuraion File End ======

@@ -9,3 +9,10 @@ Tasks ...
   - replace ibot_nodes_srv_monitor:start_link(State#state.node_name) in ibot_nodes_srv_connector via add_child in ibot_nodes_sup
 
 grep -lr '<<<<<<<' | xargs git checkout --theirs
+
+Mnesia info:
+http://21ccw.blogspot.com/2008/04/getting-started-with-distributed-erlang.html
+
+
+Erlang Disrtibuted Programming
+http://www.erlang.org/doc/getting_started/conc_prog.html

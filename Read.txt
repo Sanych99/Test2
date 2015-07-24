@@ -12,3 +12,7 @@ grep -lr '<<<<<<<' | xargs git checkout --theirs
 
 Mnesia info:
 http://21ccw.blogspot.com/2008/04/getting-started-with-distributed-erlang.html
+
+
+Erlang Disrtibuted / Concurent Programming
+http://www.erlang.org/doc/getting_started/conc_prog.html

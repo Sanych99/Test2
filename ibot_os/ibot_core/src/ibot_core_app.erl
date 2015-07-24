@@ -50,8 +50,8 @@ connect_to_project(ProjectPath) ->
     {error} -> error;
     {ok, ProjectNodes} ->
       parse_nodes_config_file(ProjectNodes),
-      {ok, ExistingNodes} = get_project_nodes(),
-      add_node_name_to_config(ExistingNodes),
+      %{ok, ExistingNodes} = get_project_nodes(),
+      %add_node_name_to_config(ExistingNodes),
       ok
   end.
 
@@ -64,7 +64,7 @@ connect_to_project(ProjectPath) ->
 %% @end
 
 parse_nodes_config_file([NodeItem | NodesList]) ->
-  case ?PATH_TO_NODE(NodeItem) of
+  case ?PATH_TO_NODE(NodeItem, ibot_db_srv_func_project:get_projectStatus()) of
     ?ACTION_ERROR -> ?ACTION_ERROR;
     ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND;
     NodePath ->
@@ -91,13 +91,17 @@ parse_nodes_config_file([]) ->
 %% @end
 
 get_project_nodes() ->
-  ?DBG_MODULE_INFO("src folder: ~p~n", [?MODULE, string:join([ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH), ?SRC_FOLDER], "/")]),
-  case ibot_db_func_config:get_full_project_path() of
-    ?FULL_PROJECT_PATH_NOT_FOUND -> {?FULL_PROJECT_PATH_NOT_FOUND};
-    ProjectPath ->
-      ?DBG_MODULE_INFO("get_project_nodes() : ~p~n", [?MODULE, file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))]),
-      file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))
-  end.
+  %?DBG_MODULE_INFO("src folder: ~p~n", [?MODULE, string:join([ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH), ?SRC_FOLDER], "/")]),
+  %case ibot_db_func_config:get_full_project_path() of
+  %  ?FULL_PROJECT_PATH_NOT_FOUND -> {?FULL_PROJECT_PATH_NOT_FOUND};
+  %  ProjectPath ->
+  %    ?DBG_MODULE_INFO("get_project_nodes() : ~p~n", [?MODULE, file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))]),
+  %    file:list_dir(string:join([ProjectPath, ?SRC_FOLDER], "/"))
+  %end.
+  %ibot_core_app:get_project_node_from_config().
+  {ok, ibot_db_func_config:get_nodes_name_from_config()}.
+  %{ok, []}.
+
 
 get_project_node_from_config() ->
   ?DBG_MODULE_INFO("get_project_node_from_config() -> ~p~n", [?MODULE, ibot_db_func_config:get_all_registered_nodes()]),

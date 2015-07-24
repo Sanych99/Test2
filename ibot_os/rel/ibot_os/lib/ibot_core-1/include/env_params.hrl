@@ -22,6 +22,9 @@
 -define(DEV_FOLDER_MESSAGES, "msg").
 -define(DEV_FOLDER_SERVICES, "srv").
 
--define(DELIM_PATH_SYMBOL, "/").
+-define(DELIM_PATH_SYMBOL, case os:type() of
+                             {unix, linux} -> "/";
+                             _ -> "\\"
+                           end).
 
 -define(JAVA_FOLDER, "java").
