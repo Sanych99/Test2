@@ -60,6 +60,8 @@ class TestNode(BotNode):
 
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.strParam
+	tm = TestMsg(["From PyNode...:)"])
+	self.publish_message("test_topic_from_py", tm)
 
 def testMethod():
     print "This is test method..."

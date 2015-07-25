@@ -5,5 +5,5 @@
 "projectAutoRun":"true",
 "childrenProjects":[{"projectName":"core1@alex-N550JK"}],
 "projectState":"release",
-"projectNodes":["BLA_BLA_BLA", "test_py", "PubsubServer"]
+"projectNodes":["test_py", "BLA_BLA_BLA"]
 }

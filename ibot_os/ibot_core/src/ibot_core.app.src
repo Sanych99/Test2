@@ -7,6 +7,7 @@
                   kernel,
                   stdlib
                  ]},
-  {mod, { ibot_core_app, [ibot_core_func_cmd, ibot_core_func_cmd_cdir]}},
+  {mod, { ibot_core_app, [ibot_core_func_cmd, ibot_core_func_cmd_cdir, ibot_core_env, ibot_core_func_connect_to_cores,
+    ibot_core_srv_compile_nodes, ibot_core_srv_connect, ibot_core_srv_interaction, ibot_core_srv_process, ibot_core_srv_project_info_loader]}},
   {env, []}
  ]}.

@@ -9,6 +9,7 @@ class TestMsg():
 		return erl_term.ErlTuple(self.resultObject);
 
 	def __init__(self, msg):
+		self.resultObject = []
 		self.strParam = str(msg[0])
 
 	@property

@@ -7,6 +7,7 @@
                   kernel,
                   stdlib
                  ]},
-  {mod, { ibot_db_app, []}},
+  {mod, { ibot_db_app, [ibot_db_func, ibot_db_func_config, ibot_db_func_services, ibot_db_func_topics,
+    ibot_db_srv, ibot_db_srv_func_nodes, ibot_db_srv_func_project]}},
   {env, []}
  ]}.

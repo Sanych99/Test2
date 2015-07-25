@@ -1,3 +1,6 @@
 2015-07-25 00:39:27 =ERROR REPORT====
 Error in process <0.666.0> on node 'core@alex-N550JK' with exit value: {{case_clause,["BLA_BLA_BLA","test_py"]},[{ibot_core_app,connect_to_project,1,[{file,"src/ibot_core_app.erl"},{line,49}]}]}
 
+2015-07-26 02:27:16 =ERROR REPORT====
+Error in process <0.666.0> on node 'core@alex-N550JK' with exit value: {{case_clause,debug},[{ibot_core_app,parse_nodes_config_file,1,[{file,"src/ibot_core_app.erl"},{line,67}]},{ibot_core_app,connect_to_project,1,[{file,"src/ibot_core_app.erl"},{line,52}]},{ibot_core_srv_interaction,connect_to_project... 
+

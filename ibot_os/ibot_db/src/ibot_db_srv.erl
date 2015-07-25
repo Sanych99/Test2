@@ -52,13 +52,30 @@ init([]) ->
   ibot_db_func:create_db(?TABLE_SERVICES_CLIENT), %% Create cilent service table
   {ok, #state{}}.
 
+
+%% @doc
+%%
+%% Create database schema on all connected core nodes
+%% @end
 create_distributed_shema() ->
   ?DBG_MODULE_INFO("create_distributed_shema() -> ~p~n", [?MODULE, [node() | nodes()]]),
   mnesia:create_schema([node() | nodes()]).
 
+
+%% @doc
+%%
+%% Start mnesia database
+%% @end
 start_distibuted_db() ->
   application:start(mnesia).
 
+
+%% @doc
+%%
+%% Stop mnesia database
+%% @spec stop_distributed_db() -> ok | error.
+%% @end
+-spec stop_distributed_db() -> ok | error.
 stop_distributed_db() ->
   case application:ensure_started(mnesia) of
     ok -> application:stop(mnesia);
@@ -66,6 +83,12 @@ stop_distributed_db() ->
   end.
 
 
+%% @doc
+%%
+%% Create tables on all connected core nodes
+%% @spec create_distributed_tables() -> ok.
+%% @end
+-spec create_distributed_tables() -> ok.
 create_distributed_tables() ->
 
   mnesia:create_table(node_info, [{attributes, record_info(fields, node_info)}]),
@@ -85,7 +108,6 @@ create_distributed_tables() ->
 %%
 %% Add new record to table
 %% @end
-
 handle_call({?ADD_RECORD, TableName, Key, Value}, _From, State) ->
   ?DBG_INFO("try add topic: ~p~n", [{?ADD_RECORD, TableName, Key, Value}]),
   ibot_db_func:add(TableName, Key, Value), %% Добавиляем запись
@@ -98,7 +120,6 @@ handle_call({?ADD_RECORD, TableName, Key, Value}, _From, State) ->
 %%
 %% Get record from table
 %% @end
-
 handle_call({?GET_RECORD, TableName, Key}, _From, State) ->
   ?DBG_MODULE_INFO("handle_call({?GET_RECORD, TableName, Key}: ~p~n", [?MODULE, {?GET_RECORD, TableName, Key}]),
   io:format("handle_call: ~p~n", [ibot_db_func:get(TableName, Key)]),
@@ -116,7 +137,6 @@ handle_call({?GET_RECORD, TableName, Key}, _From, State) ->
 %%
 %% Dalete table
 %% @end
-
 handle_call({?DELETE_TABLE, TableName}, _From, State) ->
   ibot_db_func:delete_table(TableName), %% Добавиляем запись
   {reply, ok, State}.
@@ -145,6 +165,7 @@ terminate(_Reason, _State) ->
   ibot_db_func:delete_table(?TABLE_CONFIG), %% Delete congiguration table
   ibot_db_func:delete_table(?TABLE_SERVICES_CLIENT), %% Delete cilent service table
 
+  %% delete tables from distributed database
   mnesia:delete_table(node_info),
   mnesia:delete_table(topic_info),
   mnesia:delete_table(service_server),
@@ -169,8 +190,9 @@ code_change(_OldVsn, State, _Extra) ->
 %% @doc
 %%
 %% Add record to table
+%% @spec add_record(TableName, Key, Value) -> ok when TableName :: atom(), Key :: atom(), Value :: term().
 %% @end
-
+-spec add_record(TableName, Key, Value) -> ok when TableName :: atom(), Key :: atom(), Value :: term().
 add_record(TableName, Key, Value) ->
   gen_server:call(?IBOT_DB_SRV, {add_record, TableName, Key, Value}).
 
@@ -178,8 +200,11 @@ add_record(TableName, Key, Value) ->
 %% @doc
 %%
 %% Get record from table
+%% @spec get_record(TableName, Key) -> {ok, Val} | record_not_found
+%% when TableName :: atom(), Key :: atom().
 %% @end
-
+-spec get_record(TableName, Key) -> {ok, _} | record_not_found
+  when TableName :: atom(), Key :: atom().
 get_record(TableName, Key) ->
   gen_server:call(?IBOT_DB_SRV, {get_record, TableName, Key}).
 
@@ -187,8 +212,9 @@ get_record(TableName, Key) ->
 %% @doc
 %%
 %% Delete system table
+%% @spec delete_table(TableName) -> ok when TableName :: atom().
 %% @end
-
+-spec delete_table(TableName) -> ok when TableName :: atom().
 delete_table(TableName) ->
   gen_server:call(?IBOT_DB_SRV, {delete_table, TableName}).
 

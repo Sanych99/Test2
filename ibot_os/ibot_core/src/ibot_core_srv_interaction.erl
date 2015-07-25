@@ -14,12 +14,13 @@
 -include("debug.hrl").
 -include("ibot_core_modules_names.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
+-include("ibot_core_project_statuses.hrl").
 
 %% API
 -export([start_link/0]).
 -export([start_distribute_db/0, stop_distribute_db/0]).
 -export([all_children_projects_start_distribute_db/0, all_children_projects_stop_distribute_db/0]).
--export([connect_to_distribute_project/0, connect_to_project/0]).
+-export([connect_to_distribute_project/0, connect_to_project/0, start_chiled_core/0]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -74,8 +75,21 @@ stop_distribute_db() ->
   ibot_db_srv:stop_distributed_db().
 
 
+%% @doc
+%%
+%% Connect to project. Read nodes config file.
+%% @spec connect_to_project() -> ok.
+%% @end
+-spec connect_to_project() -> ok.
 connect_to_project() ->
-  ibot_core_app:connect_to_project(ibot_db_func_config:get_full_project_path()).
+  %% connect to project
+  ibot_core_app:connect_to_project(ibot_db_func_config:get_full_project_path()),
+  %% if project status is RELEASE, start project nodes
+  case ibot_db_srv_func_project:get_projectStatus() of
+    ?RELEASE ->
+      ibot_core_app:start_project();
+    _ -> ok
+  end.
 
 
 start_chiled_core() ->
@@ -103,12 +117,17 @@ connect_to_distribute_project() ->
             true ->
                   ibot_core_srv_connect:connect_to_distributed_projects(),
                   ibot_db_srv:create_distributed_shema(),
-                  all_children_projects_start_distribute_db(),
+                  ibot_core_srv_interaction:all_children_projects_start_distribute_db(),
+
+                  %% todo start mnesia db on all connected cores
+
+                  %% start mnesia database
                   case mnesia:start() of
                     Res when Res == {error, {already_started, mnesia}}; Res == ok ->
-                      ibot_db_srv:create_distributed_tables(),
-                      start_chiled_core(),
-                      connect_to_project();
+                      ibot_db_srv:create_distributed_tables(), %% create distribute database on all connected cores
+                      ibot_core_srv_interaction:start_chiled_core(), %% start to remote core nodes
+                      ibot_core_srv_interaction:connect_to_project(); %% connect to project, read node config files
+
 
                     {error, Result} ->
                       ?DBG_MODULE_INFO("connect_to_distribute_project() -> fail start mnesia ~p~n", [?MODULE, Result])

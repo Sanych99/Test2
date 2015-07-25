@@ -23,8 +23,10 @@
                                            ProjectPath ->
                                              case ProjectStatus of
                                                ?DEVELOP ->
+                                                 %% path for read node config file on DEVELOP project statues
                                                  string:join([ProjectPath, ?PROJECT_SRC, NodeName, ?NODE_CONFIG_FILE], ?DELIM_PATH_SYMBOL);
                                                ?RELEASE ->
+                                                 %% path for read node config file on RELEASE project statues
                                                  string:join([ProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, ?NODE_CONFIG_FILE], ?DELIM_PATH_SYMBOL)
                                              end
                                          end).

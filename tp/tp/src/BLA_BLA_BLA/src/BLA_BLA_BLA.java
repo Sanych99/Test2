@@ -4,9 +4,9 @@ import langlib.java.*;
 
 public class BLA_BLA_BLA extends BotNode {
 
-    public void OutPutMessageMethod(OtpErlangTuple msg)
+    public void OutPutMessageMethod(TestMsg msg)
     {
-        System.out.println("OutPutMessageMethod" + ((OtpErlangString)msg.elementAt(0)).stringValue());
+        System.out.println("TestMsg is message" + msg.get_strParam());
     }
 
 
@@ -33,7 +33,7 @@ public class BLA_BLA_BLA extends BotNode {
             e.printStackTrace();
         }
 
-        //subscribeToTopic("test_topic", "OutPutMessageMethod", OtpErlangTuple.class);
+        this.subscribeToTopic("test_topic_from_py", "OutPutMessageMethod", TestMsg.class);
         System.out.println("subscribeToTopic...");
         try {
             Thread.sleep(5000);
