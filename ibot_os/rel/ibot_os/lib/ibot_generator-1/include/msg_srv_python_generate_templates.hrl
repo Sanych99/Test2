@@ -20,8 +20,8 @@
 -define(PYTHON_MSG_FILE_HEADER(MsgName), string:join([
   "from py_interface import erl_term",
   "",
-  ?MSG_CLASS_NAME(MsgName),
-  "", ""
+  ?MSG_CLASS_NAME(MsgName)
+  %, "", ""
 ], ?NEW_LINE)).
 
 %% File end
@@ -47,21 +47,29 @@
 %% Constructor message class
 -define(CONSTRUCTOR_HEADER(Name), string:join([?TAB(1), "def __init__(self):"], "")).
 %% Resutl OTP object initialization
--define(RESULT_OBJ_DEFINE(ObjCount), "self.resultObject = []").
--define(CONSRTUCTOR(Name, ObjCount), string:join([
-  ?CONSTRUCTOR_HEADER(Name),
-  ?TAB_STRING([?RESULT_OBJ_DEFINE(ObjCount)], 2)
+-define(RESULT_OBJ_DEFINE(ObjCount), string:join(["self.resultObject = [None] * ", io_lib:format("~p", [ObjCount])], "")).
+-define(CONSRTUCTOR(Name, ObjCount), "").
+  %string:join([
+  %?CONSTRUCTOR_HEADER(Name),
+  %?TAB_STRING([?RESULT_OBJ_DEFINE(ObjCount)], 2)
   %?TAB_STRING(["}"], 1)
-], ?NEW_LINE)).
+%], ?NEW_LINE)).
 
 %% Constructor message class
--define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name), string:join([?NEW_LINE, ?NEW_LINE, ?TAB(1), "def __init__(self, msg):"], "")).
+-define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name, ObjCount), string:join([
+  ?NEW_LINE,
+  ?NEW_LINE,
+  ?TAB(1), "def __init__(self, msg = None):",
+  ?NEW_LINE,
+  ?TAB_STRING([?RESULT_OBJ_DEFINE(ObjCount)], 2),
+  ?NEW_LINE,
+  ?TAB(2), "if (msg is not None):"], "")).
 -define(CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjectNum), string:join([
   ?CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum)
 ], ?NEW_LINE)).
 
 -define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
-  string:join([?NEW_LINE, ?TAB(2), "self.", Name, " = ", ?CONVERT_FROM_OTP_TO_PYTHON_METHODS(Type), "(msg[", io_lib:format("~p", [ObjectNum]), "])", ""], "")
+  string:join([?NEW_LINE, ?TAB(3), "self.set_", Name, "(", ?CONVERT_FROM_OTP_TO_PYTHON_METHODS(Type), "(msg[", io_lib:format("~p", [ObjectNum]), "]))", ""], "")
 ).
 
 %-define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
@@ -80,17 +88,17 @@
 
 %% Generate getter method definition
 -define(GETTER_DEFINITION(Type, Name), string:join([
-  ?TAB_STRING(["@property"], 1),
-  ?NEW_LINE,
-  ?TAB_STRING(["def ", Name, "(self): return self._", Name], 1),
+  %?TAB_STRING(["@property"], 1),
+  %?NEW_LINE,
+  ?TAB_STRING(["def get_", Name, "(self): return self._", Name], 1),
   ?NEW_LINE
 ], "")).
 
 %% Generate setter mathod definition
 -define(SETTER_DEFINITION(Type, Name, ObjNumber), string:join([
-  ?TAB_STRING(["@", Name, ".setter"], 1),
-  ?NEW_LINE,
-  ?TAB_STRING(["def ", Name, "(self, val):"], 1),
+  %?TAB_STRING(["@", Name, ".setter"], 1),
+  %?NEW_LINE,
+  ?TAB_STRING(["def set_", Name, "(self, val):"], 1),
   ?NEW_LINE,
   ?TAB_STRING(["self._", Name, " = val"], 2),
   ?NEW_LINE,

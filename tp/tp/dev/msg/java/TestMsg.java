@@ -26,6 +26,7 @@ public class TestMsg implements IBotMsgInterface {
 	}
 
 	public void set_strParam(String strParam) {
+		this.strParam = strParam;
 		this.resultObject[0] = new OtpErlangString(strParam);
 	}
 }

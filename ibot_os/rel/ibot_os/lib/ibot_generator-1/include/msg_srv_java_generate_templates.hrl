@@ -95,6 +95,8 @@
 -define(SETTER_DEFINITION(Type, Name, ObjNumber), string:join([
   ?TAB_STRING(["public void set_", Name, "(", ?LANG_TYPE(Type), " ", Name, ")", " {"], 1),
   ?NEW_LINE,
+  ?TAB_STRING(["this.", Name, " = ", Name,";"], 2),
+  ?NEW_LINE,
   ?TAB_STRING(["this.resultObject[", integer_to_list(ObjNumber), "] = new ", ?OTP_TYPE(Type), "(", Name,")", ";"], 2),
   ?NEW_LINE,
   ?TAB_STRING(["}"], 1)

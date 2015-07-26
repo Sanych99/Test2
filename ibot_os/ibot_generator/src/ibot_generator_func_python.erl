@@ -124,15 +124,17 @@ for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp, RawFile
 for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
   case io:get_line(Device, "") of
     EndPath when EndPath == eof;EndPath == "---\n" ->
-      file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
-      file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
+      %file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
 
-      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName)),
+      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount)),
+
       parameters_constructor_generate(GeneratedFile, AllFieldsList),
       %file:write(GeneratedFile, ?CONSTRUCTOR_END_WITH_PARAMS()),
 
       getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
       %file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
+
+      file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
 
       file:close(GeneratedFile),
       ?DBG_MODULE_INFO("for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) -> all files closed...  ~n", [?MODULE]),

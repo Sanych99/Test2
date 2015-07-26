@@ -34,6 +34,7 @@ public class ServiceTestResp implements IBotMsgInterface {
 	}
 
 	public void set_therdParamResp(String therdParamResp) {
+		this.therdParamResp = therdParamResp;
 		this.resultObject[2] = new OtpErlangString(therdParamResp);
 	}
 
@@ -43,6 +44,7 @@ public class ServiceTestResp implements IBotMsgInterface {
 	}
 
 	public void set_secParamResp(BigInteger secParamResp) {
+		this.secParamResp = secParamResp;
 		this.resultObject[1] = new OtpErlangLong(secParamResp);
 	}
 
@@ -52,6 +54,7 @@ public class ServiceTestResp implements IBotMsgInterface {
 	}
 
 	public void set_strParamResp(String strParamResp) {
+		this.strParamResp = strParamResp;
 		this.resultObject[0] = new OtpErlangString(strParamResp);
 	}
 }
