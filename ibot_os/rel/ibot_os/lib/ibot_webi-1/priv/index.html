@@ -49,6 +49,14 @@ function open()
     };
 }
 
+function sendData()
+{
+    var jsonQ = "{\"sendData\" : {\"sendType\" : \""+ "broadcast" +
+            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one\"]}}";
+    ws.send(jsonQ);
+    console.log(jsonQ);
+}
+
     /*Load connect to project page*/
     function loadConnectToProject()
     {
@@ -79,6 +87,7 @@ function open()
 <body>
 <div id="sse">
    <a href="javascript:open()">Open WebSocket</a><br/>
+    <a href="javascript:sendData()">Send Data</a><br/>
     <a href="javascript:loadConnectToProject()">Connect to project</a><br/>
     <a href="javascript:loadCreateProject()">Create project</a><br/>
     <a href="javascript:loadCreateNode()">Create node</a><br/>

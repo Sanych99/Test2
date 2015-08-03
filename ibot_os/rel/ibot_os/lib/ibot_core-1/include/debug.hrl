@@ -11,6 +11,7 @@
 %-ifdef(debug).
 -define(DBG_INFO(_Msg, _Params), io:format(_Msg, _Params)).
 -define(DBG_MODULE_INFO(_Msg, _Params), io:format("Module ~p: -> " ++ _Msg, _Params)).
+-define(ERROR_MSG(_Msg), io:format("Module ~p: -> ~p~n", [?MODULE, _Msg])).
 %-else.
 %-define(DBG_INFO, ok).
 %-endif.

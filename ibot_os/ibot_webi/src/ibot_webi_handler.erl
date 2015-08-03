@@ -80,7 +80,43 @@ websocket_handle({text, Msg}, Req, State) ->
         <<"stopNode">> ->
           ibot_nodes_srv_connector:stop_node([binary_to_list(B)]),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
-        _ -> {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
+
+
+
+        <<"sendData">> ->
+          ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) decode: ~p~n", [?MODULE, B]),
+          case B of
+            {[{_, SendType}, {_, TopicOrServiceName}, {_, ListParameters}]} ->
+              case SendType of
+                <<"broadcast">> ->
+                  ?DBG_MODULE_INFO("broadcast start...", [?MODULE]),
+                  %% bradcast message to all subcribed topicslist_to_tuple(ListParameters)list_to_tuple(ListParameters)
+                  ibot_nodes_srv_topic:broadcats_message(binary_to_atom(TopicOrServiceName, utf8), {"Test from UI..."}),
+                  {reply, {text, jiffy:encode({[{ok,<<"send data cpmplete...">>}]})},
+                    Req, State, hibernate };
+
+                _ ->
+                  %% message send type undefined
+                  ?ERROR_MSG("sendData: SendType not fond..."),
+                  {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: SendType not fond...">>}]})},
+                    Req, State, hibernate }
+              end;
+
+            _ ->
+              %%{reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
+              %% template for send data undefied
+              ?ERROR_MSG("sendData: Not fond template..."),
+              {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: Not fond template...">>}]})},
+                Req, State, hibernate }
+          end;
+
+
+        _ ->
+          %%{reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
+          %% template for send data undefied
+          ?ERROR_MSG("sendData: Not fond template..."),
+          {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: Not fond template...">>}]})},
+            Req, State, hibernate }
       end;
 
       %{reply, {text, jiffy:encode({[{registered,B}]})}, Req, State};

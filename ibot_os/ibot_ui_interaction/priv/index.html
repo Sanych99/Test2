@@ -49,13 +49,13 @@ function open()
     };
 }
 
-function sendData()
-{
-    var jsonQ = "{\"sendData\" : {\"sendType\" : \""+ "broadcast" +
-            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one\"]}}";
-    ws.send(jsonQ);
-    console.log(jsonQ);
-}
+    function sendData()
+    {
+        var jsonQ = "{\"sendData\" : {\"projectName\" : \""+ $("#projectNameInput").val() +
+                "\", \"projectPath\" : \"" + $("#projectPathInput").val() + "\"}}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
 
     /*Load connect to project page*/
     function loadConnectToProject()

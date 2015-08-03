@@ -45,15 +45,32 @@ websocket_handle({text, Msg}, Req, State) ->
       case A of
         <<"sendData">> ->
           ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) decode: ~p~n", [?MODULE, B]),
-          ok;
-        %<<"compileAllNodes">> ->
-        %  gen_server:call(?IBOT_CORE_SRV_COMPILE_NODES, {?COMPILE_ALL_NODES}),
-        %  {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+          case B of
+            {[{_, SendType}, {_, TopicOrServiceName}, {_, ListParameters}]} ->
+              case SendType of
+                <<"broadcast">> ->
+                  %% bradcast message to all subcribed topics
+                  ibot_nodes_srv_topic:broadcats_message(TopicOrServiceName, list_to_tuple(ListParameters)),
+                  ok;
+
+                _ ->
+                  %% message send type undefined
+                  ?ERROR_MSG("sendData: SendType not fond..."),
+                  {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: SendType not fond...">>}]})},
+                    Req, State, hibernate }
+              end,
+              ok;
+
+            _ ->
+              %% template for send data undefied
+              ?ERROR_MSG("sendData: Not fond template..."),
+              {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: Not fond template...">>}]})},
+                Req, State, hibernate }
+          end;
 
         _ -> {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
       end;
 
-    %{reply, {text, jiffy:encode({[{registered,B}]})}, Req, State};
     _ ->
       {reply, {text, jiffy:encode({[{error,<<"invalid json">>}]})}, Req, State}
   catch

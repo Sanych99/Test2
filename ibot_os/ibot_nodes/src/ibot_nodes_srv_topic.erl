@@ -20,6 +20,8 @@
   terminate/2,
   code_change/3]).
 
+-export([broadcats_message/2]).
+
 -define(SERVER, ?MODULE).
 -define(REG_SUBSCR, reg_subscr).
 
@@ -115,6 +117,10 @@ code_change(_OldVsn, State, _Extra) ->
 %%==================================
 %% API functions
 %%==================================
+
+broadcats_message(TopicName, Msg) ->
+  ?DBG_MODULE_INFO("broadcats_message(TopicName, Msg) -> ~p~n...", [?MODULE, {TopicName, Msg}]),
+  gen_server:cast(?MODULE, {?BROADCAST, TopicName, Msg}).
 
 
 

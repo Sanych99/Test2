@@ -28,10 +28,10 @@ start(_StartType, _StartArgs) ->
             %{"/pageCreateProject", cowboy_static, {priv_file, ibot_webi, "pageCreateProject.html"}},
             %{"/pageCreateNode", cowboy_static, {priv_file, ibot_webi, "pageCreateNode.html"}},
             %{"/pageNodeList", cowboy_static, {priv_file, ibot_webi, "pageNodeList.html"}},
-            {"/websocket", ibot_webi_handler, []}
+            {"/websocket", ibot_ui_interaction_handler, []}
         ]}
     ]),
-    {ok, _} = cowboy:start_http(http, 100, [{port, 5959}],
+    {ok, _} = cowboy:start_http(http, 100, [{port, 10107}],
         [{env, [{dispatch, Dispatch}]}]),
     ibot_ui_interaction_sup:start_link().
 
