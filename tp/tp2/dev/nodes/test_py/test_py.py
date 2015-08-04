@@ -8,8 +8,8 @@ class TestNode(BotNode):
 
     def __init__(self, args):
         argstest = ["BLA_BLA_BLA_CLIENT", "alex-N550JK", "core1@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"]
-        #BotNode.__init__(self, args[1:])
-	BotNode.__init__(self, argstest)
+        BotNode.__init__(self, args[1:])
+	#BotNode.__init__(self, argstest)
         print "from Test node: " + self.otpNodeName
 
     def StartNode(self):
@@ -59,7 +59,10 @@ class TestNode(BotNode):
         #evhand.Loop()
 
     def cbmMethod(self, msg):
-        print "receive message  from new msg: ", msg.strParam
+        print "receive message  from new msg: ", msg.get_strParam()
+	tm = TestMsg()
+	tm.set_strParam(msg.get_strParam())
+	self.publish_message("test_topic_from_py", tm)
 
 def testMethod():
     print "This is test method..."

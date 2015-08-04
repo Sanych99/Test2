@@ -54,7 +54,7 @@ init([]) ->
 %% Compile all nodes command
 
 handle_call({?COMPILE_ALL_NODES}, _From, State) ->
-  ?DBG_MODULE_INFO("handle_call({?COMPILE_ALL_NODES}, _From, State) -> ~p~n", [?MODULE, {?COMPILE_ALL_NODES}]),
+  ?DMI("handle_call COMPILE_ALL_NODES", ?COMPILE_ALL_NODES),
   ibot_core_srv_compile_nodes:compile_all_nodes(), %% compile all nodes
   {reply, ok, State};
 
@@ -110,7 +110,7 @@ compile_all_nodes() ->
         Full_Project_Path ->
           compile_node(NodesList, Full_Project_Path) %% compile all nodes
       end;
-    _ -> ?DBG_MODULE_INFO("compile_all_nodes() -> error from ibot_db_func_config:get_nodes_name_from_config() ~n", [?MODULE])
+    _ -> ?DMI("compile_all_nodes -> error from ibot_db_func_config:get_nodes_name_from_config()", ?ONLY_MESSAGE)
   end,
   ok.
 
@@ -166,7 +166,7 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
           ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
           string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:", ibot_db_func_config:get_full_project_path(),"/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/srv/java"], ""),
           string:join([NodeSourcePath, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
-          ?DBG_MODULE_INFO("compile_node: ~p~n", [?MODULE, ExecuteCommand]),
+          ?DMI("compile_node", [ExecuteCommand]),
           copy_node_config_to_dev_node(NodePath, NodeCompilePath),
           ibot_core_func_cmd:run_exec(ExecuteCommand);
 
@@ -190,7 +190,7 @@ copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, [MsgFile | MsgFileLi
   FileName = string:join([MsgFile, Ext], ""),
   SourcePathFile = string:join([SourcePath, Lang, FileName], ?DELIM_PATH_SYMBOL),
   DestinationPathFile = string:join([NodeCompilePath, FileName], ?DELIM_PATH_SYMBOL),
-  ?DBG_MODULE_INFO("copy_msg_srv_files_to_dev_node: source: ~p     destination: ~p~n", [?MODULE, SourcePathFile, DestinationPathFile]),
+  ?DMI("copy_msg_srv_files_to_dev_node -> source | destination", [SourcePathFile, DestinationPathFile]),
   file:copy(SourcePathFile, DestinationPathFile),
   copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, MsgFileList, Lang, Ext).
 

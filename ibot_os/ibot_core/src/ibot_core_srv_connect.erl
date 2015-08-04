@@ -161,5 +161,5 @@ connect_to_node_list([NodeName | NodeList]) ->
   connect_to_node_list(NodeList).
 
 connect_to_node(Node) ->
-  ?DBG_MODULE_INFO("connect_to_node(Node) -> ~p~n", [?MODULE, Node]),
+  ?DMI("connect_to_node(Node) ", [Node]),
   net_adm:ping(Node).

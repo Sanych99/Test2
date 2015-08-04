@@ -1,0 +1,40 @@
+input[type=button] {
+    border: 1px solid #C8C8C8;
+    height: 35px;
+    background-color: rgba(138, 223, 59, 0.94);
+    color: #555555;
+}
+
+input[type=text] {
+    height: 25px;
+    width: 350px;
+}
+
+select {
+    height: 35px;
+    width: 354px;
+    background-color: white;
+}
+
+
+.contentDiv {
+    clear: both;
+    overflow: hidden;
+}
+
+.componentGroupDvi {
+    clear: both;
+    padding: 5px 5px 5px 5px;
+    width: 20%;
+    margin: auto auto;
+}
+
+.componentDiv {
+    clear: both;
+    margin-top: 10px;
+}
+
+.componentDiv span {
+    color: #555555;
+    font-size: 12px;
+}

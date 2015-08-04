@@ -1,28 +1,319 @@
-2015-06-23 23:54:28 =ERROR REPORT====
-** Generic server ibot_core_srv_project_info_loader terminating 
-** Last message in was {load_project_node_info,"/home/alex/iBotOS/iBotOS/tp/tp/src/test_py/node_config.conf"}
+2015-07-23 03:00:55 =ERROR REPORT====
+Error in process <0.666.0> on node 'core@alex-N550JK' with exit value: {undef,[{ibot_db_func_config,get_project_config_info,[],[]},{ibot_core_srv_interaction,connect_to_distribute_project,0,[{file,"src/ibot_core_srv_interaction.erl"},{line,97}]}]}
+
+2015-07-24 22:58:09 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
 ** When Server state == {state}
 ** Reason for termination == 
-** {{case_clause,<<"msgFileList">>},[{ibot_core_srv_project_info_loader,create_node_config_record,2,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,122}]},{ibot_core_srv_project_info_loader,read_node_config,1,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,104}]},{ibot_core_srv_project_info_loader,handle_call,3,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
-2015-06-23 23:54:28 =CRASH REPORT====
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 22:58:09 =CRASH REPORT====
   crasher:
-    initial call: ibot_core_srv_project_info_loader:init/1
-    pid: <0.433.0>
-    registered_name: ibot_core_srv_project_info_loader
-    exception exit: {{{case_clause,<<"msgFileList">>},[{ibot_core_srv_project_info_loader,create_node_config_record,2,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,122}]},{ibot_core_srv_project_info_loader,read_node_config,1,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,104}]},{ibot_core_srv_project_info_loader,handle_call,3,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
-    ancestors: [ibot_core_sup,<0.429.0>]
-    messages: []
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.480.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.441.0>]
+    messages: [{'$gen_call',{<0.480.0>,#Ref<0.0.0.708>},{get_project_config_info}}]
+    links: [<0.442.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 217
+  neighbours:
+2015-07-24 22:58:09 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.480.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:11:31 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:11:31 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.460.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.441.0>]
+    messages: [{'$gen_call',{<0.460.0>,#Ref<0.0.0.532>},{get_project_config_info}}]
+    links: [<0.442.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 217
+  neighbours:
+2015-07-24 23:11:31 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.460.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:11:35 =ERROR REPORT====
+Error in process <0.638.0> on node 'core@alex-N550JK' with exit value: {[{reason,{case_clause,{aborted,{node_not_running,'core@alex-N550JK'}}}},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{ibot_db_func,get_from_mnesia,2,[{file,"src/ibot_db_func.erl"},{line,34}]},{ibot_db_func_config... 
+
+2015-07-24 23:11:35 =ERROR REPORT====
+Ranch listener http had connection process started with cowboy_protocol:start_link/4 at <0.638.0> exit with reason: {[{reason,{case_clause,{aborted,{node_not_running,'core@alex-N550JK'}}}},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{ibot_db_func,get_from_mnesia,2,[{file,"src/ibot_db_func.erl"},{line,34}]},{ibot_db_func_config,get_node_info,1,[{file,"src/ibot_db_func_config.erl"},{line,91}]},{ibot_db_func_config,generate_nodes_info_to_list,2,[{file,"src/ibot_db_func_config.erl"},{line,108}]},{ibot_core_app,get_project_node_from_config,0,[{file,"src/ibot_core_app.erl"},{line,104}]},{ibot_webi_handler,websocket_handle,3,[{file,"src/ibot_webi_handler.erl"},{line,64}]},{cowboy_websocket,handler_call,7,[{file,"src/cowboy_websocket.erl"},{line,598}]},{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]},{msg,{text,<<"{\"getNodes\" : \"\"}">>}},{req,[{socket,#Port<0.869>},{transport,ranch_tcp},{connection,keepalive},{pid,<0.638.0>},{method,<<"GET">>},{version,'HTTP/1.1'},{peer,{{127,0,0,1},59618}},{host,<<"localhost">>},{host_info,undefined},{port,10100},{path,<<"/websocket">>},{path_info,undefined},{qs,<<>>},{qs_vals,undefined},{bindings,[]},{headers,[{<<"host">>,<<"localhost:10100">>},{<<"connection">>,<<"Upgrade">>},{<<"pragma">>,<<"no-cache">>},{<<"cache-control">>,<<"no-cache">>},{<<"upgrade">>,<<"websocket">>},{<<"origin">>,<<"http://localhost:10100">>},{<<"sec-websocket-version">>,<<"13">>},{<<"user-agent">>,<<"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/39.0.2171.65 Chrome/39.0.2171.65 Safari/537.36">>},{<<"accept-encoding">>,<<"gzip, deflate, sdch">>},{<<"accept-language">>,<<"en-US,en;q=0.8">>},{<<"sec-websocket-key">>,<<"G0akGudZpXtTEwMF1D1jAw==">>},{<<"sec-websocket-extensions">>,<<"permessage-deflate; client_max_window_bits">>}]},{p_headers,[{<<"sec-websocket-extensions">>,[{<<"permessage-deflate">>,[<<"client_max_window_bits">>]}]},{<<"upgrade">>,[<<"websocket">>]},{<<"connection">>,[<<"upgrade">>]}]},{cookies,undefined},{meta,[{websocket_compress,false},{websocket_version,13}]},{body_state,waiting},{multipart,undefined},{buffer,<<>>},{resp_compress,false},{resp_state,done},{resp_headers,[]},{resp_body,<<>>},{onresponse,undefined}]},{state,undefined_state}],[{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]}
+2015-07-24 23:12:42 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:12:42 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.460.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.441.0>]
+    messages: [{'$gen_call',{<0.460.0>,#Ref<0.0.0.517>},{get_project_config_info}}]
+    links: [<0.442.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 217
+  neighbours:
+2015-07-24 23:12:42 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.460.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:17:10 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:17:11 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.633.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.441.0>]
+    messages: [{'$gen_call',{<0.633.0>,#Ref<0.0.0.557>},{get_project_config_info}}]
+    links: [<0.442.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 201
+  neighbours:
+2015-07-24 23:17:11 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.633.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:19:02 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:19:02 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.460.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.441.0>]
+    messages: [{'$gen_call',{<0.460.0>,#Ref<0.0.0.503>},{get_project_config_info}}]
+    links: [<0.442.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 217
+  neighbours:
+2015-07-24 23:19:02 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.460.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:22:57 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:22:57 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.460.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.441.0>]
+    messages: [{'$gen_call',{<0.460.0>,#Ref<0.0.0.526>},{get_project_config_info}}]
+    links: [<0.442.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 217
+  neighbours:
+2015-07-24 23:22:57 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.460.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:24:31 =ERROR REPORT====
+Error in process <0.630.0> on node 'core@alex-N550JK' with exit value: {function_clause,[{ibot_core_srv_connect,connect_to_node_list,[ok],[{file,"src/ibot_core_srv_connect.erl"},{line,157}]},{ibot_core_srv_connect,connect_to_distributed_projects,0,[{file,"src/ibot_core_srv_connect.... 
+
+2015-07-24 23:30:23 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,63}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:30:23 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.470.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.431.0>]
+    messages: [{'$gen_call',{<0.470.0>,#Ref<0.0.0.771>},{get_project_config_info}}]
     links: [<0.432.0>]
     dictionary: []
     trap_exit: false
     status: running
-    heap_size: 2586
+    heap_size: 987
     stack_size: 27
-    reductions: 2610
+    reductions: 263
   neighbours:
-2015-06-23 23:54:28 =SUPERVISOR REPORT====
-     Supervisor: {local,ibot_core_sup}
+2015-07-24 23:30:23 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
      Context:    child_terminated
-     Reason:     {{case_clause,<<"msgFileList">>},[{ibot_core_srv_project_info_loader,create_node_config_record,2,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,122}]},{ibot_core_srv_project_info_loader,read_node_config,1,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,104}]},{ibot_core_srv_project_info_loader,handle_call,3,[{file,"src/ibot_core_srv_project_info_loader.erl"},{line,60}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
-     Offender:   [{pid,<0.433.0>},{name,ibot_core_srv_project_info_loader},{mfargs,{ibot_core_srv_project_info_loader,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.470.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:33:38 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,63}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:33:38 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.450.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.431.0>]
+    messages: [{'$gen_call',{<0.450.0>,#Ref<0.0.0.519>},{get_project_config_info}}]
+    links: [<0.432.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 263
+  neighbours:
+2015-07-24 23:33:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.450.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:35:09 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,63}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:35:09 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.450.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.431.0>]
+    messages: [{'$gen_call',{<0.450.0>,#Ref<0.0.0.520>},{get_project_config_info}}]
+    links: [<0.432.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 262
+  neighbours:
+2015-07-24 23:35:09 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.450.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:36:47 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,63}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:36:47 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.450.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.431.0>]
+    messages: [{'$gen_call',{<0.450.0>,#Ref<0.0.0.565>},{get_project_config_info}}]
+    links: [<0.432.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 262
+  neighbours:
+2015-07-24 23:36:47 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.450.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-07-24 23:37:25 =ERROR REPORT====
+** Generic server ibot_db_srv_func_project terminating 
+** Last message in was {get_children_project_names_list}
+** When Server state == {state}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_db_srv_func_project,handle_call,3,[{file,"src/ibot_db_srv_func_project.erl"},{line,63}]},{gen_server,try_handle_call,4,[{file,"gen_server.erl"},{line,607}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,639}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-07-24 23:37:25 =CRASH REPORT====
+  crasher:
+    initial call: ibot_db_srv_func_project:init/1
+    pid: <0.450.0>
+    registered_name: ibot_db_srv_func_project
+    exception exit: {{timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_db_sup,<0.431.0>]
+    messages: [{'$gen_call',{<0.450.0>,#Ref<0.0.0.518>},{get_project_config_info}}]
+    links: [<0.432.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 232
+  neighbours:
+2015-07-24 23:37:25 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_db_sup}
+     Context:    child_terminated
+     Reason:     {timeout,{gen_server,call,[ibot_db_srv_func_project,{get_project_config_info}]}}
+     Offender:   [{pid,<0.450.0>},{name,ibot_db_srv_func_project},{mfargs,{ibot_db_srv_func_project,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
 

@@ -130,7 +130,7 @@ connect_to_distribute_project() ->
 
 
                     {error, Result} ->
-                      ?DBG_MODULE_INFO("connect_to_distribute_project() -> fail start mnesia ~p~n", [?MODULE, Result])
+                      ?DMI("connect_to_distribute_project() -> fail start mnesia", [Result])
                   end;
 
           _Other -> ok

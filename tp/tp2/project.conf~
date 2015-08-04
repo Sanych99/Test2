@@ -1,7 +1,9 @@
 {
 "projectName":"tp",
-"mainProject":"true",
-"distributedProject":"false",
+"mainProject":"false",
+"distributedProject":"true",
 "projectAutoRun":"true",
-"childrenProjects":[{"projectName":"core1@alex-N550JK"}]
+"childrenProjects":[{"projectName":"core1@alex-N550JK"}],
+"projectState":"release",
+"projectNodes":["BLA_BLA_BLA"]
 }

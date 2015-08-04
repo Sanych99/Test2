@@ -40,7 +40,7 @@ create_project(Path, Dir) ->
   ibot_core_func_cmd_cdir:create_project(Path, Dir). %% Create project directories
 
 
-create_node(NodeName, NodeLang) -> ?DBG_MODULE_INFO("create_node(NodeName, NodeLang) NodeName: ~p, NodeLang: ~p ...........~n", [?MODULE, NodeName, NodeLang]),
+create_node(NodeName, NodeLang) -> ?DMI("create_node(NodeName, NodeLang) NodeName: ~p, NodeLang: ~p ...........~n", [NodeName, NodeLang]),
   ibot_core_func_cmd_cdir:create_node(NodeName, list_to_atom(NodeLang)),
   ok.
 
@@ -70,7 +70,7 @@ parse_nodes_config_file([NodeItem | NodesList]) ->
     NodePath ->
       case filelib:is_file(NodePath) of
         true -> gen_server:call(?IBOT_CORE_SRV_PROJECT_INFO_LOADER, {?LOAD_PROJECT_NODE_INFO, NodePath});
-        false -> ?DBG_MODULE_INFO("parse_nodes_config_file([NodeItem | NodesList]) -> node ~p NOT FOUND... ~n", [?MODULE, NodePath])
+        false -> ?DMI("parse_nodes_config_file node NOT FOUND", [NodePath])
       end
   end,
   parse_nodes_config_file(NodesList),
@@ -104,7 +104,7 @@ get_project_nodes() ->
 
 
 get_project_node_from_config() ->
-  ?DBG_MODULE_INFO("get_project_node_from_config() -> ~p~n", [?MODULE, ibot_db_func_config:get_all_registered_nodes()]),
+  ?DMI("get_project_node_from_config", [ibot_db_func_config:get_all_registered_nodes()]),
   {ok, ibot_db_func_config:get_all_registered_nodes()}.
 
 %%% ====== get_project_nodes mathod end ======
@@ -114,16 +114,16 @@ add_node_name_to_config([NodeName| NodeNamesList])->
   add_node_name_to_config(NodeNamesList),
   ok;
 add_node_name_to_config([]) ->
-  ?DBG_MODULE_INFO("add_node_name_to_config([]) -> ~p~n", [?MODULE, ibot_db_func_config:get_nodes_name_from_config()]),
+  ?DMI("add_node_name_to_config", [ibot_db_func_config:get_nodes_name_from_config()]),
   ok.
 
 get_cur_dir() ->
-  ?DBG_MODULE_INFO("get_cur_dir() -> ~p~n", [?MODULE, file:get_cwd()]).
+  ?DMI("get_cur_dir", [file:get_cwd()]).
 
 
 start_project() ->
   Nodes = ibot_db_func_config:get_nodes_name_from_config(),
-  ?DBG_MODULE_INFO("start_project() -> ~p~n", [?MODULE, Nodes]),
+  ?DMI("start_project", [Nodes]),
   run_project_node(Nodes),
   ok.
 

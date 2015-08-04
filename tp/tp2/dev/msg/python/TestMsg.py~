@@ -2,24 +2,22 @@ from py_interface import erl_term
 
 class TestMsg():
 
-	private OtpErlangString strParamOtp;
-	private String strParam;
-
 	def __init__(self):
 		self.resultObject = []
 
 	def getMsg(self):
-		return OtpErlangTuple(self.resultObject);
+		return erl_term.ErlTuple(self.resultObject);
 
 	def __init__(self, msg):
-		self.strParam = str(msg[0])	
-	}
+		self.resultObject = []
+		self.strParam = str(msg[0])
 
-	public String get_strParam() {
-		return strParam;
-	}
+	@property
+	def strParam(self): return self._strParam
 
-	public void set_strParam(String strParam) {
-		this.resultObject[0] = new OtpErlangString(strParam);
-	}
-}
+
+	@strParam.setter
+	def strParam(self, val):
+		self._strParam = val
+		self.resultObject[0] = erl_term.ErlString(val)
+

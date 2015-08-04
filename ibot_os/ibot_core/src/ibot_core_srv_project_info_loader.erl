@@ -106,7 +106,7 @@ read_node_config(NodePath) ->
   {ok, FileContent} = file:read_file(NodePath),
   case jiffy:decode(FileContent) of
     {NodeConfigFileList} ->
-      ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, NodeConfigFileList]),
+      ?DMI("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath)", [NodeConfigFileList]),
       create_node_config_record(NodeConfigFileList, #node_info{})
   end,
   ok.
@@ -153,7 +153,7 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
     <<"srvFileList">> ->
       NewNodeConfigRecord = NodeConfigRecord#node_info{serviceFile = parse_msg_srv_file_list_from_config(Val, [])};
     Other ->
-      ?DBG_MODULE_INFO("=====> .... try monitor: other:~p   val: ~p~n", [?MODULE, Other, Val]),
+      ?DMI("try monitor other | val", [Other, Val]),
       NewNodeConfigRecord = NodeConfigRecord
   end,
   ibot_core_srv_project_info_loader:create_node_config_record(NodeConfigList, NewNodeConfigRecord);
@@ -173,7 +173,7 @@ create_node_config_record([], NodeConfigRecord) ->
   when FileList :: list(), FileName :: binary(), FileNameList :: list().
 
 parse_msg_srv_file_list_from_config([], FileList) ->
-  ?DBG_MODULE_INFO("parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) -> ~p~n", [?MODULE, FileList]),
+  ?DMI("parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList)", [FileList]),
   FileList;
 parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) ->
   NewFileList = lists:append(FileList, [binary_to_list(FileName)]),

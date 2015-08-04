@@ -89,9 +89,14 @@ websocket_handle({text, Msg}, Req, State) ->
             {[{_, SendType}, {_, TopicOrServiceName}, {_, ListParameters}]} ->
               case SendType of
                 <<"broadcast">> ->
-                  ?DBG_MODULE_INFO("broadcast start...", [?MODULE]),
+                  ?DMI("broadcast start...", ?ONLY_MESSAGE),
                   %% bradcast message to all subcribed topicslist_to_tuple(ListParameters)list_to_tuple(ListParameters)
-                  ibot_nodes_srv_topic:broadcats_message(binary_to_atom(TopicOrServiceName, utf8), {"Test from UI..."}),
+                  NewListParametersTuple = list_to_tuple([case E of
+                               El when is_binary(E) -> binary_to_list(E);
+                               _ -> E
+                             end || E <- ListParameters]),
+                  ?DMI("new parameters list", NewListParametersTuple),
+                  ibot_nodes_srv_topic:broadcats_message(binary_to_atom(TopicOrServiceName, utf8), NewListParametersTuple),
                   {reply, {text, jiffy:encode({[{ok,<<"send data cpmplete...">>}]})},
                     Req, State, hibernate };
 

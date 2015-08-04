@@ -139,11 +139,13 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
             NodePreArguments, % Аргументы для исполняемого файла
             %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
             [NodeName, % Имя запускаемого узла
-              NodeName, % mail box name
-              net_adm:localhost(), % host name
+              NodeName,
+              net_adm:localhost(), % mail box name
+              atom_to_list(node()), % host name
               % Передаем параметры в узел
-              atom_to_list(node()), % Имя текущего узла
+              "ibot_nodes_srv_connector", % Имя текущего узла
               "ibot_nodes_srv_topic", % Topic registrator
+              "ibot_nodes_srv_service",
               erlang:get_cookie()]%, % Значение Cookies для узла
             %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
           ]

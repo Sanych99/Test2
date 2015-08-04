@@ -1,6 +1,7 @@
 import com.ericsson.otp.erlang.*;
 import java.math.BigInteger;
 import langlib.java.*;
+import java.util.Arrays;
 
 public class BLA_BLA_BLA extends BotNode {
 
@@ -15,8 +16,8 @@ public class BLA_BLA_BLA extends BotNode {
         //String[] args2 = new String[5];
         //super("BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_topic", "jv");
         //super(new String[] {"BLA_BLA_BLA", "alex-K55A", "core@alex-K55A", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
-	super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
-        //super(args);
+	//super(new String[] {"BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"});
+        super(args);
     }
 
     public void Action() throws Exception {
@@ -58,6 +59,7 @@ public class BLA_BLA_BLA extends BotNode {
     }
 
     public static void main (String[] args) throws Exception {
+	System.out.println("Test params " + Arrays.toString(args));
         BLA_BLA_BLA bla_bla_bla = new BLA_BLA_BLA(args);
         bla_bla_bla.Action();
     }

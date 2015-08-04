@@ -169,7 +169,7 @@ copy_dir(Source, Destination)->
   %spawn(os,cmd,[Command]).
   case file:list_dir(Source) of
     {ok, FileList} ->
-      ?DBG_MODULE_INFO("copy_dir: ~p~n", [?MODULE, FileList]),
+      ?DMI("copy_dir", [FileList]),
       copy_file_from_to_dir(Source, Destination, FileList);
     {error, Reason} -> ok
   end.%%filelib:wildcard(string:join([Source, "*"], ?DELIM_PATH_SYMBOL)),
@@ -180,6 +180,6 @@ copy_file_from_to_dir(Source, Destination, []) ->
 copy_file_from_to_dir(Source, Destination, [FileName | FileList]) ->
   SourceFile = string:join([Source, FileName], ?DELIM_PATH_SYMBOL),
   DestinationFile = string:join([Destination, FileName], ?DELIM_PATH_SYMBOL),
-  ?DBG_MODULE_INFO("copy_file_from_to_dir: source: ~p~n   destination: ~p~n", [?MODULE, SourceFile, DestinationFile]),
+  ?DMI("copy_file_from_to_dir -> source | destination", [SourceFile, DestinationFile]),
   file:copy(SourceFile, DestinationFile),
   copy_file_from_to_dir(Source, Destination, FileList).

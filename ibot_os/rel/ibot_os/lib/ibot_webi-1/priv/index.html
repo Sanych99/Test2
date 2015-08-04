@@ -52,7 +52,7 @@ function open()
 function sendData()
 {
     var jsonQ = "{\"sendData\" : {\"sendType\" : \""+ "broadcast" +
-            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one\"]}}";
+            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one of the message\", 1, true, 7.0]}}";
     ws.send(jsonQ);
     console.log(jsonQ);
 }
