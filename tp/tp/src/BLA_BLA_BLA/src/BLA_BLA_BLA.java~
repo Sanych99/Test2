@@ -1,12 +1,16 @@
 import com.ericsson.otp.erlang.*;
 import java.math.BigInteger;
 import langlib.java.*;
+import java.util.Arrays;
 
 public class BLA_BLA_BLA extends BotNode {
 
-    public void OutPutMessageMethod(TestMsg msg)
+    public void OutPutMessageMethod(TestMsg msg) throws Exception
     {
-        System.out.println("TestMsg is message" + msg.get_strParam());
+        System.out.println("TestMsg is message: " + msg.get_strParam());
+	msg.set_strParam(msg.get_strParam() + " for UI");
+	
+	this.sendMessageToUI(msg);
     }
 
 
@@ -41,6 +45,7 @@ public class BLA_BLA_BLA extends BotNode {
 			TestMsg msg = new TestMsg();
 			msg.set_strParam("message #" + i);
 			this.publishMessage("testTopic", msg);
+			
 		}
 
         } catch (InterruptedException e) {
@@ -58,7 +63,7 @@ public class BLA_BLA_BLA extends BotNode {
     }
 
     public static void main (String[] args) throws Exception {
-	System.out.println("Test params " + args);
+	System.out.println("Test params " + Arrays.toString(args));
         BLA_BLA_BLA bla_bla_bla = new BLA_BLA_BLA(args);
         bla_bla_bla.Action();
     }

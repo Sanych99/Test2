@@ -25,7 +25,7 @@
 -define(SERVER, ?MODULE).
 -define(REG_SUBSCR, reg_subscr).
 
--include("debug.hrl").
+-include("../../ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 
@@ -137,10 +137,10 @@ broadcats_message(TopicName, Msg) ->
 %% @end
 
 message_broadcast([], _, _) ->
-  ?DBG_MODULE_INFO(" => message_broadcast: ~p~n", [?MODULE, "End function"]),
+  ?DMI("message_broadcast", "End function"),
   ok;
 message_broadcast([NodeInfo | NodeInfoList], Msg, TopicName) ->
-  ?DBG_MODULE_INFO(" => message_broadcast: ~p~n", [?MODULE, {{NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}}]),
+  ?DMI("message_broadcast", {{NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}}),
   spawn(fun() -> erlang:send({NodeInfo#node_pubsub_info.nodeMBoxName, NodeInfo#node_pubsub_info.nodeServerName}, {?SUBSRIBE, TopicName, Msg}) end) ,
   message_broadcast(NodeInfoList, Msg, TopicName),
   ok.

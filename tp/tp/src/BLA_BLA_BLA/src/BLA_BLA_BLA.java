@@ -5,9 +5,12 @@ import java.util.Arrays;
 
 public class BLA_BLA_BLA extends BotNode {
 
-    public void OutPutMessageMethod(TestMsg msg)
+    public void OutPutMessageMethod(TestMsg msg) throws Exception
     {
-        System.out.println("TestMsg is message" + msg.get_strParam());
+        System.out.println("TestMsg is message: " + msg.get_strParam());
+	msg.set_strParam(msg.get_strParam() + " for UI");
+	
+	this.sendMessageToUI(msg);
     }
 
 
@@ -42,6 +45,7 @@ public class BLA_BLA_BLA extends BotNode {
 			TestMsg msg = new TestMsg();
 			msg.set_strParam("message #" + i);
 			this.publishMessage("testTopic", msg);
+			
 		}
 
         } catch (InterruptedException e) {

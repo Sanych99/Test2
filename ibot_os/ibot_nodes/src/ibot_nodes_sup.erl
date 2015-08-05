@@ -50,11 +50,11 @@ init([]) ->
 
 
 
-    IBot_Comm_Topic_Child = ?CHILD(ibot_nodes_srv_topic, worker),
-    %IBot_Nodes_Registrator = ?CHILD(ibot_nodes_srv_registrator, worker),
+  IBot_Comm_Topic_Child = ?CHILD(ibot_nodes_srv_topic, worker),
+  %IBot_Nodes_Registrator = ?CHILD(ibot_nodes_srv_registrator, worker),
 
-    IB1 = ?CHILD_PARAM(ibot_nodes_srv_connector, ibot_nodes_srv_connector, worker, [NodeInfo | NodeInfoTopic]),
-    IBot_Nodes_Srv_Service = ?CHILD(ibot_nodes_srv_service, worker),
-    {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service]} },
-  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service]} }.
+  IB1 = ?CHILD_PARAM(ibot_nodes_srv_connector, ibot_nodes_srv_connector, worker, [NodeInfo | NodeInfoTopic]),
+  IBot_Nodes_Srv_Service = ?CHILD(ibot_nodes_srv_service, worker),
+  IBot_Nodes_Srv_UI_Interaction = ?CHILD(ibot_nodes_srv_ui_interaction, worker),
+  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service, IBot_Nodes_Srv_UI_Interaction]} }.
 

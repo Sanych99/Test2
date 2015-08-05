@@ -3,6 +3,7 @@
 -behaviour(cowboy_http_handler).
 -behaviour(cowboy_websocket_handler).
 
+-include("ibot_webi_ui_client_process_name.hrl").
 -include("../../ibot_core/include/debug.hrl").
 -include("../../ibot_core/include/ibot_core_modules_names.hrl").
 -include("../../ibot_core/include/ibot_core_node_compilation_commands.hrl").
@@ -26,6 +27,7 @@ handle(Req, State) ->
 
 websocket_init(_TransportName, Req, _Opts) ->
   %lager:debug("init websocket"),
+  gproc:reg({p, l, ?WSKey}),
   {ok, Req, undefined_state}.
 
 websocket_handle({text, Msg}, Req, State) ->
@@ -140,8 +142,16 @@ websocket_info({timeout, _Ref, Msg}, Req, State) ->
   {reply, {text, Msg}, Req, State};
 
 websocket_info(_Info, Req, State) ->
-  %lager:debug("websocket info"),
-  {ok, Req, State, hibernate}.
+  ?DMI("websocket_info", _Info),
+  case _Info of
+    {_PID, ?WSKey, {send_data_to_ui, NodeName, Msg}} ->
+      ?DMI("websocket_info", "try send message to ui"),
+      {reply, {text, jiffy:encode({[{send_data_to_ui, [<<"test_from_ui">>]}]})}, Req, State, hibernate};
+
+    _ ->
+      ?DMI("websocket_info", "don't send message to ui"),
+      {ok, Req, State, hibernate}
+  end.
 
 websocket_terminate(_Reason, _Req, _State) ->
   ok.

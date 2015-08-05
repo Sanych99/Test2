@@ -54,6 +54,8 @@ public abstract class BotNode implements IBotNode {
 
     private String connectorCodeNode;
 
+    private String uiInteractionNode;
+
     /**
      * Core node cookies
      */
@@ -200,7 +202,8 @@ public abstract class BotNode implements IBotNode {
         this.connectorCodeNode = args[3];  // init connector node name
         this.publisherCoreNode = args[4]; // init publisher node name
         this.serviceCoreNode = args[5]; // init service node name
-        this.coreCookie = args[6]; // init core node cookie
+        this.uiInteractionNode = args[6]; // init ui interaction node name
+        this.coreCookie = args[7]; // init core node cookie
 
         this.subscribeDic = new HashMap<>(); // init subscribers collection
 
@@ -314,6 +317,25 @@ public abstract class BotNode implements IBotNode {
         System.out.println("publishMessage subscribeObject[4] = msgIn.get_Msg();... ");
         this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("publishMessage " + topicName);
+    }
+
+
+
+    public void sendMessageToUI(Object msg) throws Exception
+    {
+        System.out.println("sendMessageToUI start... " + this.otpNodeName);
+
+        IBotMsgInterface msgIn = (IBotMsgInterface)msg;
+
+        System.out.println("sendMessageToUI IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
+
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[3];
+        subscribeObject[0] = new OtpErlangAtom("send_data_to_ui");
+        subscribeObject[1] = new OtpErlangAtom(this.otpNodeName);
+        subscribeObject[2] = msgIn.get_Msg();
+        System.out.println("sendMessageToUI subscribeObject[4] = msgIn.get_Msg();... ");
+        this.otpMboxAsync.send(this.uiInteractionNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        System.out.println("sendMessageToUI  complete" + this.otpNodeName);
     }
 
     //public void subscribe(String methodName)

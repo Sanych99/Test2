@@ -146,6 +146,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
               "ibot_nodes_srv_connector", % Имя текущего узла
               "ibot_nodes_srv_topic", % Topic registrator
               "ibot_nodes_srv_service",
+              "ibot_nodes_srv_ui_interaction",
               erlang:get_cookie()]%, % Значение Cookies для узла
             %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
           ]
