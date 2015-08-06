@@ -22,7 +22,7 @@
   terminate/2,
   code_change/3]).
 
--export([send_message_yo_webi_client/2]).
+-export([send_message_to_webi_client/2]).
 
 -include("../../ibot_core/include/debug.hrl").
 -include("../../ibot_webi/include/ibot_webi_ui_client_process_name.hrl").
@@ -49,8 +49,10 @@ handle_cast(_Request, State) ->
 
 
 handle_info({send_data_to_ui, NodeName, Msg}, State) ->
-  ?DMI("send_data_to_ui", {NodeName, Msg}),
-  ibot_nodes_srv_ui_interaction:send_message_yo_webi_client(NodeName, Msg),
+  spawn(fun() ->
+    ?DMI("send_data_to_ui", {NodeName, Msg}),
+    ibot_nodes_srv_ui_interaction:send_message_to_webi_client(NodeName, Msg)
+  end),
   {noreply, State};
 
 handle_info(_Info, State) ->
@@ -68,5 +70,13 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
-send_message_yo_webi_client(NodeName, Msg) ->
-  gproc:send({p, l, ?WSKey}, {self(), ?WSKey, {send_data_to_ui, NodeName, Msg}}).
+-spec send_message_to_webi_client(NodeName, Msg) -> ok
+  when NodeName :: atom(), Msg :: tuple().
+send_message_to_webi_client(NodeName, Msg) ->
+  ConvertedMsg = tuple_to_list(Msg),
+  NewMessage = [case E of
+                  El when is_list(E) -> list_to_binary(E);
+                  _ -> E
+                end || E <- ConvertedMsg],
+  gproc:send({p, l, ?WSKey}, {self(), ?WSKey, {send_data_to_ui, NodeName, NewMessage}}),
+  ok.

@@ -59,7 +59,13 @@
 ], ?NEW_LINE)).
 
 %% Constructor message class
--define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name), string:join([?NEW_LINE, ?NEW_LINE, ?TAB(1), "public ", Name, "(OtpErlangTuple msg) throws Exception {"], "")).
+-define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name, ObjCount),
+  string:join(
+    [?NEW_LINE,
+      ?NEW_LINE,
+      ?TAB(1), "public ", Name, "(OtpErlangTuple msg) throws Exception {",
+    ?NEW_LINE,
+      ?TAB(2), ?RESULT_OBJ_DEFINE(ObjCount)], "")).
 -define(CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjectNum), string:join([
   ?CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum)
 ], ?NEW_LINE)).

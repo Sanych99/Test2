@@ -25,7 +25,8 @@ class BotNode:
         self.connectorCodeNode = args[3]  # init connector node name
         self.publisherCoreNode = args[4]  # init publisher node name
         self.serviceCoreNode = args[5]  # init service node name
-        self.coreCookie = args[6]  # init core node cookie
+        self.uiInteractionNode = args[6] # init ui interaction node name
+        self.coreCookie = args[7]  # init core node cookie
 
         self.otpNode = self.create_node()  # create node
         self.otpNode.Publish()
@@ -149,7 +150,6 @@ class BotNode:
             self.otpMboxAsync.Send((self.serviceCoreNode, self.coreNodeName),
                                    (obj0, obj1, obj2, obj3, obj4, obj5, obj6))
 
-
     def call_client_service_callback_method(self, msg):
         invoked_service_methodName = str(msg[1])
         client_method_name = str(msg[2])
@@ -207,6 +207,14 @@ class BotNode:
         obj4 = msg.getMsg()
         self.otpMboxAsync.Send((self.publisherCoreNode, self.coreNodeName),
                                (obj0, obj1, obj2, obj3, obj4))
+
+    # Send message to UI
+    def send_message_to_ui(self, msg):
+        obj0 = erl_term.ErlAtom("send_data_to_ui")
+        obj1 = erl_term.ErlAtom(self.otpNodeName)
+        obj2 = msg.getMsg()
+        self.otpMboxAsync.Send((self.uiInteractionNode, self.coreNodeName),
+                               (obj0, obj1, obj2))
 
     # ====== Publish/Subscribe to topic method End ======
 
