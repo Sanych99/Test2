@@ -144,9 +144,9 @@ websocket_info({timeout, _Ref, Msg}, Req, State) ->
 websocket_info(_Info, Req, State) ->
   ?DMI("websocket_info", _Info),
   case _Info of
-    {_PID, ?WSKey, {send_data_to_ui, NodeName, Msg}} ->
+    {_PID, ?WSKey, {send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}} ->
       ?DMI("websocket_info", "try send message to ui"),
-      {reply, {text, jiffy:encode({[{send_data_to_ui, Msg}]})}, Req, State, hibernate};
+      {reply, {text, jiffy:encode({[{message_type, send_data_to_ui}, {node_name, NodeName}, {message_class_name, MsgClassName}, {additional_info, AdditionalInfo}, {message, Msg}]})}, Req, State, hibernate};
 
     _ ->
       ?DMI("websocket_info", "don't send message to ui"),

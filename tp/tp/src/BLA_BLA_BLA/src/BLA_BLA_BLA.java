@@ -10,7 +10,7 @@ public class BLA_BLA_BLA extends BotNode {
         System.out.println("TestMsg is message: " + msg.get_strParam());
 	msg.set_strParam(msg.get_strParam() + " for UI");
 	
-	this.sendMessageToUI(msg);
+	this.sendMessageToUI(msg, "TestMsg", "Addition info from Java node...");
     }
 
 

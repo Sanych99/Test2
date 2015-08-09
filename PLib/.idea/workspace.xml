@@ -29,8 +29,8 @@
       <file leaf-file-name="BotNode.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py_i_bot_os/BotNode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.78533095" vertical-offset="2906" max-vertical-offset="4545">
-              <caret line="223" column="21" selection-start-line="223" selection-start-column="21" selection-end-line="223" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.19499105" vertical-offset="3131" max-vertical-offset="4545">
+              <caret line="216" column="50" selection-start-line="216" selection-start-column="50" selection-end-line="216" selection-end-column="50" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -220,7 +220,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -241,6 +240,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -793,11 +793,12 @@
       <workItem from="1438193191524" duration="27000" />
       <workItem from="1438891449874" duration="1665000" />
       <workItem from="1439052582377" duration="1505000" />
+      <workItem from="1439118114327" duration="170000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95063000" />
+    <option name="totallyTimeSpent" value="95233000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1322,8 +1323,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/py_i_bot_os/BotNode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78533095" vertical-offset="2906" max-vertical-offset="4545">
-          <caret line="223" column="21" selection-start-line="223" selection-start-column="21" selection-end-line="223" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.19499105" vertical-offset="3131" max-vertical-offset="4545">
+          <caret line="216" column="50" selection-start-line="216" selection-start-column="50" selection-end-line="216" selection-end-column="50" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

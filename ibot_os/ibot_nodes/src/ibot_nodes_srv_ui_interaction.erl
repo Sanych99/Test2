@@ -22,7 +22,7 @@
   terminate/2,
   code_change/3]).
 
--export([send_message_to_webi_client/2, init_state/0, send_data_from_children_core/2]).
+-export([send_message_to_webi_client/4, init_state/0, send_data_from_children_core/4]).
 
 -include("../../ibot_core/include/debug.hrl").
 -include("../../ibot_webi/include/ibot_webi_ui_client_process_name.hrl").
@@ -52,15 +52,15 @@ handle_cast({init_state}, _State) ->
     mainNodeName = ProjectInfo#project_info.mainProjectNodeName},
   {noreply, NewState};
 
-handle_cast({send_data_to_ui, NodeName, Msg}, State) ->
+handle_cast({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) ->
   spawn(fun() ->
-    ?DMI("send_data_to_ui", {NodeName, Msg}),
+    ?DMI("send_data_to_ui", {NodeName, MsgClassName, AdditionalInfo, Msg}),
     case State#state.isMainNode of
       true ->
-        ibot_nodes_srv_ui_interaction:send_message_to_webi_client(NodeName, Msg);
+        ibot_nodes_srv_ui_interaction:send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg);
 
       false ->
-        spawn(State#state.mainNodeName, ?MODULE, send_data_from_children_core, [NodeName, Msg])
+        spawn(State#state.mainNodeName, ?MODULE, send_data_from_children_core, [NodeName, MsgClassName, AdditionalInfo, Msg])
     end
   end),
   {noreply, State};
@@ -69,15 +69,15 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
-handle_info({send_data_to_ui, NodeName, Msg}, State) ->
+handle_info({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) ->
   spawn(fun() ->
-    ?DMI("send_data_to_ui", {NodeName, Msg}),
+    ?DMI("send_data_to_ui", {NodeName, MsgClassName, AdditionalInfo, Msg}),
     case State#state.isMainNode of
       true ->
-        ibot_nodes_srv_ui_interaction:send_message_to_webi_client(NodeName, Msg);
+        ibot_nodes_srv_ui_interaction:send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg);
 
       false ->
-        spawn(State#state.mainNodeName, ?MODULE, send_data_from_children_core, [NodeName, Msg])
+        spawn(State#state.mainNodeName, ?MODULE, send_data_from_children_core, [NodeName, MsgClassName, AdditionalInfo, Msg])
     end
   end),
   {noreply, State};
@@ -97,20 +97,20 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
--spec send_message_to_webi_client(NodeName, Msg) -> ok
-  when NodeName :: atom(), Msg :: tuple().
-send_message_to_webi_client(NodeName, Msg) ->
+-spec send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg) -> ok
+  when NodeName :: atom(), MsgClassName :: atom(), AdditionalInfo :: atom(), Msg :: tuple().
+send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg) ->
   ConvertedMsg = tuple_to_list(Msg),
   NewMessage = [case E of
                   El when is_list(E) -> list_to_binary(E);
                   _ -> E
                 end || E <- ConvertedMsg],
-  gproc:send({p, l, ?WSKey}, {self(), ?WSKey, {send_data_to_ui, NodeName, NewMessage}}),
+  gproc:send({p, l, ?WSKey}, {self(), ?WSKey, {send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, NewMessage}}),
   ok.
 
 
-send_data_from_children_core(NodeName, Msg) ->
-  gen_server:cast(?MODULE, {send_data_to_ui, NodeName, Msg}).
+send_data_from_children_core(NodeName, MsgClassName, AdditionalInfo, Msg) ->
+  gen_server:cast(?MODULE, {send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}).
 
 
 init_state() ->

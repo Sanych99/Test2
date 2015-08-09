@@ -321,7 +321,12 @@ public abstract class BotNode implements IBotNode {
 
 
 
-    public void sendMessageToUI(Object msg) throws Exception
+    public void sendMessageToUI(Object msg, String msgClassName) throws Exception
+    {
+        this.sendMessageToUI(msg, msgClassName, "none");
+    }
+
+    public void sendMessageToUI(Object msg, String msgClassName, String additionalInfo) throws Exception
     {
         System.out.println("sendMessageToUI start... " + this.otpNodeName);
 
@@ -329,10 +334,12 @@ public abstract class BotNode implements IBotNode {
 
         System.out.println("sendMessageToUI IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
 
-        OtpErlangObject[] subscribeObject = new OtpErlangObject[3];
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[5];
         subscribeObject[0] = new OtpErlangAtom("send_data_to_ui");
         subscribeObject[1] = new OtpErlangAtom(this.otpNodeName);
-        subscribeObject[2] = msgIn.get_Msg();
+        subscribeObject[2] = new OtpErlangAtom(msgClassName);
+        subscribeObject[3] = new OtpErlangAtom(additionalInfo);
+        subscribeObject[4] = msgIn.get_Msg();
         System.out.println("sendMessageToUI subscribeObject[4] = msgIn.get_Msg();... ");
         this.otpMboxAsync.send(this.uiInteractionNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
         System.out.println("sendMessageToUI  complete" + this.otpNodeName);
