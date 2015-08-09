@@ -29,8 +29,8 @@
       <file leaf-file-name="BotNode.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/py_i_bot_os/BotNode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.59749556" vertical-offset="2861" max-vertical-offset="4545">
-              <caret line="213" column="41" selection-start-line="213" selection-start-column="41" selection-end-line="213" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.78533095" vertical-offset="2906" max-vertical-offset="4545">
+              <caret line="223" column="21" selection-start-line="223" selection-start-column="21" selection-end-line="223" selection-end-column="21" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -219,6 +219,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -238,23 +239,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PLib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PLib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="py_i_bot_os" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -267,7 +253,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ibot_os" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -806,11 +792,12 @@
       <workItem from="1437925895063" duration="2374000" />
       <workItem from="1438193191524" duration="27000" />
       <workItem from="1438891449874" duration="1665000" />
+      <workItem from="1439052582377" duration="1505000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93558000" />
+    <option name="totallyTimeSpent" value="95063000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -834,7 +821,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1335,8 +1322,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/py_i_bot_os/BotNode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59749556" vertical-offset="2861" max-vertical-offset="4545">
-          <caret line="213" column="41" selection-start-line="213" selection-start-column="41" selection-end-line="213" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.78533095" vertical-offset="2906" max-vertical-offset="4545">
+          <caret line="223" column="21" selection-start-line="223" selection-start-column="21" selection-end-line="223" selection-end-column="21" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

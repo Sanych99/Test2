@@ -16,7 +16,8 @@
   projectAutoRun = false :: boolean() | undefined,
   childrenProjects = [] :: list(),
   childrenProjectName = [] :: list(),
-  projectState = develop :: atom() | release
+  projectState = develop :: atom() | release,
+  mainProjectNodeName :: atom()
 }).
 
 -record(project_children, {

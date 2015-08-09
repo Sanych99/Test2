@@ -346,6 +346,10 @@ create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigR
     <<"projectNodes">> ->
       ProjectInfoRecordNew = ProjectConfigRecord,
       ibot_core_srv_project_info_loader:parse_project_node_list(Val);
+
+    <<"mainProjectNodeName">> ->
+      ProjectInfoRecordNew = ProjectConfigRecord#project_info{mainProjectNodeName = list_to_atom(binary_to_list(Val))};
+
       %ChildrenProjects = 0,
       %ProjectInfoRecordNew =
       %  ProjectConfigRecord#project_info{childrenProjects = [ProjectConfigRecord#project_info.childrenProjects

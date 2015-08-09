@@ -18,7 +18,6 @@ public class TestMsg implements IBotMsgInterface {
 	}
 
 	public TestMsg(OtpErlangTuple msg) throws Exception {
-		resultObject = new OtpErlangObject[1];
 		this.strParam = ((OtpErlangString)msg.elementAt(0)).stringValue();	
 	}
 

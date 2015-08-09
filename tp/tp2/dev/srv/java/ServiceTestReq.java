@@ -24,6 +24,7 @@ public class ServiceTestReq implements IBotMsgInterface {
 	}
 
 	public ServiceTestReq(OtpErlangTuple msg) throws Exception {
+		resultObject = new OtpErlangObject[3];
 		this.therdParamReq = ((OtpErlangString)msg.elementAt(2)).stringValue();
 		this.secParamReq = ((OtpErlangLong)msg.elementAt(1)).longValue();
 		this.strParamReq = ((OtpErlangString)msg.elementAt(0)).stringValue();	

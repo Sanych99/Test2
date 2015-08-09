@@ -135,6 +135,9 @@ connect_to_distribute_project() ->
 
           _Other -> ok
           end
-      end
+      end,
+
+      %% init ui interaction sending message #state record
+      ibot_nodes_srv_ui_interaction:init_state()
   end.
 

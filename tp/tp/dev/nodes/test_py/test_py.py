@@ -61,7 +61,7 @@ class TestNode(BotNode):
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.get_strParam()
 	tm = TestMsg()
-	tm.set_strParam(msg.get_strParam())
+	tm.set_strParam(msg.get_strParam() + " from pyton node response...")
 	self.publish_message("test_topic_from_py", tm)
 
 def testMethod():

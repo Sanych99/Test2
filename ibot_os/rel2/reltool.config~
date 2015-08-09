@@ -6,12 +6,12 @@
         [
          kernel,
          stdlib,
-         sasl, crypto, cowboy, syntax_tools, jiffy, ibot_db, ibot_core, ibot_generator, ibot_webi, ibot_ui_interaction, ibot_nodes, mnesia
+         sasl, crypto, cowboy, syntax_tools, jiffy, ibot_db, ibot_core, ibot_generator, ibot_webi, ibot_nodes, mnesia
         ]},
        {rel, "start_clean", "",
         [
          kernel,
-         stdlib, sasl, crypto, cowboy, lager, syntax_tools, jiffy, ibot_db, ibot_core, ibot_generator, ibot_webi, ibot_ui_interaction, ibot_nodes, mnesia
+         stdlib, sasl, crypto, cowboy, lager, syntax_tools, jiffy, ibot_db, ibot_core, ibot_generator, ibot_webi, ibot_nodes, mnesia
         ]},
        {boot_rel, "ibot_os"},
        {profile, embedded},
@@ -39,7 +39,6 @@
 {app, ibot_nodes, [{incl_cond, include}]},
 {app, ibot_ri, [{incl_cond, include}]},
 {app, ibot_webi, [{incl_cond, include}]},
-{app, ibot_ui_interaction, [{incl_cond, include}]},
 {app, mnesia, [{incl_cond, include}]}
       ]}.
 
