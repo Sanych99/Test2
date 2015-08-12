@@ -26,7 +26,7 @@ public class BLA_BLA_BLA extends BotNode {
     public void Action() throws Exception {
         System.out.println("Monitor Start...");
 
-        //this.monitorStart();
+        this.monitorStart();
 
 	
         

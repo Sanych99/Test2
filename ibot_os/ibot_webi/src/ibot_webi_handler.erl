@@ -67,7 +67,7 @@ websocket_handle({text, Msg}, Req, State) ->
           case ibot_core_app:get_project_node_from_config() of
             {ok, ProjectNodes} ->
               ProjectNodesBin = list_to_binary(ProjectNodes),%(string:join(ProjectNodes, "|")),
-              {reply, {text, jiffy:encode({[{responseType, nodeslist}, {responseJson, <<ProjectNodesBin/binary>>}]})}, Req, State};
+              {reply, {text, jiffy:encode({[{message_type, nodeslist}, {responseJson, <<ProjectNodesBin/binary>>}]})}, Req, State};
             _ -> {reply, {text, jiffy:encode({[{error,<<"get nodes error...">>}]})}, Req, State}
           end;
         <<"generateAllMsgs">> ->

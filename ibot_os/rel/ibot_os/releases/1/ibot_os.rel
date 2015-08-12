@@ -1,4 +1,4 @@
-%% rel generated at {2015,8,10} {2,35,19}
+%% rel generated at {2015,8,13} {3,14,30}
 {release,{"ibot_os","1"},
          {erts,"6.3"},
          [{kernel,"3.1"},

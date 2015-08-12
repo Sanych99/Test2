@@ -10,7 +10,7 @@ public class BLA_BLA_BLA extends BotNode {
         System.out.println("TestMsg is message: " + msg.get_strParam());
 	msg.set_strParam(msg.get_strParam() + " for UI");
 	
-	this.sendMessageToUI(msg, "test", "test");
+	this.sendMessageToUI(msg, "TestMsg", "Addition info from Java node...");
     }
 
 
@@ -26,7 +26,7 @@ public class BLA_BLA_BLA extends BotNode {
     public void Action() throws Exception {
         System.out.println("Monitor Start...");
 
-        //this.monitorStart();
+        this.monitorStart();
 
 	
         

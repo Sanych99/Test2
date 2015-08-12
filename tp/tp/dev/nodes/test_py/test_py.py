@@ -52,7 +52,7 @@ class TestNode(BotNode):
         #                   "TopicName",
         #                   "Message"))
         #print "Looping...2"
-
+	self.monitor_start();
         self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
         print "subscribe to topic"
         #evhand = erl_eventhandler.GetEventHandler()
@@ -61,7 +61,7 @@ class TestNode(BotNode):
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.get_strParam()
 	tm = TestMsg()
-	tm.set_strParam(msg.get_strParam() + " from pyton node response...")
+	tm.set_strParam(msg.get_strParam())
 	self.publish_message("test_topic_from_py", tm)
 
 def testMethod():

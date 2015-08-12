@@ -52,7 +52,7 @@ class TestNode(BotNode):
         #                   "TopicName",
         #                   "Message"))
         #print "Looping...2"
-
+	self.monitor_start();
         self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
         print "subscribe to topic"
         #evhand = erl_eventhandler.GetEventHandler()
