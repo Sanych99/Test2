@@ -13,7 +13,7 @@
 -include("msg_srv_js_generate_templates.hrl").
 
 %% API
--export([generate_msg_source_files/2, generate_srv_source_files/2]).
+-export([generate_msg_source_files/2, generate_srv_source_files/2, result_array_string_generation/2]).
 
 %% @doc
 %% Generate message source files for language
@@ -133,9 +133,14 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
       parameters_constructor_generate(GeneratedFile, AllFieldsList),
       file:write(GeneratedFile, ?END_BLOCK(1)),
 
-      file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
+      ResultMessageArray = result_array_string_generation("\"[\"", lists:reverse(AllFieldsList)),
+
+      ?DMI("JS message generation ResultMessageArray", ResultMessageArray),
+
+      file:write(GeneratedFile, ?GET_OTP_TYPE_MSG(ResultMessageArray)), %% Generate Get_Msg interface method
 
       file:write(GeneratedFile, ?END_BLOCK(0)),
+
 
 
       %file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
@@ -167,3 +172,15 @@ parameters_constructor_generate(_, []) ->
 parameters_constructor_generate(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
   file:write(GeneratedFile, ?CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjCount)),
   parameters_constructor_generate(GeneratedFile , FieldsList).
+
+
+
+
+result_array_string_generation(ResultString, []) ->
+  ?DMI("result_array_string_generation", ResultString),
+  string:concat(ResultString, "\"]\"");
+
+result_array_string_generation(ResultString ,[{Type, Name, ObjCount} | FieldsList]) ->
+  NewResultString = string:join([ResultString, ?GET_RESULT_ITEM_DELIMETER(ObjCount), ?RESULT_ARRAY_ITEM_GENERATE(Type, Name, ObjCount)], ""),
+  ?DMI("result_array_string_generation", NewResultString),
+  result_array_string_generation(NewResultString, FieldsList).

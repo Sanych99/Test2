@@ -77,10 +77,10 @@
 
 
 %% Create OTP message from java types
--define(GET_OTP_TYPE_MSG, string:join([
-  "",
+-define(GET_OTP_TYPE_MSG(ResulyArray), string:join([
+  "", "",
   ?TAB_STRING(["this.getMessage = function() {"], 1),
-  ?TAB_STRING(["return erl_term.ErlTuple(self.resultObject);"], 2),
+  ?TAB_STRING(["return ", ResulyArray, ";"], 2),
   ?TAB_STRING(["}"], 1)
 ], ?NEW_LINE)).
 
@@ -90,7 +90,7 @@
 -define(GETTER_DEFINITION(Type, Name), string:join([
   %?TAB_STRING(["@property"], 1),
   ?NEW_LINE,
-  ?TAB_STRING(["this.", Name, ";"], 1)
+  ?TAB_STRING(["this.", Name, " = ", ?DEFAULT_VALUE(Type), ";"], 1)
 ], "")).
 
 %% Generate setter mathod definition
@@ -110,6 +110,23 @@
   "",
   ?GETTER_DEFINITION(Type, Name)
 ], ?NEW_LINE)).
+
+
+-define(RESULT_ARRAY_ITEM_GENERATE(Type, Name, ObjNumber), string:join([
+  ?GETERATE_RESULT_IN_TYPE(Type, Name)
+], "")).
+
+-define(GETERATE_RESULT_IN_TYPE(Type, Name),
+  case Type of
+    "String" -> string:join([" + \"\\\"\" + this.", Name," + \"\\\"\" + "], "");
+    "BigInt" -> string:join([" + this.", Name , " + "], "");
+    _ -> string:join([" + this.", Name, " + "], "")
+  end).
+
+-define(GET_RESULT_ITEM_DELIMETER(ObjNumber), case ObjNumber of
+                                                0 -> "";
+                                                _ -> "\",\""
+                                              end).
 %-define(GETTER_SETTER_GENERATE(Type, Name, ObjNumber), string:join([
 %  "", "",
 %  ?GETTER_DEFINITION(Type, Name),
@@ -124,6 +141,14 @@
   case Type of
     "String" -> "erl_term.ErlString";
     "BigInt" -> "erl_term.ErlInt";
+    _ -> "UNDEFINE"
+  end
+).
+
+-define(DEFAULT_VALUE(Type),
+  case Type of
+    "String" -> "\"\"";
+    "BigInt" -> "0";
     _ -> "UNDEFINE"
   end
 ).

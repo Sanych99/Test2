@@ -1,17 +1,18 @@
 function ServiceTestReq() {
 
-	this.therdParamReq;
+	this.therdParamReq = "";
 
-	this.secParamReq;
+	this.secParamReq = 0;
 
-	this.strParamReq;
+	this.strParamReq = "";
 
 	if (msg) {
 		this.therdParamReq = msg[2];
 		this.secParamReq = msg[1];
 		this.strParamReq = msg[0];	
 	}
+
 	this.getMessage = function() {
-		return erl_term.ErlTuple(self.resultObject);
+		return "[" + "\"" + this.strParamReq + "\"" + "," + this.secParamReq + "," + "\"" + this.therdParamReq + "\"" + "]";
 	}	
 }
