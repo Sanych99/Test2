@@ -20,32 +20,39 @@ init({tcp, http}, _Req, _Opts) ->
 
 
 handle(Req, State) ->
-  %lager:debug("Request not expected: ~p", [Req]),
   {ok, Req2} = cowboy_http_req:reply(404, [{'Content-Type', <<"text/html">>}]),
   {ok, Req2, State}.
 
 
 websocket_init(_TransportName, Req, _Opts) ->
-  %lager:debug("init websocket"),
+  %% Записываем pid процесса в gproc
   gproc:reg({p, l, ?WSKey}),
   {ok, Req, undefined_state}.
 
 websocket_handle({text, Msg}, Req, State) ->
-  ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) Mgs: ~p~n", [?MODULE, binary_to_list(Msg)]),
-  ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) decode: ~p~n", [?MODULE, jiffy:decode(Msg)]),
+  ?DMI("websocket_handle mgs:", binary_to_list(Msg)),
+  ?DMI("websocket_handle decode:", jiffy:decode(Msg)),
 
+  %% Парсим сообщение то клиента
   try jiffy:decode(Msg) of
     {[{A, B}]}->
       case A of
+        %% Комптляция всех узлов
         <<"compileAllNodes">> ->
           gen_server:call(?IBOT_CORE_SRV_COMPILE_NODES, {?COMPILE_ALL_NODES}),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Компиляция указанного узла
         <<"compileOneNode">> ->
           gen_server:call(?IBOT_CORE_SRV_COMPILE_NODES, {?COMPILE_NODE, binary_to_list(B)}),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Соединение с проектов, парсинг всех config файлов (проект, узлы)
         <<"connectToProject">> ->
           ibot_core_app:connect_to_project(binary_to_list(B)),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Создание нового проекта
         <<"createProject">> ->
           case B of
             {[{_, ProjectNameBin}, {_, ProjectPath}]} ->
@@ -54,6 +61,8 @@ websocket_handle({text, Msg}, Req, State) ->
             _ -> error
           end,
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Создание узла в проекте
         <<"createNode">> ->
           case B of
             {[{_, NodeNameBin}, {_, NodeLang}]} ->
@@ -62,6 +71,8 @@ websocket_handle({text, Msg}, Req, State) ->
             _ -> error
           end,
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Получить список узлов проекта
         <<"getNodes">> ->
           ?DBG_MODULE_INFO("<<getNodes>> : ~p~n", [?MODULE, ibot_core_app:get_project_nodes()]),
           case ibot_core_app:get_project_node_from_config() of
@@ -70,21 +81,29 @@ websocket_handle({text, Msg}, Req, State) ->
               {reply, {text, jiffy:encode({[{message_type, nodeslist}, {responseJson, <<ProjectNodesBin/binary>>}]})}, Req, State};
             _ -> {reply, {text, jiffy:encode({[{error,<<"get nodes error...">>}]})}, Req, State}
           end;
+
+        %% Генерация всех сообщений
         <<"generateAllMsgs">> ->
           ibot_generator_msg_srv:generate_all_msg_srv(),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Старт проекта, запуск всех узлов
         <<"startProject">> ->
           ibot_core_app:start_project(),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Старт указанного узла
         <<"startNode">> ->
           ibot_core_app:start_node(binary_to_list(B)),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
+
+        %% Остановка указанного узла
         <<"stopNode">> ->
           ibot_nodes_srv_connector:stop_node([binary_to_list(B)]),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
 
 
-
+        %% Отправить сообщения узлу подсисанного на топик
         <<"sendData">> ->
           ?DBG_MODULE_INFO("websocket_handle({text, Msg}, Req, State) decode: ~p~n", [?MODULE, B]),
           case B of
@@ -110,8 +129,6 @@ websocket_handle({text, Msg}, Req, State) ->
               end;
 
             _ ->
-              %%{reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
-              %% template for send data undefied
               ?ERROR_MSG("sendData: Not fond template..."),
               {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: Not fond template...">>}]})},
                 Req, State, hibernate }
@@ -119,14 +136,11 @@ websocket_handle({text, Msg}, Req, State) ->
 
 
         _ ->
-          %%{reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate }
-          %% template for send data undefied
           ?ERROR_MSG("sendData: Not fond template..."),
           {reply, {text, jiffy:encode({[{error,<<"ibot_ui_interaction_handler sendData: Not fond template...">>}]})},
             Req, State, hibernate }
       end;
 
-      %{reply, {text, jiffy:encode({[{registered,B}]})}, Req, State};
     _ ->
       {reply, {text, jiffy:encode({[{error,<<"invalid json">>}]})}, Req, State}
   catch
@@ -138,12 +152,15 @@ websocket_handle({text, Msg}, Req, State) ->
 websocket_handle(_Any, Req, State) ->
   {reply, {text, << "whut?">>}, Req, State, hibernate }.
 
+
+
 websocket_info({timeout, _Ref, Msg}, Req, State) ->
   {reply, {text, Msg}, Req, State};
-
+%% Отправка сообщения клиенту от узла
 websocket_info(_Info, Req, State) ->
   ?DMI("websocket_info", _Info),
   case _Info of
+    %% Отпарвляем сообщение клиенту
     {_PID, ?WSKey, {send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}} ->
       ?DMI("websocket_info", "try send message to ui"),
       {reply, {text, jiffy:encode({[{message_type, send_data_to_ui}, {node_name, NodeName}, {message_class_name, MsgClassName}, {additional_info, AdditionalInfo}, {message, Msg}]})}, Req, State, hibernate};
