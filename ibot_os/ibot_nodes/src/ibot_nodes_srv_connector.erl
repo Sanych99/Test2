@@ -10,7 +10,7 @@
 
 -behaviour(gen_server).
 
--export([start_link/1, run_node/1, stop_node/1, send_start_signal/2]).
+-export([start_link/0, run_node/1, stop_node/1, send_start_signal/2]).
 
 -export([init/1,
   handle_call/3,
@@ -30,8 +30,8 @@
 -record(state, {node_port, node_name}).
 
 
-start_link([NodeInfo | NodeInfoTopic]) ->
-  gen_server:start_link({local, ?SERVER}, ?MODULE, [NodeInfo | NodeInfoTopic], []).
+start_link() ->
+  gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
 
 init([]) ->
@@ -155,10 +155,10 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
           ]}]),
 
           timer:apply_after(7000, ibot_nodes_srv_connector, send_start_signal,
-            [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, net_adm:localhost()], "@"))])
+            [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, net_adm:localhost()], "@"))]);
 
-
-    _ -> error
+        _ -> error
+      end
   end.
 
 

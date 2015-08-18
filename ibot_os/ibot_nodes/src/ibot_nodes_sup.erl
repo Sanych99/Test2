@@ -30,30 +30,10 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-
-  NodeInfo = #node_info{nodeName = "ClientTest", nodeServer = "alex-N550JK", nodeNameServer = "bar@alex-N550JK",
-    nodeLang = "Java", nodeExecutable = "java",
-    %nodePreArguments = ["-classpath",
-    %  "C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\_RobotOS\\RobotOS\\_RobOS\\test\\nodes\\java;C:\\_RobotOS\\RobotOS\\_RobOS\\langlib\\java\\lib\\Node.jar"],
-    nodePreArguments = ["-classpath",
-      "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],
-    nodePostArguments = []},
-
-  NodeInfoTopic = #node_info{nodeName = "ClientTestTopic", nodeServer = "alex-N550JK", nodeNameServer = "bar_topic@alex-N550JK",
-    nodeLang = "Java", nodeExecutable = "java",
-    %nodePreArguments = ["-classpath",
-    %  "C:\\Program Files\\erl6.3\\lib\\jinterface-1.5.12\\priv\\OtpErlang.jar;C:\\_RobotOS\\RobotOS\\_RobOS\\test\\nodes\\java;C:\\_RobotOS\\RobotOS\\_RobOS\\langlib\\java\\lib\\Node.jar"],
-    nodePreArguments = ["-classpath",
-      "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"],
-    nodePostArguments = []},
-
-
-
-
   IBot_Comm_Topic_Child = ?CHILD(ibot_nodes_srv_topic, worker),
   %IBot_Nodes_Registrator = ?CHILD(ibot_nodes_srv_registrator, worker),
 
-  IB1 = ?CHILD_PARAM(ibot_nodes_srv_connector, ibot_nodes_srv_connector, worker, [NodeInfo | NodeInfoTopic]),
+  IB1 = ?CHILD(ibot_nodes_srv_connector, worker),
   IBot_Nodes_Srv_Service = ?CHILD(ibot_nodes_srv_service, worker),
   IBot_Nodes_Srv_UI_Interaction = ?CHILD(ibot_nodes_srv_ui_interaction, worker),
   {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service, IBot_Nodes_Srv_UI_Interaction]} }.

@@ -14,5 +14,17 @@ Mnesia info:
 http://21ccw.blogspot.com/2008/04/getting-started-with-distributed-erlang.html
 
 
-Erlang Disrtibuted Programming
+Erlang Disrtibuted / Concurent Programming
 http://www.erlang.org/doc/getting_started/conc_prog.html
+
+
+Install JLib for Maven
+
+sudo mvn install:install-file -Dfile=/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar -DgroupId=langlib.java -DartifactId=ibot-lang-lib -Dversion=1 -Dpackaging=jar -DgeneratePom=true
+
+sudo mvn install:install-file -DgroupId=langlib.java -DartifactId=Node -Dversion=1.0 -Dpackaging=jar -Dfile=/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar
+
+sudo mvn install:install-file -DgroupId=com.ericsson.otp.erlang -DartifactId=OtpErlang -Dversion=1.0 -Dpackaging=jar -Dfile=/home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar
+
+
+java -cp /home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar:/home/alex/iBotOS/testMVN/TestBin/testJar.jar com.mycompany.app.App "App", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "ibot_nodes_srv_ui_interation", "jv"
