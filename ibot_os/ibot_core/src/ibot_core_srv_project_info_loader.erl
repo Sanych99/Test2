@@ -152,6 +152,10 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       NewNodeConfigRecord = NodeConfigRecord#node_info{messageFile = parse_msg_srv_file_list_from_config(Val, [])};
     <<"srvFileList">> ->
       NewNodeConfigRecord = NodeConfigRecord#node_info{serviceFile = parse_msg_srv_file_list_from_config(Val, [])};
+    <<"projectType">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{projectType = binary_to_atom(Val, utf8)};
+    <<"mainClassName">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{mainClassName = binary_to_list(Val)};
     Other ->
       ?DMI("try monitor other | val", [Other, Val]),
       NewNodeConfigRecord = NodeConfigRecord

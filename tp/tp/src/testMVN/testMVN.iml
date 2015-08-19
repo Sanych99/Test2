@@ -73,5 +73,14 @@
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-io:2.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.9" level="project" />
     <orderEntry type="library" name="Maven: langlib.java:Node:1.0" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.ericsson.otp.erlang:OtpErlang:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../JLib/lib/OtpErlang.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

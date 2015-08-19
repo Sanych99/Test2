@@ -1,8 +1,8 @@
 package com.mycompany.app;
 
 
+import com.ibotmsg.TestMsg;
 import langlib.java.BotNode;
-
 /**
  * Hello world!
  *
@@ -23,5 +23,11 @@ public class TestMVN extends BotNode
     @Override
     public void Action() throws Exception {
         System.out.println("Message was send!");
+
+        this.subscribeToTopic("testTopic", "topicMethod", TestMsg.class);
+    }
+
+    public void topicMethod(TestMsg msg) {
+        System.out.println("YO! " + msg.get_strParam());
     }
 }

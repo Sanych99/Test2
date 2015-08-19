@@ -28,7 +28,15 @@
             <version>1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.ericsson.otp.erlang</groupId>
+            <artifactId>OtpErlang</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>/home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar</systemPath>
+        </dependency>
     </dependencies>
+    
     <build>
     <plugins>
         <plugin>
@@ -38,10 +46,16 @@
             <configuration>
                 <outputDirectory>../../dev/nodes/testMVN</outputDirectory>
                 <finalName>testMVN</finalName>
-                <manifest>
-                    <addClasspath>true</addClasspath>
-                    <classpathPrefix>lib</classpathPrefix>
-                </manifest>
+                <archive>
+                    <manifest>
+                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        <addClasspath>true</addClasspath>
+                        <mainClass>com.mycompany.app.TestMVN</mainClass>
+                    </manifest>
+                    <manifestEntries>
+                        <Class-Path></Class-Path>
+                    </manifestEntries>
+                </archive>
             </configuration>
         </plugin>
 
@@ -74,7 +88,7 @@
             <version>2.4.1</version>
             <configuration>
                 <finalName>testMVN</finalName>
-                <outputDirectory>/home/alex/iBotOS/testMVN/TestBin</outputDirectory>
+                <outputDirectory>../../dev/nodes/testMVN</outputDirectory>
                 <!-- get all project dependencies -->
                 <descriptorRefs>
                     <descriptorRef>jar-with-dependencies</descriptorRef>

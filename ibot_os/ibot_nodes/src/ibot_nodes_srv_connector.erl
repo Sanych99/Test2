@@ -108,39 +108,68 @@ run_node([]) ->
 
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
   nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
-  nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
+  nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants, projectType = ProjectType,
+  mainClassName = MainClassName}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
 
   FullProjectPath = ibot_db_func_config:get_full_project_path(),
 
   case AtomNodeLang of
     java ->
-      %% Проверка наличия исполняющего файла java
-      case os:find_executable(NodeExecutable) of
-        [] ->
-          throw({stop, executable_file_missing});
-        ExecutableFile ->
-          ArgumentList = lists:append([
-            %["-classpath",
-            %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
-            NodePreArguments, % Аргументы для исполняемого файла
-            %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
-            [NodeName, % Имя запускаемого узла
-              NodeName,
-              net_adm:localhost(), % mail box name
-              atom_to_list(node()), % host name
-              % Передаем параметры в узел
-              "ibot_nodes_srv_connector", % Имя текущего узла
-              "ibot_nodes_srv_topic", % Topic registrator
-              "ibot_nodes_srv_service",
-              "ibot_nodes_srv_ui_interaction",
-              erlang:get_cookie()]%, % Значение Cookies для узла
-            %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
-          ]
-          ),
-          % Выполянем комманду по запуску узла
-          erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
-      %erlang:open_port({spawn, "java"}, [{line,1000}, stderr_to_stdout, {args, [" -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"]}])
-      end;
+          %% Проверка наличия исполняющего файла java
+          case os:find_executable(NodeExecutable) of
+            [] ->
+              throw({stop, executable_file_missing});
+            ExecutableFile ->
+              case ProjectType of
+                native ->
+                  ArgumentList = lists:append([
+                    %["-classpath",
+                    %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
+                    NodePreArguments, % Аргументы для исполняемого файла
+                    %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
+                    [NodeName, % Имя запускаемого узла
+                      NodeName,
+                      net_adm:localhost(), % mail box name
+                      atom_to_list(node()), % host name
+                      % Передаем параметры в узел
+                      "ibot_nodes_srv_connector", % Имя текущего узла
+                      "ibot_nodes_srv_topic", % Topic registrator
+                      "ibot_nodes_srv_service",
+                      "ibot_nodes_srv_ui_interaction",
+                      erlang:get_cookie()]%, % Значение Cookies для узла
+                    %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
+                  ]
+                );
+                maven ->
+                  %% Start maven java node
+                  ArgumentList = ["-cp",
+                    string:join([string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName,
+                      string:join([NodeName, ".jar"], "")], ?DELIM_PATH_SYMBOL),
+                    ":", "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar"], ""),
+                    MainClassName,
+                    NodeName, % Имя запускаемого узла
+                    net_adm:localhost(), % mail box name
+                    atom_to_list(node()), % host name
+                    % Передаем параметры в узел
+                    "ibot_nodes_srv_connector", % Имя текущего узла
+                    "ibot_nodes_srv_topic", % Topic registrator
+                    "ibot_nodes_srv_service",
+                    "ibot_nodes_srv_ui_interaction",
+                    erlang:get_cookie()],
+
+                  ?DMI("maven start", ArgumentList);
+
+                _ ->
+                  ArgumentList = [],
+                  error
+                end,
+              % Выполянем комманду по запуску узла
+              erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
+            %erlang:open_port({spawn, "java"}, [{line,1000}, stderr_to_stdout, {args, [" -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"]}])
+          end;
+
+
+
 
     python ->
       case os:find_executable(NodeExecutable) of
