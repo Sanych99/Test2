@@ -10,7 +10,7 @@
 
 -behaviour(gen_server).
 
--export([start_link/0, run_node/1, stop_node/1, send_start_signal/2]).
+-export([start_link/0, run_node/1, stop_node/1, send_start_signal/2, stop_monitor/1]).
 
 -export([init/1,
   handle_call/3,
@@ -43,11 +43,23 @@ handle_call({?RESTART_NODE, NodeName}, _From, State) ->
   %% get node info
   case ibot_db_func_config:get_node_info(NodeName) of
     [] -> ok; %% info not found
-    NodeInfo -> run_node(NodeInfo) %% run node
+    NodeInfo ->
+      run_node(NodeInfo) %% run node
   end,
   {reply, ok, State};
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
+
+
+handle_cast({?RESTART_NODE, NodeName},State) ->
+  ?DMI("handle_cast restart_node", NodeName),
+  %% get node info
+  case ibot_db_func_config:get_node_info(NodeName) of
+    [] -> ok; %% info not found
+    NodeInfo ->
+      run_node(NodeInfo) %% run node
+  end,
+  {noreply, State};
 
 %% start node
 handle_cast({start_node, NodeInfo},State) ->
@@ -60,13 +72,14 @@ handle_cast(_Request, State) ->
 %% start monitor for node
 handle_info({start_monitor, NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}, State) ->
   %% run new process for monitoring node
-  ibot_nodes_srv_monitor:start_link({NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}),
+  %ibot_nodes_srv_monitor:start_link({NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}),
+  ibot_nodes_sup:start_child_monitor(NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom),
   {noreply, State};
 
 %% stop node monitoring
 handle_info({stop_monitor, NodeNameString}, State) ->
-  gen_server:call(list_to_atom(string:join([NodeNameString, "monitor"], "_")), stop),
-  %erlang:send({local, string:join([NodeNameString, "monitor"], "_")}, {stop}),
+  %gen_server:call(list_to_atom(string:join([NodeNameString, "monitor"], "_")), stop),
+  ibot_nodes_srv_connector:stop_monitor(NodeNameString),
   {noreply, State};
 
 
@@ -95,6 +108,15 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
+
+stop_monitor(NodeName) ->
+  MonitorNodeName = list_to_atom(string:join([NodeName, "monitor"], "_")),
+  case whereis(MonitorNodeName) of
+    undefined -> ok;
+    MonitorPid -> ibot_nodes_sup:stop_child_monitor(MonitorNodeName)
+  end.
+
+
 %% @doc
 %% Запуск узла
 %% @spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
@@ -110,6 +132,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
   nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants, projectType = ProjectType,
   mainClassName = MainClassName}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
+
+  ibot_nodes_srv_connector:stop_monitor(NodeName),
 
   FullProjectPath = ibot_db_func_config:get_full_project_path(),
 

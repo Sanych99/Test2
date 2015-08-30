@@ -380,3 +380,743 @@ Ranch listener http had connection process started with cowboy_protocol:start_li
      Reason:     test
      Offender:   [{pid,<0.649.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
 
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.756.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.760.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.763.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.766.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.769.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:27:30 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown
+     Reason:     reached_max_restart_intensity
+     Offender:   [{pid,<0.769.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:36:34 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {'EXIT',<0.650.0>,error}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** error
+2015-08-30 17:36:34 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     error
+     Offender:   [{pid,<0.650.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:36:34 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.782.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {error,[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_srv_connector,ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 233
+    stack_size: 27
+    reductions: 197
+  neighbours:
+2015-08-30 17:37:06 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {stop_monitor,"BLA_BLA_BLA"}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_connector,handle_info,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-30 17:37:06 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.792.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>,<0.798.0>,#Port<0.978>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 2396
+  neighbours:
+2015-08-30 17:37:06 =ERROR REPORT====
+** Generic server test_py_monitor terminating 
+** Last message in was {'EXIT',<0.792.0>,{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}}}
+** When Server state == {state,"test_py",test_py,'alex-N550JK','test_py@alex-N550JK'}
+** Reason for termination == 
+** {noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}}
+2015-08-30 17:37:06 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.798.0>
+    registered_name: test_py_monitor
+    exception exit: {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_srv_connector,ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 233
+    stack_size: 27
+    reductions: 148
+  neighbours:
+2015-08-30 17:37:06 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}}
+     Offender:   [{pid,<0.792.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:37:40 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {stop_monitor,"BLA_BLA_BLA"}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_connector,handle_info,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-30 17:37:40 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.800.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 2427
+  neighbours:
+2015-08-30 17:37:40 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}}
+     Offender:   [{pid,<0.800.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:41:05 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {stop_monitor,"test_py"}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{noproc,{gen_server,call,[test_py_monitor,stop]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_connector,handle_info,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-30 17:41:05 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.818.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{noproc,{gen_server,call,[test_py_monitor,stop]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 2700
+  neighbours:
+2015-08-30 17:41:05 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {noproc,{gen_server,call,[test_py_monitor,stop]}}
+     Offender:   [{pid,<0.818.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:42:27 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     error
+     Offender:   [{pid,<0.836.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:42:27 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {'EXIT',<0.836.0>,error}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** error
+2015-08-30 17:42:27 =ERROR REPORT====
+** Generic server test_py_monitor terminating 
+** Last message in was {'EXIT',<0.836.0>,error}
+** When Server state == {state,"test_py",test_py,'alex-N550JK','test_py@alex-N550JK'}
+** Reason for termination == 
+** error
+2015-08-30 17:42:27 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.872.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {error,[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_srv_connector,ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 233
+    stack_size: 27
+    reductions: 136
+  neighbours:
+2015-08-30 17:42:27 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.868.0>
+    registered_name: test_py_monitor
+    exception exit: {error,[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_srv_connector,ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 233
+    stack_size: 27
+    reductions: 133
+  neighbours:
+2015-08-30 17:42:33 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     error
+     Offender:   [{pid,<0.873.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:42:43 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {stop_monitor,"BLA_BLA_BLA"}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_connector,handle_info,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-30 17:42:43 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.885.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 164
+  neighbours:
+2015-08-30 17:42:43 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {noproc,{gen_server,call,['BLA_BLA_BLA_monitor',stop]}}
+     Offender:   [{pid,<0.885.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:44:05 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {'EXIT',<0.888.0>,error}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** error
+2015-08-30 17:44:05 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.892.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {error,[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_srv_connector,ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 233
+    stack_size: 27
+    reductions: 132
+  neighbours:
+2015-08-30 17:44:05 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     error
+     Offender:   [{pid,<0.888.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:00 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.761.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.776.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.788.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.791.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.794.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.797.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.800.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:56:28 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown
+     Reason:     reached_max_restart_intensity
+     Offender:   [{pid,<0.800.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-30 17:58:54 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:14:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.764.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:14:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.766.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:14:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.769.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:14:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.772.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:14:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.775.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.756.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.760.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.763.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.766.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.769.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:21:01 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown
+     Reason:     reached_max_restart_intensity
+     Offender:   [{pid,<0.769.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:46:04 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:08 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.760.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.763.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.764.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.767.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.770.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.773.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.776.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 00:47:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown
+     Reason:     reached_max_restart_intensity
+     Offender:   [{pid,<0.776.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:05:45 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:05:50 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_monitor,handle_info,2,[{file,"src/ibot_nodes_srv_monitor.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-31 01:05:50 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.759.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: [{'EXIT',<0.648.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 184
+  neighbours:
+2015-08-31 01:05:50 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
+     Offender:   [{pid,<0.759.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:06:11 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.762.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:06:16 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_monitor,handle_info,2,[{file,"src/ibot_nodes_srv_monitor.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-31 01:06:16 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.764.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: [{'EXIT',<0.648.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 184
+  neighbours:
+2015-08-31 01:06:16 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
+     Offender:   [{pid,<0.764.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:11:14 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_monitor,handle_info,2,[{file,"src/ibot_nodes_srv_monitor.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-31 01:11:14 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.782.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: [{'EXIT',<0.648.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 184
+  neighbours:
+2015-08-31 01:11:14 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
+     Offender:   [{pid,<0.782.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:12:04 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     killed
+     Offender:   [{pid,<0.821.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:17:00 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_monitor,handle_info,2,[{file,"src/ibot_nodes_srv_monitor.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-31 01:17:00 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.762.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: [{'EXIT',<0.647.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 184
+  neighbours:
+2015-08-31 01:17:00 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
+     Offender:   [{pid,<0.762.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:26:46 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     killed
+     Offender:   [{pid,<0.762.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:27:47 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_monitor,handle_info,2,[{file,"src/ibot_nodes_srv_monitor.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-31 01:27:47 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.765.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: [{'EXIT',<0.647.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 184
+  neighbours:
+2015-08-31 01:27:47 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
+     Offender:   [{pid,<0.765.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:45:13 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     killed
+     Offender:   [{pid,<0.772.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:47:56 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,call,2,[{file,"gen_server.erl"},{line,182}]},{ibot_nodes_srv_monitor,handle_info,2,[{file,"src/ibot_nodes_srv_monitor.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-08-31 01:47:56 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.756.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: [{'EXIT',<0.647.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 184
+  neighbours:
+2015-08-31 01:47:56 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {timeout,{gen_server,call,[ibot_nodes_srv_connector,{restart_node,'BLA_BLA_BLA'}]}}
+     Offender:   [{pid,<0.756.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:51:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     normal
+     Offender:   [{pid,<0.760.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:51:38 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     normal
+     Offender:   [{pid,<0.761.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:54:31 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {bad_return_value,{stop,normal,shutdown_ok,{state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}}}
+2015-08-31 01:54:31 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.757.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{bad_return_value,{stop,normal,shutdown_ok,{state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 233
+    stack_size: 27
+    reductions: 168
+  neighbours:
+2015-08-31 01:54:31 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {bad_return_value,{stop,normal,shutdown_ok,{state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}}}
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:54:31 =ERROR REPORT====
+** Generic server 'BLA_BLA_BLA_monitor' terminating 
+** Last message in was {nodedown,'BLA_BLA_BLA@alex-N550JK'}
+** When Server state == {state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}
+** Reason for termination == 
+** {bad_return_value,{stop,normal,shutdown_ok,{state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}}}
+2015-08-31 01:54:31 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_monitor:init/1
+    pid: <0.758.0>
+    registered_name: 'BLA_BLA_BLA_monitor'
+    exception exit: {{bad_return_value,{stop,normal,shutdown_ok,{state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}}},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: [{'EXIT',<0.648.0>,shutdown}]
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 376
+    stack_size: 27
+    reductions: 176
+  neighbours:
+2015-08-31 01:54:31 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     {bad_return_value,{stop,normal,shutdown_ok,{state,"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}}}
+     Offender:   [{pid,<0.758.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-08-31 01:57:42 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown_error
+     Reason:     killed
+     Offender:   [{pid,<0.757.0>},{name,'BLA_BLA_BLA_monitor'},{mfargs,{ibot_nodes_srv_monitor,start_link,[{"BLA_BLA_BLA",'BLA_BLA_BLA','alex-N550JK','BLA_BLA_BLA@alex-N550JK'}]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+

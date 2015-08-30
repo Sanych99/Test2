@@ -63,16 +63,18 @@ handle_cast(_Request, State) ->
 
 
 %% node down message
-handle_info({nodedown, _ExternalNodeNode}, State = #state{nodeName = NodeName}) ->
+handle_info({nodedown, _ExternalNodeNode}, State = #state{nodeName = NodeName, nodeNameString = NodeNameString}) ->
   ?DMI("nodedown:", NodeName),
-  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
-  {stop, normal, State};
+  gen_server:cast(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
+  %ibot_nodes_sup:stop_child_monitor(list_to_atom(string:join([NodeNameString, "monitor"], "_"))),
+  {noreply, State};
 
 %% node EXIT message
-handle_info({'EXIT',_Info, P1, P2}, State = #state{nodeName = NodeName}) ->
+handle_info({'EXIT',_Info, P1, P2}, State = #state{nodeName = NodeName, nodeNameString = NodeNameString}) ->
   ?DMI("EXIT", NodeName),
-  gen_server:call(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
-  {stop, normal, State};
+  gen_server:cast(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
+  %ibot_nodes_sup:stop_child_monitor(list_to_atom(string:join([NodeNameString, "monitor"], "_"))),
+  {noreply, State};
 
 handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info _Info:~p~n", [?MODULE, _Info]),
   {noreply, State}.
@@ -80,6 +82,7 @@ handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info _Info:~p~n", [?MODULE
 
 
 terminate(_Reason, _State) ->
+
   ok.
 
 
