@@ -437,3 +437,7 @@
 2015-08-25 02:16:42.609 [error] <0.806.0> CRASH REPORT Process test_py_monitor with 0 neighbours exited with reason: test in gen_server:terminate/7 line 804
 2015-08-25 02:16:42.609 [error] <0.809.0> CRASH REPORT Process 'BLA_BLA_BLA_monitor' with 0 neighbours exited with reason: test in gen_server:terminate/7 line 804
 2015-08-25 02:16:42.609 [error] <0.647.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_connector started with ibot_nodes_srv_connector:start_link() at <0.649.0> exit with reason test in context child_terminated
+2015-08-30 02:00:31.527 [info] <0.385.0> Application lager started on node 'core@alex-N550JK'
+2015-08-30 02:00:38.582 [warning] <0.384.0> lager_error_logger_h dropped 56 messages in the last second that exceeded the limit of 50 messages/sec
+2015-08-30 02:00:38.582 [info] <0.385.0> Application mnesia exited with reason: stopped
+2015-08-30 02:00:38.662 [info] <0.385.0> Application mnesia started on node 'core@alex-N550JK'

@@ -35,6 +35,14 @@
             <scope>system</scope>
             <systemPath>/home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar</systemPath>
         </dependency>
+
+
+        <dependency>
+            <groupId>dev.msg.java</groupId>
+            <artifactId>TestMsg</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
     
     <build>
@@ -113,6 +121,30 @@
             </executions>
         </plugin>
 
+
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>install-external</id>
+                    <phase>clean</phase>
+                    <configuration>
+                        <file>/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java/TestMsg.jar</file>
+                        <repositoryLayout>default</repositoryLayout>
+                        <groupId>dev.msg.java</groupId>
+                        <artifactId>TestMsg</artifactId>
+                        <version>1.0</version>
+                        <packaging>jar</packaging>
+                        <generatePom>true</generatePom>
+                    </configuration>
+                    <goals>
+                        <goal>install-file</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
 
         <!--<plugin>
             <groupId>org.codehaus.mojo</groupId>

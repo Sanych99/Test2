@@ -1,7 +1,6 @@
 package com.mycompany.app;
 
-
-import com.ibotmsg.TestMsg;
+import dev.msg.java.TestMsg;
 import langlib.java.BotNode;
 /**
  * Hello world!
@@ -15,7 +14,7 @@ public class TestMVN extends BotNode
     }
 
     public static void main( String[] args ) throws Exception {
-        System.out.println( "Hello World from maven project!" );
+        System.out.println("Hello World from maven project!");
         TestMVN app = new TestMVN(args);
         app.Action();
     }
