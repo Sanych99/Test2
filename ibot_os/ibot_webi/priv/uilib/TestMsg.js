@@ -1,16 +1,15 @@
-/**
- * Created by alex on 8/10/15.
- */
+function TestMsg(msg) {
 
-function TestMsg(msg)
-{
-    this.firstParam = "";
+	this.longParam = 0;
 
-    if(msg) {
-        this.firstParam = msg[0];
-    }
+	this.strParam = "";
 
-    this.getMessage = function() {
-        return "[\"" + this.firstParam + "\"]";
-    }
+	if (msg) {
+		this.longParam = msg[1];
+		this.strParam = msg[0];	
+	}
+
+	this.getMessage = function() {
+		return "[" + "\"" + this.strParam + "\"" + "," + this.longParam + "]";
+	}	
 }

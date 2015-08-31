@@ -1,0 +1,141 @@
+## This is a -*- makefile -*-
+
+# What the Python binary is called on your system
+PYTHON = @PYTHON@
+
+
+# Prefix for constructing installation directory paths
+prefix = @prefix@
+exec_prefix = $(prefix)
+
+# Installation command
+INSTALL = @INSTALL@
+INSTALL_DATA = @INSTALL_DATA@
+
+# Various auxiliary programs
+cat=cat
+tar=tar
+sed=sed
+rm=rm
+ln=ln
+mkdir=mkdir
+tar=tar
+chmod=chmod
+
+srcdir = @srcdir@
+VPATH = @srcdir@
+ERLC = @ERLC@
+
+SOURCES = py_interface/erl_node.py \
+          py_interface/erl_node_conn.py \
+          py_interface/erl_async_conn.py \
+          py_interface/erl_opts.py \
+          py_interface/erl_common.py \
+          py_interface/erl_epmd.py \
+          py_interface/erl_eventhandler.py \
+          py_interface/erl_term.py
+
+EXAMPLEPROGRAMS = examples/test_erl_epmd.py \
+		  examples/test_erl_node.py \
+                  examples/test_erl_node_conn.py \
+                  examples/test_erl_node_tk_1.py \
+                  examples/run_remote_exec_wrapper.sh \
+                  examples/test_remote_exec.py
+
+TESTPROGRAMS = test/test_erl_node_pingpong.py \
+               test/test_erl_node_pingpong.erl \
+               test/run_test_erl_node_pingpong.sh \
+               test/run_test_erl_node_pingpong_qc.sh \
+               test/test_erl_node_pingpong_qc.erl \
+	       test/Makefile.in
+
+
+OBJECTS = test/test_erl_node_pingpong.beam
+
+
+DISTFILES = $(SOURCES) $(EXAMPLEPROGRAMS) $(TESTPROGRAMS) COPYING.LIB README \
+	py_interface/__init__.py py_interface/__init__.py.src \
+	vsn \
+	PKG-INFO PKG-INFO.src setup.py setup.py.src \
+        Makefile.in configure configure.in \
+        mkinstalldirs install-sh ChangeLog
+
+
+SHELL = /bin/sh
+#.PHONY: all clean dist distclean install \
+#	installdirs ps uninstall
+.SUFFIXES: .beam .erl .py
+
+all: py_interface/__init__.py setup.py PKG-INFO
+
+py_interface/__init__.py: py_interface/__init__.py.src
+	version=`$(cat) vsn`; \
+	$(sed) -e "s/@VSN@/$$version/g" \
+	< py_interface/__init__.py.src \
+	> py_interface/__init__.py
+
+setup.py: setup.py.src
+	version=`$(cat) vsn`; \
+	$(sed) -e "s/@VSN@/$$version/g" > setup.py < setup.py.src && \
+	$(chmod) +x setup.py
+
+PKG-INFO: PKG-INFO.src
+	version=`$(cat) vsn`; \
+	$(sed) -e "s/@VSN@/$$version/g" > PKG-INFO < PKG-INFO.src
+
+
+install: all installdirs
+
+# Make sure all installation directories actually exist
+# by making them if necessary.
+installdirs: mkinstalldirs
+
+#	$(srcdir)/mkinstalldirs $(pythondir)
+
+uninstall:
+
+#	-cd $(pythondir) && rm -f $(SOURCES) $(OBJECTS)
+
+TAGS: $(SOURCES)
+	cd $(srcdir) && etags $(SOURCES)
+
+clean:
+	rm -f $(OBJECTS)
+	-rm -f *.aux *.cp *.cps *.fn *.ky *.log *.pg *.toc *.tp *.vr
+	-rm -f *.html
+	rm -f TAGS
+	rm -f erl_crash.dump
+	rm -f *.beam
+	rm -f py_interface/__init__.py setup.py PKG-INFO
+
+distclean: clean
+	-rm -f *~ *.tar.gz
+	rm -f Makefile config.status config.cache config.log
+
+${srcdir}/configure: configure.in
+	cd ${srcdir} && autoconf
+
+Makefile: Makefile.in config.status
+	./config.status
+
+config.status: ${srcdir}/configure
+	./config.status --recheck
+
+
+dist: $(DISTFILES)
+	version=`$(cat) vsn`; \
+	distname=py_interface-$$version; \
+	$(rm) -rf $$distname; \
+	$(mkdir) $$distname; \
+	for file in $(DISTFILES); do \
+	  d="`dirname $$file`"; \
+	  [ -d "$$distname/$$d" ] || mkdir -p "$$distname/$$d"; \
+	  $(ln) $$file $$distname/$$file; \
+	done; \
+	$(tar) -chz -f $$distname.tar.gz $$distname; \
+	/bin/rm -f  $$distname.tgz; ln $$distname.tar.gz $$distname.tgz; \
+	$(rm) -rf $$distname
+
+.PHONY: test
+test:
+	$(MAKE) -C test test

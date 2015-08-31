@@ -61,7 +61,7 @@ function open()
 function sendData()
 {
     var jsonQ = "{\"sendData\" : {\"sendType\" : \""+ "broadcast" +
-            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one of the message\", 1, true, 7.0]}}";
+            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one of the message\", 11, true, 7.0]}}";
     ws.send(jsonQ);
     console.log(jsonQ);
 }
@@ -97,7 +97,7 @@ function sendData()
 <div id="sse">
    <a href="javascript:open()">Open WebSocket</a><br/>
     <a href="javascript:sendData()">Send Data</a><br/>
-    <a href="javascript:sendDataToTopic(new TestMsg(['test from generated message!']))">Send Data2</a><br/>
+    <a href="javascript:sendDataToTopic(new TestMsg(['test from generated message!', 21]))">Send Data2</a><br/>
     <a href="javascript:loadConnectToProject()">Connect to project</a><br/>
     <a href="javascript:loadCreateProject()">Create project</a><br/>
     <a href="javascript:loadCreateNode()">Create node</a><br/>

@@ -19,7 +19,6 @@
 %% Java import block
 -define(JAVA_MSG_FILE_HEADER(MsgName), string:join([
   "import com.ericsson.otp.erlang.*;",
-  "import java.math.BigInteger;",
   "import langlib.java.*;",
   "",
   ?MSG_CLASS_NAME(MsgName),
@@ -71,7 +70,7 @@
 ], ?NEW_LINE)).
 
 -define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
-  string:join([?NEW_LINE, ?TAB(2), "this.", Name, " = ", "((", ?OTP_TYPE(Type), ")msg.elementAt(", io_lib:format("~p", [ObjectNum]), ")).", ?CONVERT_FROM_OTP_TO_JAVA_METHODS(Type), ";"], "")
+  string:join([?NEW_LINE, ?TAB(2), "this.set_", Name, "(((", ?OTP_TYPE(Type), ")msg.elementAt(", io_lib:format("~p", [ObjectNum]), ")).", ?CONVERT_FROM_OTP_TO_JAVA_METHODS(Type), ");"], "")
 ).
 
 -define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
@@ -122,7 +121,7 @@
 -define(OTP_TYPE(Type),
   case Type of
     "String" -> "OtpErlangString";
-    "BigInt" -> "OtpErlangLong";
+    "Long" -> "OtpErlangLong";
     _ -> "UNDEFINE"
   end
 ).
@@ -131,7 +130,7 @@
 -define(LANG_TYPE(Type),
   case Type of
     "String" -> "String";
-    "BigInt" -> "BigInteger";
+    "Long" -> "Long";
     _ -> "UNDEFINE"
   end
 ).
@@ -139,7 +138,7 @@
 -define(CONVERT_FROM_OTP_TO_JAVA_METHODS(Type),
   case Type of
     "String" -> "stringValue()";
-    "BigInt" -> "longValue()";
+    "Long" -> "longValue()";
     _ -> "UNDEFINE"
   end
 ).

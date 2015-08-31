@@ -1,5 +1,4 @@
 import com.ericsson.otp.erlang.*;
-import java.math.BigInteger;
 import langlib.java.*;
 
 public class TestMsg implements IBotMsgInterface {
@@ -9,8 +8,11 @@ public class TestMsg implements IBotMsgInterface {
 	private OtpErlangString strParamOtp;
 	private String strParam;
 
+	private OtpErlangLong longParamOtp;
+	private Long longParam;
+
 	public TestMsg() throws Exception {
-		resultObject = new OtpErlangObject[1];
+		resultObject = new OtpErlangObject[2];
 	}
 
 	public OtpErlangTuple get_Msg() throws Exception {
@@ -18,9 +20,20 @@ public class TestMsg implements IBotMsgInterface {
 	}
 
 	public TestMsg(OtpErlangTuple msg) throws Exception {
-		resultObject = new OtpErlangObject[1];
-		this.strParam = ((OtpErlangString)msg.elementAt(0)).stringValue();	
+		resultObject = new OtpErlangObject[2];
+		this.set_longParam(((OtpErlangLong)msg.elementAt(1)).longValue());
+		this.set_strParam(((OtpErlangString)msg.elementAt(0)).stringValue());	
 	}
+
+	public Long get_longParam() {
+		return longParam;
+	}
+
+	public void set_longParam(Long longParam) {
+		this.longParam = longParam;
+		this.resultObject[1] = new OtpErlangLong(longParam);
+	}
+
 
 	public String get_strParam() {
 		return strParam;

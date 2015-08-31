@@ -60,8 +60,10 @@ class TestNode(BotNode):
 
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.get_strParam()
+	print "receive message  from new msg LONG value: ", msg.get_longParam()
 	tm = TestMsg()
 	tm.set_strParam(msg.get_strParam())
+	tm.set_longParam(long(15));
 	self.publish_message("test_topic_from_py", tm)
 
 def testMethod():

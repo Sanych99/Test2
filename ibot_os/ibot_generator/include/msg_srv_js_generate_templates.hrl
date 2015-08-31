@@ -26,7 +26,7 @@
 %-define(JAVA_MSG_FILE_END, string:join(["}"], ?NEW_LINE)).
 
 %% Message class name
--define(MSG_CLASS_NAME(MsgName), string:join(["function ", MsgName, "() {"], "")).
+-define(MSG_CLASS_NAME(MsgName), string:join(["function ", MsgName, "(msg) {"], "")).
 
 %% Generate OTP and Java properties
 -define(PRIVATE_PROPERTIES_OTP_LANG(Type, Name),
@@ -140,7 +140,7 @@
 -define(OTP_TYPE(Type),
   case Type of
     "String" -> "erl_term.ErlString";
-    "BigInt" -> "erl_term.ErlInt";
+    "Long" -> "erl_term.ErlLong";
     _ -> "UNDEFINE"
   end
 ).
@@ -148,7 +148,7 @@
 -define(DEFAULT_VALUE(Type),
   case Type of
     "String" -> "\"\"";
-    "BigInt" -> "0";
+    "Long" -> "0";
     _ -> "UNDEFINE"
   end
 ).
@@ -157,7 +157,7 @@
 -define(LANG_TYPE(Type),
   case Type of
     "String" -> "String";
-    "BigInt" -> "Integer";
+    "Long" -> "Long";
     _ -> "UNDEFINE"
   end
 ).
@@ -165,7 +165,7 @@
 -define(CONVERT_FROM_OTP_TO_JS_METHODS(Type),
   case Type of
     "String" -> "str";
-    "BigInt" -> "int";
+    "Long" -> "long";
     _ -> "UNDEFINE"
   end
 ).

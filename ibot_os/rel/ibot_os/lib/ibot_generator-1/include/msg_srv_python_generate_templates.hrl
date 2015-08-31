@@ -120,7 +120,7 @@
 -define(OTP_TYPE(Type),
   case Type of
     "String" -> "erl_term.ErlString";
-    "BigInt" -> "erl_term.ErlInt";
+    "Long" -> "long";
     _ -> "UNDEFINE"
   end
 ).
@@ -129,7 +129,7 @@
 -define(LANG_TYPE(Type),
   case Type of
     "String" -> "String";
-    "BigInt" -> "Integer";
+    "Long" -> "Long";
     _ -> "UNDEFINE"
   end
 ).
@@ -137,7 +137,7 @@
 -define(CONVERT_FROM_OTP_TO_PYTHON_METHODS(Type),
   case Type of
     "String" -> "str";
-    "BigInt" -> "int";
+    "Long" -> "long";
     _ -> "UNDEFINE"
   end
 ).

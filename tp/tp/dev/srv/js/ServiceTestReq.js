@@ -1,4 +1,4 @@
-function ServiceTestReq() {
+function ServiceTestReq(msg) {
 
 	this.therdParamReq = "";
 

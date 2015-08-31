@@ -94,7 +94,7 @@ generate_msg_source_files([FileName | FilesList], ProjectDir) ->
   ok;
 generate_msg_source_files([], _ProjectDir) ->
   %% Create JAR library for JAVA messages
-  %% ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
+  ibot_core_func_cmd:run_exec(?JAVA_COMPILE_MSG_SOURCES),
   ok.
 
 
@@ -127,7 +127,7 @@ generate_srv_source_files([FileName | FilesList], ProjectDir) ->
   ok;
 generate_srv_source_files([], _ProjectDir) ->
   %% Create JAR library for JAVA messages
-  %% ibot_core_cmd:run_exec(?JAVA_COMPILE_MSG_SRV_SOURCES),
+  ibot_core_func_cmd:run_exec(?JAVA_COMPILE_SRV_SOURCES),
   ok.
 
 

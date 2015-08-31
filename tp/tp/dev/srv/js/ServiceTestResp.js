@@ -1,4 +1,4 @@
-function ServiceTestResp() {
+function ServiceTestResp(msg) {
 
 	this.therdParamResp = "";
 
