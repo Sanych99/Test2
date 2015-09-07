@@ -27,3 +27,7 @@
 2015-09-01 01:37:06.901 [warning] <0.384.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
 2015-09-01 01:37:06.901 [info] <0.385.0> Application mnesia exited with reason: stopped
 2015-09-01 01:37:06.974 [info] <0.385.0> Application mnesia started on node 'core@alex-N550JK'
+2015-09-01 02:16:47.270 [info] <0.385.0> Application lager started on node 'core@alex-N550JK'
+2015-09-01 02:16:54.299 [warning] <0.384.0> lager_error_logger_h dropped 57 messages in the last second that exceeded the limit of 50 messages/sec
+2015-09-01 02:16:54.299 [info] <0.385.0> Application mnesia exited with reason: stopped
+2015-09-01 02:16:54.430 [info] <0.385.0> Application mnesia started on node 'core@alex-N550JK'

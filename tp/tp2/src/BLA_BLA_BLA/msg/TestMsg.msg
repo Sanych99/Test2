@@ -1,1 +1,2 @@
 String strParam
+Long longParam

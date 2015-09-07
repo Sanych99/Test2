@@ -1,5 +1,4 @@
 import com.ericsson.otp.erlang.*;
-import java.math.BigInteger;
 import langlib.java.*;
 
 public class ServiceTestReq implements IBotMsgInterface {
@@ -10,7 +9,7 @@ public class ServiceTestReq implements IBotMsgInterface {
 	private String strParamReq;
 
 	private OtpErlangLong secParamReqOtp;
-	private BigInteger secParamReq;
+	private Long secParamReq;
 
 	private OtpErlangString therdParamReqOtp;
 	private String therdParamReq;
@@ -25,9 +24,9 @@ public class ServiceTestReq implements IBotMsgInterface {
 
 	public ServiceTestReq(OtpErlangTuple msg) throws Exception {
 		resultObject = new OtpErlangObject[3];
-		this.therdParamReq = ((OtpErlangString)msg.elementAt(2)).stringValue();
-		this.secParamReq = ((OtpErlangLong)msg.elementAt(1)).longValue();
-		this.strParamReq = ((OtpErlangString)msg.elementAt(0)).stringValue();	
+		this.set_therdParamReq(((OtpErlangString)msg.elementAt(2)).stringValue());
+		this.set_secParamReq(((OtpErlangLong)msg.elementAt(1)).longValue());
+		this.set_strParamReq(((OtpErlangString)msg.elementAt(0)).stringValue());	
 	}
 
 	public String get_therdParamReq() {
@@ -40,11 +39,11 @@ public class ServiceTestReq implements IBotMsgInterface {
 	}
 
 
-	public BigInteger get_secParamReq() {
+	public Long get_secParamReq() {
 		return secParamReq;
 	}
 
-	public void set_secParamReq(BigInteger secParamReq) {
+	public void set_secParamReq(Long secParamReq) {
 		this.secParamReq = secParamReq;
 		this.resultObject[1] = new OtpErlangLong(secParamReq);
 	}

@@ -38,5 +38,7 @@
   nodePostArguments :: list(),
   monitorSettings :: #node_monitor_settings{},
   messageFile :: list(),
-  serviceFile :: list()
+  serviceFile :: list(),
+  projectType = native :: native | maven,
+  mainClassName :: string()
 }).

@@ -1,10 +1,10 @@
 {
-"projectName":"tp",
-"mainProject":"false",
+"projectName":"tp2",
+"mainProject":"fasle",
 "distributedProject":"true",
 "projectAutoRun":"true",
-"childrenProjects":[{"projectName":"core1@alex-N550JK"}],
+"childrenProjects":[{"projectName":"core@alex-N550JK"}],
 "projectState":"release",
-"projectNodes":["test_py"],
-"mainProjectNodeName" : "core@alex-N550JK"
+"projectNodes":["BLA_BLA_BLA"],
+"mainProjectNodeName" : "core1@alex-N550JK"
 }

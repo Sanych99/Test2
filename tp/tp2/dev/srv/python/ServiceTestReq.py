@@ -6,7 +6,7 @@ class ServiceTestReq():
 		self.resultObject = [None] * 3
 		if (msg is not None):
 			self.set_therdParamReq(str(msg[2]))
-			self.set_secParamReq(int(msg[1]))
+			self.set_secParamReq(long(msg[1]))
 			self.set_strParamReq(str(msg[0]))
 
 	def get_therdParamReq(self): return self._therdParamReq
@@ -23,7 +23,7 @@ class ServiceTestReq():
 
 	def set_secParamReq(self, val):
 		self._secParamReq = val
-		self.resultObject[1] = erl_term.ErlInt(val)
+		self.resultObject[1] = long(val)
 
 
 

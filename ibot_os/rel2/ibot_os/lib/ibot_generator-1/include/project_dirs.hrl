@@ -16,3 +16,4 @@
 
 -define(JAVA_FOLDER, "java").
 -define(PYTHON_FOLDER, "python").
+-define(JS_FOLDER, "js").

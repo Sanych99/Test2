@@ -7,10 +7,10 @@ public class BLA_BLA_BLA extends BotNode {
 
     public void OutPutMessageMethod(TestMsg msg) throws Exception
     {
-        System.out.println("TestMsg is message: " + msg.get_strParam());
+        System.out.println("TestMsg is message: " + msg.get_strParam() + " and LONG type is: " + msg.get_longParam().toString());
 	msg.set_strParam(msg.get_strParam() + " for UI");
 	
-	this.sendMessageToUI(msg);
+	this.sendMessageToUI(msg, "TestMsg", "Addition info from Java node...");
     }
 
 
@@ -26,7 +26,7 @@ public class BLA_BLA_BLA extends BotNode {
     public void Action() throws Exception {
         System.out.println("Monitor Start...");
 
-        //this.monitorStart();
+        this.monitorStart();
 
 	
         
@@ -44,6 +44,7 @@ public class BLA_BLA_BLA extends BotNode {
 		for(int i=0; i<2; i++) {
 			TestMsg msg = new TestMsg();
 			msg.set_strParam("message #" + i);
+			msg.set_longParam(new Long(i));
 			this.publishMessage("testTopic", msg);
 			
 		}

@@ -1,7 +1,7 @@
 String strParamReq
-BigInt secParamReq
+Long secParamReq
 String therdParamReq
 ---
 String strParamResp
-BigInt secParamResp
+Long secParamResp
 String therdParamResp
