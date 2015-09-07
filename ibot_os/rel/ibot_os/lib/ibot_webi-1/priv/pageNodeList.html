@@ -1,18 +1,19 @@
 <script type="text/javascript">
 
     /*Create node item on web page*/
-    function generateNodeItem(nodeName)
+    function generateNodeItem(nodeName, nodeNumber)
     {
         var nodeInfo = nodeName.split("#");
-        var nodeHtml = '<div style="clear: both; padding: 3px; margin-bottom: 25px; color: #7E7E7E; overflow: hidden;">'
-                + '<div style="float: left;">'
-                + '<div style="float: left; margin-right: 10px;" onclick="compileNode(\''+ nodeInfo[0] +'\');">Compile</div>'
-                + '<div style="float: left; margin-right: 10px;" onclick="startNode(\''+ nodeInfo[0] +'\');">Go</div>'
-                + '<div style="float: left; margin-right: 10px;" onclick="stopNode(\''+ nodeInfo[0] +'\');">Stop</div>'
-                + '</div>'
-                + '<div style="float: left;"><div style="clear: both;">'
-                + nodeInfo[0]
-                + '</div><div style="clear: both; font-size: 12px; color: #cc7c1f;">lang from congif:' + nodeInfo[1] + '</div></div>';
+        var nodeHtml = '<div class="nodeListNodeDiv">'
+                        + '<div class="nodeListNumber">' + nodeNumber + '</div>'
+                        + '<div class="nodeListNameGroup"><div class="nodeListName">'
+                        + nodeInfo[0]
+                        + '</div><div class="nodeListAdditionInfo">' + nodeInfo[1] + '</div></div>'
+                        + '<div style="float: left;">'
+                        + '<div style="float: left; margin-right: 10px;" onclick="compileNode(\''+ nodeInfo[0] +'\');">Compile</div>'
+                        + '<div style="float: left; margin-right: 10px;" onclick="startNode(\''+ nodeInfo[0] +'\');">Go</div>'
+                        + '<div style="float: left; margin-right: 10px;" onclick="stopNode(\''+ nodeInfo[0] +'\');">Stop</div>'
+                    + '</div>';
 
         return nodeHtml += "</div>";
     }
@@ -65,7 +66,8 @@
 </script>
 
 <div>
-    <div class="componentDiv">
+    <div id="nodeListCommandDiv">
+        <span>Commands: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" id="generateMsgButton" value="Generate msg" onclick="generateMsgs()" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <input type="button" id="projectCompileNodeButton" value="Compile all nodes..." onclick="compileAllNode()" />
@@ -78,7 +80,7 @@
     <div class="componentDiv">
         <input type="button" id="startProjectButton" value="Run all nodes..." onclick="startProject()" />
     </div>-->
-    <div id="nodeListDiv" class="componentGroupDvi">
+    <div id="nodeListDiv">
 
     </div>
 </div>
