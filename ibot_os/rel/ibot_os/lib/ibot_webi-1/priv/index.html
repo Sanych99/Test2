@@ -44,10 +44,13 @@ function open()
                 break;
 
             case "send_data_to_ui" :
-                var rMessage = new ReceivedMessage(received_msg);
+                var rMessage = new ReceivedMessage(received_msg); //парсим собщение
 
-                var cratedMessage = new TestMsg(rMessage.message);
+                    //создаем обхект сообщения
+                var cratedMessage = new window[rMessage.messageClassName](rMessage.message);//new TestMsg(rMessage.message);
+                $('#messages').html("from created message: " + cratedMessage.strParam);
 
+                    //выполняем логику для данного типа сообщения
                 break;
         }
     };

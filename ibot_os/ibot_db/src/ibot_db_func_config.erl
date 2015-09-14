@@ -123,7 +123,7 @@ add_core_config_info(CoreConfigInfo) ->
 get_core_config_info() ->
   case ibot_db_srv:get_record(?TABLE_CONFIG, core_info) of
     record_not_found -> [];
-    CoreConfigInfo -> CoreConfigInfo
+    {ok, CoreConfigInfo} -> CoreConfigInfo
   end.
 
 %% ====== Core Config Information End ======

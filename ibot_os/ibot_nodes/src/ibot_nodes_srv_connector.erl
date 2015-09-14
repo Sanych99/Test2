@@ -26,6 +26,7 @@
 -include("ibot_nodes_modules.hrl").
 -include("ibot_nodes_registration_info.hrl").
 -include("../../ibot_core/include/env_params.hrl").
+-include("../../ibot_db/include/ibot_db_records.hrl").
 
 -record(state, {node_port, node_name}).
 
@@ -69,16 +70,22 @@ handle_cast(_Request, State) ->
   {noreply, State}.
 
 
+handle_info({start_node_from_node, NodeName}, State) ->
+  ibot_nodes_srv_connector:start_node([NodeName]),
+  {noreply, State};
+
+handle_info({stop_node_from_node, NodeName}, State) ->
+  ibot_nodes_srv_connector:stop_node([NodeName]),
+  {noreply, State};
+
 %% start monitor for node
 handle_info({start_monitor, NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}, State) ->
   %% run new process for monitoring node
-  %ibot_nodes_srv_monitor:start_link({NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}),
   ibot_nodes_sup:start_child_monitor(NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom),
   {noreply, State};
 
 %% stop node monitoring
 handle_info({stop_monitor, NodeNameString}, State) ->
-  %gen_server:call(list_to_atom(string:join([NodeNameString, "monitor"], "_")), stop),
   ibot_nodes_srv_connector:stop_monitor(NodeNameString),
   {noreply, State};
 
@@ -109,14 +116,6 @@ code_change(_OldVsn, State, _Extra) ->
 %%%===================================================================
 
 
-stop_monitor(NodeName) ->
-  MonitorNodeName = list_to_atom(string:join([NodeName, "monitor"], "_")),
-  case whereis(MonitorNodeName) of
-    undefined -> ok;
-    MonitorPid -> ibot_nodes_sup:stop_child_monitor(MonitorNodeName)
-  end.
-
-
 %% @doc
 %% Запуск узла
 %% @spec run_node(NodeInfo) -> ok when NodeInfo :: #node_info{}.
@@ -131,15 +130,15 @@ run_node([]) ->
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
   nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants, projectType = ProjectType,
-  mainClassName = MainClassName}) -> ?DBG_MODULE_INFO("run_node(NodeInfo) -> ~p~n", [?MODULE, {NodeInfo, net_adm:localhost()}]),
-
-  ibot_nodes_srv_connector:stop_monitor(NodeName),
-
-  FullProjectPath = ibot_db_func_config:get_full_project_path(),
-
+  mainClassName = MainClassName}) ->
+  ?DMI("run_node", NodeName), %% информация отладки / debug information
+  ibot_nodes_srv_connector:stop_monitor(NodeName), %% остановка монитора за узлом / stop monitor by node
+  FullProjectPath = ibot_db_func_config:get_full_project_path(), %% полный путь до проекта / full path to project
+  CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
+  %% запуск узла / start node
   case AtomNodeLang of
     java ->
-          %% Проверка наличия исполняющего файла java
+          %% проверка наличия исполняющего файла java
           case os:find_executable(NodeExecutable) of
             [] ->
               throw({stop, executable_file_missing});
@@ -147,19 +146,16 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
               case ProjectType of
                 native ->
                   ArgumentList = lists:append([
-                    %["-classpath",
-                    %  "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"++NodeName],
                     NodePreArguments, % Аргументы для исполняемого файла
-                    %["BLA_BLA_BLA", "BLA_BLA_BLA", "alex-N550JK", "core@alex-N550JK", "BLA_BLA_BLA_MBOX", "ibot_nodes_srv_topic", "jv"]
                     [NodeName, % Имя запускаемого узла
                       NodeName,
                       net_adm:localhost(), % mail box name
                       atom_to_list(node()), % host name
                       % Передаем параметры в узел
-                      "ibot_nodes_srv_connector", % Имя текущего узла
-                      "ibot_nodes_srv_topic", % Topic registrator
-                      "ibot_nodes_srv_service",
-                      "ibot_nodes_srv_ui_interaction",
+                      CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
+                      CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
+                      CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
+                      CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
                       erlang:get_cookie()]%, % Значение Cookies для узла
                     %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
                   ]
@@ -169,16 +165,16 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                   ArgumentList = ["-cp",
                     string:join([string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName,
                       string:join([NodeName, ".jar"], "")], ?DELIM_PATH_SYMBOL),
-                    ":", "/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar"], ""),
+                    ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path], ""),
                     MainClassName,
                     NodeName, % Имя запускаемого узла
                     net_adm:localhost(), % mail box name
                     atom_to_list(node()), % host name
-                    % Передаем параметры в узел
-                    "ibot_nodes_srv_connector", % Имя текущего узла
-                    "ibot_nodes_srv_topic", % Topic registrator
-                    "ibot_nodes_srv_service",
-                    "ibot_nodes_srv_ui_interaction",
+                    % передаем параметры в узел / send parameters to node
+                    CoreConigSettings#core_info.connector_node, % имя узла регистратора / registraction node name
+                    CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
+                    CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
+                    CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
                     erlang:get_cookie()],
 
                   ?DMI("maven start", ArgumentList);
@@ -189,7 +185,6 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                 end,
               % Выполянем комманду по запуску узла
               erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
-            %erlang:open_port({spawn, "java"}, [{line,1000}, stderr_to_stdout, {args, [" -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/ErlangTest/test_from_bowser/dev/nodes/"]}])
           end;
 
 
@@ -203,11 +198,15 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         ExecutableFile ->
         erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
           {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?DELIM_PATH_SYMBOL),
-            %"BLA_BLA_BLA_CLIENT", "alex-N550JK", "core@alex-N550JK", "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "jv"
-            NodeName, net_adm:localhost(), atom_to_list(node()), "ibot_nodes_srv_connector", "ibot_nodes_srv_topic", "ibot_nodes_srv_service", "ibot_nodes_srv_ui_interaction", erlang:get_cookie()
+            NodeName, net_adm:localhost(), atom_to_list(node()),
+            CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
+            CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
+            CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
+            CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
+            erlang:get_cookie()
           ]}]),
 
-          timer:apply_after(7000, ibot_nodes_srv_connector, send_start_signal,
+          timer:apply_after(3500, ibot_nodes_srv_connector, send_start_signal,
             [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, net_adm:localhost()], "@"))]);
 
         _ -> error
@@ -215,18 +214,74 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
   end.
 
 
+
+%% ====== Nodes executing actions Start ======
+
+%% @doc
+%% запуск узла проекта / start project node
+%% @spec start_node([NodeName | NodeList]) -> ok when NodeName :: atom(), NodeList :: list().
+%% @end
+
+-spec start_node([NodeName | NodeList]) -> ok when NodeName :: atom(), NodeList :: list().
+
+start_node([NodeName | NodeList]) ->
+  ?DMI("start_node", NodeName),
+  %% get node info
+  case ibot_db_func_config:get_node_info(NodeName) of
+    [] -> ok; %% info not found
+    NodeInfo ->
+      run_node(NodeInfo) %% run node
+  end,
+  start_node(NodeList);
+start_node([]) ->
+  ok.
+
+
+%% @doc
+%% остановка узла проекта / stop project node
+%% @spec stop_node([NodeName | NodeList]) -> ok when NodeName :: atom(), NodeList :: list().
+%% @end
+
+-spec stop_node([NodeName | NodeList]) -> ok when NodeName :: atom(), NodeList :: list().
+
 stop_node([NodeName | NodeList]) ->
-  ?DBG_MODULE_INFO("stop_node([NodeName | NodeList]): ~p~n", [?MODULE, NodeName]),
+  ?DMI("stop_node", NodeName),
   case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of
     [] -> ok;
     NodeInfo ->
-      ?DBG_MODULE_INFO("stop_node([NodeName | NodeList]) -> try exit from node... ~p~n", [?MODULE, {NodeInfo#node_info.atomNodeSystemMailBox, NodeInfo#node_info.atomNodeServer}]),
       erlang:send({NodeInfo#node_info.atomNodeSystemMailBox, NodeInfo#node_info.atomNodeNameServer}, {system, exit})
   end,
   stop_node(NodeList);
 stop_node([]) ->
   ok.
 
+
+
+%% @doc
+%% отправка сигнала узлу проекта о старте работы / send signal to node about starting work
+%% @spec send_start_signal(MailBoxName, ClientNodeFullName) -> term() when MailBoxName :: atom(), ClientNodeFullName :: atom().
+%% @end
+
+-spec send_start_signal(MailBoxName, ClientNodeFullName) -> term() when MailBoxName :: atom(), ClientNodeFullName :: atom().
+
 send_start_signal(MailBoxName, ClientNodeFullName) ->
   erlang:send({MailBoxName, ClientNodeFullName},{"start"}).
+
+
+
+%% @doc
+%% остановка монитора за узлом / node monitor stop
+%% @spec stop_monitor(NodeName) -> term() when NodeName :: atom().
+%% @end
+
+-spec stop_monitor(NodeName) -> term() when NodeName :: atom().
+
+stop_monitor(NodeName) ->
+  MonitorNodeName = list_to_atom(string:join([NodeName, "monitor"], "_")),
+  case whereis(MonitorNodeName) of
+    undefined -> ok;
+    MonitorPid -> ibot_nodes_sup:stop_child_monitor(MonitorNodeName)
+  end.
+
+%% ====== Nodes executing actions End ======
 

@@ -320,6 +320,32 @@ public abstract class BotNode implements IBotNode {
     }
 
 
+    /**
+     * Start other node from project
+     * @param nodeName Node name
+     * @throws Exception
+     */
+    public void startProjectNode(String nodeName) throws Exception
+    {
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[2];
+        subscribeObject[0] = new OtpErlangAtom("start_node_from_node");
+        subscribeObject[1] = new OtpErlangString(nodeName);
+        this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+    }
+
+    /**
+     * Stop other node from project
+     * @param nodeName Node name
+     * @throws Exception
+     */
+    public void stopProjectNode(String nodeName) throws Exception
+    {
+        OtpErlangObject[] subscribeObject = new OtpErlangObject[2];
+        subscribeObject[0] = new OtpErlangAtom("stop_node_from_node");
+        subscribeObject[1] = new OtpErlangString(nodeName);
+        this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+    }
+
 
     public void sendMessageToUI(Object msg, String msgClassName) throws Exception
     {

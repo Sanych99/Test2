@@ -97,8 +97,16 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
+
+%% @doc
+%% отправить сообщение пользовательскому интерфесу / send message to ui
+%% @spec send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg) -> ok
+%% when NodeName :: atom(), MsgClassName :: atom(), AdditionalInfo :: atom(), Msg :: tuple().
+%% @end
+
 -spec send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg) -> ok
   when NodeName :: atom(), MsgClassName :: atom(), AdditionalInfo :: atom(), Msg :: tuple().
+
 send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg) ->
   ConvertedMsg = tuple_to_list(Msg),
   NewMessage = [case E of

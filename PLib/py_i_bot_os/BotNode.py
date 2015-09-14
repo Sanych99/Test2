@@ -218,6 +218,23 @@ class BotNode:
 
     # ====== Publish/Subscribe to topic method End ======
 
+    # ====== Other node in project Start ======
+
+    def start_project_node(self, node_name):
+        obj0 = erl_term.ErlAtom("start_node_from_node")
+        obj1 = erl_term.ErlAtom(node_name)
+        self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
+                               (obj0, obj1))
+
+    def stop_project_node(self, node_name):
+        obj0 = erl_term.ErlAtom("stop_node_from_node")
+        obj1 = erl_term.ErlAtom(node_name)
+        self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
+                               (obj0, obj1))
+
+    # ====== Other node in project End ======
+
+
     # ====== Services methods Start ======
     def register_service_client(self, server_service_method_name,
                                 client_service_method_name, client_service_method,

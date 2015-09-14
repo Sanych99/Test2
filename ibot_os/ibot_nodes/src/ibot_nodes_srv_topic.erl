@@ -90,15 +90,14 @@ handle_info({?REG_SUBSCR, MBoxName, NodeServerName, TopicName}, State) -> ?DBG_I
 %% @end
 
 handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) ->
-  ?DBG_MODULE_INFO("handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) -> ~p~n", [?MODULE, {?BROADCAST, MBoxName, NodeServerName, TopicName, Message}]),
-  ?DBG_MODULE_INFO("handle_info({?BROADCAST, MBoxName, NodeServerName, TopicName, Message}, State) -> ~p~n", [?MODULE, ibot_db_func_topics:get_topic_nodes(TopicName)]),
+  ?DMI("handle_info", {?BROADCAST, MBoxName, NodeServerName, TopicName, Message}),
   case ibot_db_func_topics:get_topic_nodes(TopicName) of
     [] -> ok;
     NodeInfoList ->
       spawn(fun() -> message_broadcast(NodeInfoList, Message, TopicName) end)
   end,
   {noreply, State};
-handle_info(_Info, State) -> ?DBG_INFO("ibot_nodes_comm_topic_srv:handle_info Not handle...~p~n", [_Info]),
+handle_info(_Info, State) -> ?DMI("handle_info Info:", _Info),
   {noreply, State}.
 
 %% ====== handle_info function end ======

@@ -1,0 +1,168 @@
+2015-09-15 02:19:26 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,'MongoTest',"MongoTest","MongoTest_MBoxAsync",'MongoTest_MBoxAsync',"alex-N550JK",'alex-N550JK',"MongoTest@alex-N550JK",'MongoTest@alex-N550JK',"java",java,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/MongoTest"],[],undefined,undefined,undefined,maven,"ibot.mongotest.MongoTest"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,183}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-09-15 02:19:26 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.649.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,183}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: []
+    links: [<0.647.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 1864
+  neighbours:
+2015-09-15 02:19:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,183}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.649.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-09-15 02:20:29 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,'BLA_BLA_BLA',"BLA_BLA_BLA","BLA_BLA_BLA_MBoxAsync",'BLA_BLA_BLA_MBoxAsync',"alex-N550JK",'alex-N550JK',"BLA_BLA_BLA@alex-N550JK",'BLA_BLA_BLA@alex-N550JK',"java",java,"java",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/BLA_BLA_BLA"],[],undefined,undefined,undefined,native,undefined}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,170}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-09-15 02:20:29 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.756.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,170}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: []
+    links: [<0.647.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 2004
+  neighbours:
+2015-09-15 02:20:29 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,170}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.756.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-09-15 02:20:33 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[],native,undefined}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,219}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-09-15 02:20:33 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.757.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,219}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: []
+    links: [<0.647.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 987
+    stack_size: 27
+    reductions: 2101
+  neighbours:
+2015-09-15 02:20:33 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,219}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.757.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-09-15 02:25:32 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[],native,undefined}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,151}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-09-15 02:25:32 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.649.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,151}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: []
+    links: [<0.647.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 639
+  neighbours:
+2015-09-15 02:25:32 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,151}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.649.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-09-15 02:29:43 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[],native,undefined}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,151}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-09-15 02:29:43 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.649.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,151}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: []
+    links: [<0.647.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 639
+  neighbours:
+2015-09-15 02:29:43 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,151}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.649.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-09-15 02:33:20 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,test_py,"test_py","test_py_MBoxAsync",test_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"test_py@alex-N550JK",'test_py@alex-N550JK',"python",python,"python",["-classpath","/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:/home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java:/home/alex/iBotOS/iBotOS/tp/tp/dev/nodes/test_py"],[],undefined,["TestMsg"],[],native,undefined}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,221}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-09-15 02:33:20 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.649.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,221}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.646.0>]
+    messages: []
+    links: [<0.647.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 2108
+  neighbours:
+2015-09-15 02:33:20 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,core_info},[{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,221}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.649.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+

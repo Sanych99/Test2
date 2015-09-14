@@ -6,7 +6,14 @@
 %%% @end
 %%% Created : 18. Mar 2015 2:24 AM
 %%%-------------------------------------------------------------------
--record(core_info, {projectPath :: string()}).
+-record(core_info, {
+  projectPath :: string(),
+  connector_node :: string(),
+  topic_node :: string(),
+  service_node :: string(),
+  ui_interaction_node :: string(),
+  java_node_otp_erlang_lib_path :: string()
+}).
 
 -record(project_info, {
   projectName :: string(), projectNameAtom :: atom(),

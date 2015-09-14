@@ -252,6 +252,22 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
       ProjectPath = binary_to_list(Val), %% get full ptoject path from core.conf
       CoreInfoRecordNew = CoreInfoRecord#core_info{projectPath = ProjectPath}, %% set project path to core config report
       ibot_db_func_config:set_full_project_path(ProjectPath); %% set full project path to config db
+
+    <<"connector_node">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{connector_node = binary_to_list(Val)};
+
+    <<"topic_node">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{topic_node = binary_to_list(Val)};
+
+    <<"service_node">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{service_node = binary_to_list(Val)};
+
+    <<"ui_interaction_node">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{ui_interaction_node = binary_to_list(Val)};
+
+    <<"java_node_otp_erlang_lib_path">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{java_node_otp_erlang_lib_path = binary_to_list(Val)};
+
     _ ->
       CoreInfoRecordNew = CoreInfoRecord,
       ok
