@@ -1,8 +1,8 @@
 %%%-------------------------------------------------------------------
 %%% @author alex
-%%% @copyright (C) 2015, <COMPANY>
+%%% @copyright iBot Robotics
 %%% @doc
-%%%
+%%% Функции управления данными сервисов
 %%% @end
 %%% Created : 18. Mar 2015 2:20 AM
 %%%-------------------------------------------------------------------
@@ -19,12 +19,10 @@
 %%% ====== Client service methods Start ======
 
 %% @doc
-%%
-%% Registration client to send message to service
+%% Регистрация клиента для сервиса / Registration client to send message to service
 %% @spec register_client_service(ServerMethodName, ClientMethodName, MailBoxName, NodeFullName) -> ok
 %% when ServerMethodName::atom(), ClientMethodName::atom(), MailBoxName::atom(), NodeFullName::atom().
 %% @end
-
 -spec register_client_service(ServerMethodName, ClientMethodName, MailBoxName, NodeFullName) -> ok
   when ServerMethodName::atom(), ClientMethodName::atom(), MailBoxName::atom(), NodeFullName::atom().
 
@@ -35,7 +33,9 @@ register_client_service(ServerMethodName, ClientMethodName, MailBoxName, NodeFul
   ibot_db_srv:add_record(?TABLE_SERVICES_CLIENT, {ClientMethodName, NodeFullName}, ClientService),
   ok.
 
-
+%% @doc
+%% Полчить данные по клиенту сервиса / Get client service info
+%% @end
 get_client_service(ClientMethodName, NodeFullName) ->
   case ibot_db_srv:get_record(?TABLE_SERVICES_CLIENT, {ClientMethodName, NodeFullName}) of
     {ok, Value} -> Value;
@@ -45,17 +45,22 @@ get_client_service(ClientMethodName, NodeFullName) ->
 %%% ====== Client service methods End ======
 
 
+%%% ====== Server service methods Start ======
 
+%% @doc
+%% Регистрация сервера сервиса / Register service server
+%% @end
 register_server_service(ServerServiceName, MailBox, NodeFullName) ->
   ServerService = #service_server{serverServiceMethodNameAtom = list_to_atom(ServerServiceName), serverServiceMethodName = ServerServiceName,
   mailBox = MailBox, nodeFullName = NodeFullName},
-  %ibot_db_srv:add_record(?TABLE_SERVICES_SERVER, ServerService#service_server.serverServiceMethodNameAtom, ServerService),
   ibot_db_func:add_to_mnesia(ServerService),
   ok.
 
+
+%% @doc
+%% Получить данные сервера сервиса / Get service server info
+%% @end
 get_server_service(ServerServiceNameAtom) ->
-  %case ibot_db_func:get_from_mnesia(service_server, ServerServiceNameAtom) of
-  %  [] -> not_found;
-  %  Item -> Item
-  %end.
   ibot_db_func:get_from_mnesia(service_server, ServerServiceNameAtom).
+
+%%% ====== Server service methods End ======

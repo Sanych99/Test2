@@ -96,7 +96,6 @@ code_change(_OldVsn, State, _Extra) ->
 %%% ====== Project Config Information Start ======
 
 %% @doc
-%%
 %% Add information from project configuration file
 %% @spec add_project_config_info(ProjectInfo) -> ok when ProjectInfo :: #project_info{}.
 %% @end
@@ -106,8 +105,8 @@ add_project_config_info(ProjectInfo) ->
   gen_server:call(?MODULE, {add_project_config_info, ProjectInfo}),
   ok.
 
+
 %% @doc
-%%
 %% Get information about project from DB
 %% @spec get_project_config_info() -> [] | #project_info{}.
 %% @end
@@ -118,14 +117,13 @@ get_project_config_info() ->
 
 
 %% @doc
-%%
 %% Get information about project from DB
 %% @spec get_project_config_info_in_sync() -> [] | #project_info{}.
 %% @end
 -spec get_project_config_info_in_sync() -> [] | #project_info{}.
 
 get_project_config_info_in_sync() ->
-  ?DBG_MODULE_INFO("get_project_config_info -> ~n", [?MODULE]),
+  ?DMI("get_project_config_info_in_sync", ?ONLY_MESSAGE),
   case ibot_db_srv:get_record(?TABLE_CONFIG, project_config_info) of
     record_not_found ->
       [];
@@ -134,15 +132,27 @@ get_project_config_info_in_sync() ->
   end.
 
 
+%% @doc
+%% Дочерние проекты / ядра / Children cores
+%% @spec get_children_project_names_list() -> list() | ok.
+%% @end
+-spec get_children_project_names_list() -> list() | ok.
+
 get_children_project_names_list() ->
-  %?DBG_MODULE_INFO("get_children_project_names_list() -> ~p~n", [?MODULE, get_project_config_info()]),
   gen_server:call(?MODULE, {get_children_project_names_list}).
 %%% ====== Project Config Information End ======
 
 
+%% @doc
+%% Статус ядра: разработка / релиз / Core state: develop / release
+%% @spec get_projectStatus() -> atom(). develop / release
+%% @end
+-spec get_projectStatus() -> atom().
+
 get_projectStatus() ->
   case ?MODULE:get_project_config_info() of
-    record_not_found -> ?DEVELOP;
+    record_not_found -> ?DEVELOP; %% по умолчанию статус равен develop
     ProjectInfoRecord ->
+      %% передаем найденный статус
       ProjectInfoRecord#project_info.projectState
   end.

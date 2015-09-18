@@ -25,15 +25,24 @@
 %% API functions
 %% ===================================================================
 
+%% @doc
+%% Запуск наблюдателя
+%% @end
 start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 
+%% @doc
+%% Запуск монитора за узлом
+%% @end
 start_child_monitor(NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom) ->
   ?DMI("start_child_monitor", {NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}),
   supervisor:start_child(?MODULE, ?CHILD_PARAM(list_to_atom(string:join([NodeNameString, "monitor"], "_")),
     ibot_nodes_srv_monitor, worker, {NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom})).
 
+%% @doc
+%% Остановка узла монитора за узлом
+%% @end
 stop_child_monitor(NodeName) ->
   ?DMI("stop_child_monitor", NodeName),
   supervisor:terminate_child(?MODULE, NodeName),
@@ -44,6 +53,9 @@ stop_child_monitor(NodeName) ->
 %% Supervisor callbacks
 %% ===================================================================
 
+%% @doc
+%% Запуск узлов и наблюдателя
+%% @end
 init([]) ->
   IBot_Comm_Topic_Child = ?CHILD(ibot_nodes_srv_topic, worker),
   %IBot_Nodes_Registrator = ?CHILD(ibot_nodes_srv_registrator, worker),

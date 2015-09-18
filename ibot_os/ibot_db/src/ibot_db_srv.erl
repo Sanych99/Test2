@@ -1,8 +1,8 @@
 %%%-------------------------------------------------------------------
 %%% @author Tsaregorodtsev Alexandr
-%%% @copyright (C) 2015
+%%% @copyright iBot Robotics
 %%% @doc
-%%%
+%%% Функции управления записями бд и распределенной бд
 %%% @end
 %%% Created : 14. Mar 2015 10:27 PM
 %%%-------------------------------------------------------------------
@@ -12,8 +12,16 @@
 
 -export([start_link/0]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
--export([add_record/3, get_record/2, delete_table/1]).
--export([start_distibuted_db/0, stop_distributed_db/0, create_distributed_shema/0, create_distributed_tables/0]).
+-export([
+  add_record/3, %% добавить запись
+  get_record/2, %% получить запись
+  delete_table/1]). %% удалить таблицу
+-export([
+  start_distibuted_db/0, %% запуск распределенной бд
+  stop_distributed_db/0, %% остановка распределенной бд
+  create_distributed_shema/0, %% создание схемы распределенной бд
+  create_distributed_tables/0 %% создание таблиц распределенной бд
+]).
 
 -define(SERVER, ?MODULE).
 
@@ -30,10 +38,8 @@
 
 %% ====== start_link function start ======
 %% @doc
-%%
 %% Start module
 %% @end
-
 start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
@@ -42,10 +48,8 @@ start_link() ->
 
 %% ====== init function start ======
 %% @doc
-%%
 %% Create system tables
 %% @end
-
 init([]) ->
   stop_distributed_db(), %% Stop Mnesia applcation
   ibot_db_func:create_db(?TABLE_CONFIG), %% Запуск / создание таблицы для хранения данных конфигурации проекта
@@ -54,7 +58,6 @@ init([]) ->
 
 
 %% @doc
-%%
 %% Create database schema on all connected core nodes
 %% @end
 create_distributed_shema() ->
@@ -63,7 +66,6 @@ create_distributed_shema() ->
 
 
 %% @doc
-%%
 %% Start mnesia database
 %% @end
 start_distibuted_db() ->
@@ -71,11 +73,11 @@ start_distibuted_db() ->
 
 
 %% @doc
-%%
 %% Stop mnesia database
 %% @spec stop_distributed_db() -> ok | error.
 %% @end
 -spec stop_distributed_db() -> ok | error.
+
 stop_distributed_db() ->
   case application:ensure_started(mnesia) of
     ok -> application:stop(mnesia);
@@ -84,11 +86,11 @@ stop_distributed_db() ->
 
 
 %% @doc
-%%
 %% Create tables on all connected core nodes
 %% @spec create_distributed_tables() -> ok.
 %% @end
 -spec create_distributed_tables() -> ok.
+
 create_distributed_tables() ->
 
   mnesia:create_table(node_info, [{attributes, record_info(fields, node_info)}]),
@@ -105,40 +107,36 @@ create_distributed_tables() ->
 
 %% ====== handle_call function start ======
 %% @doc
-%%
 %% Add new record to table
 %% @end
 handle_call({?ADD_RECORD, TableName, Key, Value}, _From, State) ->
-  ?DBG_INFO("try add topic: ~p~n", [{?ADD_RECORD, TableName, Key, Value}]),
-  ibot_db_func:add(TableName, Key, Value), %% Добавиляем запись
-  ?DBG_INFO("try get topic ~p~n", ibot_db_func:get(TableName, Key)),
-  %?DBG_INFO("ibot_topics info: ~p~n", [ets:info(ibot_topics)]),
+  ?DMI("ADD_RECORD", [{?ADD_RECORD, TableName, Key, Value}]),
+  ibot_db_func:add(TableName, Key, Value), %% добавиляем запись
   {reply, ok, State};
 
 
 %% @doc
-%%
 %% Get record from table
 %% @end
 handle_call({?GET_RECORD, TableName, Key}, _From, State) ->
-  ?DBG_MODULE_INFO("handle_call({?GET_RECORD, TableName, Key}: ~p~n", [?MODULE, {?GET_RECORD, TableName, Key}]),
-  io:format("handle_call: ~p~n", [ibot_db_func:get(TableName, Key)]),
-  case ibot_db_func:get(TableName, Key) of %% Получить данные
+  ?DMI("GET_RECORD", {TableName, Key}),
+  case ibot_db_func:get(TableName, Key) of %% получить данные
     [{Key, Value}] ->
-      ?DBG_INFO("handle_call find: ~p~n", [{Key, Value}]),
+      %% возвращаем найденную запись
+      ?DMI("row found", [{Key, Value}]),
       {reply, {ok, Value}, State};
     [] ->
-      ?DBG_INFO("handle_call NOT find...~n", []),
+      %% запись не найдена
+      ?DMI("row NOT found", ?ONLY_MESSAGE),
       {reply, record_not_found, State}
   end;
 
 
 %% @doc
-%%
 %% Dalete table
 %% @end
 handle_call({?DELETE_TABLE, TableName}, _From, State) ->
-  ibot_db_func:delete_table(TableName), %% Добавиляем запись
+  ibot_db_func:delete_table(TableName), %% удаление таблицы
   {reply, ok, State}.
 
 %% ====== handle_call function end ======
@@ -158,7 +156,6 @@ handle_info(_Info, State) ->
 
 %% ====== terminate function start ======
 %% @doc
-%%
 %% Dalete system table
 %% @end
 terminate(_Reason, _State) ->
@@ -188,33 +185,33 @@ code_change(_OldVsn, State, _Extra) ->
 %% ====== records manipulation function start ======
 
 %% @doc
-%%
 %% Add record to table
 %% @spec add_record(TableName, Key, Value) -> ok when TableName :: atom(), Key :: atom(), Value :: term().
 %% @end
 -spec add_record(TableName, Key, Value) -> ok when TableName :: atom(), Key :: atom(), Value :: term().
+
 add_record(TableName, Key, Value) ->
   gen_server:call(?IBOT_DB_SRV, {add_record, TableName, Key, Value}).
 
 
 %% @doc
-%%
 %% Get record from table
 %% @spec get_record(TableName, Key) -> {ok, Val} | record_not_found
 %% when TableName :: atom(), Key :: atom().
 %% @end
 -spec get_record(TableName, Key) -> {ok, _} | record_not_found
+
   when TableName :: atom(), Key :: atom().
 get_record(TableName, Key) ->
   gen_server:call(?IBOT_DB_SRV, {get_record, TableName, Key}).
 
 
 %% @doc
-%%
 %% Delete system table
 %% @spec delete_table(TableName) -> ok when TableName :: atom().
 %% @end
 -spec delete_table(TableName) -> ok when TableName :: atom().
+
 delete_table(TableName) ->
   gen_server:call(?IBOT_DB_SRV, {delete_table, TableName}).
 
