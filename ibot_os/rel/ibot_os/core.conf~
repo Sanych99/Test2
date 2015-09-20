@@ -4,5 +4,6 @@
 "topic_node":"ibot_nodes_srv_topic",
 "service_node":"ibot_nodes_srv_service",
 "ui_interaction_node":"ibot_nodes_srv_ui_interaction",
-"java_node_otp_erlang_lib_path":"/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar"
+"java_node_otp_erlang_lib_path":"/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar",
+"java_ibot_lib_jar_path":"/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar"
 }

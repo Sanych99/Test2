@@ -2,8 +2,8 @@
 "nodeName":"test_py",
 "nodeLang":"python",
 "nodeExecutable":"python",
-"runPreAgruments":"-",
-"runPostArguments":"-",
+"runPreAgruments":" ",
+"runPostArguments":" ",
 "msgFileList":["TestMsg"],
 "srvFileList":[]
 }

@@ -2,6 +2,6 @@
 "nodeName":"PubsubServer",
 "nodeLang":"java",
 "nodeExecutable":"java",
-"runPreAgruments":"-",
-"runPostArguments":"-"
+"runPreAgruments":" ",
+"runPostArguments":" "
 }

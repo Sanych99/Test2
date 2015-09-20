@@ -2,6 +2,8 @@
 "nodeName":"testMVN",
 "nodeLang":"java",
 "nodeExecutable":"java",
+"runPreAgruments":" ",
+"runPostArguments":" ",
 "projectType":"maven",
 "mainClassName":"com.mycompany.app.TestMVN"
 }

@@ -21,7 +21,10 @@
 
 %% API
 -export([start_link/0]).
--export([load_core_config/0, load_project_config/1, load_info_from_core_config/0]).
+-export([
+  load_core_config/0, %% загрузка конфига ядра
+  load_project_config/1 %% загрузка конфига проекта
+]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -132,10 +135,7 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodeName = StrVal, atomNodeName = list_to_atom(StrVal),
       nodeSystemMailBox = string:join([StrVal, "_MBoxAsync"], ""), atomNodeSystemMailBox = list_to_atom(string:join([StrVal, "_MBoxAsync"], "")),
       nodeServer = Hostname, atomNodeServer = list_to_atom(Hostname),
-      nodeNameServer = string:join([StrVal, "@", Hostname], ""), atomNodeNameServer = list_to_atom(string:join([StrVal, "@", Hostname], "")),
-        nodePreArguments = ["-classpath",
-          string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/RobotOS/_RobOS/test/nodes/java:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:", ibot_db_func_config:get_full_project_path(),"/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/nodes/", StrVal], "")],
-        nodePostArguments = []};
+      nodeNameServer = string:join([StrVal, "@", Hostname], ""), atomNodeNameServer = list_to_atom(string:join([StrVal, "@", Hostname], ""))};
     <<"nodeLang">> ->
       StrVal = binary_to_list(Val),
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodeLang = StrVal, atomNodeLang = list_to_atom(StrVal)};
@@ -156,6 +156,10 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       NewNodeConfigRecord = NodeConfigRecord#node_info{projectType = binary_to_atom(Val, utf8)};
     <<"mainClassName">> ->
       NewNodeConfigRecord = NodeConfigRecord#node_info{mainClassName = binary_to_list(Val)};
+    <<"runPreAgruments">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{nodePreArguments = binary_to_list(Val)};
+    <<"runPostArguments">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{nodePostArguments = binary_to_list(Val)};
     Other ->
       ?DMI("try monitor other | val", [Other, Val]),
       NewNodeConfigRecord = NodeConfigRecord
@@ -194,7 +198,7 @@ parse_msg_srv_file_list_from_config([FileName | FileNameList], FileList) ->
 -spec load_core_config() -> ok.
 
 load_core_config() ->
-  ?DBG_MODULE_INFO("load_core_config() -> ...~n", [?MODULE]),
+  ?DMI("load_core_config", ?ONLY_MESSAGE),
   ibot_core_srv_project_info_loader:load_info_from_core_config(), %% Parse core.conf file
 
   %% todo  Создание схемы расределенной бд. Запуск Mnesia.
@@ -211,17 +215,15 @@ load_core_config() ->
 load_info_from_core_config() ->
   case file:get_cwd() of %% get CORE path
     {ok, CorePath} ->
-      ?DBG_MODULE_INFO("load_info_from_core_config() -> CorePath: ~p~n", [?MODULE, CorePath]),
-      ?DBG_MODULE_INFO("load_info_from_core_config() -> Path Delim Symbol: ~p~n", [?MODULE, ?PATH_DELIMETER_SYMBOL]),
-      ?DBG_MODULE_INFO("load_info_from_core_config() -> Full Path: ~p~n", [?MODULE, string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)]),
+      ?DMI("load_info_from_core_config", CorePath),
+      ?DMI("load_info_from_core_config full path", string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)),
 
       case file:read_file(string:join([CorePath, "core.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
         {ok, FileContent} ->
-          ?DBG_MODULE_INFO("load_info_from_core_config() -> Core Config Content: ~p~n", [?MODULE, FileContent]),
-          ?DBG_MODULE_INFO("load_info_from_core_config() -> jiffy:decode(FileContent): ~p~n", [?MODULE, jiffy:decode(FileContent)]),
+          ?DMI("load_info_from_core_config file content", FileContent),
+          ?DMI("load_info_from_core_config jiffy decode", jiffy:decode(FileContent)),
           case jiffy:decode(FileContent) of %% Parse JSON from core.conf file
             {CoreConfigFileList} ->
-              ?DBG_MODULE_INFO("read_node_config(NodeName) {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, CoreConfigFileList]),
               FullProjectPath = create_core_config_record(CoreConfigFileList, #core_info{}), %% Parse core.conf
               ibot_core_srv_project_info_loader:load_project_config(FullProjectPath) %% Parse project.conf
           end,
@@ -268,6 +270,9 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
     <<"java_node_otp_erlang_lib_path">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{java_node_otp_erlang_lib_path = binary_to_list(Val)};
 
+    <<"java_ibot_lib_jar_path">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{java_ibot_lib_jar_path = binary_to_list(Val)};
+
     _ ->
       CoreInfoRecordNew = CoreInfoRecord,
       ok
@@ -290,7 +295,6 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
 -spec load_project_config(FullProjectPath) -> ok when FullProjectPath :: string().
 
 load_project_config(FullProjectPath) ->
-  %%gen_server:call({local, ?IBOT_CORE_SRV_PROJECT_INFO_LOADER}, {?LOAD_PROJECT_CONFIG, FullProjectPath}),
   ibot_core_srv_project_info_loader:load_info_from_project_config(FullProjectPath),
   ok.
 
@@ -304,8 +308,6 @@ load_project_config(FullProjectPath) ->
 -spec load_info_from_project_config(FullProjectPath) -> ok | error when FullProjectPath :: string().
 
 load_info_from_project_config(FullProjectPath) ->
-  %?DBG_MODULE_INFO("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", [?MODULE]),
-  %ibot_core_app:connect_to_project(FullProjectPath),
   ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> ~p~n", [?MODULE, string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)]),
   ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> FileContent: ~p~n", [?MODULE, file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL))]),
   case file:read_file(string:join([FullProjectPath, "project.conf"], ?PATH_DELIMETER_SYMBOL)) of %% try read core.conf file
@@ -315,7 +317,6 @@ load_info_from_project_config(FullProjectPath) ->
           ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> {ok, FileContent} = file:read_file(NodePath), -> ~p~n", [?MODULE, ProjectConfigFileList]),
           ?DBG_MODULE_INFO("load_info_from_project_config(FullProjectPath) -> , -> ~p~n", [?MODULE, FullProjectPath]),
           ibot_core_srv_project_info_loader:create_project_config_record(ProjectConfigFileList, #project_info{}) %% Parse project.config
-          %ibot_core_app:connect_to_project(FullProjectPath)
       end,
       ok;
     _ -> error
@@ -369,14 +370,6 @@ create_project_config_record([ProjectConfig | ProjectConfigList], ProjectConfigR
 
     <<"mainProjectNodeName">> ->
       ProjectInfoRecordNew = ProjectConfigRecord#project_info{mainProjectNodeName = list_to_atom(binary_to_list(Val))};
-
-      %ChildrenProjects = 0,
-      %ProjectInfoRecordNew =
-      %  ProjectConfigRecord#project_info{childrenProjects = [ProjectConfigRecord#project_info.childrenProjects
-      %    | ChildrenProjects]};
-
-    %[{[{<<"projectName">>,<<"Test1@alex-N55A">>}]},
-    %  {[{<<"projectName">>,<<"Test2@alex-N55A">>}]}]
 
     _ ->
       ProjectInfoRecordNew = ProjectConfigRecord

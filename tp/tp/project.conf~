@@ -4,7 +4,7 @@
 "distributedProject":"false",
 "projectAutoRun":"false",
 "childrenProjects":[{"projectName":"core1@alex-N550JK"}],
-"projectState":"develop",
+"projectState":"release",
 "projectNodes":["test_py", "BLA_BLA_BLA", "MongoTest", "testMVN", "PubsubServer"],
 "mainProjectNodeName" : "core@alex-N550JK"
 }

@@ -1,7 +1,7 @@
 {
 "nodeName":"MongoTest",
 "nodeLang":"java",
-"nodeExecutable":"java",
+"nodeExecutable":"java"
 "projectType":"maven",
 "mainClassName":"ibot.mongotest.MongoTest"
 }

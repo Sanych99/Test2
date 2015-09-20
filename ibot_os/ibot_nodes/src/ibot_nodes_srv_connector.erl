@@ -146,8 +146,19 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
               case ProjectType of
                 native ->
                   ArgumentList = lists:append([
-                    NodePreArguments, % Аргументы для исполняемого файла
-                    [NodeName, % Имя запускаемого узла
+                    ["-classpath",
+                    string:join([
+                      CoreConigSettings#core_info.java_node_otp_erlang_lib_path,
+                      ":",
+                      CoreConigSettings#core_info.java_ibot_lib_jar_path,
+                      ":",
+                      ibot_db_func_config:get_full_project_path(),
+                      ?DELIM_PATH_SYMBOL, ?DEV_FOLDER, ?DELIM_PATH_SYMBOL, ?MESSAGE_DIR, ?DELIM_PATH_SYMBOL, ?JAVA_FOLDER,
+                      ":",
+                      ibot_db_func_config:get_full_project_path(),
+                      ?DELIM_PATH_SYMBOL, ?DEV_FOLDER, ?DELIM_PATH_SYMBOL, ?NODES_FOLDER, ?DELIM_PATH_SYMBOL, NodeName], ""),
+                      %NodePreArguments, % Аргументы для исполняемого файла
+                      NodeName, % Имя запускаемого узла
                       NodeName,
                       net_adm:localhost(), % mail box name
                       atom_to_list(node()), % host name
@@ -156,16 +167,19 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                       CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
                       CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
                       CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
-                      erlang:get_cookie()]%, % Значение Cookies для узла
-                    %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
+                      erlang:get_cookie()] % Значение Cookies для узла
+                      %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
                   ]
-                );
+                ),
+                  ?DMI("run_node java ArgumentList", ArgumentList);
+
                 maven ->
                   %% Start maven java node
                   ArgumentList = ["-cp",
                     string:join([string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName,
                       string:join([NodeName, ".jar"], "")], ?DELIM_PATH_SYMBOL),
                     ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path], ""),
+                    %NodePreArguments,
                     MainClassName,
                     NodeName, % Имя запускаемого узла
                     net_adm:localhost(), % mail box name
@@ -176,6 +190,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                     CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
                     CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
                     erlang:get_cookie()],
+                    %NodePostArgumants],
 
                   ?DMI("maven start", ArgumentList);
 

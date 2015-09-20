@@ -12,7 +12,8 @@
   topic_node :: string(),
   service_node :: string(),
   ui_interaction_node :: string(),
-  java_node_otp_erlang_lib_path :: string()
+  java_node_otp_erlang_lib_path :: string(),
+  java_ibot_lib_jar_path :: string()
 }).
 
 -record(project_info, {

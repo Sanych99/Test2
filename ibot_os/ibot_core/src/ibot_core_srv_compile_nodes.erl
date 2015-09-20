@@ -18,6 +18,7 @@
 -include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
 -include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
 -include("../../ibot_core/include/ibot_core_reserve_atoms.hrl").
+-include("../../ibot_db/include/ibot_db_records.hrl").
 -include("env_params.hrl").
 
 %% API
@@ -50,7 +51,6 @@ init([]) ->
 %% === handle_call method start ===
 
 %% @doc
-%%
 %% Compile all nodes command
 
 handle_call({?COMPILE_ALL_NODES}, _From, State) ->
@@ -59,7 +59,6 @@ handle_call({?COMPILE_ALL_NODES}, _From, State) ->
   {reply, ok, State};
 
 %% @doc
-%%
 %% Compile one node
 
 handle_call({?COMPILE_NODE, NodeName}, _From, State) ->
@@ -96,12 +95,11 @@ code_change(_OldVsn, State, _Extra) ->
 
 
 %% @doc
-%%
 %% Compile all nodes in project
 %% @spec compile_all_nodes() -> ok.
 %% @end
-
 -spec compile_all_nodes() -> ok.
+
 compile_all_nodes() ->
   case ibot_db_func_config:get_nodes_name_from_config() of %% get all nodes name
     NodesList ->
@@ -110,18 +108,17 @@ compile_all_nodes() ->
         Full_Project_Path ->
           compile_node(NodesList, Full_Project_Path) %% compile all nodes
       end;
-    _ -> ?DMI("compile_all_nodes -> error from ibot_db_func_config:get_nodes_name_from_config()", ?ONLY_MESSAGE)
+    _ -> ?DMI("compile_all_nodes", "error from ibot_db_func_config:get_nodes_name_from_config()")
   end,
   ok.
 
 
 %% @doc
-%%
 %% Compile one node by name
 %% @spec compile_one_node(NodeName) -> ok when NodeName :: string().
 %% @end
-
 -spec compile_one_node(NodeName) -> ok when NodeName :: string().
+
 compile_one_node(NodeName) ->
   case ibot_db_func_config:get_full_project_path() of %% get full path to project directory
     ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND; %% full ptoject path not found
@@ -135,12 +132,10 @@ compile_one_node(NodeName) ->
 
 
 %% @doc
-%%
 %% Компиляция узла
 %% @spec compile_node([NodeName | NodeNamesList], Full_Project_Path) -> ok
 %% when NodeName :: string(), NodeNamesList :: list(), Full_Project_Path :: string().
 %% @end
-
 -spec compile_node([NodeName | NodeNamesList], Full_Project_Path) -> ok
   when NodeName :: string(), NodeNamesList :: list(), Full_Project_Path :: string().
 
@@ -151,8 +146,7 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
   MessagePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?MESSAGE_DIR], ?DELIM_PATH_SYMBOL),
   ServicePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?SERVICE_DIR], ?DELIM_PATH_SYMBOL),
 
-  %ibot_core_func_cmd_cdir:del_dir(NodeCompilePath), %% delete dir from dev folder
-  %ibot_core_func_cmd_cdir:create_dir(NodeCompilePath), %% create new node dir in dev folder
+  CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
 
   case ibot_db_func_config:get_node_info(list_to_atom(NodeName)) of %% get node info from config db
     ?NODE_INFO_NOT_FOUND -> error; %% node info not found in config db
@@ -164,7 +158,13 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
           NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL),
           NodeSourcePath = string:join([NodePath, ?JAVA_NODE_SRC], ?DELIM_PATH_SYMBOL),
           ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
-          string:join(["/usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar:", ibot_db_func_config:get_full_project_path(),"/dev/msg/java:", ibot_db_func_config:get_full_project_path(),"/dev/srv/java"], ""),
+          string:join([
+            CoreConigSettings#core_info.java_node_otp_erlang_lib_path ,
+            ":",
+            CoreConigSettings#core_info.java_ibot_lib_jar_path,
+            ":",
+            ibot_db_func_config:get_full_project_path(), "/dev/msg/java:",
+            ibot_db_func_config:get_full_project_path(),"/dev/srv/java"], ""),
           string:join([NodeSourcePath, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
           ?DMI("compile_node", [ExecuteCommand]),
           copy_node_config_to_dev_node(NodePath, NodeCompilePath),

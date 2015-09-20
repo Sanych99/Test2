@@ -16,7 +16,13 @@
 
 %% API
 -export([start_link/0]).
--export([connect_to_distributed_projects/0]).
+-export([
+  connect_to_distributed_projects/0 %% подключить к дочерним распределенным проектам
+]).
+-export([
+  connect_to_other_cores/1, %% подключить к дочерним распределенным проектам
+  disconnect_from_other_core/1 %% отключение от дочерних распределенных проектов
+]).
 
 %% gen_server callbacks
 -export([init/1,
@@ -30,18 +36,7 @@
 
 -record(state, {}).
 
-%%%===================================================================
-%%% API
-%%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @doc
-%% Starts the server
-%%
-%% @end
-%%--------------------------------------------------------------------
--spec(start_link() ->
-  {ok, Pid :: pid()} | ignore | {error, Reason :: term()}).
 start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
@@ -49,99 +44,27 @@ start_link() ->
 %%% gen_server callbacks
 %%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Initializes the server
-%%
-%% @spec init(Args) -> {ok, State} |
-%%                     {ok, State, Timeout} |
-%%                     ignore |
-%%                     {stop, Reason}
-%% @end
-%%--------------------------------------------------------------------
--spec(init(Args :: term()) ->
-  {ok, State :: #state{}} | {ok, State :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term()} | ignore).
+
 init([]) ->
   {ok, #state{}}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling call messages
-%%
-%% @end
-%%--------------------------------------------------------------------
--spec(handle_call(Request :: term(), From :: {pid(), Tag :: term()},
-    State :: #state{}) ->
-  {reply, Reply :: term(), NewState :: #state{}} |
-  {reply, Reply :: term(), NewState :: #state{}, timeout() | hibernate} |
-  {noreply, NewState :: #state{}} |
-  {noreply, NewState :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term(), Reply :: term(), NewState :: #state{}} |
-  {stop, Reason :: term(), NewState :: #state{}}).
+
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling cast messages
-%%
-%% @end
-%%--------------------------------------------------------------------
--spec(handle_cast(Request :: term(), State :: #state{}) ->
-  {noreply, NewState :: #state{}} |
-  {noreply, NewState :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term(), NewState :: #state{}}).
+
 handle_cast(_Request, State) ->
   {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling all non call/cast messages
-%%
-%% @spec handle_info(Info, State) -> {noreply, State} |
-%%                                   {noreply, State, Timeout} |
-%%                                   {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
--spec(handle_info(Info :: timeout() | term(), State :: #state{}) ->
-  {noreply, NewState :: #state{}} |
-  {noreply, NewState :: #state{}, timeout() | hibernate} |
-  {stop, Reason :: term(), NewState :: #state{}}).
+
 handle_info(_Info, State) ->
   {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% This function is called by a gen_server when it is about to
-%% terminate. It should be the opposite of Module:init/1 and do any
-%% necessary cleaning up. When it returns, the gen_server terminates
-%% with Reason. The return value is ignored.
-%%
-%% @spec terminate(Reason, State) -> void()
-%% @end
-%%--------------------------------------------------------------------
--spec(terminate(Reason :: (normal | shutdown | {shutdown, term()} | term()),
-    State :: #state{}) -> term()).
+
 terminate(_Reason, _State) ->
   ok.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Convert process state when code is changed
-%%
-%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}
-%% @end
-%%--------------------------------------------------------------------
--spec(code_change(OldVsn :: term() | {down, term()}, State :: #state{},
-    Extra :: term()) ->
-  {ok, NewState :: #state{}} | {error, Reason :: term()}).
+
 code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 
@@ -149,10 +72,24 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%===================================================================
 
+%% @doc
+%% Соединение с распределенными ядрами / Connect to distiduted cores
+%% @spec connect_to_distributed_projects() -> ok.
+%% @end
+-spec connect_to_distributed_projects() -> ok.
 
 connect_to_distributed_projects() ->
   connect_to_node_list(ibot_db_srv_func_project:get_children_project_names_list()),
   ok.
+
+
+%% @doc
+%% Соединение с распределенными ядрами / Connect to distiduted cores
+%% @spec connect_to_node_list([NodeName | NodeList]) -> ok
+%% when NodeName :: atom(), NodeList :: list().
+%% @end
+-spec connect_to_node_list([NodeName | NodeList]) -> ok
+  when NodeName :: atom(), NodeList :: list().
 
 connect_to_node_list([]) ->
   ok;
@@ -160,6 +97,55 @@ connect_to_node_list([NodeName | NodeList]) ->
   connect_to_node(NodeName),
   connect_to_node_list(NodeList).
 
+
+%% @doc
+%% Соединение с ядром / Connect to core
+%% @spec connect_to_node(Node) -> ping | pang when Node :: atom().
+%% @end
+-spec connect_to_node(Node) -> ping | pang when Node :: atom().
+
 connect_to_node(Node) ->
   ?DMI("connect_to_node(Node) ", [Node]),
   net_adm:ping(Node).
+
+
+
+
+%% ====== ibot_core_func_connect_to_cores.erl file Start ======
+
+%% @doc
+%% Connect to cores
+%% @spec connect_to_other_cores([OtherCoreName | OtherCoreNamesList]) -> ok
+%% when OtherCoreName :: atom(), OtherCoreNamesList :: list().
+%% @end
+-spec connect_to_other_cores([OtherCoreName | OtherCoreNamesList]) -> ok
+  when OtherCoreName :: atom(), OtherCoreNamesList :: list().
+
+connect_to_other_cores([OtherCoreName | OtherCoreNamesList]) ->
+  connect_to_other_core(OtherCoreName),
+  connect_to_other_cores(OtherCoreNamesList);
+connect_to_other_cores([]) -> ok.
+
+
+%% @doc
+%% Connect to other core
+%% @spec connect_to_other_core(OtherCoreName) -> ok | error when OtherCoreName :: atom().
+%% @end
+-spec connect_to_other_core(OtherCoreName) -> ok | error when OtherCoreName :: atom().
+
+connect_to_other_core(OtherCoreName) ->
+  case net_adm:ping(OtherCoreName) of
+    pong-> ok;
+    pang -> error
+  end.
+
+%% @doc
+%% Disconnect from other core
+%% @spec disconnect_from_other_core(OtherCorename) -> oboolean() | ignored when OtherCorename :: node().
+%% @end
+-spec disconnect_from_other_core(OtherCorename) -> boolean() | ignored when OtherCorename :: node().
+
+disconnect_from_other_core(OtherCorename) ->
+  erlang:disconnect_node(OtherCorename).
+
+%% ====== ibot_core_func_connect_to_cores.erl file End ======
