@@ -1,7 +1,9 @@
 {
-"nodeName":"BLA_BLA_BLA",
+"nodeName":"testMVN",
 "nodeLang":"java",
 "nodeExecutable":"java",
 "runPreAgruments":"-",
-"runPostArguments":"-"
+"runPostArguments":"-",
+"projectType":"maven",
+"mainClassName":"com.mycompany.app.TestMVN"
 }

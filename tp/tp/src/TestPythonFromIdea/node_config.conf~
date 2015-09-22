@@ -1,0 +1,7 @@
+{
+"nodeName":"test_py",
+"nodeLang":"python",
+"nodeExecutable":"python",
+"msgFileList":["TestMsg"],
+"srvFileList":[]
+}

@@ -1,6 +1,5 @@
 package com.mycompany.app;
 
-import dev.msg.java.TestMsg;
 import langlib.java.BotNode;
 /**
  * Hello world!
@@ -23,10 +22,20 @@ public class TestMVN extends BotNode
     public void Action() throws Exception {
         System.out.println("Message was send!");
 
-        this.subscribeToTopic("testTopic", "topicMethod", TestMsg.class);
+        this.subscribeToTopic("test_topic_from_py", "topicMethod", TestMsg_.class);
+        TestMsg_ testMsg_ = new TestMsg_();
+        testMsg_.set_doubleParam(2.5);
+        testMsg_.set_strParam("TEST STRING !");
+        testMsg_.set_boolParam(true);
+        testMsg_.set_longParam((long) 50);
+        this.publishMessage("testTopic", testMsg_);
     }
 
-    public void topicMethod(TestMsg msg) {
-        System.out.println("YO! " + msg.get_strParam());
+    public void topicMethod(TestMsg_ msg) {
+        System.out.println("YO! str " + msg.get_strParam());
+        System.out.println("YO! long " + msg.get_longParam());
+        System.out.println("YO! bool " + msg.get_boolParam());
+        System.out.println("YO! float " + msg.get_doubleParam());
+
     }
 }
