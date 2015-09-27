@@ -213,8 +213,8 @@
 
 -define(DEFAULT_VALUE_CAST_TYPE(Type),
   case Type of
-    "String" -> "String(~p)";
-    "Long" -> "Long(~p)";
+    "String" -> "new String(~p)";
+    "Long" -> "new Long(~p)";
     "Int" -> "(int)~p";
     "Double" -> "(double)~p";
     "Boolean" -> "(boolean)~p";
