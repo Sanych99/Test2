@@ -1,6 +1,10 @@
 package com.mycompany.app;
 
 import langlib.java.BotNode;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Hello world!
  *
@@ -9,7 +13,6 @@ public class TestMVN extends BotNode
 {
     public TestMVN (String[] args) throws Exception {
         super(args);
-        //super(args);
     }
 
     public static void main( String[] args ) throws Exception {
@@ -28,6 +31,14 @@ public class TestMVN extends BotNode
         testMsg_.set_strParam("TEST STRING !");
         testMsg_.set_boolParam(true);
         testMsg_.set_longParam((long) 50);
+
+        List<String> testStrList =  new ArrayList<>();
+        testStrList.add("test string 1");
+        testStrList.add("test string 2");
+        testStrList.add("test string 3");
+
+        testMsg_.set_stringList(testStrList);
+
         this.publishMessage("testTopic", testMsg_);
     }
 
@@ -36,6 +47,7 @@ public class TestMVN extends BotNode
         System.out.println("YO! long " + msg.get_longParam());
         System.out.println("YO! bool " + msg.get_boolParam());
         System.out.println("YO! float " + msg.get_doubleParam());
-
+        for(String str : msg.get_stringList())
+            System.out.println("YO! list " + str);
     }
 }

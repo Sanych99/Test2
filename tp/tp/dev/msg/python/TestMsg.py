@@ -4,6 +4,10 @@ class TestMsg():
 
 	def __init__(self, msg = None):
 		self.resultObject = [None] * 2
+
+		self.set_longParam(long(0))
+		self.set_strParam(str(""))
+
 		if (msg is not None):
 			self.set_longParam(long(msg[1]))
 			self.set_strParam(str(msg[0]))

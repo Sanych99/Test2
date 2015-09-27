@@ -1,3 +1,5 @@
+package dev.msg.java;
+
 import com.ericsson.otp.erlang.*;
 import langlib.java.*;
 
@@ -13,6 +15,7 @@ public class TestMsg implements IBotMsgInterface {
 
 	public TestMsg() throws Exception {
 		resultObject = new OtpErlangObject[2];
+		this.set_defaultValues();
 	}
 
 	public OtpErlangTuple get_Msg() throws Exception {
@@ -21,8 +24,14 @@ public class TestMsg implements IBotMsgInterface {
 
 	public TestMsg(OtpErlangTuple msg) throws Exception {
 		resultObject = new OtpErlangObject[2];
+		this.set_defaultValues();
 		this.set_longParam(((OtpErlangLong)msg.elementAt(1)).longValue());
 		this.set_strParam(((OtpErlangString)msg.elementAt(0)).stringValue());	
+	}
+
+	private void set_defaultValues() {
+		this.set_longParam(Long(0));
+		this.set_strParam(String(" "));
 	}
 
 	public Long get_longParam() {

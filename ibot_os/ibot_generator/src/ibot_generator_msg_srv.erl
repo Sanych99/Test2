@@ -184,6 +184,10 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
       parameters_constructor_generate(GeneratedFile, AllFieldsList),
       file:write(GeneratedFile, ?CONSTRUCTOR_END_WITH_PARAMS()),
 
+      file:write(GeneratedFile, ?SET_DEFAULT_VALUE_METHOD_START),
+      parameters_dafault_generate(GeneratedFile, AllFieldsList),
+      file:write(GeneratedFile, ?SET_DEFAULT_VALUE_METHOD_END),
+
       getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
       file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
 
@@ -211,3 +215,9 @@ parameters_constructor_generate(_, []) -> ok;
 parameters_constructor_generate(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
   file:write(GeneratedFile, ?CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjCount)),
   parameters_constructor_generate(GeneratedFile , FieldsList).
+
+
+parameters_dafault_generate(_, []) -> ok;
+parameters_dafault_generate(GeneratedFile ,[{Type, Name, _} | FieldsList]) ->
+  file:write(GeneratedFile, ?SET_DEFAULT_VALUE_METHOD_PARAMETER(Type, Name)),
+  parameters_dafault_generate(GeneratedFile , FieldsList).

@@ -4,6 +4,11 @@ class ServiceTestReq():
 
 	def __init__(self, msg = None):
 		self.resultObject = [None] * 3
+
+		self.set_therdParamReq(str(""))
+		self.set_secParamReq(long(0))
+		self.set_strParamReq(str(""))
+
 		if (msg is not None):
 			self.set_therdParamReq(str(msg[2]))
 			self.set_secParamReq(long(msg[1]))

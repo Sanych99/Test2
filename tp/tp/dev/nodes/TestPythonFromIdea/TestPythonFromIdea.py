@@ -68,6 +68,7 @@ class TestPythonFromIdea(BotNode):
         tm.set_longParam(long(15))
         tm.set_floatParam(float(2.55))
         tm.set_boolParam(bool(False))
+        tm.set_strList(["list from 1", "list from 2", "list from 3"])
         self.publish_message("test_topic_from_py", tm)
 
 def testMethod():

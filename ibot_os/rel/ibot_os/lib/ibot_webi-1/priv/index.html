@@ -48,6 +48,9 @@ function open()
 
                     //создаем обхект сообщения
                 var cratedMessage = new window[rMessage.messageClassName](rMessage.message);//new TestMsg(rMessage.message);
+                    //выполнение логики
+                //var actionClass = new window[rMessage.messageClassName](cratedMessage);
+                //    actionClass.action();
                 $('#messages').html("from created message: " + cratedMessage.strParam);
 
                     //выполняем логику для данного типа сообщения

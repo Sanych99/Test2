@@ -128,11 +128,13 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
 
       file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount)),
 
+      parameters_dafault_generate(GeneratedFile, AllFieldsList),
+
+      file:write(GeneratedFile, ?CONSTRUCTOR_START_MSG_PARSE),
+
       parameters_constructor_generate(GeneratedFile, AllFieldsList),
-      %file:write(GeneratedFile, ?CONSTRUCTOR_END_WITH_PARAMS()),
 
       getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
-      %file:write(GeneratedFile, ?JAVA_MSG_FILE_END), %% Generate end of file
 
       file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
 
@@ -143,7 +145,7 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
       ?DBG_INFO("line: ~p~n", [Line]),
       [Type, Name] = re:split(Line,"[ ]",[{return, list}]),
       NewName = Name -- "\n",
-      %file:write(GeneratedFile, ?PRIVATE_PROPERTIES_OTP_LANG(Type, NewName)),
+
       for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1, [{Type, NewName, ObjCount} | AllFieldsList])
   end,
   ok.
@@ -160,3 +162,9 @@ parameters_constructor_generate(_, []) -> ok;
 parameters_constructor_generate(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
   file:write(GeneratedFile, ?CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjCount)),
   parameters_constructor_generate(GeneratedFile , FieldsList).
+
+
+parameters_dafault_generate(_, []) -> ok;
+parameters_dafault_generate(GeneratedFile ,[{Type, Name, _} | FieldsList]) ->
+  file:write(GeneratedFile, ?CREATE_DEFAULT_PARAMETER_VALUE(Type, Name)),
+  parameters_dafault_generate(GeneratedFile , FieldsList).

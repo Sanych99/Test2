@@ -18,6 +18,8 @@
 
 %% Java import block
 -define(JAVA_MSG_FILE_HEADER(MsgName), string:join([
+  "package dev.msg.java;",
+  "",
   "import com.ericsson.otp.erlang.*;",
   "import langlib.java.*;",
   "",
@@ -54,6 +56,7 @@
 -define(CONSRTUCTOR(Name, ObjCount), string:join([
   ?CONSTRUCTOR_HEADER(Name),
   ?TAB_STRING([?RESULT_OBJ_DEFINE(ObjCount)], 2),
+  ?TAB_STRING("this.set_defaultValues();", 2),
   ?TAB_STRING(["}"], 1)
 ], ?NEW_LINE)).
 
@@ -64,13 +67,15 @@
       ?NEW_LINE,
       ?TAB(1), "public ", Name, "(OtpErlangTuple msg) throws Exception {",
     ?NEW_LINE,
-      ?TAB(2), ?RESULT_OBJ_DEFINE(ObjCount)], "")).
+      ?TAB(2), ?RESULT_OBJ_DEFINE(ObjCount),
+    ?NEW_LINE,
+    ?TAB(2), "this.set_defaultValues();"], "")).
 -define(CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjectNum), string:join([
   ?CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum)
 ], ?NEW_LINE)).
 
 -define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
-  string:join([?NEW_LINE, ?TAB(2), "this.set_", Name, "(((", ?OTP_TYPE(Type), ")msg.elementAt(", io_lib:format("~p", [ObjectNum]), ")).", ?CONVERT_FROM_OTP_TO_JAVA_METHODS(Type), ");"], "")
+  string:join([?NEW_LINE, ?TAB(2), "this.set_", Name, "(((", ?OTP_CONSTRUCTOR_PARAMETER_CAST_TYPE(Type), ")msg.elementAt(", io_lib:format("~p", [ObjectNum]), ")).", ?CONVERT_FROM_OTP_TO_JAVA_METHODS(Type), ");"], "")
 ).
 
 -define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
@@ -117,28 +122,102 @@
 ], ?NEW_LINE)).
 
 
-%% Get OPT type
+-define(SET_DEFAULT_VALUE_METHOD_START,
+  string:join([
+    ?NEW_LINE,
+    ?NEW_LINE,
+    ?TAB_STRING(["private void set_defaultValues() {"], 1),
+    ?NEW_LINE
+  ], "")
+).
+
+-define(SET_DEFAULT_VALUE_METHOD_PARAMETER(Type, Name),
+  string:join([
+    ?TAB_STRING(["this.set_", Name, "(", io_lib:format(?DEFAULT_VALUE_CAST_TYPE(Type), [?DEFAULT_VALUE(Type)]), ");"], 2) ,
+    ?NEW_LINE
+  ], "")
+).
+
+-define(SET_DEFAULT_VALUE_METHOD_END,
+  string:join([
+    ?TAB_STRING(["}"], 1)
+  ], "")
+).
+
+%% @doc
+%% Тип параметра для ядра
+%% @end
 -define(OTP_TYPE(Type),
   case Type of
     "String" -> "OtpErlangString";
     "Long" -> "OtpErlangLong";
+    "Int" -> "OtpErlangInt";
+    "Double" -> "OtpErlangDouble";
+    "Boolean" -> "OtpErlangBoolean";
     _ -> "UNDEFINE"
   end
 ).
 
-%% Get Java type
+%% @doc
+%% Тип параметра при заполнении через конструктор
+%% @end
+-define(OTP_CONSTRUCTOR_PARAMETER_CAST_TYPE(Type),
+  case Type of
+    "String" -> "OtpErlangString";
+    "Long" -> "OtpErlangLong";
+    "Int" -> "OtpErlangInt";
+    "Double" -> "OtpErlangDouble";
+    "Boolean" -> "OtpErlangAtom";
+    _ -> "UNDEFINE"
+  end
+).
+
+%% @doc
+%% Тип параметра для Java
+%% @end
 -define(LANG_TYPE(Type),
   case Type of
     "String" -> "String";
     "Long" -> "Long";
+    "Int" -> "int";
+    "Double" -> "double";
+    "Boolean" -> "boolean";
     _ -> "UNDEFINE"
   end
 ).
 
+%% @doc
+%% Представить дапаметр при создании через контруктор как...
+%% @end
 -define(CONVERT_FROM_OTP_TO_JAVA_METHODS(Type),
   case Type of
     "String" -> "stringValue()";
     "Long" -> "longValue()";
+    "Int" -> "intValue()";
+    "Double" -> "doubleValue()";
+    "Boolean" -> "booleanValue()";
+    _ -> "UNDEFINE"
+  end
+).
+
+-define(DEFAULT_VALUE(Type),
+  case Type of
+    "String" -> " ";
+    "Long" -> 0;
+    "Int" -> 0;
+    "Double" -> 0;
+    "Boolean" -> true;
+    _ -> "UNDEFINE"
+  end
+).
+
+-define(DEFAULT_VALUE_CAST_TYPE(Type),
+  case Type of
+    "String" -> "String(~p)";
+    "Long" -> "Long(~p)";
+    "Int" -> "(int)~p";
+    "Double" -> "(double)~p";
+    "Boolean" -> "(boolean)~p";
     _ -> "UNDEFINE"
   end
 ).

@@ -62,11 +62,16 @@
   ?TAB(1), "def __init__(self, msg = None):",
   ?NEW_LINE,
   ?TAB_STRING([?RESULT_OBJ_DEFINE(ObjCount)], 2),
-  ?NEW_LINE,
-  ?TAB(2), "if (msg is not None):"], "")).
+  ?NEW_LINE], "")).
 -define(CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjectNum), string:join([
   ?CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum)
 ], ?NEW_LINE)).
+
+-define(CONSTRUCTOR_START_MSG_PARSE, string:join([?NEW_LINE, ?NEW_LINE, ?TAB(2), "if (msg is not None):"], "")).
+
+-define(CREATE_DEFAULT_PARAMETER_VALUE(Type, Name),
+  string:join([?NEW_LINE, ?TAB(2), "self.set_", Name, "(", ?CONVERT_FROM_OTP_TO_PYTHON_METHODS(Type), "(", ?DEFAULT_VALUE(Type), "))", ""], "")
+).
 
 -define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
   string:join([?NEW_LINE, ?TAB(3), "self.set_", Name, "(", ?CONVERT_FROM_OTP_TO_PYTHON_METHODS(Type), "(msg[", io_lib:format("~p", [ObjectNum]), "]))", ""], "")
@@ -102,7 +107,7 @@
   ?NEW_LINE,
   ?TAB_STRING(["self._", Name, " = val"], 2),
   ?NEW_LINE,
-  ?TAB_STRING(["self.resultObject[", integer_to_list(ObjNumber), "] = " , ?OTP_TYPE(Type), "(val)"], 2),
+  ?TAB_STRING(["self.resultObject[", integer_to_list(ObjNumber), "] = " , io_lib:format(?OTP_TYPE(Type), [val])], 2),
   ?NEW_LINE
 ], "")).
 
@@ -119,8 +124,11 @@
 %% Get OPT type
 -define(OTP_TYPE(Type),
   case Type of
-    "String" -> "erl_term.ErlString";
-    "Long" -> "long";
+    "String" -> "erl_term.ErlString(~p)";
+    "Long" -> "long(~p)";
+    "Int" -> "int(~p)";
+    "Double" -> "float(~p)";
+    "Boolean" -> "erl_term.ErlAtom(str(~p).lower())";
     _ -> "UNDEFINE"
   end
 ).
@@ -138,6 +146,20 @@
   case Type of
     "String" -> "str";
     "Long" -> "long";
+    "Int" -> "int";
+    "Double" -> "float";
+    "Boolean" -> "bool";
+    _ -> "UNDEFINE"
+  end
+).
+
+-define(DEFAULT_VALUE(Type),
+  case Type of
+    "String" -> "\"\"";
+    "Long" -> "0";
+    "Int" -> "0";
+    "Double" -> "0";
+    "Boolean" -> "True";
     _ -> "UNDEFINE"
   end
 ).
