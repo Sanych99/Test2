@@ -30,8 +30,8 @@ public class TestMsg implements IBotMsgInterface {
 	}
 
 	private void set_defaultValues() {
-		this.set_longParam(Long(0));
-		this.set_strParam(String(" "));
+		this.set_longParam(new Long(0));
+		this.set_strParam(new String(" "));
 	}
 
 	public Long get_longParam() {

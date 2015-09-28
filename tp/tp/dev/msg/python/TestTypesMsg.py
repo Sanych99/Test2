@@ -9,7 +9,7 @@ class TestTypesMsg():
 		self.set_doubleParam(float(0))
 		self.set_intPara(int(0))
 		self.set_longParam(long(0))
-		self.set_strParam(str(""))
+		self.set_strParam(str(" "))
 
 		if (msg is not None):
 			self.set_boolParam(bool(msg[4]))
@@ -64,4 +64,4 @@ class TestTypesMsg():
 
 
 	def getMsg(self):
-		return erl_term.ErlTuple(self.resultObject);
+		return erl_term.ErlTuple(self.resultObject)

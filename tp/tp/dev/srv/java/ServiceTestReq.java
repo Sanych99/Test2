@@ -34,9 +34,9 @@ public class ServiceTestReq implements IBotMsgInterface {
 	}
 
 	private void set_defaultValues() {
-		this.set_therdParamReq(String(" "));
-		this.set_secParamReq(Long(0));
-		this.set_strParamReq(String(" "));
+		this.set_therdParamReq(new String(" "));
+		this.set_secParamReq(new Long(0));
+		this.set_strParamReq(new String(" "));
 	}
 
 	public String get_therdParamReq() {

@@ -85,7 +85,7 @@
 -define(GET_OTP_TYPE_MSG, string:join([
   "", "",
   ?TAB_STRING(["def getMsg(self):"], 1),
-  ?TAB_STRING(["return erl_term.ErlTuple(self.resultObject);"], 2)
+  ?TAB_STRING(["return erl_term.ErlTuple(self.resultObject)"], 2)
   %?TAB_STRING(["}"], 1)
 ], ?NEW_LINE)).
 
@@ -155,7 +155,7 @@
 
 -define(DEFAULT_VALUE(Type),
   case Type of
-    "String" -> "\"\"";
+    "String" -> "\" \"";
     "Long" -> "0";
     "Int" -> "0";
     "Double" -> "0";

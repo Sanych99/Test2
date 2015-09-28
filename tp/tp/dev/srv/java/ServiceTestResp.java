@@ -34,9 +34,9 @@ public class ServiceTestResp implements IBotMsgInterface {
 	}
 
 	private void set_defaultValues() {
-		this.set_therdParamResp(String(" "));
-		this.set_secParamResp(Long(0));
-		this.set_strParamResp(String(" "));
+		this.set_therdParamResp(new String(" "));
+		this.set_secParamResp(new Long(0));
+		this.set_strParamResp(new String(" "));
 	}
 
 	public String get_therdParamResp() {

@@ -165,7 +165,7 @@
   case Type of
     "String" -> "OtpErlangString";
     "Long" -> "OtpErlangLong";
-    "Int" -> "OtpErlangInt";
+    "Int" -> "OtpErlangLong";
     "Double" -> "OtpErlangDouble";
     "Boolean" -> "OtpErlangAtom";
     _ -> "UNDEFINE"

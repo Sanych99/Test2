@@ -6,7 +6,7 @@ class TestMsg():
 		self.resultObject = [None] * 2
 
 		self.set_longParam(long(0))
-		self.set_strParam(str(""))
+		self.set_strParam(str(" "))
 
 		if (msg is not None):
 			self.set_longParam(long(msg[1]))
@@ -31,4 +31,4 @@ class TestMsg():
 
 
 	def getMsg(self):
-		return erl_term.ErlTuple(self.resultObject);
+		return erl_term.ErlTuple(self.resultObject)

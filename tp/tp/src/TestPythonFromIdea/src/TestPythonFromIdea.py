@@ -2,6 +2,7 @@ import sys
 from py_i_bot_os.BotNode import BotNode
 from TestMsg import TestMsg
 from py_interface import erl_eventhandler, erl_common
+from TestTypesMsg import TestTypesMsg
 
 
 class TestPythonFromIdea(BotNode):
@@ -14,7 +15,8 @@ class TestPythonFromIdea(BotNode):
 
     def action(self):
         self.monitor_start();
-        self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
+        #self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
+        self.subscribe_to_topic("new_gen_msg", self.requestNewMethod, TestTypesMsg)
 
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.get_strParam()
@@ -28,6 +30,18 @@ class TestPythonFromIdea(BotNode):
         tm.set_boolParam(bool(False))
         tm.set_strList(["list from 1", "list from 2", "list from 3"])
         self.publish_message("test_topic_from_py", tm)
+
+    def requestNewMethod(self, msg):
+        print "new msg str: ", msg.get_strParam()
+        print "new msg bool: ", msg.get_boolParam()
+
+        new_message = TestTypesMsg()
+        new_message.set_boolParam(bool(True))
+        new_message.set_intPara(int(5))
+        #new_message.set_strParam("New String From python!")
+
+        self.publish_message("new_gen_msg_response", new_message)
+
 
 if __name__ == "__main__":
     bot = TestPythonFromIdea(sys.argv)

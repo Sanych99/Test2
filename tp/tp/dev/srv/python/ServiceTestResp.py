@@ -5,9 +5,9 @@ class ServiceTestResp():
 	def __init__(self, msg = None):
 		self.resultObject = [None] * 3
 
-		self.set_therdParamResp(str(""))
+		self.set_therdParamResp(str(" "))
 		self.set_secParamResp(long(0))
-		self.set_strParamResp(str(""))
+		self.set_strParamResp(str(" "))
 
 		if (msg is not None):
 			self.set_therdParamResp(str(msg[2]))
@@ -42,4 +42,4 @@ class ServiceTestResp():
 
 
 	def getMsg(self):
-		return erl_term.ErlTuple(self.resultObject);
+		return erl_term.ErlTuple(self.resultObject)

@@ -36,7 +36,7 @@ public class TestTypesMsg implements IBotMsgInterface {
 		this.set_defaultValues();
 		this.set_boolParam(((OtpErlangAtom)msg.elementAt(4)).booleanValue());
 		this.set_doubleParam(((OtpErlangDouble)msg.elementAt(3)).doubleValue());
-		this.set_intPara(((OtpErlangInt)msg.elementAt(2)).intValue());
+		this.set_intPara(((OtpErlangLong)msg.elementAt(2)).intValue());
 		this.set_longParam(((OtpErlangLong)msg.elementAt(1)).longValue());
 		this.set_strParam(((OtpErlangString)msg.elementAt(0)).stringValue());	
 	}
@@ -45,8 +45,8 @@ public class TestTypesMsg implements IBotMsgInterface {
 		this.set_boolParam((boolean)true);
 		this.set_doubleParam((double)0);
 		this.set_intPara((int)0);
-		this.set_longParam(Long(0));
-		this.set_strParam(String(" "));
+		this.set_longParam(new Long(0));
+		this.set_strParam(new String(" "));
 	}
 
 	public boolean get_boolParam() {
