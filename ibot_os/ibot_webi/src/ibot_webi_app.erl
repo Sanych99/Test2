@@ -25,6 +25,8 @@ start(_StartType, _StartArgs) ->
       {"/cssStyle", cowboy_static, {priv_file, ibot_webi, "css/style.css"}},
       {"/jsJquery", cowboy_static, {priv_file, ibot_webi, "js/jquery.min.js"}},
       {"/uiTestMsg", cowboy_static, {priv_file, ibot_webi, "uilib/TestMsg.js"}},
+      {"/uiTestTypesMsg", cowboy_static, {priv_file, ibot_webi, "uilib/TestTypesMsg.js"}},
+      {"/uiTestTypesMsgLogic", cowboy_static, {priv_file, ibot_webi, "uilib/TestTypesMsg_logic.js"}},
       {"/uiActionLib", cowboy_static, {priv_file, ibot_webi, "uilib/UIActionsLib.js"}},
       {"/", cowboy_static, {priv_file, ibot_webi, "index.html"}},
       {"/pageConnectToProject", cowboy_static, {priv_file, ibot_webi, "pageConnectToProject.html"}},

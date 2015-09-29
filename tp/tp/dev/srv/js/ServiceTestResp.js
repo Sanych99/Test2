@@ -1,10 +1,10 @@
 function ServiceTestResp(msg) {
 
-	this.therdParamResp = "";
+	this.therdParamResp = " ";
 
 	this.secParamResp = 0;
 
-	this.strParamResp = "";
+	this.strParamResp = " ";
 
 	if (msg) {
 		this.therdParamResp = msg[2];

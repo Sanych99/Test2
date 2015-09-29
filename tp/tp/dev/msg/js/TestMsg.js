@@ -2,7 +2,7 @@ function TestMsg(msg) {
 
 	this.longParam = 0;
 
-	this.strParam = "";
+	this.strParam = " ";
 
 	if (msg) {
 		this.longParam = msg[1];

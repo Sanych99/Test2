@@ -1,14 +1,14 @@
 function TestTypesMsg(msg) {
 
-	this.boolParam = UNDEFINE;
+	this.boolParam = true;
 
-	this.doubleParam = UNDEFINE;
+	this.doubleParam = 0;
 
-	this.intPara = UNDEFINE;
+	this.intPara = 0;
 
 	this.longParam = 0;
 
-	this.strParam = "";
+	this.strParam = " ";
 
 	if (msg) {
 		this.boolParam = msg[4];

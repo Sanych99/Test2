@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="/cssStyle" />
     <script type="text/javascript" src="/jsJquery"></script>
     <script type="text/javascript" src="/uiTestMsg"></script>
+    <script type="text/javascript" src="/uiTestTypesMsg"></script>
+    <script type="text/javascript" src="/uiTestTypesMsgLogic"></script>
     <script type="text/javascript" src="/uiActionLib"></script>
 <script type="text/javascript">
 var ws = new Object;
@@ -44,14 +46,18 @@ function open()
                 break;
 
             case "send_data_to_ui" :
+                    alert(1);
                 var rMessage = new ReceivedMessage(received_msg); //парсим собщение
-
+                alert(2);
                     //создаем обхект сообщения
                 var cratedMessage = new window[rMessage.messageClassName](rMessage.message);//new TestMsg(rMessage.message);
+                alert(3);
                     //выполнение логики
-                //var actionClass = new window[rMessage.messageClassName](cratedMessage);
-                //    actionClass.action();
-                $('#messages').html("from created message: " + cratedMessage.strParam);
+                var actionClass = new window[rMessage.messageClassName + '_logic'](cratedMessage);
+                alert(4);
+                    actionClass.action();
+                alert(5);
+                //$('#messages').html("from created message: " + cratedMessage.strParam);
 
                     //выполняем логику для данного типа сообщения
                 break;

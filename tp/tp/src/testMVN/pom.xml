@@ -30,10 +30,19 @@
 
         <dependency>
             <groupId>com.ericsson.otp.erlang</groupId>
-            <artifactId>OtpErlang</artifactId>
+            <artifactId>ServiceTestResp</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>/home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar</systemPath>
+        </dependency>
+
+
+        <dependency>
+            <groupId>dev.msg.java</groupId>
+            <artifactId>ServiceTestResp</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>/home/alex/iBotOS/iBotOS/tp/tp/dev/srv/java/ServiceTestResp.java</systemPath>
         </dependency>
 
 

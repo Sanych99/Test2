@@ -1,10 +1,10 @@
 function ServiceTestReq(msg) {
 
-	this.therdParamReq = "";
+	this.therdParamReq = " ";
 
 	this.secParamReq = 0;
 
-	this.strParamReq = "";
+	this.strParamReq = " ";
 
 	if (msg) {
 		this.therdParamReq = msg[2];

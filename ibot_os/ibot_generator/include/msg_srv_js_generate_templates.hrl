@@ -147,8 +147,11 @@
 
 -define(DEFAULT_VALUE(Type),
   case Type of
-    "String" -> "\"\"";
+    "String" -> "\" \"";
     "Long" -> "0";
+    "Int" -> "0";
+    "Double" -> "0.0";
+    "Boolean" -> "true";
     _ -> "UNDEFINE"
   end
 ).

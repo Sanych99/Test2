@@ -43,9 +43,14 @@ public class TestMVN extends BotNode
 
         this.subscribeToTopic("new_gen_msg_response", "newMethod", TestTypesMsg.class);
         TestTypesMsg testTypesMsg = new TestTypesMsg();
-        testTypesMsg.set_strParam(new String("New String Param"));
+        testTypesMsg.set_strParam(new String("New String Param test JAVA"));
         testTypesMsg.set_boolParam(false);
-        this.publishMessage("new_gen_msg", testTypesMsg);
+        testTypesMsg.set_intPara(999);
+        this.publishMessage("new_gen_msg_response", testTypesMsg);
+
+        this.sendMessageToUI(testTypesMsg, "TestTypesMsg");
+
+
     }
 
     public void topicMethod(TestMsg_ msg) {

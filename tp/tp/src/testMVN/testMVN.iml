@@ -74,9 +74,18 @@
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.9" level="project" />
     <orderEntry type="library" name="Maven: langlib.java:Node:1.0" level="project" />
     <orderEntry type="module-library">
-      <library name="Maven: com.ericsson.otp.erlang:OtpErlang:1.0">
+      <library name="Maven: com.ericsson.otp.erlang:ServiceTestResp:1.0">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../../../JLib/lib/OtpErlang.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: dev.msg.java:ServiceTestResp:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../dev/srv/java/ServiceTestResp.java!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
