@@ -1,0 +1,20 @@
+#!/bin/bash
+clear
+
+args=("$@")
+
+echo "Remove py_ibot_services from library"
+sudo -S rm -rf ${args[1]}/py_ibot_services
+
+echo "Remove py_ibot_messages from library"
+sudo -S rm -rf ${args[1]}/py_ibot_messages | echo 'alex!@#'
+
+cd ${args[0]}/dev/msg/python
+
+echo 'alex!@#' | sudo -S python setup.py build
+echo 'alex!@#' | sudo -S python setup.py install
+
+cd ${args[0]}/dev/srv/python
+
+echo 'alex!@#' | sudo -S python setup.py build
+echo 'alex!@#' | sudo -S python setup.py install

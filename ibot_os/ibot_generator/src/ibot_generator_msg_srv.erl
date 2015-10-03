@@ -15,10 +15,12 @@
 -include("spec_file_ext.hrl").
 -include("../../ibot_db/include/ibot_db_table_names.hrl").
 -include("../../ibot_db/include/ibot_db_project_config_param.hrl").
+-include("../../ibot_db/include/ibot_db_records.hrl").
+-include("ibot_generator_msg_srv_path.hrl").
 
 
 %% API
--export([generate_msg_srv/1, generate_all_msg_srv/0]).
+-export([generate_msg_srv/1, generate_all_msg_srv/0, generate_msg_source_files/2, generate_srv_source_files/2]).
 
 %% @doc
 %% Generate message files
@@ -29,7 +31,7 @@
 -spec generate_msg_srv(ProjectDir) -> ok when ProjectDir :: string().
 
 generate_msg_srv(ProjectDir) ->
-  generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
+  ibot_generator_msg_srv:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
     ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg source files
 
   ibot_generator_func_python:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
@@ -41,7 +43,7 @@ generate_msg_srv(ProjectDir) ->
 
 
 
-  generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
+  ibot_generator_msg_srv:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
     ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
 
   ibot_generator_func_python:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
@@ -49,6 +51,45 @@ generate_msg_srv(ProjectDir) ->
 
   ibot_generator_func_js:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
     ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
+
+  %% создание jar библиотек для java сообщений и сервисов
+  case os:type() of
+    {unix,linux} ->
+      case os:find_executable(bash) of
+        [] ->
+          throw({stop, executable_file_missing});
+
+        ExecutableFile ->
+          %% настройки конфигурации ядра
+          CoreConfigInfo = ibot_db_func_config:get_core_config_info(),
+          %% создание jar библиотек для сообщений и сервисов для java приложений
+          erlang:open_port({spawn_executable, ExecutableFile},
+            [{line,1000}, stderr_to_stdout,
+              {args,
+                [
+                  ?PATH_TO_CREATE_MSG_SRV_JAR,
+                  CoreConfigInfo#core_info.java_node_otp_erlang_lib_path,
+                  CoreConfigInfo#core_info.java_ibot_lib_jar_path,
+                  CoreConfigInfo#core_info.projectPath
+                ]
+              }
+            ]),
+
+          %% создание билда и установка файлов сообщений и сервисов для python приложений
+          erlang:open_port({spawn_executable, ExecutableFile},
+            [{line,1000}, stderr_to_stdout,
+              {args,
+                [
+                  ?PATH_TO_INSTALL_MSG_SRV_PYTHON,
+                  CoreConfigInfo#core_info.projectPath,
+                  CoreConfigInfo#core_info.python_setup_lib_system_path
+                ]
+              }
+            ])
+      end;
+    _ -> ok
+  end,
+
   ok.
 
 
@@ -94,7 +135,8 @@ generate_msg_source_files([FileName | FilesList], ProjectDir) ->
   ok;
 generate_msg_source_files([], _ProjectDir) ->
   %% Create JAR library for JAVA messages
-  ibot_core_func_cmd:run_exec(?JAVA_COMPILE_MSG_SOURCES),
+  %ibot_core_func_cmd:run_exec(?JAVA_COMPILE_MSG_SOURCES),
+  %% создание jar файлов
   ok.
 
 
@@ -127,7 +169,8 @@ generate_srv_source_files([FileName | FilesList], ProjectDir) ->
   ok;
 generate_srv_source_files([], _ProjectDir) ->
   %% Create JAR library for JAVA messages
-  ibot_core_func_cmd:run_exec(?JAVA_COMPILE_SRV_SOURCES),
+  %ibot_core_func_cmd:run_exec(?JAVA_COMPILE_SRV_SOURCES),
+  %% создание jar файлов
   ok.
 
 

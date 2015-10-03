@@ -273,6 +273,9 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
     <<"java_ibot_lib_jar_path">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{java_ibot_lib_jar_path = binary_to_list(Val)};
 
+    <<"python_setup_lib_system_path">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{python_setup_lib_system_path = binary_to_list(Val)};
+
     _ ->
       CoreInfoRecordNew = CoreInfoRecord,
       ok

@@ -1,0 +1,35 @@
+#!/bin/bash
+clear
+
+echo "Compile java messages"
+
+javac -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar /home/alex/iBotOS/iBotOS/tp/tp/dev/msg/java/*.java
+
+echo "Compile java messages"
+
+javac -classpath /usr/lib/erlang/lib/jinterface-1.5.12/priv/OtpErlang.jar:/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar /home/alex/iBotOS/iBotOS/tp/tp/dev/srv/java/*.java
+
+echo "Generate jar files"
+cd ~/iBotOS/iBotOS/tp/tp
+
+echo "Generate jar messages files"
+for entry in dev/msg/java/*.class
+do
+  echo "$entry"
+  filename=$(basename "$entry")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
+
+  jar cvf dev/msg/java/"$filename".jar dev/msg/java/"$filename".class
+done
+
+echo "Generate jar services files"
+for entry in dev/srv/java/*.class
+do
+  echo "$entry"
+  filename=$(basename "$entry")
+  extension="${filename##*.}"
+  filename="${filename%.*}"
+
+  jar cvf dev/srv/java/"$filename".jar dev/srv/java/"$filename".class
+done

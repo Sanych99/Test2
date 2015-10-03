@@ -8,7 +8,7 @@ cd ~/iBotOS/iBotOS/tp/tp
 for entry in dev/srv/java/*.class
 do
   echo "$entry"
-  filename=$(basename "$fullfile")
+  filename=$(basename "$entry")
   extension="${filename##*.}"
   filename="${filename%.*}"
 

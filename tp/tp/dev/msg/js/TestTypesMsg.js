@@ -2,7 +2,7 @@ function TestTypesMsg(msg) {
 
 	this.boolParam = true;
 
-	this.doubleParam = 0;
+	this.doubleParam = 0.0;
 
 	this.intPara = 0;
 
