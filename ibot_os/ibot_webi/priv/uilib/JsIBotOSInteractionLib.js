@@ -36,11 +36,9 @@ function open(hostName)
             case "send_data_to_ui" :
                 var cratedMessage; /*Объект сообщения от узла*/
                 var rMessage = new ReceivedMessage(received_msg); /*Парсим сообщение*/
-                switch (rMessage.messageClassName) {
-                    case "TestMsg" : cratedMessage = new TestMsg(rMessage.message);
-                        break;
-                }
-
+                var cratedMessage = new window[rMessage.messageClassName](rMessage.message);
+                var actionClass = new window[rMessage.messageClassName + '_logic'](cratedMessage);
+                actionClass.action();
                 break;
         }
     };
