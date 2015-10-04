@@ -10,13 +10,11 @@
 
 -include("../../ibot_core/include/debug.hrl").
 -include("msg_srv_java_generate_templates.hrl").
--include("msg_srv_compile_commands.hrl").
 -include("project_paths.hrl").
 -include("spec_file_ext.hrl").
 -include("../../ibot_db/include/ibot_db_table_names.hrl").
 -include("../../ibot_db/include/ibot_db_project_config_param.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
--include("ibot_generator_msg_srv_path.hrl").
 
 
 %% API
@@ -32,25 +30,25 @@
 
 generate_msg_srv(ProjectDir) ->
   ibot_generator_msg_srv:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all msg source files
+    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir), %% Generate all msg source files
 
   ibot_generator_func_python:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir),
+    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir),
 
   ibot_generator_func_js:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir),
+    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir),
 
 
 
 
   ibot_generator_msg_srv:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
+    ?SERVICE_DIR, ?SRV_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir), %% Generate all srv source files
 
   ibot_generator_func_python:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
+    ?SERVICE_DIR, ?SRV_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir), %% Generate all srv source files
 
   ibot_generator_func_js:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
-    ?SERVICE_DIR, ?SRV_FILE_EXT], ?DELIM_SYMBOL)), ProjectDir), %% Generate all srv source files
+    ?SERVICE_DIR, ?SRV_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir), %% Generate all srv source files
 
   %% создание jar библиотек для java сообщений и сервисов
   case os:type() of
@@ -127,7 +125,7 @@ generate_msg_source_files([FileName | FilesList], ProjectDir) ->
 
   JavaProjectMsgPath = ?DEV_MSG_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFile} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".java"], ""), [write]), %% Open generated file
+  {ok, GeneratedFile} = file:open(string:join([JavaProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, ".java"], ""), [write]), %% Open generated file
 
   for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName), %% Generate properties code
 
@@ -159,9 +157,9 @@ generate_srv_source_files([FileName | FilesList], ProjectDir) ->
 
   JavaProjectMsgPath = ?DEV_SRV_JAVA_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFileReq} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Req.java"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileReq} = file:open(string:join([JavaProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, "Req.java"], ""), [write]), %% Open generated file
 
-  {ok, GeneratedFileResp} = file:open(string:join([JavaProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Resp.java"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileResp} = file:open(string:join([JavaProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, "Resp.java"], ""), [write]), %% Open generated file
 
   for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp,RawFileName), %% Generate properties code
 

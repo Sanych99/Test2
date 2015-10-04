@@ -165,4 +165,3 @@ connect_to_distribute_project() ->
       %% инициализация узла по отправке сообщений пользовательскому интерфейсу /  init ui interaction sending message #state record
       ibot_nodes_srv_ui_interaction:init_state()
   end.
-

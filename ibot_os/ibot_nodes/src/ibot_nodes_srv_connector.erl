@@ -27,6 +27,7 @@
 -include("ibot_nodes_registration_info.hrl").
 -include("../../ibot_core/include/env_params.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
+-include("../../ibot_core/include/ibot_core_spec_symbols.hrl").
 
 -record(state, {node_port, node_name}).
 
@@ -153,10 +154,10 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                       CoreConigSettings#core_info.java_ibot_lib_jar_path,
                       ":",
                       ibot_db_func_config:get_full_project_path(),
-                      ?DELIM_PATH_SYMBOL, ?DEV_FOLDER, ?DELIM_PATH_SYMBOL, ?MESSAGE_DIR, ?DELIM_PATH_SYMBOL, ?JAVA_FOLDER,
+                      ?PATH_DELIMETER_SYMBOL, ?DEV_FOLDER, ?PATH_DELIMETER_SYMBOL, ?MESSAGE_DIR, ?PATH_DELIMETER_SYMBOL, ?JAVA_FOLDER,
                       ":",
                       ibot_db_func_config:get_full_project_path(),
-                      ?DELIM_PATH_SYMBOL, ?DEV_FOLDER, ?DELIM_PATH_SYMBOL, ?NODES_FOLDER, ?DELIM_PATH_SYMBOL, NodeName], ""),
+                      ?PATH_DELIMETER_SYMBOL, ?DEV_FOLDER, ?PATH_DELIMETER_SYMBOL, ?NODES_FOLDER, ?PATH_DELIMETER_SYMBOL, NodeName], ""),
                       %NodePreArguments, % Аргументы для исполняемого файла
                       NodeName, % Имя запускаемого узла
                       NodeName,
@@ -177,7 +178,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                   %% Start maven java node
                   ArgumentList = ["-cp",
                     string:join([string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName,
-                      string:join([NodeName, ".jar"], "")], ?DELIM_PATH_SYMBOL),
+                      string:join([NodeName, ".jar"], "")], ?PATH_DELIMETER_SYMBOL),
                     ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path], ""),
                     %NodePreArguments,
                     MainClassName,
@@ -212,7 +213,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
 
         ExecutableFile ->
         erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
-          {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?DELIM_PATH_SYMBOL),
+          {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?PATH_DELIMETER_SYMBOL),
             NodeName, net_adm:localhost(), atom_to_list(node()),
             CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
             CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node

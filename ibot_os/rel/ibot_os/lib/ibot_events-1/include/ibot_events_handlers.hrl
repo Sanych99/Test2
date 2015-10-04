@@ -4,12 +4,8 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 19. Февр. 2015 19:08
+%%% Created : 05. Oct 2015 3:36 AM
 %%%-------------------------------------------------------------------
 -author("alex").
 
-%-ifdef(debug).
--define(DBG_INFO(_Msg, _Params), io:format(_Msg, _Params)).
-%-else.
-%-define(DBG_INFO, ok).
-%-endif.
+-define(EH_EVENT_LOGGER, eh_event_logger).

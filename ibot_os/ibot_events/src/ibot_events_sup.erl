@@ -12,14 +12,13 @@
 -define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
 -define(CHILD_PARAMS(I, Type, Param), {I, {I, start_link, [Param]}, permanent, 5000, Type, [I]}).
 
+-include("ibot_events_handlers.hrl").
+
 %% ===================================================================
 %% API functions
 %% ===================================================================
 
 start_link() ->
-  %%{ok, Pid} = gen_event:start_link("my_event_bus"),
-  %{ok, Pid} = gen_server:start_link({local, test1}, test, [], []),
-  %io:format("~p~n", [Pid]),
   supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 %% ===================================================================
@@ -28,6 +27,6 @@ start_link() ->
 
 init([]) ->
     % Event Manager Child
-    EvenManager = ?CHILD_PARAMS(gen_event, worker, gen_event),
+    EvenManager = ?CHILD_PARAMS(gen_event, worker, {local, ?EH_EVENT_LOGGER}),
     {ok, { {one_for_one, 5, 10}, [EvenManager]} }.
 

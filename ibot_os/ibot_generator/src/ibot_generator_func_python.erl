@@ -33,7 +33,7 @@ generate_msg_source_files([FileName | FilesList], ProjectDir) ->
 
   PythonProjectMsgPath = ?DEV_MSG_PYTHON_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFile} = file:open(string:join([PythonProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".py"], ""), [write]), %% Open generated file
+  {ok, GeneratedFile} = file:open(string:join([PythonProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, ".py"], ""), [write]), %% Open generated file
 
   for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName), %% Generate properties code
 
@@ -64,9 +64,9 @@ generate_srv_source_files([FileName | FilesList], ProjectDir) ->
 
   PythonProjectMsgPath = ?DEV_SRV_PYTHON_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFileReq} = file:open(string:join([PythonProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Req.py"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileReq} = file:open(string:join([PythonProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, "Req.py"], ""), [write]), %% Open generated file
 
-  {ok, GeneratedFileResp} = file:open(string:join([PythonProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Resp.py"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileResp} = file:open(string:join([PythonProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, "Resp.py"], ""), [write]), %% Open generated file
 
   for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp,RawFileName), %% Generate properties code
 

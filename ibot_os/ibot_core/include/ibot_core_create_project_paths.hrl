@@ -12,6 +12,7 @@
 -include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
 -include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
 -include("ibot_core_project_statuses.hrl").
+-include("ibot_core_spec_symbols.hrl").
 
 %% @doc
 %%
@@ -24,9 +25,9 @@
                                              case ProjectStatus of
                                                ?DEVELOP ->
                                                  %% path for read node config file on DEVELOP project statues
-                                                 string:join([ProjectPath, ?PROJECT_SRC, NodeName, ?NODE_CONFIG_FILE], ?DELIM_PATH_SYMBOL);
+                                                 string:join([ProjectPath, ?PROJECT_SRC, NodeName, ?NODE_CONFIG_FILE], ?PATH_DELIMETER_SYMBOL);
                                                ?RELEASE ->
                                                  %% path for read node config file on RELEASE project statues
-                                                 string:join([ProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, ?NODE_CONFIG_FILE], ?DELIM_PATH_SYMBOL)
+                                                 string:join([ProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, ?NODE_CONFIG_FILE], ?PATH_DELIMETER_SYMBOL)
                                              end
                                          end).

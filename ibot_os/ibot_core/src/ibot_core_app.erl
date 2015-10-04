@@ -36,7 +36,7 @@ stop(_State) ->
 
 create_project(Path, Dir) ->
   ibot_db_func:add(?TABLE_CONFIG,
-    ?FULL_PROJECT_PATH, string:join([Path, Dir], ?DELIM_PATH_SYMBOL)), %% Add project full path to config
+    ?FULL_PROJECT_PATH, string:join([Path, Dir], ?PATH_DELIMETER_SYMBOL)), %% Add project full path to config
   ibot_core_func_cmd_cdir:create_project(Path, Dir). %% Create project directories
 
 %% @doc

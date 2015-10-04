@@ -16,7 +16,6 @@
 -include("debug.hrl").
 -include("ibot_core_create_project_paths.hrl").
 -include("ibot_core_modules_names.hrl").
--include("ibot_core_spec_symbols.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 
 %% API

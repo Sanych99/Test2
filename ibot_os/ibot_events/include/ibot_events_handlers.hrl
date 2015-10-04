@@ -4,6 +4,8 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 09. Mar 2015 10:42 PM
+%%% Created : 05. Oct 2015 3:36 AM
 %%%-------------------------------------------------------------------
--define(DELIM_SYMBOL, "/").
+-author("alex").
+
+-define(EH_EVENT_LOGGER, eh_event_logger).

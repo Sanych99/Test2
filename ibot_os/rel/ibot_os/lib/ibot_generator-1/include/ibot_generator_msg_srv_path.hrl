@@ -8,11 +8,12 @@
 %%%-------------------------------------------------------------------
 -author("alex").
 
+
 -define(PATH_TO_CREATE_MSG_SRV_JAR,
   case os:type() of
     {unix,linux} ->
       {ok, CurrentDir} = file:get_cwd(),
-      string:join([CurrentDir, "lib/ibot_core-1/priv/create_jar.sh"], "/");
+      string:join([CurrentDir, "lib", "ibot_core-1", "priv", "create_jar.sh"], ?PATH_DELIMETER_SYMBOL);
     _ -> ""
   end
 ).
@@ -21,7 +22,7 @@
   case os:type() of
     {unix,linux} ->
       {ok, CurrentDirProject} = file:get_cwd(),
-      string:join([CurrentDirProject, "lib/ibot_core-1/priv/install_py_msg_srv.sh"], "/");
+      string:join([CurrentDirProject, "lib", "ibot_core-1", "priv", "install_py_msg_srv.sh"], ?PATH_DELIMETER_SYMBOL);
     _ -> ""
   end
 ).

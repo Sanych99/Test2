@@ -20,6 +20,7 @@
 -include("../../ibot_core/include/ibot_core_reserve_atoms.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 -include("env_params.hrl").
+-include("ibot_core_spec_symbols.hrl").
 
 %% API
 -export([start_link/0]).
@@ -102,13 +103,13 @@ code_change(_OldVsn, State, _Extra) ->
 
 compile_all_nodes() ->
   case ibot_db_func_config:get_nodes_name_from_config() of %% get all nodes name
+    error -> ?DMI("compile_all_nodes", "error from ibot_db_func_config:get_nodes_name_from_config()");
     NodesList ->
       case ibot_db_func_config:get_full_project_path() of %% get full path to project directory
         ?FULL_PROJECT_PATH_NOT_FOUND -> ?FULL_PROJECT_PATH_NOT_FOUND; %% full ptoject path not found
         Full_Project_Path ->
           compile_node(NodesList, Full_Project_Path) %% compile all nodes
-      end;
-    _ -> ?DMI("compile_all_nodes", "error from ibot_db_func_config:get_nodes_name_from_config()")
+      end
   end,
   ok.
 
@@ -140,11 +141,11 @@ compile_one_node(NodeName) ->
   when NodeName :: string(), NodeNamesList :: list(), Full_Project_Path :: string().
 
 compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
-  CompileDevPath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER], ?DELIM_PATH_SYMBOL),
-  NodeCompilePath = string:join([CompileDevPath, NodeName], ?DELIM_PATH_SYMBOL), %% node compilation directory
+  CompileDevPath = string:join([Full_Project_Path, ?DEV_FOLDER, ?NODES_FOLDER], ?PATH_DELIMETER_SYMBOL),
+  NodeCompilePath = string:join([CompileDevPath, NodeName], ?PATH_DELIMETER_SYMBOL), %% node compilation directory
 
-  MessagePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?MESSAGE_DIR], ?DELIM_PATH_SYMBOL),
-  ServicePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?SERVICE_DIR], ?DELIM_PATH_SYMBOL),
+  MessagePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?MESSAGE_DIR], ?PATH_DELIMETER_SYMBOL),
+  ServicePath = string:join([Full_Project_Path, ?DEV_FOLDER, ?SERVICE_DIR], ?PATH_DELIMETER_SYMBOL),
 
   CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
 
@@ -155,8 +156,8 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
       case NodeInfoRecord#node_info.atomNodeLang of %% chack node lang
         %% compile java node
         java ->
-          NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL),
-          NodeSourcePath = string:join([NodePath, ?JAVA_NODE_SRC], ?DELIM_PATH_SYMBOL),
+          NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?PATH_DELIMETER_SYMBOL),
+          NodeSourcePath = string:join([NodePath, ?JAVA_NODE_SRC], ?PATH_DELIMETER_SYMBOL),
           ExecuteCommand = string:join(["javac", "-d", NodeCompilePath, "-classpath",
           string:join([
             CoreConigSettings#core_info.java_node_otp_erlang_lib_path ,
@@ -165,7 +166,7 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
             ":",
             ibot_db_func_config:get_full_project_path(), "/dev/msg/java:",
             ibot_db_func_config:get_full_project_path(),"/dev/srv/java"], ""),
-          string:join([NodeSourcePath, "*.java"], ?DELIM_PATH_SYMBOL)], " "),
+          string:join([NodeSourcePath, "*.java"], ?PATH_DELIMETER_SYMBOL)], " "),
           ?DMI("compile_node", [ExecuteCommand]),
           copy_node_config_to_dev_node(NodePath, NodeCompilePath),
           ibot_core_func_cmd:run_exec(ExecuteCommand);
@@ -173,8 +174,8 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
         python ->
           copy_msg_srv_files_to_dev_node(NodeCompilePath, MessagePath, NodeInfoRecord#node_info.messageFile, "python", ".py"),
           copy_msg_srv_files_to_dev_node(NodeCompilePath, ServicePath, NodeInfoRecord#node_info.serviceFile, "python", ".py"),
-          NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?DELIM_PATH_SYMBOL),
-          NodeSourcePath = string:join([NodePath, ?PYTHON_NODE_SRC], ?DELIM_PATH_SYMBOL),
+          NodePath = string:join([Full_Project_Path, ?PROJECT_SRC, NodeName], ?PATH_DELIMETER_SYMBOL),
+          NodeSourcePath = string:join([NodePath, ?PYTHON_NODE_SRC], ?PATH_DELIMETER_SYMBOL),
           ibot_core_func_cmd_cdir:copy_dir(NodeSourcePath, NodeCompilePath),
           copy_node_config_to_dev_node(NodePath, NodeCompilePath);
 
@@ -188,13 +189,13 @@ copy_msg_srv_files_to_dev_node(_NodeCompilePath, _SourcePath, [], _Lang, _Ext) -
   ok;
 copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, [MsgFile | MsgFileList], Lang, Ext) ->
   FileName = string:join([MsgFile, Ext], ""),
-  SourcePathFile = string:join([SourcePath, Lang, FileName], ?DELIM_PATH_SYMBOL),
-  DestinationPathFile = string:join([NodeCompilePath, FileName], ?DELIM_PATH_SYMBOL),
+  SourcePathFile = string:join([SourcePath, Lang, FileName], ?PATH_DELIMETER_SYMBOL),
+  DestinationPathFile = string:join([NodeCompilePath, FileName], ?PATH_DELIMETER_SYMBOL),
   ?DMI("copy_msg_srv_files_to_dev_node -> source | destination", [SourcePathFile, DestinationPathFile]),
   file:copy(SourcePathFile, DestinationPathFile),
   copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, MsgFileList, Lang, Ext).
 
 copy_node_config_to_dev_node(RootNodeFolder, DestinationNodeFolder) ->
-  SourceConfigFilePath = string:join([RootNodeFolder, "node_config.conf"], ?DELIM_PATH_SYMBOL),
-  DestinationConfigFilePath = string:join([DestinationNodeFolder, "node_config.conf"], ?DELIM_PATH_SYMBOL),
+  SourceConfigFilePath = string:join([RootNodeFolder, "node_config.conf"], ?PATH_DELIMETER_SYMBOL),
+  DestinationConfigFilePath = string:join([DestinationNodeFolder, "node_config.conf"], ?PATH_DELIMETER_SYMBOL),
   file:copy(SourceConfigFilePath, DestinationConfigFilePath).

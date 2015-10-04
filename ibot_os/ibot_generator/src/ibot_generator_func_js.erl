@@ -33,7 +33,7 @@ generate_msg_source_files([FileName | FilesList], ProjectDir) ->
 
   JsProjectMsgPath = ?DEV_MSG_JS_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFile} = file:open(string:join([JsProjectMsgPath, ?DELIM_SYMBOL, RawFileName, ".js"], ""), [write]), %% Open generated file
+  {ok, GeneratedFile} = file:open(string:join([JsProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, ".js"], ""), [write]), %% Open generated file
 
   for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName), %% Generate properties code
 
@@ -64,9 +64,9 @@ generate_srv_source_files([FileName | FilesList], ProjectDir) ->
 
   JsProjectMsgPath = ?DEV_SRV_JS_PATH(ProjectMsgPath), %% Java msg generated files folder
 
-  {ok, GeneratedFileReq} = file:open(string:join([JsProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Req.js"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileReq} = file:open(string:join([JsProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, "Req.js"], ""), [write]), %% Open generated file
 
-  {ok, GeneratedFileResp} = file:open(string:join([JsProjectMsgPath, ?DELIM_SYMBOL, RawFileName, "Resp.js"], ""), [write]), %% Open generated file
+  {ok, GeneratedFileResp} = file:open(string:join([JsProjectMsgPath, ?PATH_DELIMETER_SYMBOL, RawFileName, "Resp.js"], ""), [write]), %% Open generated file
 
   for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp,RawFileName), %% Generate properties code
 

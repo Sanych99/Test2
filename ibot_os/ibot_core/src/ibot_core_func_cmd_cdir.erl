@@ -178,8 +178,8 @@ copy_dir(Source, Destination)->
 copy_file_from_to_dir(Source, Destination, []) ->
     ok;
 copy_file_from_to_dir(Source, Destination, [FileName | FileList]) ->
-  SourceFile = string:join([Source, FileName], ?DELIM_PATH_SYMBOL),
-  DestinationFile = string:join([Destination, FileName], ?DELIM_PATH_SYMBOL),
+  SourceFile = string:join([Source, FileName], ?PATH_DELIMETER_SYMBOL),
+  DestinationFile = string:join([Destination, FileName], ?PATH_DELIMETER_SYMBOL),
   ?DMI("copy_file_from_to_dir -> source | destination", [SourceFile, DestinationFile]),
   file:copy(SourceFile, DestinationFile),
   copy_file_from_to_dir(Source, Destination, FileList).
