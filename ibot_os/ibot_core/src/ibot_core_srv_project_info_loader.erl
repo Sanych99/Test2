@@ -266,6 +266,9 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
     <<"ui_interaction_node">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{ui_interaction_node = binary_to_list(Val)};
 
+    <<"logger_interaction_node">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{logger_interaction_node = binary_to_list(Val)};
+
     <<"java_node_otp_erlang_lib_path">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{java_node_otp_erlang_lib_path = binary_to_list(Val)};
 
@@ -274,6 +277,15 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
 
     <<"python_setup_lib_system_path">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{python_setup_lib_system_path = binary_to_list(Val)};
+
+    <<"logger_log_file_path">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{logger_log_file_path = binary_to_list(Val)};
+
+    <<"logger_log_file_name">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{logger_log_file_name = binary_to_list(Val)};
+
+    <<"logger_log_file_max_row_count">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{logger_log_file_max_row_count = binary_to_integer(Val)};
 
     _ ->
       CoreInfoRecordNew = CoreInfoRecord,

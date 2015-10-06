@@ -11,6 +11,16 @@ import java.util.*;
  */
 public abstract class BotNode implements IBotNode {
 
+    //====== Константы / Constants Start ======
+
+    public final String LOG_TYPE_MESSAGE = "Message";
+    public final String LOG_TYPE_WARNING = "Warning";
+    public final String LOG_TYPE_ERROR = "Error";
+
+    private OtpErlangTuple logSenderName;
+
+    //====== Константы / Constants End ======
+
     /**
      * Current server name machine name
      */
@@ -55,6 +65,8 @@ public abstract class BotNode implements IBotNode {
     private String connectorCodeNode;
 
     private String uiInteractionNode;
+
+    private String loggerInteractionNode;
 
     /**
      * Core node cookies
@@ -203,7 +215,8 @@ public abstract class BotNode implements IBotNode {
         this.publisherCoreNode = args[4]; // init publisher node name
         this.serviceCoreNode = args[5]; // init service node name
         this.uiInteractionNode = args[6]; // init ui interaction node name
-        this.coreCookie = args[7]; // init core node cookie
+        this.loggerInteractionNode = args[7]; // init message logger node name
+        this.coreCookie = args[8]; // init core node cookie
 
         this.subscribeDic = new HashMap<>(); // init subscribers collection
 
@@ -216,6 +229,12 @@ public abstract class BotNode implements IBotNode {
 
         this.coreIsActive = true;
         this.coreIsActiveLocker = new Object();
+
+        //идентификатор отправителя сообщения для лога / message log sender identification
+        OtpErlangObject[] logSenderObject = new OtpErlangObject[2];
+        logSenderObject[0] = new OtpErlangString(this.otpNodeName);
+        logSenderObject[1] = new OtpErlangString(this.coreNodeName);
+        this.logSenderName = new OtpErlangTuple(logSenderObject);
 
         receiveMBoxMessageThread.start();
     }
@@ -354,11 +373,11 @@ public abstract class BotNode implements IBotNode {
 
     public void sendMessageToUI(Object msg, String msgClassName, String additionalInfo) throws Exception
     {
-        System.out.println("sendMessageToUI start... " + this.otpNodeName);
+        //System.out.println("sendMessageToUI start... " + this.otpNodeName);
 
         IBotMsgInterface msgIn = (IBotMsgInterface)msg;
 
-        System.out.println("sendMessageToUI IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
+        //System.out.println("sendMessageToUI IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
 
         OtpErlangObject[] subscribeObject = new OtpErlangObject[5];
         subscribeObject[0] = new OtpErlangAtom("send_data_to_ui");
@@ -366,10 +385,36 @@ public abstract class BotNode implements IBotNode {
         subscribeObject[2] = new OtpErlangAtom(msgClassName);
         subscribeObject[3] = new OtpErlangAtom(additionalInfo);
         subscribeObject[4] = msgIn.get_Msg();
-        System.out.println("sendMessageToUI subscribeObject[4] = msgIn.get_Msg();... ");
+        //System.out.println("sendMessageToUI subscribeObject[4] = msgIn.get_Msg();... ");
         this.otpMboxAsync.send(this.uiInteractionNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
-        System.out.println("sendMessageToUI  complete" + this.otpNodeName);
+        //System.out.println("sendMessageToUI  complete" + this.otpNodeName);
     }
+
+
+    //====== Логгирование / Logging Start======
+
+    public void logMessage(String MessageText) {
+        this.logMessage(LOG_TYPE_MESSAGE, MessageText);
+    }
+
+    public void logWarning(String MessageText) {
+        this.logMessage(LOG_TYPE_WARNING, MessageText);
+    }
+
+    public void logError(String MessageText) {
+        this.logMessage(LOG_TYPE_ERROR, MessageText);
+    }
+
+    private void logMessage(String MessageType, String MessageText) {
+        OtpErlangObject[] loggerObject = new OtpErlangObject[4];
+        loggerObject[0] = new OtpErlangAtom("node_logger_message");
+        loggerObject[1] = new OtpErlangString(MessageType);
+        loggerObject[2] = new OtpErlangString(MessageText);
+        loggerObject[3] = this.logSenderName;
+        this.otpMboxAsync.send(this.loggerInteractionNode, this.coreNodeName, new OtpErlangTuple(loggerObject));
+    }
+
+    //====== Логгирование / Logging End======
 
     //public void subscribe(String methodName)
     //{

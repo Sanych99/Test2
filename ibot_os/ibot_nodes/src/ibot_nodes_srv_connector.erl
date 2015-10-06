@@ -168,6 +168,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                       CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
                       CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
                       CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
+                      CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
                       erlang:get_cookie()] % Значение Cookies для узла
                       %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
                   ]

@@ -1,4 +1,4 @@
-%% script generated at {2015,10,5} {4,23,36}
+%% script generated at {2015,10,7} {4,47,26}
 {script,
     {"ibot_os","1"},
     [{preLoaded,[]},
@@ -125,7 +125,7 @@
      {path,["$ROOT/lib/ibot_events-1/ebin"]},
      {primLoad,
          [ibot_events_app,ibot_events_evs,ibot_events_srv_logger,
-          ibot_events_sup,test]},
+          ibot_events_srv_node_interaction,ibot_events_sup,test]},
      {path,["$ROOT/lib/ibot_ri-1/ebin"]},
      {primLoad,[ibot_ri_app,ibot_ri_srv_distribute,ibot_ri_sup,t]},
      {progress,modules_loaded},
@@ -562,7 +562,9 @@
                    {id,[]},
                    {modules,
                        [ibot_events_app,ibot_events_evs,
-                        ibot_events_srv_logger,ibot_events_sup,test]},
+                        ibot_events_srv_logger,
+                        ibot_events_srv_node_interaction,ibot_events_sup,
+                        test]},
                    {registered,[]},
                    {applications,[kernel,stdlib]},
                    {included_applications,[]},
@@ -605,6 +607,7 @@
      {apply,{application,start_boot,[ibot_webi,permanent]}},
      {apply,{application,start_boot,[ibot_nodes,permanent]}},
      {apply,{application,start_boot,[mnesia,permanent]}},
+     {apply,{application,start_boot,[ibot_events,permanent]}},
      {apply,{c,erlangrc,[]}},
      {progress,started}]}.
 

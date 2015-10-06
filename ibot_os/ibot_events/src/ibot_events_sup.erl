@@ -26,7 +26,10 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    % Event Manager Child
-    EvenManager = ?CHILD_PARAMS(gen_event, worker, {local, ?EH_EVENT_LOGGER}),
-    {ok, { {one_for_one, 5, 10}, [EvenManager]} }.
+
+  %% Event Manager Child
+  EvenManager = ?CHILD_PARAMS(gen_event, worker, {local, ?EH_EVENT_LOGGER}),
+  %% Event Manager Nodes Interaction
+  EvenManagerNodesInteraction = ?CHILD(?IBOT_EVENTS_SRV_NODE_INTERACTION, worker),
+  {ok, { {one_for_one, 5, 10}, [EvenManager, EvenManagerNodesInteraction]} }.
 

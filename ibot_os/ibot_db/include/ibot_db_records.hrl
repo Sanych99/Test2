@@ -12,9 +12,13 @@
   topic_node :: string(),
   service_node :: string(),
   ui_interaction_node :: string(),
+  logger_interaction_node :: string(),
   java_node_otp_erlang_lib_path :: string(),
   java_ibot_lib_jar_path :: string(),
-  python_setup_lib_system_path :: string()
+  python_setup_lib_system_path :: string(),
+  logger_log_file_path :: string(),
+  logger_log_file_name :: string(),
+  logger_log_file_max_row_count :: integer()
 }).
 
 -record(project_info, {

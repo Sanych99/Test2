@@ -4,10 +4,11 @@
 %%% @doc
 %%%
 %%% @end
-%%% Created : 05. Oct 2015 3:36 AM
+%%% Created : 06. Oct 2015 3:40 AM
 %%%-------------------------------------------------------------------
 -author("alex").
 
--define(EH_EVENT_LOGGER, eh_event_logger).
--define(IBOT_EVENTS_SRV_LOGGER, ibot_events_srv_logger).
--define(IBOT_EVENTS_SRV_NODE_INTERACTION, ibot_events_srv_node_interaction).
+-define(T_MESSAGE, "Message").
+-define(T_ERROR, "Error").
+-define(T_WARNING, "Warning").
+-define(T_UNDEFINE, "Undefine").
