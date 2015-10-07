@@ -17,6 +17,14 @@ class BotNode:
     # class constructor
     def __init__(self, args):  # class constructor
 
+        # ====== Константы / Constants Start ======
+
+        self.LOG_TYPE_MESSAGE = "Message"
+        self.LOG_TYPE_WARNING = "Warning"
+        self.LOG_TYPE_ERROR = "Error"
+
+        # ====== Константы / Constants End ======
+
         self.otpNodeName = args[0]  # init node name
         self.currentServerName = args[1]  # init current server name
         self.coreNodeName = args[2]  # init core node name
@@ -25,8 +33,9 @@ class BotNode:
         self.connectorCodeNode = args[3]  # init connector node name
         self.publisherCoreNode = args[4]  # init publisher node name
         self.serviceCoreNode = args[5]  # init service node name
-        self.uiInteractionNode = args[6] # init ui interaction node name
-        self.coreCookie = args[7]  # init core node cookie
+        self.uiInteractionNode = args[6]  # init ui interaction node name
+        self.loggerInteractionNode = args[7]  # init message logger node name
+        self.coreCookie = args[8]  # init core node cookie
 
         self.otpNode = self.create_node()  # create node
         self.otpNode.Publish()
@@ -41,6 +50,8 @@ class BotNode:
         # self.coreIsActiveLocker = object # operation in action locker
 
         self.isMonitor = False
+
+        self.logSenderName = (self.otpNodeName, self.coreNodeName)
 
         # System message receive functions
         self.receiveSystemMessageFunctions = {
@@ -81,22 +92,6 @@ class BotNode:
         print "send message"
 
     # === create node elements methods end ===
-
-    # def publishMessage(self):
-    # print "Send..."
-    # self.otpMbox.Send(("ibot_nodes_srv_topic", "core@alex-K55A"),
-    # ("broadcast",
-    # "MBoxName",
-    # "NodeServerName",
-    # "TopicName",
-    # "Message"))
-    #    print "Send2..."
-
-    # def setMethod(self, method):
-    #    self.em = method
-
-    # def execMethod(self):
-    #    self.em()
 
     # ====== System message operations Start ======
 
@@ -218,6 +213,8 @@ class BotNode:
 
     # ====== Publish/Subscribe to topic method End ======
 
+
+
     # ====== Other node in project Start ======
 
     def start_project_node(self, node_name):
@@ -234,8 +231,25 @@ class BotNode:
 
     # ====== Other node in project End ======
 
+    # ====== Логгирование / Logging Start ======
+
+    def log_message(self, message_text):
+        self.log_message(self.LOG_TYPE_MESSAGE, message_text)
+
+    def log_warning(self, message_text):
+        self.log_message(self.LOG_TYPE_WARNING, message_text)
+
+    def log_error(self, message_text):
+        self.log_message(self.LOG_TYPE_ERROR, message_text)
+
+    def log_message(self, message_type, message_text):
+        obj0 = erl_term.ErlAtom("node_logger_message")
+        self.otpMboxAsync.Send((self.loggerInteractionNode, self.coreNodeName),
+                               (obj0, message_type, message_text, self.logSenderName))
+    # ====== Логгирование / Logging Stop ======
 
     # ====== Services methods Start ======
+
     def register_service_client(self, server_service_method_name,
                                 client_service_method_name, client_service_method,
                                 service_request, service_response):
@@ -253,7 +267,6 @@ class BotNode:
                                                      service_request, service_response, client_service_method)
 
             self.asyncServiceClientDic[server_service_method_name] = service_client
-
 
     # Registration service server
     def register_service_server(self, service_method, service_method_name, request_type, response_type):
@@ -312,4 +325,4 @@ class BotNode:
 
         self.isMonitor = False
 
-        # ====== Monitor methods End ======
+    # ====== Monitor methods End ======

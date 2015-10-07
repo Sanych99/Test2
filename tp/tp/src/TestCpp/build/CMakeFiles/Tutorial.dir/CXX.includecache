@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/src/tutorial.cxx
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+
