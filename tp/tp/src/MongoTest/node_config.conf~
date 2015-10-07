@@ -1,7 +1,0 @@
-{
-"nodeName":"MongoTest",
-"nodeLang":"java",
-"nodeExecutable":"java"
-"projectType":"maven",
-"mainClassName":"ibot.mongotest.MongoTest"
-}
