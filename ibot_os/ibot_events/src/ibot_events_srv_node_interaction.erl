@@ -60,7 +60,7 @@ handle_info({node_logger_message, MessageType, MessageText, SenderNodeName}, Sta
     ?T_ERROR -> ?LOG_ERROR(MessageText, SenderNodeName); %% сообщение ошибки / error message
     _ -> ?LOG_UNDEFINE(MessageText, SenderNodeName) %% неопределенный тип сообщения / undefine type message
   end,
-  ok;
+  {noreply, State};
 
 handle_info(_Info, State) ->
   {noreply, State}.

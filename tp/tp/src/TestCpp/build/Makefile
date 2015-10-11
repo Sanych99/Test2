@@ -111,29 +111,29 @@ Tutorial/fast:
 	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/build
 .PHONY : Tutorial/fast
 
-src/tutorial.o: src/tutorial.cxx.o
+src/tutorial.o: src/tutorial.c.o
 .PHONY : src/tutorial.o
 
 # target to build an object file
-src/tutorial.cxx.o:
-	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/src/tutorial.cxx.o
-.PHONY : src/tutorial.cxx.o
+src/tutorial.c.o:
+	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/src/tutorial.c.o
+.PHONY : src/tutorial.c.o
 
-src/tutorial.i: src/tutorial.cxx.i
+src/tutorial.i: src/tutorial.c.i
 .PHONY : src/tutorial.i
 
 # target to preprocess a source file
-src/tutorial.cxx.i:
-	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/src/tutorial.cxx.i
-.PHONY : src/tutorial.cxx.i
+src/tutorial.c.i:
+	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/src/tutorial.c.i
+.PHONY : src/tutorial.c.i
 
-src/tutorial.s: src/tutorial.cxx.s
+src/tutorial.s: src/tutorial.c.s
 .PHONY : src/tutorial.s
 
 # target to generate assembly for a file
-src/tutorial.cxx.s:
-	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/src/tutorial.cxx.s
-.PHONY : src/tutorial.cxx.s
+src/tutorial.c.s:
+	$(MAKE) -f CMakeFiles/Tutorial.dir/build.make CMakeFiles/Tutorial.dir/src/tutorial.c.s
+.PHONY : src/tutorial.c.s
 
 # Help Target
 help:

@@ -39,7 +39,7 @@ public class TestMVN extends BotNode
 
         testMsg_.set_stringList(testStrList);
 
-        //this.publishMessage("testTopic", testMsg_);
+        this.publishMessage("testTopic", testMsg_);
 
         this.subscribeToTopic("new_gen_msg_response", "newMethod", TestTypesMsg.class);
         TestTypesMsg testTypesMsg = new TestTypesMsg();

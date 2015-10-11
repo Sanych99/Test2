@@ -1,4 +1,4 @@
-%% script generated at {2015,10,8} {4,56,55}
+%% script generated at {2015,10,12} {4,46,0}
 {script,
     {"ibot_os","1"},
     [{preLoaded,[]},
@@ -124,7 +124,7 @@
           mnesia_sp,mnesia_subscr,mnesia_sup,mnesia_text,mnesia_tm]},
      {path,["$ROOT/lib/ibot_events-1/ebin"]},
      {primLoad,
-         [ibot_events_app,ibot_events_evs,ibot_events_srv_logger,
+         [complex3,ibot_events_app,ibot_events_evs,ibot_events_srv_logger,
           ibot_events_srv_node_interaction,ibot_events_sup,test]},
      {path,["$ROOT/lib/ibot_ri-1/ebin"]},
      {primLoad,[ibot_ri_app,ibot_ri_srv_distribute,ibot_ri_sup,t]},
@@ -561,7 +561,7 @@
                    {vsn,"1"},
                    {id,[]},
                    {modules,
-                       [ibot_events_app,ibot_events_evs,
+                       [complex3,ibot_events_app,ibot_events_evs,
                         ibot_events_srv_logger,
                         ibot_events_srv_node_interaction,ibot_events_sup,
                         test]},

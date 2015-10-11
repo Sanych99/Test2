@@ -1,12 +1,12 @@
 # The set of languages for which implicit dependencies are needed:
 SET(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
+  "C"
   )
 # The set of files for implicit dependencies of each language:
-SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/src/tutorial.cxx" "/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/build/CMakeFiles/Tutorial.dir/src/tutorial.cxx.o"
+SET(CMAKE_DEPENDS_CHECK_C
+  "/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/src/tutorial.c" "/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/build/CMakeFiles/Tutorial.dir/src/tutorial.c.o"
   )
-SET(CMAKE_CXX_COMPILER_ID "GNU")
+SET(CMAKE_C_COMPILER_ID "GNU")
 
 # Targets to which this target links.
 SET(CMAKE_TARGET_LINKED_INFO_FILES

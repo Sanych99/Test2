@@ -1,0 +1,2 @@
+Создание узла ява
+mvn archetype:generate -DgroupId=ibot.java.nodes -DartifactId=first_java -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false

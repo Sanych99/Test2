@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/src/tutorial.c
+stdio.h
+-
+stdlib.h
+-
+math.h
+-
+string.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+erl_interface.h
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/src/erl_interface.h
+ei.h
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp/src/ei.h
+

@@ -180,7 +180,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                   ArgumentList = ["-cp",
                     string:join([string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName,
                       string:join([NodeName, ".jar"], "")], ?PATH_DELIMETER_SYMBOL),
-                    ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path], ""),
+                    ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path, ":",
+                      CoreConigSettings#core_info.java_ibot_lib_jar_path], ""),
                     %NodePreArguments,
                     MainClassName,
                     NodeName, % Имя запускаемого узла
@@ -221,6 +222,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
             CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
             CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
             CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
+            CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
             erlang:get_cookie()
           ]}]),
 

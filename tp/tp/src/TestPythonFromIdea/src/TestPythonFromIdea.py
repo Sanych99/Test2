@@ -15,8 +15,8 @@ class TestPythonFromIdea(BotNode):
 
     def action(self):
         self.monitor_start();
-        #self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
-        self.subscribe_to_topic("new_gen_msg", self.requestNewMethod, TestTypesMsg)
+        self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
+        #self.subscribe_to_topic("new_gen_msg", self.requestNewMethod, TestTypesMsg)
 
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.get_strParam()
@@ -29,7 +29,7 @@ class TestPythonFromIdea(BotNode):
         tm.set_floatParam(float(2.55))
         tm.set_boolParam(bool(False))
         tm.set_strList(["list from 1", "list from 2", "list from 3"])
-        self.publish_message("test_topic_from_py", tm)
+        self.publish_message("tecd st_topic_from_py", tm)
 
     def requestNewMethod(self, msg):
         print "new msg str: ", msg.get_strParam()

@@ -234,15 +234,15 @@ class BotNode:
     # ====== Логгирование / Logging Start ======
 
     def log_message(self, message_text):
-        self.log_message(self.LOG_TYPE_MESSAGE, message_text)
+        self.log_msg(self.LOG_TYPE_MESSAGE, message_text)
 
     def log_warning(self, message_text):
-        self.log_message(self.LOG_TYPE_WARNING, message_text)
+        self.log_msg(self.LOG_TYPE_WARNING, message_text)
 
     def log_error(self, message_text):
-        self.log_message(self.LOG_TYPE_ERROR, message_text)
+        self.log_msg(self.LOG_TYPE_ERROR, message_text)
 
-    def log_message(self, message_type, message_text):
+    def log_msg(self, message_type, message_text):
         obj0 = erl_term.ErlAtom("node_logger_message")
         self.otpMboxAsync.Send((self.loggerInteractionNode, self.coreNodeName),
                                (obj0, message_type, message_text, self.logSenderName))

@@ -15,8 +15,8 @@ class TestPythonFromIdea(BotNode):
 
     def action(self):
         self.monitor_start();
-        #self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
-        self.subscribe_to_topic("new_gen_msg", self.requestNewMethod, TestTypesMsg)
+        self.subscribe_to_topic("testTopic", self.cbmMethod, TestMsg)
+        #self.subscribe_to_topic("new_gen_msg", self.requestNewMethod, TestTypesMsg)
 
     def cbmMethod(self, msg):
         print "receive message  from new msg: ", msg.get_strParam()

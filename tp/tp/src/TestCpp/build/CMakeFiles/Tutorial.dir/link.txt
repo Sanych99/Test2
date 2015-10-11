@@ -1,1 +1,1 @@
-/usr/bin/c++       CMakeFiles/Tutorial.dir/src/tutorial.cxx.o  -o Tutorial -rdynamic 
+/usr/bin/cc      CMakeFiles/Tutorial.dir/src/tutorial.c.o  -o Tutorial -rdynamic -lerl_interface -lei -lpthread -lnsl 
