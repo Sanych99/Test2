@@ -1,0 +1,69 @@
+#ifndef BOTNODE_H
+#define BOTNODE_H
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string>
+#include "erl_interface.h"
+#include "ei.h"
+
+using namespace std;
+
+class BotNode {
+	private:
+		BotNode();
+
+		ETERM **logSenderName;
+
+		/** Current server name machine name */
+		string currentServerName;
+
+		/** Java Otp node */
+		//private OtpNode otpNode;
+
+		/** Java Otp node name */
+		string otpNodeName;
+
+		/** Otp node mail box */
+		//private OtpMbox otpMboxAsync;
+
+		/** Otp node mail box name */
+		string otpMboxNameAsync;
+
+		//private OtpMbox otpMbox;
+
+		string otpMboxName;
+
+		/** Server name core@machine_name */
+		string coreNodeName;
+
+		/** Core message publisher module */
+		string publisherCoreNode;
+
+		string serviceCoreNode;
+
+		string connectorCodeNode;
+
+		string uiInteractionNode;
+
+		string loggerInteractionNode;
+
+		/** Core node cookies */
+		string coreCookie;
+
+	public:
+		//====== Константы / Constants Start ======
+
+		static const string LOG_TYPE_MESSAGE;
+		static const string LOG_TYPE_WARNING;
+		static const string LOG_TYPE_ERROR;
+
+		//====== Константы / Constants End ======
+
+		BotNode(int argc, char *argv[]); 
+
+		virtual void action();
+};
+
+#endif

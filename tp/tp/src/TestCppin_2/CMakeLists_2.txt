@@ -1,0 +1,68 @@
+#cmake_minimum_required (VERSION 2.6)
+#project (TestPC)
+cmake_minimum_required (VERSION 2.6)
+project (TestCpp_2)
+
+set(SRC_PATH src)
+
+set(TINCH_LIB /usr/local/tinch_pp-0.3.0/lib)
+set(TINCH_IMPL /usr/local/tinch_pp-0.3.0/impl)
+set(TINCH_DIR /usr/local/tinch_pp-0.3.0)
+
+include_directories(${TINCH_LIB})
+include_directories(${TINCH_IMPL})
+include_directories(${TINCH_DIR})
+
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${C_LIB_OUTPUT_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${C_LIB_OUTPUT_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${C_BIN_OUTPUT_DIR})
+
+#Создание статических библиотек
+add_library(cpp_ibot_lib STATIC ${LIB_SOURCES} ${HEADERS})
+
+#Для создания статической библиотеки
+target_link_libraries (cpp_ibot_lib erl_interface ei pthread nsl)
+
+
+
+
+
+
+#set(SRC_PATH /home/alex/iBotOS/iBotOS/tp/tp/src/TestCppin_2/src)
+#set(IBOT_LIB_PATH /home/alex/iBotOS/iBotOS/CLib/lib)
+#set(IBOT_INCLUDES_PATH /home/alex/iBotOS/iBotOS/CLib/includes)
+
+
+#include_directories(${IBOT_LIB_PATH})
+#include_directories(${IBOT_INCLUDES_PATH})
+
+#set(TINCH_LIB /usr/local/tinch_pp-0.3.0/lib)
+#set(TINCH_IMPL /usr/local/tinch_pp-0.3.0/impl)
+#set(TINCH_DIR /usr/local/tinch_pp-0.3.0)
+
+#include_directories(${INCLUDE_PATH})
+#include_directories(${TINCH_LIB})
+#include_directories(${TINCH_IMPL})
+#include_directories(${TINCH_DIR})
+
+#set(HEADERS ${INCLUDE_PATH}/ParentClass.h)
+#set(LIB_SOURCES ${SRC_PATH}/ParentClass.cxx)
+
+#set(EXECUTABLE_FILES ${SRC_PATH}/main.cxx)
+
+#set(CPP_IBOT_LIB ${IBOT_LIB_PATH}/libcpp_ibot_lib.a)
+#set(CPP_IBOT_INLUDES ${IBOT_INCLUDES_PATH}/BotNode.h)
+
+#Создание статических библиотек
+#add_library(ParentClassLib STATIC ${LIB_SOURCES} ${HEADERS})
+
+#Добавление внешних библиотек
+#set(PP /home/alex/iBotOS/iBotOS/tp/tp/src/TestCppin_2)
+#link_directories(${PP})
+
+#add_executable(TestPC ${EXECUTABLE_FILES})
+#target_link_libraries (TestPC ${CPP_IBOT_LIB} ${CPP_IBOT_INLUDES})
+
+#Для создания статической библиотеки
+#target_link_libraries (TutorialLib erl_interface ei pthread nsl)

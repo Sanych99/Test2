@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../includes/ParentClass.h
+
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCppin/src/ParentClass.cxx
+stdio.h
+-
+stdlib.h
+-
+iostream
+-
+ParentClass.h
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCppin/src/ParentClass.h
+

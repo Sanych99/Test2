@@ -1,19 +1,28 @@
 // A simple program that computes the square root of a number
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
-#include <string.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
+#include <iostream>
 
 #include "erl_interface.h"
 #include "ei.h"
 
+#define NODE   "madonna@127.0.0.1"
+#define ALIVE  "madonna"
+#define IP_ADDR "127.0.0.1"
 
 #define BUFSIZE 1000
 
+using namespace std;
+
+class test1 {
+};
+
+class tutorial: test1 {
+public:
 int foo(int x) {
   return x+1;
 }
@@ -21,63 +30,12 @@ int foo(int x) {
 int bar(int y) {
   return y*2;
 }
+};
 
-int main (int argc, char *argv[])
+int main ()
 {
-
-
-	int fd;                                  /* fd to Erlang node */
-	int loop = 1;                            /* Loop flag */
-	int got;                                 /* Result of receive */
-	unsigned char buf[BUFSIZE];              /* Buffer for incoming message */
-	ErlMessage emsg;                         /* Incoming message */
-
-
-	ETERM *fromp, *tuplep, *fnp, *argp, *resp;
-	int res;
-
-	erl_init(NULL, 0);
-fprintf(stderr, "One\n\r");
-/*===================Other=======================*/
-	  if (erl_connect_init(1, "jv", 0) == -1)
-    erl_err_quit("erl_connect_init");
-fprintf(stderr, "Two\n\r");
-  if ((fd = erl_connect("e1@alex-N550JK")) < 0) {
-	fprintf(stderr, "%i\n\r", fd);
-    erl_err_quit("erl_connect");
-	
-}
-  fprintf(stderr, "Connected to ei@idril\n\r");
-
-  while (loop) {
-
-    got = erl_receive_msg(fd, buf, BUFSIZE, &emsg);
-    if (got == ERL_TICK) {
-      /* ignore */
-    } else if (got == ERL_ERROR) {
-      loop = 0;
-    } else {
-
-      if (emsg.type == ERL_REG_SEND) {
-	fromp = erl_element(2, emsg.msg);
-	tuplep = erl_element(3, emsg.msg);
-	fnp = erl_element(1, tuplep);
-	argp = erl_element(2, tuplep);
-
-	if (strncmp(ERL_ATOM_PTR(fnp), "foo", 3) == 0) {
-	  res = foo(ERL_INT_VALUE(argp));
-	} else if (strncmp(ERL_ATOM_PTR(fnp), "bar", 3) == 0) {
-	  res = bar(ERL_INT_VALUE(argp));
-	}
-
-	resp = erl_format("{cnode, ~i}", res);
-	erl_send(fd, fromp, resp);
-
-	erl_free_term(emsg.from); erl_free_term(emsg.msg);
-	erl_free_term(fromp); erl_free_term(tuplep);
-	erl_free_term(fnp); erl_free_term(argp);
-	erl_free_term(resp);
-      }
-    }
-  }
+	tutorial *bar;
+	bar = new tutorial();
+	cout << "obj's area: " << bar->foo(5) << '\n';
+	cout << "obj's area: " << bar->bar(5) << '\n';
 }

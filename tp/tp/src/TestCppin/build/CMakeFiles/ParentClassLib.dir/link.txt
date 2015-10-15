@@ -1,0 +1,2 @@
+/usr/bin/ar cr libParentClassLib.a  CMakeFiles/ParentClassLib.dir/src/ParentClass.cxx.o
+/usr/bin/ranlib libParentClassLib.a

@@ -1,0 +1,10 @@
+{
+"projectName":"tp",
+"mainProject":"true",
+"distributedProject":"false",
+"projectAutoRun":"false",
+"childrenProjects":[{"projectName":"core19@alex-N550JK"}],
+"projectState":"develop",
+"projectNodes":["test_py", "BLA_BLA_BLA", "MongoTest", "testMVN", "PubsubServer", "TestPythonFromIdea"],
+"mainProjectNodeName" : "core@alex-N550JK"
+}

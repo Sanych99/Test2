@@ -6,14 +6,14 @@ project (Tutorial)
 #link_directories(${ERL_PATH}/lib)
 
 #Создание статических библиотек
-#add_library(TutorialLib STATIC src/tutorial.cxx)
+#add_library(InClass STATIC src/tutorial.c)
 
 #Добавление внешних библиотек
-#set(PP /home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp)
-#link_directories(${PP})
+set(PP /home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp)
+link_directories(${PP})
 
-add_executable(Tutorial src/tutorial.c)
-target_link_libraries (Tutorial erl_interface ei pthread nsl)
+add_executable(Tutorial src/tutorial.cxx)
+target_link_libraries (Tutorial erl_interface ei pthread nsl InClass)
 
 #Для создания статической библиотеки
 #target_link_libraries (TutorialLib erl_interface ei pthread nsl)

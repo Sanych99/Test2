@@ -1,1 +1,1 @@
-/usr/bin/cc      CMakeFiles/Tutorial.dir/src/tutorial.c.o  -o Tutorial -rdynamic -lerl_interface -lei -lpthread -lnsl 
+/usr/bin/c++       CMakeFiles/Tutorial.dir/src/tutorial.cxx.o  -o Tutorial  -L/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp -rdynamic -lerl_interface -lei -lpthread -lnsl -lInClass -Wl,-rpath,/home/alex/iBotOS/iBotOS/tp/tp/src/TestCpp 

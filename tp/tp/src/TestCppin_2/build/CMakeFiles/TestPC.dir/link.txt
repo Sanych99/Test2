@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/TestPC.dir/src/main.cxx.o  -o TestPC  -L/home/alex/iBotOS/iBotOS/tp/tp/src/TestCppin_2 -rdynamic /home/alex/iBotOS/iBotOS/CLib/lib/libcpp_ibot_lib.a /home/alex/iBotOS/iBotOS/CLib/includes/BotNode.h -Wl,-rpath,/home/alex/iBotOS/iBotOS/tp/tp/src/TestCppin_2 

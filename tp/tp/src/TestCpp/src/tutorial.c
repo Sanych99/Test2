@@ -1,9 +1,5 @@
 // A simple program that computes the square root of a number
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <string.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -11,11 +7,13 @@
 #include "erl_interface.h"
 #include "ei.h"
 
-#define NODE   "madonna@localhost"
+#define NODE   "madonna@127.0.0.1"
 #define ALIVE  "madonna"
-#define IP_ADDR "localhost"
+#define IP_ADDR "127.0.0.1"
 
 #define BUFSIZE 1000
+
+class Tutorial : public ParentClass {
 
 int foo(int x) {
   return x+1;
@@ -28,20 +26,7 @@ int bar(int y) {
 int main (int argc, char *argv[])
 {
 
-
-ei_cnode ec;
-/*** Variant 1 ***/
-int fd = ei_connect(&ec, NODE);
-fprintf(stderr, "FIRST FD: %i\n\r", fd);
-
-/*** Variant 2 ***/
-struct in_addr addr;
-addr.s_addr = inet_addr(IP_ADDR);
-fd = ei_xconnect(&ec, &addr, ALIVE);
-fprintf(stderr, "SECOND FD: %i\n\r", fd);
-
-
-int socket_desc;
+/*int socket_desc;
     socket_desc = socket(AF_INET , SOCK_STREAM , 0);
      
     if (socket_desc < 0)
@@ -49,7 +34,7 @@ int socket_desc;
         fprintf(stderr, "ERROR %i\n\r", socket_desc);
     }	
 else { fprintf(stderr, "GOOD %i\n\r", socket_desc); }
-
+*/
 //	int fd;                                  /* fd to Erlang node */
 	int loop = 1;                            /* Loop flag */
 	int got;                                 /* Result of receive */
@@ -65,19 +50,43 @@ fprintf(stderr, "One %i\n\r", erl_connect_init(1, "jv", 0));
 /*===================Other=======================*/
 	  if (erl_connect_init(1, "jv", 0) == -1)
     erl_err_quit("erl_connect_init");
+
+
+struct in_addr addr;
+addr.s_addr = inet_addr(IP_ADDR);
+
+erl_connect_xinit("127.0.0.1", "cnode_test", "cnode@127.0.0.1",
+                  &addr, "jv", 0);
+erl_publish(3);
+erl_connect("cnode_test@127.0.0.1");
+/*
+ei_cnode ec;
+
+int fd = ei_connect(&ec, NODE);
+fprintf(stderr, "FIRST FD: %i\n\r", fd);
+
+
+struct in_addr addr;
+addr.s_addr = inet_addr(IP_ADDR);
+fd = ei_xconnect(&ec, &addr, ALIVE);
+fprintf(stderr, "SECOND FD: %i\n\r", fd);
+*/
+
+/*
 fprintf(stderr, "Two\n\r");
-  if ((fd = ei_connect(&ec, "test@alex-N550JK")) < 0) {
+  if ((fd = erl_connect("test@alex-N550JK")) < 0) {
 	fprintf(stderr, "%i\n\r", fd);
     erl_err_quit("erl_connect");
 	
 }
-  fprintf(stderr, "Connected to ei@idril\n\r");
+*/
+  /*fprintf(stderr, "Connected to ei@idril\n\r");
 
   while (loop) {
 
     got = erl_receive_msg(fd, buf, BUFSIZE, &emsg);
     if (got == ERL_TICK) {
-      /* ignore */
+ 
     } else if (got == ERL_ERROR) {
       loop = 0;
     } else {
@@ -103,5 +112,6 @@ fprintf(stderr, "Two\n\r");
 	erl_free_term(resp);
       }
     }
-  }
+  }*/
+}
 }

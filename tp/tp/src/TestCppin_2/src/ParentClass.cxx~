@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include "ParentClass.h"
+
+using namespace std;
+
+void ParentClass::printMsg() {
+	std::cout << "Hello from Parent Class" << "\n\r";
+};
+
