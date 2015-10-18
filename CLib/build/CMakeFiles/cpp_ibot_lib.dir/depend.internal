@@ -3,6 +3,8 @@
 
 CMakeFiles/cpp_ibot_lib.dir/src/BotNode.cxx.o
  ../includes/BotNode.h
+ ../includes/CollectionSubscribe.h
+ ../includes/IBotMsgInterface.h
  /home/alex/iBotOS/iBotOS/CLib/src/BotNode.cxx
  /usr/local/tinch_pp-0.3.0/impl/constants.h
  /usr/local/tinch_pp-0.3.0/impl/ext_term_grammar.h

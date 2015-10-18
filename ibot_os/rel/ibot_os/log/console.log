@@ -57,3 +57,11 @@
 2015-10-15 23:22:47.069 [info] <0.388.0> Application ibot_events started on node 'core@alex-N550JK'
 2015-10-15 23:22:54.024 [info] <0.388.0> Application mnesia exited with reason: stopped
 2015-10-15 23:22:54.106 [info] <0.388.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-19 04:13:03.062 [info] <0.388.0> Application lager started on node 'core@alex-N550JK'
+2015-10-19 04:13:10.111 [warning] <0.387.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-19 04:13:10.111 [info] <0.388.0> Application mnesia exited with reason: stopped
+2015-10-19 04:13:10.193 [info] <0.388.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-19 04:24:17.435 [info] <0.388.0> Application lager started on node 'core@alex-N550JK'
+2015-10-19 04:24:24.463 [warning] <0.387.0> lager_error_logger_h dropped 64 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-19 04:24:24.464 [info] <0.388.0> Application mnesia exited with reason: stopped
+2015-10-19 04:24:24.564 [info] <0.388.0> Application mnesia started on node 'core@alex-N550JK'

@@ -13,7 +13,7 @@ include_directories(${TINCH_LIB})
 include_directories(${TINCH_IMPL})
 include_directories(${TINCH_DIR})
 
-set(HEADERS ${INCLUDE_PATH}/BotNode.h)
+set(HEADERS ${INCLUDE_PATH}/BotNode.h ${INCLUDE_PATH}/IBotMsgInterface.h ${INCLUDE_PATH}/CollectionSubscribe.h)
 set(LIB_SOURCES ${SRC_PATH}/BotNode.cxx)
 
 set(C_LIB_OUTPUT_DIR ../lib)

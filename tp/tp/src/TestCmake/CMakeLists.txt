@@ -1,52 +1,79 @@
+# ./TCP TCP alex-N550JK core@alex-N550JK ibot_nodes_srv_connector ibot_nodes_srv_topic ibot_nodes_srv_service ibot_nodes_srv_ui_interaction ibot_events_srv_node_interaction jv
+
+#start file
 cmake_minimum_required (VERSION 2.6)
 
+#project name
 project (TCP)
 
-set(TINCH_LIB /usr/local/tinch_pp-0.3.0/lib)
-set(TINCH_IMPL /usr/local/tinch_pp-0.3.0/impl)
-set(TINCH_DIR /usr/local/tinch_pp-0.3.0)
+#====== find boost package ======
+find_package(Boost 1.54.0 REQUIRED COMPONENTS system)
+if (${Boost_FOUND})
+message(BOOST HERE)
 
-set(IBOT_INCLUDES /home/alex/iBotOS/iBotOS/CLib/includes)
-set(IBOT_LIB /home/alex/iBotOS/iBotOS/CLib/lib)
+#====== files paths ======
+#tinch libs
+set(TINCH_LIB_PATH /usr/local/tinch_pp-0.3.0/lib)
+#tinch implementations
+set(TINCH_IMPL_PATH /usr/local/tinch_pp-0.3.0/impl)
+#tinch headers
+set(TINCH_DIR_PATH /usr/local/tinch_pp-0.3.0)
+#ibot headers
+set(IBOT_INCLUDES_PATH /home/alex/iBotOS/iBotOS/CLib/includes)
+#ibot libs
+set(IBOT_LIB_PATH /home/alex/iBotOS/iBotOS/CLib/lib)
+#!====== files paths ======
 
+#====== direcory includes ======
+#include tich libs dir
+include_directories(${TINCH_LIB_PATH})
+#include tinch inplementation dir
+include_directories(${TINCH_IMPL_PATH})
+#include tinch headers dir
+include_directories(${TINCH_DIR_PATH})
+#include ibot libs dir
+include_directories(${IBOT_LIB_PATH})
+#incldue ibot headers dir
+include_directories(${IBOT_INCLUDES_PATH})
+#!====== direcory includes ======
 
+#====== include boost paths ======
+include_directories(${Boost_INCLUDE_DIR})
+include_directories(${Boost_LIBRARY_DIRS})
+include_directories(${Boost_ROOT})
+#!====== include boost paths ======
 
+#====== cmake result output path ======
+#set path for create libs
 set(C_LIB_OUTPUT_DIR ../lib)
+#set path for create executable file
 set(C_BIN_OUTPUT_DIR ../bin)
-
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${C_LIB_OUTPUT_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${C_LIB_OUTPUT_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${C_BIN_OUTPUT_DIR})
+#!====== cmake result output path ======
 
+#====== sets of header files ======
+set(IBOT_HEADERS ${IBOT_INCLUDES_PATH}/BotNode.h)
+#!====== set of header files ======
 
-include_directories(${TINCH_LIB})
-include_directories(${TINCH_IMPL})
-include_directories(${TINCH_DIR})
+#====== sets of libs ======
+set(IBOT_LIBS ${IBOT_LIB_PATH}/libcpp_ibot_lib.a)
+set(TINCH_LIBS ${TINCH_LIB_PATH}/libtinch++.a)
+file(GLOB ALLB ${Boost_LIBRARY_DIRS}/libboost*.a)
+#!====== sets of libs ======
 
-include_directories(${IBOT_LIB})
-include_directories(${IBOT_INCLUDES})
-
-
-set(IBOT_HEADERS ${IBOT_INCLUDES}/BotNode.h)
-
-
+#====== executable file settings ======
 add_executable(TCP src/TC.cxx ${IBOT_HEADERS})
+#!====== executable file settings ======
 
-find_package(Boost 1.54.0 REQUIRED COMPONENTS system)
-if (${Boost_FOUND})
-  INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
-  INCLUDE_DIRECTORIES( ${Boost_LIBRARY_DIRS} )
-  INCLUDE_DIRECTORIES( ${Boost_ROOT} )
-  message(BOOST HERE)
-  message(ECHO ${Boost_LIBRARY_DIRS})
-  message(${Boost_LIBRARY_DIRS})
+#====== link libs ======
+target_link_libraries (TCP ${TINCH_LIBS}  ${IBOT_LIBS} ${Boost_LIBRARIES} ${ALLB} pthread)
+#!====== link libs ======
+
 else (${Boost_FOUND})
   message(NO BOOST)
 endif (${Boost_FOUND})
-
-FILE(GLOB ALLB ${Boost_LIBRARY_DIRS}/libboost*.a)
-
-
-target_link_libraries (TCP ${TINCH_LIB}/libtinch++.a ${IBOT_LIB}/libcpp_ibot_lib.a pthread ${Boost_LIBRARIES} ${Boost_LIBRARY_DIRS}/libboost_thread.a ${ALLB})
+#====== find boost package ======
 
 #install(TARGETS TCP RUNTIME DESTINATION bin)

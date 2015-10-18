@@ -1,4 +1,4 @@
-%% rel generated at {2015,10,15} {3,3,22}
+%% rel generated at {2015,10,19} {4,21,26}
 {release,{"start_clean",[]},
          {erts,"6.3"},
          [{kernel,"3.1"},

@@ -1,37 +1,118 @@
 // A simple program that computes the square root of a number
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
+#include <iostream>
+#include <stdexcept>
+
 #include <sys/types.h>
 #include <sys/socket.h>
+
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <iostream>
-#include <string>
-#include "erl_interface.h"
-#include "ei.h"
+
 #include "BotNode.h"
+#include "IBotMsgInterface.h"
+#include "CollectionSubscribe.h"
 
 #include "tinch_pp/node.h"
 #include "tinch_pp/rpc.h"
 #include "tinch_pp/mailbox.h"
 #include "tinch_pp/erlang_types.h"
+
 #include <boost/thread.hpp>
 #include <boost/assign/list_of.hpp>
-#include <iostream>
-#include <stdexcept>
+
 using namespace tinch_pp;
 using namespace tinch_pp::erl;
+
 using namespace boost::assign;
 
 using namespace std;
 
 /*message log type*/
-const std::string BotNode::LOG_TYPE_MESSAGE("Message");
+template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_MESSAGE("Message");
 /*warning log type*/
-const std::string BotNode::LOG_TYPE_WARNING("Warning");
+template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_WARNING("Warning");
 /*error log type*/
-const std::string BotNode::LOG_TYPE_ERROR("Error");
+template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_ERROR("Error");
 
+template<class NodeClass>
+bool BotNode<NodeClass>::ok()
+{
+  return coreIsActive;
+}
 
+template<class NodeClass>
+void BotNode<NodeClass>::receiveMBoxMessageMethod(mailbox_ptr async_mbox)
+{
+  enum ReceivedMessageType { 
+    subscribe, 
+    call_service_method, 
+    call_client_service_callback_method,
+    system
+  };
+  
+  ReceivedMessageType msgTypeEnum;
+  
+  while(ok()) {
+        matchable_ptr msg = async_mbox->receive();
+	
+	std::string msgType;
+	msg->match(make_e_tuple(e_string(&msgType), erl::any()));
+	
+	if(msgType == "subscribe")
+	  msgTypeEnum = subscribe;
+	else if(msgType == "call_service_method")
+	  msgTypeEnum = call_service_method;
+	else if(msgType == "call_client_service_callback_method")
+	  msgTypeEnum = call_client_service_callback_method;
+	else if(msgType == "system")
+	  msgTypeEnum = system;
+	  
+	
+	
+	
+	switch(msgTypeEnum) {
+	  case subscribe:
+	    std::string topicName;
+	    //e_tuple<TestMsg> subscribeMessage;
+	    
+	    //msg->match(make_e_tuple(e_string(&msgType), e_string(&topicName),  e_tuple<TestMsg>(&subscribeMessage)));
+	    break;
+	    
+	  /*case call_service_method:
+	    break;
+	    
+	  case call_client_service_callback_method:
+	    break;
+	    
+	  case system:
+	    break;*/
+	}
+  }
+}
 
-
+/*template<class NodeClass>
+template<typename M>
+void BotNode<NodeClass>:: subscribeToTopic(std::string topicName, void (NodeClass::*callbackFunction)(M))
+{
+  otpMboxAsync->send(publisherCoreNode, coreNodeName, 
+		     make_e_tuple(atom("reg_subscr"), atom(otpMboxNameAsync), 
+		      atom(otpNodeName + "@" + currentServerName), atom(topicName)
+		     ));
+  
+  CollectionSubscribe<M> collection = new CollectionSubscribe<M>(*callbackFunction);
+    map<std::string, set<BaseCollectionSubscribe> >::iterator it = subscribeDic.find(topicName);
+    if(it != subscribeDic.end()) {
+      //element found;
+      set<BaseCollectionSubscribe> topicSubscribersCollection = it->second;
+      topicSubscribersCollection.insert(collection);
+      subscribeDic[topicName] = topicSubscribersCollection;
+    }
+    else {
+      set<BaseCollectionSubscribe> topicSubscribersCollection;
+      topicSubscribersCollection.insert(collection);
+      subscribeDic[topicName] = topicSubscribersCollection;
+    }
+}*/
