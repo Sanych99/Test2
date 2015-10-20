@@ -19,6 +19,10 @@ stdexcept
 -
 functional
 -
+exception
+-
+typeinfo
+-
 tinch_pp/node.h
 ../includes/tinch_pp/node.h
 tinch_pp/rpc.h
@@ -43,10 +47,10 @@ stdlib.h
 -
 string
 -
+iostream
+-
 functional
 -
-IBotMsgInterface.h
-../includes/IBotMsgInterface.h
 
 ../includes/IBotMsgInterface.h
 

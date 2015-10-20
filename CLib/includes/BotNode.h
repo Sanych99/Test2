@@ -7,6 +7,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <functional>
+#include <exception>
+#include <typeinfo>
 
 #include "tinch_pp/node.h"
 #include "tinch_pp/rpc.h"
@@ -25,6 +27,7 @@ using namespace boost::assign;
 
 
 using namespace std;
+
 
 template<class NodeClass>
 class BotNode {
@@ -75,14 +78,13 @@ class BotNode {
     
     int epmd_port;
 
-    std::map < std::string, std::set<BaseCollectionSubscribe> > subscribeDic;
+    std::map < std::string, BaseCollectionSubscribe* > subscribeDic;
 
     boost::thread receiveMBoxMessageThread;
     
     void receiveMBoxMessageMethod(mailbox_ptr async_mbox);
     
-    
-    
+    NodeClass* childObject;
   
     //====== Константы / Constants Start ======
 
@@ -154,21 +156,46 @@ class BotNode {
 	  atom(otpNodeName + "@" + currentServerName), atom(topicName)
 	));
 
-	/*CollectionSubscribe<M> collection = new CollectionSubscribe<M>(callbackFunction);
-	map<std::string, set<BaseCollectionSubscribe> >::iterator it = subscribeDic.find(topicName);
+	//try {
 	
-	if(it != subscribeDic.end()) {
-	  //element found;
-	  set<BaseCollectionSubscribe> topicSubscribersCollection = it->second;
-	  topicSubscribersCollection.insert(collection);
-	  subscribeDic[topicName] = topicSubscribersCollection;
-	}
-	else {
-	  set<BaseCollectionSubscribe> topicSubscribersCollection;
-	  topicSubscribersCollection.insert(collection);
-	  subscribeDic[topicName] = topicSubscribersCollection;
-	}*/
+	  CollectionSubscribe<NodeClass, M>* collection = new CollectionSubscribe<NodeClass, M>(callbackFunction, topicName, childObject);
+	  //CollectionSubscribe<NodeClass, M> collection(callbackFunction, topicName);
+	  map<std::string, BaseCollectionSubscribe* >::iterator it = subscribeDic.find(topicName);
+	  
+	  /*if(it == subscribeDic.end()) {
+	    //element found;
+	    set<BaseCollectionSubscribe*> topicSubscribersCollection = it->second;
+	    topicSubscribersCollection.insert(collection);
+	    subscribeDic[topicName] = topicSubscribersCollection;
+	  }
+	  else {*/
+	    BaseCollectionSubscribe* topicSubscribersCollection = collection;
+	    subscribeDic[topicName] = topicSubscribersCollection;
+	  /*}*/
+	  
+	  
+	  map<std::string, BaseCollectionSubscribe* >::iterator it2 = subscribeDic.find(topicName);
+	  BaseCollectionSubscribe* topicSubscribersCollection2 = it2->second;
+	  
+	  BaseCollectionSubscribe* tryexec = subscribeDic.at(topicName);
+	  tryexec->execute();
+	  
+	  subscribeDic.at(topicName)->execute();
+	  
+	  //for (std::set<BaseCollectionSubscribe>::iterator it3=topicSubscribersCollection2.begin(); it3!=topicSubscribersCollection2.end(); ++it3) {
+	    topicSubscribersCollection2->execute();
+	    cout<<"Go find..."<<"\n\r";
+	  //}
+	  
+	//catch (exception& e)
+	//{
+	//  cout << "EX: " + string(e.what()) << '\n';
+	//}
       };
 };
+
+
+
+
 
 #endif

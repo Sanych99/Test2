@@ -4,7 +4,7 @@
 /**Базовый класс сообщения*/
 class IBotMsgInterface {
 public:
-  void get_message();
+  //void get_message();
 };
 
 #endif

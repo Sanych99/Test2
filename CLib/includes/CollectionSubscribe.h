@@ -4,23 +4,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include <iostream>
 #include <functional>
-
-#include "IBotMsgInterface.h"
 
 class BaseCollectionSubscribe {
 public:
-  BaseCollectionSubscribe() {};
+  std::string topicName;
+  
+  std::string order;
+  std::string equality;
+  
+  BaseCollectionSubscribe(std::string tName) {
+    topicName = tName;
+  };
+  
+  BaseCollectionSubscribe(BaseCollectionSubscribe o, BaseCollectionSubscribe e) : order(o.topicName), equality(e.topicName) {}
+  
+  bool operator<(const BaseCollectionSubscribe &rhs) const {
+        return order < rhs.order;
+    }
+  bool operator==(const BaseCollectionSubscribe &rhs) const {
+      return equality == rhs.equality;
+  }
+  
+  virtual void execute(void) const {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
 };
 
-template<typename MType>
+template<typename NodeClass, typename MType>
 class CollectionSubscribe: public BaseCollectionSubscribe {
 public:
-  void (*callback)(MType);
-  MType t;
+  void (NodeClass::*callback)(MType);
+  MType t();
+  NodeClass* childObject;
   
-  CollectionSubscribe(void (*callbackFunction)(MType)) {
+  CollectionSubscribe(void (NodeClass::*callbackFunction)(MType), std::string topicName, NodeClass* child): BaseCollectionSubscribe(topicName) {
     callback = callbackFunction;
+    childObject = child;
+  }
+  
+  virtual void execute(void) const {
+    std::cout<<"FROM CHILDER CLASS"<<"\n\r";
+    (childObject->*callback)(MType());
   }
 };
 

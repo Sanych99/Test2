@@ -24,7 +24,14 @@ using namespace boost::assign;
 using namespace std;
 
 class TesMsg: public IBotMsgInterface {
+public:
+  TesMsg() {
+    cout<<"Hello from TesMsg"<<"\n\r";
+  }
   
+  TesMsg(string msg) {
+    cout<<"Clone " + msg<<"\n\r";
+  }
 };
 
 class TestClass: public BotNode<TestClass> {
@@ -35,9 +42,12 @@ class TestClass: public BotNode<TestClass> {
       //action();
     }
     
+    TestClass* thisParam;
+    
     TestClass(): BotNode() {};
     
     TestClass(int argc, char* argv[]): BotNode(argc, argv) {
+      
       cout<<"otpNodeName(argv[0]) " + string(argv[1])<<"\n\r";
 	cout<<"currentServerName(argv[1]) " + string(argv[2])<<"\n\r";
 	cout<<"coreNodeName(argv[2]) " + string(argv[3])<<"\n\r"; 	
@@ -73,12 +83,36 @@ class TestClass: public BotNode<TestClass> {
     
     ~TestClass() {};
     
-    void cm(TesMsg msg) {};
+    void cm(TesMsg msg) { cout<<"CM1"<<"\n\r"; };
+    void cm2(TesMsg msg) { cout<<"CM2"<<"\n\r"; };
+    
+    void pr() { cout<<"aaasdasdasd"<<"\n\r"; }
+    
+    void te (void (TestClass::*callbackFunction)())
+    {
+      //*callbackFunction();
+    }
+    
+    
+    void print ( int x ) {
+      cout << x << endl;
+    }
+    
+    void func ( void (TestClass::*f)(int) ) {
+      for ( int ctr = 0 ; ctr < 5 ; ctr++ ) {
+	(thisParam->*f)(ctr);
+      }
+    }
     
     void go() {
       //subscribeToTopic<TesMsg>(TesMsg);
      subscribeToTopic<TesMsg>("testTopic", &TestClass::cm);
+     subscribeToTopic<TesMsg>("testTopic", &TestClass::cm2);
+     //te(&TestClass::pr);
+      func(&TestClass::print);
     }
+    
+    
     
   /*virtual void action() {
     cout << "action mathod..." << "\n\r";
@@ -87,12 +121,22 @@ class TestClass: public BotNode<TestClass> {
 
 
 
+void func ( void (*f)(int) ) {
+  for ( int ctr = 0 ; ctr < 5 ; ctr++ ) {
+    (*f)(ctr);
+  }
+}
 
+void print ( int x ) {
+  cout << x << endl;
+}
 
 int main(int argc, char* argv[]) {
-  TestClass *ts;
-  ts = new TestClass(argc, argv);
-  ts->go();
+  TestClass ts(argc, argv);
+  ts.thisParam = &ts;
+  ts.go();
+  //ts = new TestClass(argc, argv);
+  //ts->go();
   //ts = new TestClass();
   //ts->print();
   //ts.print();
@@ -101,4 +145,6 @@ int main(int argc, char* argv[]) {
   {
     ts->print();
   }*/
+  
+  func(print);
 }
