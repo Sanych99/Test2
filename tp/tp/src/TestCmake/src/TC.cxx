@@ -7,6 +7,7 @@
 #include <arpa/inet.h>
 #include <iostream>
 #include <string>
+#include <unistd.h>
 #include "BotNode.h"
 
 #include "tinch_pp/node.h"
@@ -131,10 +132,22 @@ void print ( int x ) {
   cout << x << endl;
 }
 
+void bw() {
+  int i = 1000000;
+  while(i>0) {
+    print(i);
+    i--;
+    usleep(2000);
+  }
+}
+
 int main(int argc, char* argv[]) {
   TestClass ts(argc, argv);
   ts.thisParam = &ts;
   ts.go();
+  bw();
+  ts.td->start_thread();
+  ts.td->join();
   //ts = new TestClass(argc, argv);
   //ts->go();
   //ts = new TestClass();
@@ -147,4 +160,7 @@ int main(int argc, char* argv[]) {
   }*/
   
   func(print);
+  
+  //boost::thread td(&ts.receiveMBoxMessageMethod, ts, ts.otpMboxAsync);
+  
 }

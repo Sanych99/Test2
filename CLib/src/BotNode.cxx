@@ -22,6 +22,7 @@
 
 #include <boost/thread.hpp>
 #include <boost/assign/list_of.hpp>
+#include <boost/fusion/tuple/tuple.hpp>
 
 using namespace tinch_pp;
 using namespace tinch_pp::erl;
@@ -43,55 +44,7 @@ bool BotNode<NodeClass>::ok()
   return coreIsActive;
 }
 
-template<class NodeClass>
-void BotNode<NodeClass>::receiveMBoxMessageMethod(mailbox_ptr async_mbox)
-{
-  enum ReceivedMessageType { 
-    subscribe, 
-    call_service_method, 
-    call_client_service_callback_method,
-    system
-  };
-  
-  ReceivedMessageType msgTypeEnum;
-  
-  while(ok()) {
-        matchable_ptr msg = async_mbox->receive();
-	
-	std::string msgType;
-	msg->match(make_e_tuple(e_string(&msgType), erl::any()));
-	
-	if(msgType == "subscribe")
-	  msgTypeEnum = subscribe;
-	else if(msgType == "call_service_method")
-	  msgTypeEnum = call_service_method;
-	else if(msgType == "call_client_service_callback_method")
-	  msgTypeEnum = call_client_service_callback_method;
-	else if(msgType == "system")
-	  msgTypeEnum = system;
-	  
-	
-	
-	
-	switch(msgTypeEnum) {
-	  case subscribe:
-	    std::string topicName;
-	    //e_tuple<TestMsg> subscribeMessage;
-	    
-	    //msg->match(make_e_tuple(e_string(&msgType), e_string(&topicName),  e_tuple<TestMsg>(&subscribeMessage)));
-	    break;
-	    
-	  /*case call_service_method:
-	    break;
-	    
-	  case call_client_service_callback_method:
-	    break;
-	    
-	  case system:
-	    break;*/
-	}
-  }
-}
+
 
 /*template<class NodeClass>
 template<typename M>

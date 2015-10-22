@@ -91,6 +91,8 @@ boost/thread.hpp
 -
 boost/assign/list_of.hpp
 -
+boost/fusion/tuple/tuple.hpp
+-
 
 /usr/local/tinch_pp-0.3.0/impl/constants.h
 boost/cstdint.hpp
