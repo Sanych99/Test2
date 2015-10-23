@@ -7,6 +7,11 @@
 #include <iostream>
 #include <functional>
 
+#include "tinch_pp/rpc.h"
+#include "tinch_pp/erlang_types.h"
+
+using namespace tinch_pp;
+
 class BaseCollectionSubscribe {
 public:
   std::string topicName;
@@ -28,6 +33,7 @@ public:
   }
   
   virtual void execute(void) const {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
+  virtual void execute(matchable_ptr message_elements) const {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
 };
 
 template<typename NodeClass, typename MType>
@@ -45,6 +51,11 @@ public:
   virtual void execute(void) const {
     std::cout<<"FROM CHILDER CLASS"<<"\n\r";
     (childObject->*callback)(MType());
+  }
+  
+  virtual void execute(matchable_ptr message_elements) const {
+    std::cout<<"FROM CHILDER matchable_ptr"<<"\n\r";
+    (childObject->*callback)(MType(message_elements));
   }
 };
 

@@ -1,36 +1,48 @@
 // A simple program that computes the square root of a number
-#include <stdio.h>
-#include <stdlib.h>
+
+#include "BotNode.h"
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <iostream>
-#include <string>
 #include <unistd.h>
-#include "BotNode.h"
 
+/*
 #include "tinch_pp/node.h"
 #include "tinch_pp/rpc.h"
 #include "tinch_pp/mailbox.h"
 #include "tinch_pp/erlang_types.h"
 #include <boost/thread.hpp>
 #include <boost/assign/list_of.hpp>
-#include <iostream>
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <iostream>	
 #include <stdexcept>
 using namespace tinch_pp;
 using namespace tinch_pp::erl;
-using namespace boost::assign;
+using namespace boost::assign;*/
 
 using namespace std;
 
 class TesMsg: public IBotMsgInterface {
 public:
+  std::string text;
+  
+  TesMsg(matchable_ptr message_elements) {   
+    message_elements->match(make_e_tuple(e_string(&text)));
+    cout<<"TesMsg text: " + text<<"\n\r";
+  }
+  
   TesMsg() {
-    cout<<"Hello from TesMsg"<<"\n\r";
+    text = "empty";
+    cout<<"TesMsg"<<"\n\r";
   }
   
   TesMsg(string msg) {
+    text = msg;
     cout<<"Clone " + msg<<"\n\r";
   }
 };
@@ -84,8 +96,8 @@ class TestClass: public BotNode<TestClass> {
     
     ~TestClass() {};
     
-    void cm(TesMsg msg) { cout<<"CM1"<<"\n\r"; };
-    void cm2(TesMsg msg) { cout<<"CM2"<<"\n\r"; };
+    void cm(TesMsg msg) { cout<<"CM1: " + msg.text<<"\n\r"; };
+    void cm2(TesMsg msg) { cout<<"CM2: " + msg.text<<"\n\r"; };
     
     void pr() { cout<<"aaasdasdasd"<<"\n\r"; }
     
@@ -145,9 +157,9 @@ int main(int argc, char* argv[]) {
   TestClass ts(argc, argv);
   ts.thisParam = &ts;
   ts.go();
-  bw();
-  ts.td->start_thread();
-  ts.td->join();
+  //bw();
+  ts.receiveMBoxMessageThread->start_thread();
+  ts.receiveMBoxMessageThread->join();
   //ts = new TestClass(argc, argv);
   //ts->go();
   //ts = new TestClass();

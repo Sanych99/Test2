@@ -51,6 +51,10 @@ iostream
 -
 functional
 -
+tinch_pp/rpc.h
+../includes/tinch_pp/rpc.h
+tinch_pp/erlang_types.h
+../includes/tinch_pp/erlang_types.h
 
 ../includes/IBotMsgInterface.h
 

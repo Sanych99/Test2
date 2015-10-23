@@ -1,0 +1,42 @@
+// A simple program that computes the square root of a number
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <iostream>
+#include <string>
+#include "erl_interface.h"
+#include "ei.h"
+#include "BotNode.h"
+
+using namespace std;
+
+/** Конструктор / Constrator */
+BotNode::BotNode() {
+};
+
+/** Конструктор / Constrator */
+BotNode::BotNode(int argc, char *argv[]) {
+
+	otpNodeName = argv[0]; // init node name
+        currentServerName = argv[1]; // init current server name
+        coreNodeName = argv[2]; // init core node name
+        otpMboxNameAsync = string(argv[0]) + "_MBoxAsync"; // init asynchronous mail box name
+        otpMboxName = string(argv[0]) + "_MBox"; // init mail box name
+        connectorCodeNode = argv[3];  // init connector node name
+        publisherCoreNode = argv[4]; // init publisher node name
+        serviceCoreNode = argv[5]; // init service node name
+        uiInteractionNode = argv[6]; // init ui interaction node name
+        loggerInteractionNode = argv[7]; // init message logger node name
+        coreCookie = argv[8]; // init core node cookie
+
+};
+
+/*message log type*/
+const string BotNode::LOG_TYPE_MESSAGE = "Message";
+/*warning log type*/
+const string BotNode::LOG_TYPE_WARNING = "Warning";
+/*error log type*/
+const string BotNode::LOG_TYPE_ERROR = "Error";
