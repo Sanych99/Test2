@@ -38,6 +38,9 @@ generate_msg_srv(ProjectDir) ->
   ibot_generator_func_js:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir,
     ?MESSAGE_DIR, ?MSG_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir),
 
+  ibot_generator_func_cpp:generate_msg_source_files(filelib:wildcard(string:join([ProjectDir,
+    ?MESSAGE_DIR, ?MSG_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir),
+
 
 
 
@@ -49,6 +52,10 @@ generate_msg_srv(ProjectDir) ->
 
   %ibot_generator_func_js:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
   ibot_generator_func_js:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir,
+    ?SERVICE_DIR, ?SRV_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir), %% Generate all srv source files
+
+  %ibot_generator_func_js:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir, ?SRC_FOLDER, "*",
+  ibot_generator_func_cpp:generate_srv_source_files(filelib:wildcard(string:join([ProjectDir,
     ?SERVICE_DIR, ?SRV_FILE_EXT], ?PATH_DELIMETER_SYMBOL)), ProjectDir), %% Generate all srv source files
 
   %% создание jar библиотек для java сообщений и сервисов

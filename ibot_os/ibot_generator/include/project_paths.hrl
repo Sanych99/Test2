@@ -21,6 +21,9 @@
 -define(DEV_MSG_PYTHON_PATH(Path), string:join([Path, ?PATH_DELIMETER_SYMBOL, ?PYTHON_FOLDER, ?PATH_DELIMETER_SYMBOL, ?PYTHON_MESSAGES_FOLDER], "")).
 -define(DEV_SRV_PYTHON_PATH(Path), string:join([Path, ?PATH_DELIMETER_SYMBOL, ?PYTHON_FOLDER, ?PATH_DELIMETER_SYMBOL, ?PYTHON_SERVICES_FOLDER], "")).
 
+-define(DEV_MSG_CPP_PATH(Path), string:join([Path, ?PATH_DELIMETER_SYMBOL, ?CPP_FOLDER], "")).
+-define(DEV_SRV_CPP_PATH(Path), string:join([Path, ?PATH_DELIMETER_SYMBOL, ?CPP_FOLDER], "")).
+
 
 -define(DEV_MSG_JS_PATH(Path), string:join([Path, ?PATH_DELIMETER_SYMBOL, ?JS_FOLDER], "")).
 -define(DEV_SRV_JS_PATH(Path), string:join([Path, ?PATH_DELIMETER_SYMBOL, ?JS_FOLDER], "")).

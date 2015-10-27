@@ -261,3 +261,39 @@ Parsed CXX implicit link information from above output:
   implicit fwks: []
 
 
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX11 succeded with the following output:
+Change Dir: /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2632773270/fast"
+make[1]: Entering directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2632773270.dir/build.make CMakeFiles/cmTryCompileExec2632773270.dir/build
+make[2]: Entering directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2632773270.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTryCompileExec2632773270.dir/src.cxx.o -c /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTryCompileExec2632773270
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2632773270.dir/link.txt --verbose=1
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX11    CMakeFiles/cmTryCompileExec2632773270.dir/src.cxx.o  -o cmTryCompileExec2632773270 -rdynamic 
+make[2]: Leaving directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0;}
+Performing C++ SOURCE FILE Test COMPILER_SUPPORTS_CXX0X succeded with the following output:
+Change Dir: /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3526564224/fast"
+make[1]: Entering directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3526564224.dir/build.make CMakeFiles/cmTryCompileExec3526564224.dir/build
+make[2]: Entering directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3526564224.dir/src.cxx.o
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX0X   -std=c++0x -o CMakeFiles/cmTryCompileExec3526564224.dir/src.cxx.o -c /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTryCompileExec3526564224
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3526564224.dir/link.txt --verbose=1
+/usr/bin/c++    -DCOMPILER_SUPPORTS_CXX0X    CMakeFiles/cmTryCompileExec3526564224.dir/src.cxx.o  -o cmTryCompileExec3526564224 -rdynamic 
+make[2]: Leaving directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+make[1]: Leaving directory `/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0;}

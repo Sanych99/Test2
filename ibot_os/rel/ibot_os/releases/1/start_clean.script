@@ -1,4 +1,4 @@
-%% script generated at {2015,10,19} {4,21,26}
+%% script generated at {2015,10,28} {5,19,10}
 {script,
     {"start_clean",[]},
     [{preLoaded,[]},
@@ -103,7 +103,7 @@
           ibot_core_srv_project_info_loader,ibot_core_sup]},
      {path,["$ROOT/lib/ibot_generator-1/ebin"]},
      {primLoad,
-         [ibot_generator_app,ibot_generator_func_js,
+         [ibot_generator_app,ibot_generator_func_cpp,ibot_generator_func_js,
           ibot_generator_func_python,ibot_generator_msg_srv,
           ibot_generator_sup]},
      {path,["$ROOT/lib/ibot_webi-1/ebin"]},
@@ -482,9 +482,9 @@
                    {vsn,"1"},
                    {id,[]},
                    {modules,
-                       [ibot_generator_app,ibot_generator_func_js,
-                        ibot_generator_func_python,ibot_generator_msg_srv,
-                        ibot_generator_sup]},
+                       [ibot_generator_app,ibot_generator_func_cpp,
+                        ibot_generator_func_js,ibot_generator_func_python,
+                        ibot_generator_msg_srv,ibot_generator_sup]},
                    {registered,[]},
                    {applications,[kernel,stdlib]},
                    {included_applications,[]},

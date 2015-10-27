@@ -39,6 +39,26 @@ IBotMsgInterface.h
 ../includes/IBotMsgInterface.h
 CollectionSubscribe.h
 ../includes/CollectionSubscribe.h
+CollectionServiceServer.h
+../includes/CollectionServiceServer.h
+
+../includes/CollectionServiceServer.h
+stdio.h
+-
+stdlib.h
+-
+string
+-
+iostream
+-
+functional
+-
+tinch_pp/rpc.h
+../includes/tinch_pp/rpc.h
+tinch_pp/erlang_types.h
+../includes/tinch_pp/erlang_types.h
+tinch_pp/mailbox.h
+../includes/tinch_pp/mailbox.h
 
 ../includes/CollectionSubscribe.h
 stdio.h
@@ -57,6 +77,22 @@ tinch_pp/erlang_types.h
 ../includes/tinch_pp/erlang_types.h
 
 ../includes/IBotMsgInterface.h
+stdio.h
+-
+stdlib.h
+-
+string
+-
+iostream
+-
+tinch_pp/node.h
+../includes/tinch_pp/node.h
+tinch_pp/rpc.h
+../includes/tinch_pp/rpc.h
+tinch_pp/erlang_types.h
+../includes/tinch_pp/erlang_types.h
+tinch_pp/mailbox.h
+../includes/tinch_pp/mailbox.h
 
 /home/alex/iBotOS/iBotOS/CLib/src/BotNode.cxx
 stdio.h

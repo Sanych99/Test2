@@ -31,41 +31,13 @@ using namespace boost::assign;
 
 using namespace std;
 
-/*message log type*/
-template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_MESSAGE("Message");
-/*warning log type*/
-template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_WARNING("Warning");
-/*error log type*/
-template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_ERROR("Error");
+namespace BotNodeNameSpace {
 
-template<class NodeClass>
-bool BotNode<NodeClass>::ok()
-{
-  return coreIsActive;
+  /*message log type*/
+  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_MESSAGE("Message");
+  /*warning log type*/
+  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_WARNING("Warning");
+  /*error log type*/
+  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_ERROR("Error");
+
 }
-
-
-
-/*template<class NodeClass>
-template<typename M>
-void BotNode<NodeClass>:: subscribeToTopic(std::string topicName, void (NodeClass::*callbackFunction)(M))
-{
-  otpMboxAsync->send(publisherCoreNode, coreNodeName, 
-		     make_e_tuple(atom("reg_subscr"), atom(otpMboxNameAsync), 
-		      atom(otpNodeName + "@" + currentServerName), atom(topicName)
-		     ));
-  
-  CollectionSubscribe<M> collection = new CollectionSubscribe<M>(*callbackFunction);
-    map<std::string, set<BaseCollectionSubscribe> >::iterator it = subscribeDic.find(topicName);
-    if(it != subscribeDic.end()) {
-      //element found;
-      set<BaseCollectionSubscribe> topicSubscribersCollection = it->second;
-      topicSubscribersCollection.insert(collection);
-      subscribeDic[topicName] = topicSubscribersCollection;
-    }
-    else {
-      set<BaseCollectionSubscribe> topicSubscribersCollection;
-      topicSubscribersCollection.insert(collection);
-      subscribeDic[topicName] = topicSubscribersCollection;
-    }
-}*/
