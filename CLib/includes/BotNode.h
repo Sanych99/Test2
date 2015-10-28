@@ -197,12 +197,12 @@ namespace BotNodeNameSpace {
 	msgTypeEnum = subscribe;
 	std::cout<<"if subscribe"<< "\n\r";
       }
-      if(msg->match(make_e_tuple(atom("call_service_method"), erl::any(), erl::any(), erl::any(), erl::any(), erl::any()))) {
+      else if(msg->match(make_e_tuple(atom("call_service_method"), erl::any(), erl::any(), erl::any(), erl::any(), erl::any()))) {
 	msgTypeEnum = call_service_method;
 	std::cout<<"if call_service_method"<< "\n\r";
       }
       else {
-	msgTypeEnum = no_action;
+	msgTypeEnum = no_action; 	
 	std::cout<<"if no_action"<< "\n\r";
       }
       

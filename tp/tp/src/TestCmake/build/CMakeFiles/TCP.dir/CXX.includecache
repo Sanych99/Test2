@@ -94,11 +94,17 @@ tinch_pp/erlang_types.h
 tinch_pp/mailbox.h
 /home/alex/iBotOS/iBotOS/CLib/includes/tinch_pp/mailbox.h
 
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/cpp/TestMsgCpp.h
+IBotMsgInterface.h
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/cpp/IBotMsgInterface.h
+
 /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/src/TC.cxx
 BotNode.h
 /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/src/BotNode.h
 IBotMsgInterface.h
 /home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/src/IBotMsgInterface.h
+TestMsgCpp.h
+/home/alex/iBotOS/iBotOS/tp/tp/src/TestCmake/src/TestMsgCpp.h
 sys/types.h
 -
 sys/socket.h

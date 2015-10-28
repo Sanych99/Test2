@@ -19,6 +19,7 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/local/tinch_pp-0.3.0"
   "/home/alex/iBotOS/iBotOS/CLib/lib"
   "/home/alex/iBotOS/iBotOS/CLib/includes"
+  "/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/cpp"
   "/usr/lib/x86_64-linux-gnu"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

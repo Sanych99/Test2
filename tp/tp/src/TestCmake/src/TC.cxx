@@ -3,6 +3,8 @@
 #include "BotNode.h"
 #include "IBotMsgInterface.h"
 
+#include "TestMsgCpp.h"
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -50,7 +52,8 @@ public:
       
     mbox->send(service_core_node, core_node_name, make_e_tuple(atom(response_service_message), e_string(service_method_name), atom(client_mail_box_name), 
 	      atom(client_node_full_name), e_string(client_method_name_callback), test_tuple, 
-	      make_e_tuple(e_string("from test message atom SERVICE!"))));
+	      make_e_tuple(e_string("from test message atom SERVICE!"))
+							      ));
   }
   
   
@@ -83,6 +86,12 @@ class TestClass: public BotNode<TestClass> {
      TesMsg* t = new TesMsg();
      
      publish_message("testTopic", t);
+     
+     TestMsgCpp* cpp = new TestMsgCpp();
+     cpp->longParam = 255;
+     cpp->strParam = "hello from my test message!";
+     
+     publish_message("test2", cpp);
      
      delete t;
     }

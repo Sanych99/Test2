@@ -91,7 +91,7 @@ generate_srv_source_files([], _ProjectDir) ->
 for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
   file:write(GeneratedFile, ?CPP_MSG_FILE_HEADER(RawFileName)), %% Write header template
-  for_each_line(Device, GeneratedFile, RawFileName, 0, []),
+  for_each_line(Device, GeneratedFile, RawFileName, 0, [], true, false),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
 
   file:close(Device),
@@ -110,18 +110,18 @@ for_each_line_in_msg_file(FileName, GeneratedFile, RawFileName) ->
 for_each_line_in_srv_file(FileName, GeneratedFileReq, GeneratedFileResp, RawFileName) ->
   {ok, Device} = file:open(FileName, [read]),
   file:write(GeneratedFileReq, ?CPP_MSG_FILE_HEADER(string:join([RawFileName, "Req"], ""))), %% Write header template
-  for_each_line(Device, GeneratedFileReq, string:join([RawFileName, "Req"], ""), 0, []),
+  for_each_line(Device, GeneratedFileReq, string:join([RawFileName, "Req"], ""), 0, [], false, true),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
 
   file:write(GeneratedFileResp, ?CPP_MSG_FILE_HEADER(string:join([RawFileName, "Resp"], ""))),
-  for_each_line(Device, GeneratedFileResp, string:join([RawFileName, "Resp"], ""), 0, []),
+  for_each_line(Device, GeneratedFileResp, string:join([RawFileName, "Resp"], ""), 0, [], false, false),
   ?DBG_MODULE_INFO("for_each_line_in_file(FileName, GeneratedFile, RawFileName) -> -> end method...  ~n", [?MODULE]),
 
   file:close(Device),
   ok.
 
 
-for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
+for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList, IsMessage, IsRequest) ->
   case io:get_line(Device, "") of
     EndPath when EndPath == eof;EndPath == "---\n" ->
 
@@ -129,9 +129,36 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
 
       file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
 
-      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount)),
+      ResultString = generate_constructor_matchable_return_value("", AllFieldsList),
+
+      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount, ResultString)),
+
+      case IsMessage of
+        true ->
+          file:write(GeneratedFile, ?SEND_MESSAGE_FUNCTION(generate_send_topic_message_tuple("", AllFieldsList))),
+          file:write(GeneratedFile, ?SEND_SERVICE_RESPONSE_FOR_MESSAGES_FUNCTION);
+
+        _ ->
+          file:write(GeneratedFile, ?SEND_MESSAGE_FOR_SERVICE_FUNCTION)
+      end,
+
+      case IsRequest of
+        true when IsMessage == false ->
+          file:write(GeneratedFile, ?SEND_SERVICE_RESPONSE_FOR_MESSAGES_FUNCTION);
+
+        false when IsMessage == false ->
+          ServiceResultString = generate_send_topic_message_tuple("", AllFieldsList),
+          file:write(GeneratedFile, ?SEND_SERVICE_RESPONSE_FOR_RESP_FUNCTION(RawFileName, ServiceResultString));
+
+        _ -> ok
+      end,
+
+      file:write(GeneratedFile, ?GET_TUPLE_MESSAGE(
+        generate_get_tuple_message("", AllFieldsList), generate_send_topic_message_tuple("", AllFieldsList))),
 
 
+      DefaultValuesResultString = generate_set_default_value("", AllFieldsList),
+      file:write(GeneratedFile, ?SET_DEFAULT_VALUES_FUNCTION(DefaultValuesResultString)),
 
       %parameters_dafault_generate(GeneratedFile, AllFieldsList),
 
@@ -139,7 +166,9 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
 
       %getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
 
-      file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
+      %file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
+
+      file:write(GeneratedFile, string:join([?NEW_LINE, "};"], "")),
 
       file:close(GeneratedFile),
       ?DBG_MODULE_INFO("for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) -> all files closed...  ~n", [?MODULE]),
@@ -149,9 +178,56 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList) ->
       [Type, Name] = re:split(Line,"[ ]",[{return, list}]),
       NewName = Name -- "\n",
 
-      for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1, [{Type, NewName, ObjCount} | AllFieldsList])
+      for_each_line(Device, GeneratedFile, RawFileName, ObjCount + 1, [{Type, NewName, ObjCount} | AllFieldsList], IsMessage, IsRequest)
   end,
   ok.
+
+
+generate_constructor_matchable_return_value(ResultString, []) ->
+  ?CONSTRUCTOR_MATCHABLE_FINAL(ResultString);
+generate_constructor_matchable_return_value(ResultString, [{Type, Name, _} | FieldsList]) ->
+  NewResultString = ?CONSTRUCTOR_MATCHABLE(Type, Name, ResultString),
+  case FieldsList of
+    [] ->
+      NewResultStringComma = NewResultString;
+    _ ->
+      NewResultStringComma = ?COMMA_DELIMETER(NewResultString)
+  end,
+  generate_constructor_matchable_return_value(NewResultStringComma, FieldsList).
+
+
+generate_send_topic_message_tuple(ResultString, []) ->
+  ResultString;
+generate_send_topic_message_tuple(ResultString, [{Type, Name, _} | FieldsList]) ->
+  NewResultString = ?SEND_MESSAGE_TUPLE(Type, Name, ResultString),
+  case FieldsList of
+    [] ->
+      NewResultStringComma = NewResultString;
+    _ ->
+      NewResultStringComma = ?COMMA_DELIMETER(NewResultString)
+  end,
+  generate_send_topic_message_tuple(NewResultStringComma, FieldsList).
+
+
+generate_get_tuple_message(ResultString, []) ->
+  ResultString;
+generate_get_tuple_message(ResultString, [{Type, Name, _} | FieldsList]) ->
+  NewResultString = ?GET_TUPLE_MESSAGE_TYPE(Type, Name, ResultString),
+  case FieldsList of
+    [] ->
+      NewResultStringComma = NewResultString;
+    _ ->
+      NewResultStringComma = ?COMMA_DELIMETER(NewResultString)
+  end,
+  generate_get_tuple_message(NewResultStringComma, FieldsList).
+
+
+generate_set_default_value(ResultString, []) ->
+  ResultString;
+generate_set_default_value(ResultString, [{Type, Name, _} | FieldsList]) ->
+  NewResultString = ?SET_DEFALUT_PARAMETER(ResultString, Name, Type),
+  generate_set_default_value(NewResultString, FieldsList).
+
 
 getters_setters_generation(_, []) ->
   ?DBG_MODULE_INFO("getters_setters_generation(_, []) -> end method ~n", [?MODULE]),

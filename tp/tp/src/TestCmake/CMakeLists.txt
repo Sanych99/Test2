@@ -33,6 +33,8 @@ set(TINCH_DIR_PATH /usr/local/tinch_pp-0.3.0)
 set(IBOT_INCLUDES_PATH /home/alex/iBotOS/iBotOS/CLib/includes)
 #ibot libs
 set(IBOT_LIB_PATH /home/alex/iBotOS/iBotOS/CLib/lib)
+
+set(IBOT_PROJECT_MESSAGES_PATH /home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/cpp)
 #!====== files paths ======
 
 #====== direcory includes ======
@@ -46,6 +48,8 @@ include_directories(${TINCH_DIR_PATH})
 include_directories(${IBOT_LIB_PATH})
 #incldue ibot headers dir
 include_directories(${IBOT_INCLUDES_PATH})
+
+include_directories(${IBOT_PROJECT_MESSAGES_PATH})
 #!====== direcory includes ======
 
 #====== include boost paths ======
@@ -66,6 +70,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${C_BIN_OUTPUT_DIR})
 
 #====== sets of header files ======
 set(IBOT_HEADERS ${IBOT_INCLUDES_PATH}/BotNode.h)
+
+set(IBOT_PROJECT_MESSAGES_HEADERS ${IBOT_PROJECT_MESSAGES_PATH}/TestMsgCpp.h)
 #!====== set of header files ======
 
 #====== sets of libs ======
@@ -75,7 +81,7 @@ file(GLOB ALLB ${Boost_LIBRARY_DIRS}/libboost*.a)
 #!====== sets of libs ======
 
 #====== executable file settings ======
-add_executable(TCP src/TC.cxx ${IBOT_HEADERS})
+add_executable(TCP src/TC.cxx ${IBOT_HEADERS} ${IBOT_PROJECT_MESSAGES_HEADERS} )
 #!====== executable file settings ======
 
 #====== link libs ======

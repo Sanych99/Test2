@@ -3,15 +3,36 @@
 class ServiceTestReq: public IBotMsgInterface {
 public:
 
-	std::string therdParamReq(" ");
-	long secParamReq(0);
-	std::string strParamReq(" ");
+	std::string therdParamReq;
+	long secParamReq;
+	std::string strParamReq;
 
 	ServiceTestReq() {
+		set_default_values();
 	}
 
 	ServiceTestReq(matchable_ptr message_elements) {
+		message_elements->match(make_e_tuple(e_string(&therdParamReq), long(&secParamReq), e_string(&strParamReq)));
 	}
 
-	def getMsg(self):
-		return erl_term.ErlTuple(self.resultObject)
+	virtual void send_mesasge(mailbox_ptr mbox, std::string publisherCoreNode, std::string coreNodeName, 
+		std::string currentNode, std::string otpMboxNameAsync, std::string topicName) const {
+		std::cout<<"no action"<<"\n\r";
+	}
+
+	virtual void send_service_response(mailbox_ptr mbox, std::string service_core_node,
+		std::string core_node_name, std::string response_service_message, std::string service_method_name, 
+		std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) const {
+		std::cout<<"no action"<<"\n\r";
+	}
+
+	e_tuple<boost::fusion::tuple<e_string, long, e_string> > get_tuple_message() {
+		return make_e_tuple(e_string(therdParamReq), long(secParamReq), e_string(strParamReq));
+	};
+
+	void set_default_values() {
+		therdParamReq = " ";
+		secParamReq = 0;
+		strParamReq = " ";
+	}
+};

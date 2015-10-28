@@ -55,27 +55,144 @@
 -define(CONSRTUCTOR(Name, ObjCount),
   string:join(["", "",
     ?CONSTRUCTOR_HEADER(Name),
+    ?TAB_STRING(["set_default_values();"], 2),
     ?TAB_STRING(["}"], 1)], ?NEW_LINE)).
 
 %% Constructor message class
--define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name, ObjCount), string:join([
+-define(CONSTRUCTOR_HEADER_WITH_PARAMS(Name, ObjCount, ResultString), string:join([
   ?NEW_LINE,
   ?NEW_LINE,
   ?TAB(1), Name, "(matchable_ptr message_elements) {",
+  ?NEW_LINE,
+  ?TAB(2), ResultString,
   ?NEW_LINE,
   ?TAB(1), "}"], "")).
 -define(CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjectNum), string:join([
   ?CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum)
 ], ?NEW_LINE)).
 
+
+-define(CONSTRUCTOR_MATCHABLE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE(Type), "(&", Name, ")"], "")).
+
+-define(COMMA_DELIMETER(ResultString), string:join([ResultString, ", "], "")).
+
+-define(CONSTRUCTOR_MATCHABLE_FINAL(ResultString),
+  string:join(["message_elements->match(make_e_tuple(", ResultString, "));"], "")).
+
 %-define(CONSTRUCTOR_START_MSG_PARSE, string:join([?NEW_LINE, ?NEW_LINE, ?TAB(2), "if (msg is not None):"], "")).
 
 -define(CREATE_DEFAULT_PARAMETER_VALUE(Type, Name),
-  string:join([?NEW_LINE, ?TAB(2), ?LANG_TYPE(Type), " ", Name, "(", ?DEFAULT_VALUE(Type), ");", ""], "")
+  string:join([?NEW_LINE, ?TAB(2), ?LANG_TYPE(Type), " ", Name, ";", ""], "")
 ).
 
 -define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
-  string:join([?NEW_LINE, ?TAB(1), ?LANG_TYPE(Type), " ", Name, "(", ?DEFAULT_VALUE(Type), ");", ""], "")
+  string:join([?NEW_LINE, ?TAB(1), ?LANG_TYPE(Type), " ", Name, ";", ""], "")
+).
+
+
+-define(SEND_MESSAGE_TUPLE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE(Type), "(", Name, ")"], "")).
+
+-define(SEND_MESSAGE_FUNCTION(SendMessageTuple),
+  string:join([
+    ?NEW_LINE, ?NEW_LINE, ?TAB(1),
+    "virtual void send_mesasge(mailbox_ptr mbox, std::string publisherCoreNode, std::string coreNodeName, ",
+    ?NEW_LINE, ?TAB(2),
+    "std::string currentNode, std::string otpMboxNameAsync, std::string topicName) const {",
+    ?NEW_LINE, ?TAB(2),
+    "mbox->send(publisherCoreNode, coreNodeName, ",
+    ?NEW_LINE, ?TAB(2),
+    "make_e_tuple(atom(\"broadcast\"), atom(otpMboxNameAsync), ",
+    ?NEW_LINE, ?TAB(2),
+    "atom(currentNode), atom(topicName), make_e_tuple(", SendMessageTuple, ")",
+    ?NEW_LINE, ?TAB(1),
+    "));",
+    ?NEW_LINE, ?TAB(1),
+    "}"], "")).
+
+
+-define(SEND_MESSAGE_FOR_SERVICE_FUNCTION,
+  string:join([
+    ?NEW_LINE, ?NEW_LINE, ?TAB(1),
+    "virtual void send_mesasge(mailbox_ptr mbox, std::string publisherCoreNode, std::string coreNodeName, ",
+    ?NEW_LINE, ?TAB(2),
+    "std::string currentNode, std::string otpMboxNameAsync, std::string topicName) const {",
+    ?NEW_LINE, ?TAB(2),
+    "std::cout<<\"no action\"<<\"\\n\\r\";",
+    ?NEW_LINE, ?TAB(1),
+    "}"], "")).
+
+
+-define(SEND_SERVICE_RESPONSE_FOR_MESSAGES_FUNCTION,
+  string:join([
+    ?NEW_LINE, ?NEW_LINE, ?TAB(1),
+    "virtual void send_service_response(mailbox_ptr mbox, std::string service_core_node,",
+    ?NEW_LINE, ?TAB(2),
+    "std::string core_node_name, std::string response_service_message, std::string service_method_name, ",
+    ?NEW_LINE, ?TAB(2),
+    "std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) const {",
+    ?NEW_LINE, ?TAB(2),
+    "std::cout<<\"no action\"<<\"\\n\\r\";",
+    ?NEW_LINE, ?TAB(1),
+    "}"
+  ], "")
+).
+
+
+
+-define(SEND_SERVICE_RESPONSE_FOR_RESP_FUNCTION(Name, ResultString),
+  string:join([
+    ?NEW_LINE, ?NEW_LINE, ?TAB(1),
+    "virtual void send_service_response(mailbox_ptr mbox, std::string service_core_node, ",
+    ?NEW_LINE, ?TAB(2),
+    "std::string core_node_name, std::string response_service_message, std::string service_method_name, ",
+    ?NEW_LINE, ?TAB(2),
+    "std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) const {",
+    ?NEW_LINE, ?TAB(2),
+    string:join([Name, "Req req(request_message_from_client);"], ""),
+    ?NEW_LINE, ?TAB(2),
+    "mbox->send(service_core_node, core_node_name, make_e_tuple(atom(response_service_message), e_string(service_method_name), atom(client_mail_box_name),",
+    ?NEW_LINE, ?TAB(3),
+    "atom(client_node_full_name), e_string(client_method_name_callback), req.get_tuple_message() ,",
+    ?NEW_LINE, ?TAB(3),
+    "make_e_tuple(", ResultString, ")",
+    ?NEW_LINE, ?TAB(2),
+    "));",
+    ?NEW_LINE, ?TAB(1),
+    "}"
+  ], "")
+).
+
+
+-define(GET_TUPLE_MESSAGE_TYPE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE(Type)], "")).
+
+-define(GET_TUPLE_MESSAGE(TupleTypesList, ReturnList),
+  string:join([
+    ?NEW_LINE, ?NEW_LINE, ?TAB(1),
+    "e_tuple<boost::fusion::tuple<", TupleTypesList,"> > get_tuple_message() {",
+    ?NEW_LINE, ?TAB(2),
+    "return make_e_tuple(", ReturnList,");",
+    ?NEW_LINE, ?TAB(1),
+    "};"
+  ], "")
+).
+
+
+-define(SET_DEFALUT_PARAMETER(ResultString, Name, Type),
+  string:join([
+    ResultString,
+    ?NEW_LINE, ?TAB(2),
+    Name, " = ", ?DEFAULT_VALUE(Type), ";"
+  ], "")
+).
+
+-define(SET_DEFAULT_VALUES_FUNCTION(ParameterList),
+  string:join([
+    ?NEW_LINE, ?NEW_LINE, ?TAB(1),
+    "void set_default_values() {",
+    ParameterList,
+    ?NEW_LINE, ?TAB(1),
+    "}"
+  ], "")
 ).
 
 %-define(CONSTRUCTOR_END_WITH_PARAMS(), ?TAB_STRING([?NEW_LINE, ?TAB(1), "}"], 1)).
@@ -125,11 +242,11 @@
 %% Get OPT type
 -define(OTP_TYPE(Type),
   case Type of
-    "String" -> "erl_term.ErlString(~p)";
-    "Long" -> "long(~p)";
-    "Int" -> "int(~p)";
-    "Double" -> "float(~p)";
-    "Boolean" -> "erl_term.ErlAtom(str(~p).lower())";
+    "String" -> "e_string";
+    "Long" -> "long";
+    "Int" -> "int_";
+    "Double" -> "float_";
+    "Boolean" -> "bool";
     _ -> "UNDEFINE"
   end
 ).
@@ -139,7 +256,7 @@
   case Type of
     "String" -> "std::string";
     "Long" -> "long";
-    "Int" -> "int_";
+    "Int" -> "boost::int32_t";
     "Double" -> "float_";
     "Boolean" -> "bool";
     _ -> "UNDEFINE"
@@ -163,7 +280,7 @@
     "Long" -> "0";
     "Int" -> "0";
     "Double" -> "0";
-    "Boolean" -> "True";
+    "Boolean" -> "true";
     _ -> "UNDEFINE"
   end
 ).
