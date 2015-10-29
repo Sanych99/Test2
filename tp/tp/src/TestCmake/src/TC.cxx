@@ -88,12 +88,20 @@ class TestClass: public BotNode<TestClass> {
       return resp;
     };
     
+    void client_method(ServiceTestReq req, ServiceTestResp resp) {
+      std::cout<<"get serponse from service req: " + req.strParamReq<<"\n\r";
+      std::cout<<"get serponse from service resp: " + resp.strParamResp<<"\n\r";
+    }
+    
     
     void go() {
      subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm);
      subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm2);
      
-     registerServiceServer<ServiceTestReq, ServiceTestResp>("new_cpp_service", &TestClass::service_method);
+     register_service_server<ServiceTestReq, ServiceTestResp>("new_cpp_service", &TestClass::service_method);
+     register_service_client<ServiceTestReq, ServiceTestResp>("new_cpp_service", &TestClass::client_method);
+     
+     
      
      boost::scoped_ptr<TesMsg> t(new TesMsg());
      //TesMsg* t = new TesMsg();
@@ -105,6 +113,12 @@ class TestClass: public BotNode<TestClass> {
      cpp->strParam = "hello from my test message!";
      
      publish_message<TestMsgCpp>("test2", cpp);
+     
+     
+     
+     ServiceTestReq req_service;
+     req_service.strParamReq = "String from cpp client!";
+     async_service_request<ServiceTestReq>("new_cpp_service", req_service);
      
      //delete t;
     }

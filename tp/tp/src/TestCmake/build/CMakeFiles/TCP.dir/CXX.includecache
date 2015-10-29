@@ -41,6 +41,26 @@ CollectionSubscribe.h
 /home/alex/iBotOS/iBotOS/CLib/includes/CollectionSubscribe.h
 CollectionServiceServer.h
 /home/alex/iBotOS/iBotOS/CLib/includes/CollectionServiceServer.h
+CollectionServiceClient.h
+/home/alex/iBotOS/iBotOS/CLib/includes/CollectionServiceClient.h
+
+/home/alex/iBotOS/iBotOS/CLib/includes/CollectionServiceClient.h
+stdio.h
+-
+stdlib.h
+-
+string
+-
+iostream
+-
+functional
+-
+tinch_pp/rpc.h
+/home/alex/iBotOS/iBotOS/CLib/includes/tinch_pp/rpc.h
+tinch_pp/erlang_types.h
+/home/alex/iBotOS/iBotOS/CLib/includes/tinch_pp/erlang_types.h
+tinch_pp/mailbox.h
+/home/alex/iBotOS/iBotOS/CLib/includes/tinch_pp/mailbox.h
 
 /home/alex/iBotOS/iBotOS/CLib/includes/CollectionServiceServer.h
 stdio.h

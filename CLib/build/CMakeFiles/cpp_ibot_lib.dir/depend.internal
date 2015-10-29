@@ -3,6 +3,7 @@
 
 CMakeFiles/cpp_ibot_lib.dir/src/BotNode.cxx.o
  ../includes/BotNode.h
+ ../includes/CollectionServiceClient.h
  ../includes/CollectionServiceServer.h
  ../includes/CollectionSubscribe.h
  ../includes/IBotMsgInterface.h

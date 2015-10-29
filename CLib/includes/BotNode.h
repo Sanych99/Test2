@@ -21,6 +21,7 @@
 #include "IBotMsgInterface.h"
 #include "CollectionSubscribe.h"
 #include "CollectionServiceServer.h"
+#include "CollectionServiceClient.h"
 
 using namespace tinch_pp;
 using namespace tinch_pp::erl;
@@ -58,6 +59,7 @@ namespace BotNodeNameSpace {
       int epmd_port; /** порт для соединения с ядром */
       std::map < std::string, BaseCollectionSubscribe* > subscribe_dic; /** список подписанных методов на топики */
       std::map < std::string, BaseCollectionServiceServer* > async_service_server_dic;
+      std::map < std::string, BaseCollectionServiceClient* > async_service_client_dic;
       
       NodeClass* child_object; /** ссылка на объек узла */
       
@@ -67,7 +69,12 @@ namespace BotNodeNameSpace {
       template<typename M> void publish_message(std::string topic_name, boost::scoped_ptr<M>& msg);
       
       template<typename ReqType, typename RespType> 
-      void registerServiceServer(std::string service_name, RespType (NodeClass::*callback)(ReqType));
+      void register_service_server(std::string service_name, RespType (NodeClass::*callback)(ReqType));
+      template<typename ReqType, typename RespType> 
+      void register_service_client(std::string service_name, void (NodeClass::*callback)(ReqType, RespType));
+      
+      template<typename ReqType>
+      void async_service_request(std::string service_name, ReqType req);
     
       void monitor_start();
       void monitor_stop();
@@ -202,6 +209,10 @@ namespace BotNodeNameSpace {
 	msgTypeEnum = call_service_method;
 	std::cout<<"if call_service_method"<< "\n\r";
       }
+      else if(msg->match(make_e_tuple(atom("call_client_service_callback_method"), erl::any(), erl::any(), erl::any(), erl::any()))) {
+	msgTypeEnum = call_client_service_callback_method;
+	std::cout<<"if call_client_service_callback_method"<< "\n\r";
+      }
       else {
 	msgTypeEnum = no_action; 	
 	std::cout<<"if no_action"<< "\n\r";
@@ -247,8 +258,18 @@ namespace BotNodeNameSpace {
 	}
 	break;
 
-	/*case call_client_service_callback_method:
-	break;*/
+	case call_client_service_callback_method: {
+	  std::string invoked_service_method_name;
+	  std::string client_method_name;
+	  matchable_ptr request_message;
+	  matchable_ptr response_message;
+	  
+	  msg->match(make_e_tuple(any(), e_string(&invoked_service_method_name), e_string(&client_method_name), 
+				  any(&request_message), any(&response_message)));
+	  
+	  async_service_client_dic.at(invoked_service_method_name)->execute(request_message, response_message);
+	}
+	break;
 
 	case system: {
 	  core_is_active = false;
@@ -359,7 +380,7 @@ namespace BotNodeNameSpace {
   
   template<typename NodeClass>
   template<typename ReqType, typename RespType>
-  void BotNode<NodeClass>::registerServiceServer(string service_name, RespType (NodeClass::*callback)(ReqType))
+  void BotNode<NodeClass>::register_service_server(string service_name, RespType (NodeClass::*callback)(ReqType))
   {
     async_service_server_dic[service_name] = new CollectionServiceServer<NodeClass, ReqType, RespType>(callback, child_object);
     
@@ -368,6 +389,31 @@ namespace BotNodeNameSpace {
 			 atom(otp_node_name + "@" + current_server_name), e_string(service_name))
     );
   }
+  
+  
+  template<typename NodeClass>
+  template<typename ReqType, typename RespType>
+  void BotNode<NodeClass>::register_service_client(string service_name, void (NodeClass::*callback)(ReqType, RespType))
+  {
+    async_service_client_dic[service_name] = new CollectionServiceClient<NodeClass, ReqType, RespType>(callback, child_object);
+    
+    otp_mbox_async->send(service_core_node, core_node_name, 
+			 make_e_tuple(atom("reg_async_client_service_callback"), atom(otp_mbox_name_async), 
+			 atom(otp_node_name + "@" + current_server_name), atom(service_name))
+    );
+  }
+  
+ 
+  template<typename NodeClass>
+  template<typename ReqType>
+  void BotNode<NodeClass>::async_service_request(string service_name, ReqType req)
+  {
+    otp_mbox_async->send(service_core_node, core_node_name, 
+			 make_e_tuple(atom("request_service_message"), atom(otp_mbox_name_async), 
+			 atom(otp_node_name + "@" + current_server_name), e_string("cpp_client_empty_by_default"), e_string(service_name), req.get_tuple_message())
+    );
+  }
+
 
 }
 

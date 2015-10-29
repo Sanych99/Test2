@@ -41,6 +41,26 @@ CollectionSubscribe.h
 ../includes/CollectionSubscribe.h
 CollectionServiceServer.h
 ../includes/CollectionServiceServer.h
+CollectionServiceClient.h
+../includes/CollectionServiceClient.h
+
+../includes/CollectionServiceClient.h
+stdio.h
+-
+stdlib.h
+-
+string
+-
+iostream
+-
+functional
+-
+tinch_pp/rpc.h
+../includes/tinch_pp/rpc.h
+tinch_pp/erlang_types.h
+../includes/tinch_pp/erlang_types.h
+tinch_pp/mailbox.h
+../includes/tinch_pp/mailbox.h
 
 ../includes/CollectionServiceServer.h
 stdio.h

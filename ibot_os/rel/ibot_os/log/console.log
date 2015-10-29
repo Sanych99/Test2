@@ -222,3 +222,19 @@
 2015-10-30 03:49:02.922 [warning] <0.388.0> lager_error_logger_h dropped 63 messages in the last second that exceeded the limit of 50 messages/sec
 2015-10-30 03:49:02.922 [info] <0.389.0> Application mnesia exited with reason: stopped
 2015-10-30 03:49:03.015 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 04:50:21.300 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 04:50:28.341 [warning] <0.388.0> lager_error_logger_h dropped 55 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 04:50:28.341 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 04:50:28.439 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 04:50:44.169 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 04:50:51.230 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 04:50:51.230 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 04:50:51.314 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 04:57:33.154 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 04:57:40.182 [warning] <0.388.0> lager_error_logger_h dropped 59 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 04:57:40.182 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 04:57:40.285 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 04:58:10.694 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 04:58:17.737 [warning] <0.388.0> lager_error_logger_h dropped 64 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 04:58:17.737 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 04:58:17.821 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
