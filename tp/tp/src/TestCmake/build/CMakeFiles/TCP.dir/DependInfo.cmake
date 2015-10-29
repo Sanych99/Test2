@@ -20,6 +20,7 @@ SET(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/alex/iBotOS/iBotOS/CLib/lib"
   "/home/alex/iBotOS/iBotOS/CLib/includes"
   "/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/cpp"
+  "/home/alex/iBotOS/iBotOS/tp/new_project/dev/srv/cpp"
   "/usr/lib/x86_64-linux-gnu"
   )
 SET(CMAKE_CXX_TARGET_INCLUDE_PATH ${CMAKE_C_TARGET_INCLUDE_PATH})

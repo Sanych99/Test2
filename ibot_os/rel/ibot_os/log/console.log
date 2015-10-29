@@ -194,3 +194,31 @@
 2015-10-29 05:00:58.472 [warning] <0.388.0> lager_error_logger_h dropped 56 messages in the last second that exceeded the limit of 50 messages/sec
 2015-10-29 05:00:58.472 [info] <0.389.0> Application mnesia exited with reason: stopped
 2015-10-29 05:00:58.552 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 00:56:50.167 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 00:56:57.216 [warning] <0.388.0> lager_error_logger_h dropped 65 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 00:56:57.216 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 00:56:57.321 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 01:30:18.179 [error] emulator Error in process <0.831.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+
+2015-10-30 01:32:39.421 [error] emulator Error in process <0.834.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+
+2015-10-30 01:35:27.403 [error] emulator Error in process <0.842.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+
+2015-10-30 01:40:51.353 [error] <0.652.0> gen_server ibot_nodes_srv_service terminated with reason: bad argument in call to erlang:list_to_atom(new_cpp_service) in ibot_db_func_services:register_server_service/3 line 54
+2015-10-30 01:40:51.353 [error] <0.652.0> CRASH REPORT Process ibot_nodes_srv_service with 0 neighbours exited with reason: bad argument in call to erlang:list_to_atom(new_cpp_service) in ibot_db_func_services:register_server_service/3 line 54
+2015-10-30 01:40:51.353 [error] <0.649.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_service started with ibot_nodes_srv_service:start_link() at <0.652.0> exit with reason bad argument in call to erlang:list_to_atom(new_cpp_service) in ibot_db_func_services:register_server_service/3 line 54 in context child_terminated
+2015-10-30 01:43:01.449 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 01:43:08.504 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 01:43:08.504 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 01:43:08.584 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 02:11:44.755 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 02:11:52.001 [warning] <0.388.0> lager_error_logger_h dropped 64 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 02:11:52.001 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 02:11:52.083 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-10-30 03:48:55.902 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-10-30 03:49:02.922 [warning] <0.388.0> lager_error_logger_h dropped 63 messages in the last second that exceeded the limit of 50 messages/sec
+2015-10-30 03:49:02.922 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-10-30 03:49:03.015 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'

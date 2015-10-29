@@ -3,8 +3,6 @@
 class ServiceTestReq: public IBotMsgInterface {
 public:
 
-	std::string therdParamReq;
-	long secParamReq;
 	std::string strParamReq;
 
 	ServiceTestReq() {
@@ -12,7 +10,7 @@ public:
 	}
 
 	ServiceTestReq(matchable_ptr message_elements) {
-		message_elements->match(make_e_tuple(e_string(&therdParamReq), long(&secParamReq), e_string(&strParamReq)));
+		message_elements->match(make_e_tuple(e_string(&strParamReq)));
 	}
 
 	virtual void send_mesasge(mailbox_ptr mbox, std::string publisherCoreNode, std::string coreNodeName, 
@@ -26,13 +24,11 @@ public:
 		std::cout<<"no action"<<"\n\r";
 	}
 
-	e_tuple<boost::fusion::tuple<e_string, long, e_string> > get_tuple_message() {
-		return make_e_tuple(e_string(therdParamReq), long(secParamReq), e_string(strParamReq));
+	e_tuple<boost::fusion::tuple<e_string> > get_tuple_message() {
+		return make_e_tuple(e_string(strParamReq));
 	};
 
 	void set_default_values() {
-		therdParamReq = " ";
-		secParamReq = 0;
 		strParamReq = " ";
 	}
 };

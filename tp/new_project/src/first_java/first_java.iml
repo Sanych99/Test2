@@ -89,6 +89,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: dev.srv.java:ServiceTestReq:1.0" level="project" />
+    <orderEntry type="library" name="Maven: dev.srv.java:ServiceTestResp:1.0" level="project" />
     <orderEntry type="library" name="Maven: dev.msg.java:TestTypesMsg:1.0" level="project" />
     <orderEntry type="library" name="Maven: dev.msg.java:TestMsg:1.0" level="project" />
   </component>

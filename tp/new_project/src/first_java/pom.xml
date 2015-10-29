@@ -39,6 +39,19 @@
           <systemPath>/home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar</systemPath>
       </dependency>
 
+      <dependency>
+          <groupId>dev.srv.java</groupId>
+          <artifactId>ServiceTestReq</artifactId>
+          <version>1.0</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>dev.srv.java</groupId>
+          <artifactId>ServiceTestResp</artifactId>
+          <version>1.0</version>
+      </dependency>
+
       <!--<dependency>
           <groupId>dev.msg.java</groupId>
           <artifactId>TestTypesMsg</artifactId>
@@ -173,6 +186,41 @@
                             <goal>install-file</goal>
                         </goals>
                     </execution>
+
+                    <execution>
+                        <id>install-external_2</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>/home/alex/iBotOS/iBotOS/tp/new_project/dev/srv/java/ServiceTestReq.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>dev.srv.java</groupId>
+                            <artifactId>ServiceTestReq</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>install-external_3</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>/home/alex/iBotOS/iBotOS/tp/new_project/dev/srv/java/ServiceTestResp.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>dev.srv.java</groupId>
+                            <artifactId>ServiceTestResp</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
                 </executions>
             </plugin>
 

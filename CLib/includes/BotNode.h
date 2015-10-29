@@ -64,7 +64,7 @@ namespace BotNodeNameSpace {
       boost::thread* receive_mbox_message_thread; /** поток обработка системных событий */
       void receive_mbox_message_method(mailbox_ptr async_mbox); /** метод обработки системных событий */
       template<typename M> void subscribe_to_topic(std::string topic_name, void (NodeClass::*callback_function)(M));
-      void publish_message(std::string topic_name, IBotMsgInterface* msg);
+      template<typename M> void publish_message(std::string topic_name, boost::scoped_ptr<M>& msg);
       
       template<typename ReqType, typename RespType> 
       void registerServiceServer(std::string service_name, RespType (NodeClass::*callback)(ReqType));
@@ -154,7 +154,8 @@ namespace BotNodeNameSpace {
   * Публикация сообщения в топика
   */
   template<typename NodeClass>
-  void BotNode<NodeClass>::publish_message(std::string topic_name, IBotMsgInterface* msg)
+  template<typename M>
+  void BotNode<NodeClass>::publish_message(std::string topic_name, boost::scoped_ptr<M>& msg)
   {
     msg->send_mesasge(otp_mbox_async, publisher_core_node, core_node_name, 
 		      otp_node_name + "@" + current_server_name, otp_mbox_name_async, topic_name);
@@ -232,9 +233,10 @@ namespace BotNodeNameSpace {
 	  std::string client_method_name_callback;
 	  matchable_ptr request_message_from_client;
 	  
-	  msg->match(make_e_tuple(any(), e_string(&service_method_name), e_string(&client_mail_box_name), 
-				  e_string(&client_node_full_name), e_string(&client_method_name_callback), 
+	  msg->match(make_e_tuple(any(), e_string(&service_method_name), atom(&client_mail_box_name), 
+				  atom(&client_node_full_name), e_string(&client_method_name_callback), 
 				  any(&request_message_from_client)));
+	  
 	  /*
 	  make_e_tuple(atom("response_service_message"), e_string(service_method_name), atom(client_mail_box_name), 
 	      atom(client_node_full_name), e_string(client_method_name_callback), any(request_message_from_client), */
@@ -362,8 +364,8 @@ namespace BotNodeNameSpace {
     async_service_server_dic[service_name] = new CollectionServiceServer<NodeClass, ReqType, RespType>(callback, child_object);
     
     otp_mbox_async->send(service_core_node, core_node_name, 
-			 make_e_tuple(atom("reg_async_client_service_callback"), atom(otp_mbox_name_async), 
-			 atom(otp_node_name + "@" + current_server_name), atom(service_name))
+			 make_e_tuple(atom("reg_async_server_service_callback"), atom(otp_mbox_name_async), 
+			 atom(otp_node_name + "@" + current_server_name), e_string(service_name))
     );
   }
 

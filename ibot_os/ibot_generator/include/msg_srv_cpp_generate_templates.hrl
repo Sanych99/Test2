@@ -148,7 +148,7 @@
     ?NEW_LINE, ?TAB(2),
     "std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) const {",
     ?NEW_LINE, ?TAB(2),
-    string:join([Name, "Req req(request_message_from_client);"], ""),
+    string:join([re:replace(Name, "Resp", "", [{return, list}]), "Req req(request_message_from_client);"], ""),
     ?NEW_LINE, ?TAB(2),
     "mbox->send(service_core_node, core_node_name, make_e_tuple(atom(response_service_message), e_string(service_method_name), atom(client_mail_box_name),",
     ?NEW_LINE, ?TAB(3),

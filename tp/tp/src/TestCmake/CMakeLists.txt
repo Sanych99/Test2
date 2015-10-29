@@ -35,6 +35,7 @@ set(IBOT_INCLUDES_PATH /home/alex/iBotOS/iBotOS/CLib/includes)
 set(IBOT_LIB_PATH /home/alex/iBotOS/iBotOS/CLib/lib)
 
 set(IBOT_PROJECT_MESSAGES_PATH /home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/cpp)
+set(IBOT_PROJECT_SERVICES_PATH /home/alex/iBotOS/iBotOS/tp/new_project/dev/srv/cpp)
 #!====== files paths ======
 
 #====== direcory includes ======
@@ -50,6 +51,7 @@ include_directories(${IBOT_LIB_PATH})
 include_directories(${IBOT_INCLUDES_PATH})
 
 include_directories(${IBOT_PROJECT_MESSAGES_PATH})
+include_directories(${IBOT_PROJECT_SERVICES_PATH})
 #!====== direcory includes ======
 
 #====== include boost paths ======
@@ -72,6 +74,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${C_BIN_OUTPUT_DIR})
 set(IBOT_HEADERS ${IBOT_INCLUDES_PATH}/BotNode.h)
 
 set(IBOT_PROJECT_MESSAGES_HEADERS ${IBOT_PROJECT_MESSAGES_PATH}/TestMsgCpp.h)
+set(IBOT_PROJECT_SREVICES_HEADERS ${IBOT_PROJECT_SERVICES_PATH}/ServiceTestReq.h ${IBOT_PROJECT_SERVICES_PATH}/ServiceTestResp.h)
 #!====== set of header files ======
 
 #====== sets of libs ======
@@ -81,7 +84,7 @@ file(GLOB ALLB ${Boost_LIBRARY_DIRS}/libboost*.a)
 #!====== sets of libs ======
 
 #====== executable file settings ======
-add_executable(TCP src/TC.cxx ${IBOT_HEADERS} ${IBOT_PROJECT_MESSAGES_HEADERS} )
+add_executable(TCP src/TC.cxx ${IBOT_HEADERS} ${IBOT_PROJECT_MESSAGES_HEADERS} ${IBOT_PROJECT_SERVICES_PATH})
 #!====== executable file settings ======
 
 #====== link libs ======

@@ -17,9 +17,11 @@ using namespace tinch_pp::erl;
 
 class BaseCollectionServiceServer {
 public:
+  BaseCollectionServiceServer() {};
+  
   virtual void execute(mailbox_ptr mbox, std::string service_core_node,  
     std::string core_node_name, std::string response_service_message, std::string service_method_name, 
-    std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) const {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
+    std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
 };
 
 
@@ -30,18 +32,23 @@ protected:
   NodeClass* childObject;
   
 public:
-  CollectionServiceServer(RespType (NodeClass::*callbackFunction)(ReqType), NodeClass* child) {
+  CollectionServiceServer(RespType (NodeClass::*callbackFunction)(ReqType), NodeClass* child): BaseCollectionServiceServer() {
     callback = callbackFunction;
     childObject = child;
   };
   
-  void execute(mailbox_ptr mbox, std::string service_core_node,  
+  virtual void execute(mailbox_ptr mbox, std::string service_core_node,  
     std::string core_node_name, std::string response_service_message, std::string service_method_name, 
-    std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client);
+    std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) {
+      RespType response((childObject->*callback)(ReqType(request_message_from_client)));
+      response.send_service_response(mbox, service_core_node,  
+	core_node_name, response_service_message, service_method_name, 
+	client_mail_box_name, client_node_full_name, client_method_name_callback, request_message_from_client);
+    };
 };
 
 
-template<typename NodeClass, typename ReqType, typename RespType>
+/*template<typename NodeClass, typename ReqType, typename RespType>
 void CollectionServiceServer<NodeClass, ReqType, RespType>::execute(mailbox_ptr mbox, std::string service_core_node,  
   std::string core_node_name, std::string response_service_message, std::string service_method_name, 
   std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client)
@@ -50,7 +57,7 @@ void CollectionServiceServer<NodeClass, ReqType, RespType>::execute(mailbox_ptr 
   response.send_service_response(mbox, service_core_node,  
     core_node_name, response_service_message, service_method_name, 
     client_mail_box_name, client_node_full_name, client_method_name_callback, request_message_from_client);
-}
+}*/
 
 
 

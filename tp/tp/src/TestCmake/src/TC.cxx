@@ -4,6 +4,8 @@
 #include "IBotMsgInterface.h"
 
 #include "TestMsgCpp.h"
+#include "ServiceTestReq.h"
+#include "ServiceTestResp.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -79,21 +81,32 @@ class TestClass: public BotNode<TestClass> {
     void cm(TesMsg msg) { cout<<"CM1: " + msg.text<<"\n\r"; };
     void cm2(TesMsg msg) { cout<<"CM2: " + msg.text<<"\n\r"; };
     
+    ServiceTestResp service_method(ServiceTestReq req) { 
+      std::cout<<"get request from client: " + req.strParamReq<<"\n\r";
+      ServiceTestResp resp;
+      resp.strParamResp = "This is responce from service cpp";
+      return resp;
+    };
+    
+    
     void go() {
      subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm);
      subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm2);
      
-     TesMsg* t = new TesMsg();
+     registerServiceServer<ServiceTestReq, ServiceTestResp>("new_cpp_service", &TestClass::service_method);
      
-     publish_message("testTopic", t);
+     boost::scoped_ptr<TesMsg> t(new TesMsg());
+     //TesMsg* t = new TesMsg();
      
-     TestMsgCpp* cpp = new TestMsgCpp();
+     publish_message<TesMsg>("testTopic", t);
+     
+     boost::scoped_ptr<TestMsgCpp> cpp(new TestMsgCpp());
      cpp->longParam = 255;
      cpp->strParam = "hello from my test message!";
      
-     publish_message("test2", cpp);
+     publish_message<TestMsgCpp>("test2", cpp);
      
-     delete t;
+     //delete t;
     }
 };
 

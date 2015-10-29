@@ -118,6 +118,7 @@ code_change(_OldVsn, State, _Extra) ->
   ClientNodeFullName :: term(), ClientMethodName :: term(), RequestMessage :: term().
 
 sendMessageToService(ServiceMailBoxName, ServiceNodeFullName, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage) ->
+  ?DMI("sendMessageToService", {?CALL_SERVICE_METHOD, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage}),
   erlang:send({ServiceMailBoxName, ServiceNodeFullName}, {?CALL_SERVICE_METHOD, ServiceMethodName, ClientMailBoxName, ClientNodeFullName, ClientMethodName, RequestMessage}),
   ok.
 
