@@ -68,3 +68,918 @@ Error in process <0.842.0> on node 'core@alex-N550JK' with exit value: {{badreco
      Reason:     {badarg,[{erlang,list_to_atom,[new_cpp_service],[]},{ibot_db_func_services,register_server_service,3,[{file,"src/ibot_db_func_services.erl"},{line,54}]},{ibot_nodes_srv_service,handle_info,2,[{file,"src/ibot_nodes_srv_service.erl"},{line,67}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
      Offender:   [{pid,<0.652.0>},{name,ibot_nodes_srv_service},{mfargs,{ibot_nodes_srv_service,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
 
+2015-11-01 04:41:49 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {enoent,[{erlang,open_port,[{spawn_executable,false},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp.py","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,245}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 04:41:49 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{enoent,[{erlang,open_port,[{spawn_executable,false},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp.py","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,245}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 857
+  neighbours:
+2015-11-01 04:41:49 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {enoent,[{erlang,open_port,[{spawn_executable,false},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp.py","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,245}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 04:42:30 =ERROR REPORT====
+Error in process <0.768.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 04:43:28 =ERROR REPORT====
+Error in process <0.776.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 04:46:10 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {enoent,[{erlang,open_port,[{spawn_executable,"/home/alex/iBotOS/iBotOS/tp/new_projectdevfirst_cpp./first_cpp"},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp.py","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,242}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 04:46:10 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{enoent,[{erlang,open_port,[{spawn_executable,"/home/alex/iBotOS/iBotOS/tp/new_projectdevfirst_cpp./first_cpp"},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp.py","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,242}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 853
+  neighbours:
+2015-11-01 04:46:10 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {enoent,[{erlang,open_port,[{spawn_executable,"/home/alex/iBotOS/iBotOS/tp/new_projectdevfirst_cpp./first_cpp"},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp.py","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,242}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,68}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 04:55:21 =ERROR REPORT====
+Mnesia('core@alex-N550JK'): ** ERROR ** (core dumped to file: "/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/MnesiaCore.core@alex-N550JK_1446_332121_299955")
+ ** FATAL ** mnesia_tm crashed: {"Cannot read schema","/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/Mnesia.core@alex-N550JK/schema.DAT",{error,{file_error,"/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/Mnesia.core@alex-N550JK/schema.DAT",eacces}}} state: [<0.638.0>]
+2015-11-01 04:55:26 =ERROR REPORT====
+** Generic server ibot_nodes_srv_ui_interaction terminating 
+** Last message in was {'$gen_cast',{init_state}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {{badrecord,project_info},[{ibot_nodes_srv_ui_interaction,handle_cast,2,[{file,"src/ibot_nodes_srv_ui_interaction.erl"},{line,53}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 04:55:26 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_ui_interaction:init/1
+    pid: <0.632.0>
+    registered_name: ibot_nodes_srv_ui_interaction
+    exception exit: {{{badrecord,project_info},[{ibot_nodes_srv_ui_interaction,handle_cast,2,[{file,"src/ibot_nodes_srv_ui_interaction.erl"},{line,53}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.627.0>]
+    messages: []
+    links: [<0.628.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 610
+    stack_size: 27
+    reductions: 154
+  neighbours:
+2015-11-01 04:55:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {{badrecord,project_info},[{ibot_nodes_srv_ui_interaction,handle_cast,2,[{file,"src/ibot_nodes_srv_ui_interaction.erl"},{line,53}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.632.0>},{name,ibot_nodes_srv_ui_interaction},{mfargs,{ibot_nodes_srv_ui_interaction,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 04:55:31 =ERROR REPORT====
+** Generic server mnesia_monitor terminating 
+** Last message in was {'EXIT',<0.638.0>,killed}
+** When Server state == {state,<0.638.0>,[],[],false,[],undefined,[],[]}
+** Reason for termination == 
+** killed
+2015-11-01 04:55:31 =CRASH REPORT====
+  crasher:
+    initial call: mnesia_monitor:init/1
+    pid: <0.639.0>
+    registered_name: mnesia_monitor
+    exception exit: {killed,[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [mnesia_kernel_sup,mnesia_sup,<0.635.0>]
+    messages: []
+    links: []
+    dictionary: []
+    trap_exit: true
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 2327
+  neighbours:
+2015-11-01 04:55:31 =ERROR REPORT====
+** Generic server mnesia_recover terminating 
+** Last message in was {'EXIT',<0.638.0>,killed}
+** When Server state == {state,<0.638.0>,undefined,undefined,undefined,0,false,false,[]}
+** Reason for termination == 
+** killed
+2015-11-01 05:00:44 =ERROR REPORT====
+Error in process <0.773.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 05:00:51 =ERROR REPORT====
+Error in process <0.781.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 05:27:56 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh",["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]]}]],[]},{ibot_core_func_cmd,execute_os_script_file,2,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 05:27:56 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.650.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh",["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]]}]],[]},{ibot_core_func_cmd,execute_os_script_file,2,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 2062
+  neighbours:
+2015-11-01 05:27:56 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,["/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh",["/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]]}]],[]},{ibot_core_func_cmd,execute_os_script_file,2,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,69}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.650.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 05:28:48 =ERROR REPORT====
+Error in process <0.767.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 05:43:54 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,105,98,111,116,95,111,115,47,114,101,108,47,105,98,111,116,95,111,115,47,108,105,98,47,105,98,111,116,95,99,111,114,101,45,49,47,112,114,105,118,47,99,112,112,95,110,111,100,101,95,114,117,110,46,115,104,47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,116,112,47,110,101,119,95,112,114,111,106,101,99,116,47,100,101,118,47,110,111,100,101,115,47,102,105,114,115,116,95,99,112,112,47,102,105,114,115,116,95,99,112,112,102,105,114,115,116,95,99,112,112,97,108,101,120,45,78,53,53,48,74,75,99,111,114,101,64,97,108,101,120,45,78,53,53,48,74,75,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,99,111,110,110,101,99,116,111,114,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,116,111,112,105,99,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,115,101,114,118,105,99,101,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,117,105,95,105,110,116,101,114,97,99,116,105,111,110,105,98,111,116,95,101,118,101,110,116,115,95,115,114,118,95,110,111,100,101,95,105,110,116,101,114,97,99,116,105,111,110|jv]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 05:43:54 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,105,98,111,116,95,111,115,47,114,101,108,47,105,98,111,116,95,111,115,47,108,105,98,47,105,98,111,116,95,99,111,114,101,45,49,47,112,114,105,118,47,99,112,112,95,110,111,100,101,95,114,117,110,46,115,104,47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,116,112,47,110,101,119,95,112,114,111,106,101,99,116,47,100,101,118,47,110,111,100,101,115,47,102,105,114,115,116,95,99,112,112,47,102,105,114,115,116,95,99,112,112,102,105,114,115,116,95,99,112,112,97,108,101,120,45,78,53,53,48,74,75,99,111,114,101,64,97,108,101,120,45,78,53,53,48,74,75,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,99,111,110,110,101,99,116,111,114,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,116,111,112,105,99,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,115,101,114,118,105,99,101,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,117,105,95,105,110,116,101,114,97,99,116,105,111,110,105,98,111,116,95,101,118,101,110,116,115,95,115,114,118,95,110,111,100,101,95,105,110,116,101,114,97,99,116,105,111,110|jv]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 2155
+  neighbours:
+2015-11-01 05:43:54 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,105,98,111,116,95,111,115,47,114,101,108,47,105,98,111,116,95,111,115,47,108,105,98,47,105,98,111,116,95,99,111,114,101,45,49,47,112,114,105,118,47,99,112,112,95,110,111,100,101,95,114,117,110,46,115,104,47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,116,112,47,110,101,119,95,112,114,111,106,101,99,116,47,100,101,118,47,110,111,100,101,115,47,102,105,114,115,116,95,99,112,112,47,102,105,114,115,116,95,99,112,112,102,105,114,115,116,95,99,112,112,97,108,101,120,45,78,53,53,48,74,75,99,111,114,101,64,97,108,101,120,45,78,53,53,48,74,75,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,99,111,110,110,101,99,116,111,114,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,116,111,112,105,99,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,115,101,114,118,105,99,101,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,117,105,95,105,110,116,101,114,97,99,116,105,111,110,105,98,111,116,95,101,118,101,110,116,115,95,115,114,118,95,110,111,100,101,95,105,110,116,101,114,97,99,116,105,111,110|jv]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 05:45:21 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,105,98,111,116,95,111,115,47,114,101,108,47,105,98,111,116,95,111,115,47,108,105,98,47,105,98,111,116,95,99,111,114,101,45,49,47,112,114,105,118,47,99,112,112,95,110,111,100,101,95,114,117,110,46,115,104,47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,116,112,47,110,101,119,95,112,114,111,106,101,99,116,47,100,101,118,47,110,111,100,101,115,47,102,105,114,115,116,95,99,112,112,47,102,105,114,115,116,95,99,112,112,102,105,114,115,116,95,99,112,112,97,108,101,120,45,78,53,53,48,74,75,99,111,114,101,64,97,108,101,120,45,78,53,53,48,74,75,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,99,111,110,110,101,99,116,111,114,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,116,111,112,105,99,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,115,101,114,118,105,99,101,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,117,105,95,105,110,116,101,114,97,99,116,105,111,110,105,98,111,116,95,101,118,101,110,116,115,95,115,114,118,95,110,111,100,101,95,105,110,116,101,114,97,99,116,105,111,110|jv]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 05:45:21 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.765.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,105,98,111,116,95,111,115,47,114,101,108,47,105,98,111,116,95,111,115,47,108,105,98,47,105,98,111,116,95,99,111,114,101,45,49,47,112,114,105,118,47,99,112,112,95,110,111,100,101,95,114,117,110,46,115,104,47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,116,112,47,110,101,119,95,112,114,111,106,101,99,116,47,100,101,118,47,110,111,100,101,115,47,102,105,114,115,116,95,99,112,112,47,102,105,114,115,116,95,99,112,112,102,105,114,115,116,95,99,112,112,97,108,101,120,45,78,53,53,48,74,75,99,111,114,101,64,97,108,101,120,45,78,53,53,48,74,75,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,99,111,110,110,101,99,116,111,114,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,116,111,112,105,99,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,115,101,114,118,105,99,101,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,117,105,95,105,110,116,101,114,97,99,116,105,111,110,105,98,111,116,95,101,118,101,110,116,115,95,115,114,118,95,110,111,100,101,95,105,110,116,101,114,97,99,116,105,111,110|jv]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 2155
+  neighbours:
+2015-11-01 05:45:21 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,105,98,111,116,95,111,115,47,114,101,108,47,105,98,111,116,95,111,115,47,108,105,98,47,105,98,111,116,95,99,111,114,101,45,49,47,112,114,105,118,47,99,112,112,95,110,111,100,101,95,114,117,110,46,115,104,47,104,111,109,101,47,97,108,101,120,47,105,66,111,116,79,83,47,105,66,111,116,79,83,47,116,112,47,110,101,119,95,112,114,111,106,101,99,116,47,100,101,118,47,110,111,100,101,115,47,102,105,114,115,116,95,99,112,112,47,102,105,114,115,116,95,99,112,112,102,105,114,115,116,95,99,112,112,97,108,101,120,45,78,53,53,48,74,75,99,111,114,101,64,97,108,101,120,45,78,53,53,48,74,75,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,99,111,110,110,101,99,116,111,114,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,116,111,112,105,99,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,115,101,114,118,105,99,101,105,98,111,116,95,110,111,100,101,115,95,115,114,118,95,117,105,95,105,110,116,101,114,97,99,116,105,111,110,105,98,111,116,95,101,118,101,110,116,115,95,115,114,118,95,110,111,100,101,95,105,110,116,101,114,97,99,116,105,111,110|jv]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.765.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 05:50:56 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {system_limit,[{erlang,list_to_atom,["bash /home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp first_cpp alex-N550JK core@alex-N550JK ibot_nodes_srv_connector ibot_nodes_srv_topic ibot_nodes_srv_service ibot_nodes_srv_ui_interaction ibot_events_srv_node_interaction jv"],[]},{ibot_core_func_cmd,exec,1,[{file,"src/ibot_core_func_cmd.erl"},{line,17}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 05:50:56 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{system_limit,[{erlang,list_to_atom,["bash /home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp first_cpp alex-N550JK core@alex-N550JK ibot_nodes_srv_connector ibot_nodes_srv_topic ibot_nodes_srv_service ibot_nodes_srv_ui_interaction ibot_events_srv_node_interaction jv"],[]},{ibot_core_func_cmd,exec,1,[{file,"src/ibot_core_func_cmd.erl"},{line,17}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 305
+  neighbours:
+2015-11-01 05:50:56 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {system_limit,[{erlang,list_to_atom,["bash /home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp first_cpp alex-N550JK core@alex-N550JK ibot_nodes_srv_connector ibot_nodes_srv_topic ibot_nodes_srv_service ibot_nodes_srv_ui_interaction ibot_events_srv_node_interaction jv"],[]},{ibot_core_func_cmd,exec,1,[{file,"src/ibot_core_func_cmd.erl"},{line,17}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 05:57:21 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[["/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh","/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 05:57:21 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[["/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh","/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 2134
+  neighbours:
+2015-11-01 05:57:21 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,open_port,[{spawn_executable,"/bin/bash"},[{line,1000},stderr_to_stdout,{args,[["/home/alex/iBotOS/iBotOS/ibot_os/rel/ibot_os/lib/ibot_core-1/priv/cpp_node_run.sh","/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp","first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]]}]],[]},{ibot_core_func_cmd,execute_os_script_file,1,[{file,"src/ibot_core_func_cmd.erl"},{line,79}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:01:05 =ERROR REPORT====
+Error in process <0.780.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:03:19 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:03:19 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.650.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 1207
+  neighbours:
+2015-11-01 06:03:19 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.650.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:04:55 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:04:55 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 1218
+  neighbours:
+2015-11-01 06:04:55 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:05:58 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:05:58 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 1237
+  neighbours:
+2015-11-01 06:05:58 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{os,validate1,[jv],[{file,"os.erl"},{line,366}]},{os,cmd,1,[{file,"os.erl"},{line,191}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:09:20 =ERROR REPORT====
+Error in process <0.769.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:12:36 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:12:36 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava"}}}]
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3480
+  neighbours:
+2015-11-01 06:12:36 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:13:27 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:13:27 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.775.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava"}}}]
+    links: [#Port<0.966>,<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 6772
+    stack_size: 27
+    reductions: 5415
+  neighbours:
+2015-11-01 06:13:27 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.775.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:15:06 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:15:06 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.790.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_py,"first_py","first_py_MBoxAsync",first_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_py@alex-N550JK",'first_py@alex-N550JK',"python",python,"python",undefined,undefined,undefined,[],[],native,undefined}}},{#Port<0.973>,{data,{eol,"case system: true"}}},{#Port<0.973>,{data,{eol,"Exit message complete... current value: false"}}},{#Port<0.973>,{data,{eol,"Node finished work..."}}}]
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 6772
+    stack_size: 27
+    reductions: 5429
+  neighbours:
+2015-11-01 06:15:06 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.790.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:15:11 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:15:11 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.805.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava"}}}]
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3480
+  neighbours:
+2015-11-01 06:15:11 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rget request from client: String from cpp client!\n\rreceive message...\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.805.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:05 =ERROR REPORT====
+Error in process <0.771.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:16:17 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:17 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.650.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 7133
+  neighbours:
+2015-11-01 06:16:17 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.650.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:31 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:31 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.776.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3309
+  neighbours:
+2015-11-01 06:16:31 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.776.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:32 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:32 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.778.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3309
+  neighbours:
+2015-11-01 06:16:32 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.778.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:33 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:33 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.780.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3309
+  neighbours:
+2015-11-01 06:16:33 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.780.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:34 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:34 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.782.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3309
+  neighbours:
+2015-11-01 06:16:34 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.782.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:35 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:35 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.784.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3309
+  neighbours:
+2015-11-01 06:16:35 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.784.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:37 =ERROR REPORT====
+Error in process <0.793.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:16:39 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:16:39 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.786.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [#Port<0.973>,<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 5098
+  neighbours:
+2015-11-01 06:16:39 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: terminate called after throwing an instance of 'tinch_pp::tinch_pp_exception'\n  what():  tinch++ exception: Failed to register node at EPMD, result = 1\n"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.786.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:16:39 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    shutdown
+     Reason:     reached_max_restart_intensity
+     Offender:   [{pid,<0.786.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:26:29 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:26:29 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.650.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava"}}}]
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3513
+  neighbours:
+2015-11-01 06:26:29 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.650.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:28:00 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\raction name: subscribe\n\rget request from client: String from cpp client!\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:28:00 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.774.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\raction name: subscribe\n\rget request from client: String from cpp client!\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava"}}}]
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 3513
+  neighbours:
+2015-11-01 06:28:00 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["\e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\n[sudo] password for alex: TesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\raction name: subscribe\n\rget request from client: String from cpp client!\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.774.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 06:29:50 =ERROR REPORT====
+Error in process <0.766.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:30:09 =ERROR REPORT====
+Error in process <0.773.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:30:16 =ERROR REPORT====
+Error in process <0.777.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:31:00 =ERROR REPORT====
+Error in process <0.767.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:34:18 =ERROR REPORT====
+Error in process <0.769.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:39:30 =ERROR REPORT====
+Error in process <0.769.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:46:42 =ERROR REPORT====
+Error in process <0.766.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:46:47 =ERROR REPORT====
+Error in process <0.769.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:50:50 =ERROR REPORT====
+Error in process <0.769.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 06:57:53 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 06:57:53 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava"}}}]
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 1232
+  neighbours:
+2015-11-01 06:57:53 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 16:22:12 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 16:22:12 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.651.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: [{'$gen_cast',{start_node,{node_info,first_py,"first_py","first_py_MBoxAsync",first_py_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_py@alex-N550JK",'first_py@alex-N550JK',"python",python,"python",undefined,undefined,undefined,[],[],native,undefined}}}]
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 1226
+  neighbours:
+2015-11-01 16:22:12 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\rget request from client: String from cpp client!\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.651.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 16:22:26 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\raction name: subscribe\n\rget request from client: String from cpp client!\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 16:22:26 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.773.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\raction name: subscribe\n\rget request from client: String from cpp client!\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 6772
+    stack_size: 27
+    reductions: 3399
+  neighbours:
+2015-11-01 16:22:26 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rif call_service_method\n\rreceive message...\n\raction name: subscribe\n\rget request from client: String from cpp client!\n\rif subscribe\n\renter to subscribe...\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.773.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 16:22:56 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rreceive message...\n\rif call_service_method\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rget request from client: String from cpp client!\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 16:22:56 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.798.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rreceive message...\n\rif call_service_method\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rget request from client: String from cpp client!\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.648.0>]
+    messages: []
+    links: [<0.649.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 4185
+    stack_size: 27
+    reductions: 1210
+  neighbours:
+2015-11-01 16:22:56 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {badarg,[{erlang,spawn,["[sudo] password for alex: \e[H\e[2Jstart cpp node /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp\nTesMsg\n\rreceive message...\n\raction name: \n\rreceive message...\n\rif call_service_method\n\raction name: subscribe\n\rif subscribe\n\renter to subscribe...\n\rget request from client: String from cpp client!\n\rFROM CHILDER matchable_ptr\n\rTesMsg text: from test message atom!\n\rCM2: from test message atom!\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rSERVICE CLIENT CHILD CLASS VIRTUAL\n\rget serponse from service req: String from cpp client!\n\rget serponse from service resp: This is responce from service cpp\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\rreceive message...\n\raction name: \n\rif call_client_service_callback_method\n\r"],[]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.798.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-01 16:29:10 =ERROR REPORT====
+Error in process <0.766.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 16:29:12 =ERROR REPORT====
+Error in process <0.769.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 16:41:18 =ERROR REPORT====
+Error in process <0.774.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 16:46:10 =ERROR REPORT====
+Error in process <0.765.0> on node 'core@alex-N550JK' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-01 16:49:19 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {enoent,[{erlang,open_port,[{spawn_executable,'echo 'alex!@#' | sudo -S /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp'},[{line,1000},stderr_to_stdout,{args,["first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,254}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-01 16:49:19 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.650.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{enoent,[{erlang,open_port,[{spawn_executable,'echo 'alex!@#' | sudo -S /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp'},[{line,1000},stderr_to_stdout,{args,["first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,254}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.647.0>]
+    messages: []
+    links: [<0.648.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 1598
+    stack_size: 27
+    reductions: 654
+  neighbours:
+2015-11-01 16:49:19 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {enoent,[{erlang,open_port,[{spawn_executable,'echo 'alex!@#' | sudo -S /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp'},[{line,1000},stderr_to_stdout,{args,["first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_srv_connector","ibot_nodes_srv_topic","ibot_nodes_srv_service","ibot_nodes_srv_ui_interaction","ibot_events_srv_node_interaction",jv]}]],[]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,254}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,82}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.650.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+

@@ -59,5 +59,7 @@ public class FirstJava extends BotNode {
     public void serviceResponse(ServiceTestReq req, ServiceTestResp resp) {
         System.out.println( "Message from client: " +req.get_strParamReq() );
         System.out.println( "Message from service: " +resp.get_strParamResp() );
+        this.logMessage("Message from client: " +req.get_strParamReq());
+        this.logMessage("Message from client: " +req.get_strParamReq());
     }
 }

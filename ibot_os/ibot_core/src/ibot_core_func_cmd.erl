@@ -9,7 +9,7 @@
 
 -include("debug.hrl").
 
--export([exec/1, run_exec/1]).
+-export([exec/1, run_exec/1, execute_os_script_file/1]).
 
 %% @doc Выполнение комманд в коммандной строке ОС
 -spec exec(Command) -> ok when Command :: list(), Command :: atom().
@@ -61,5 +61,16 @@ get_data(Port, Sofar) ->
         end,
       {ExitCode, lists:flatten(Sofar)};
     {Port, {exit_status, _Code}} -> ok;
+    _ -> ok
+  end.
+
+
+execute_os_script_file(Command) ->
+  case os:type() of
+    {unix,linux} ->
+      %?DMI("commend", string:join(["bash", Command], " ")),
+      %os:cmd(io_lib:format("~p ~p", ["bash ", Command]));
+      ?DMI("commend", Command),
+      os:cmd(Command);
     _ -> ok
   end.

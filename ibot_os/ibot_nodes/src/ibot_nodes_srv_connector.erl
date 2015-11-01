@@ -21,6 +21,19 @@
 
 -define(SERVER, ?MODULE).
 
+-define(PATH_TO_RUN_CPP_NODE_SRIPT,
+  case os:type() of
+    {unix,linux} ->
+      case file:get_cwd() of
+        {ok, CurrentDirProject} ->
+          string:join([CurrentDirProject, "lib", "ibot_core-1", "priv", "cpp_node_run.sh"], ?PATH_DELIMETER_SYMBOL);
+        _ -> ""
+      end;
+
+    _ -> ""
+  end
+).
+
 -include("../../ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
 -include("ibot_nodes_modules.hrl").
@@ -28,6 +41,7 @@
 -include("../../ibot_core/include/env_params.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
 -include("../../ibot_core/include/ibot_core_spec_symbols.hrl").
+-include("ibot_nodes_scripts_path.hrl").
 
 -record(state, {node_port, node_name}).
 
@@ -230,7 +244,22 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
             [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, net_adm:localhost()], "@"))]);
 
         _ -> error
-      end
+      end;
+
+
+
+    cpp ->
+      erlang:open_port({spawn_executable, list_to_atom(string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, NodeName], ?PATH_DELIMETER_SYMBOL))},
+        [{line,1000}, stderr_to_stdout,
+        {args, [
+          NodeName, net_adm:localhost(), atom_to_list(node()),
+          CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
+          CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
+          CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
+          CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
+          CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
+          erlang:get_cookie()
+        ]}])
   end.
 
 

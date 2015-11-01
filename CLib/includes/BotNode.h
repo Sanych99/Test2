@@ -117,7 +117,7 @@ namespace BotNodeNameSpace {
     core_cookie(std::string(argv[9])), // init core node cookie
     core_is_active(true), //ядро запущено
     is_monitor(false), //при создании ябра мониторинг за узлом равен false
-    epmd_port(500)
+    epmd_port(3578)
     { 
       otp_node = node::create(otp_node_name + "@" + current_server_name, core_cookie);
       otp_mbox = otp_node->create_mailbox(otp_mbox_name);
@@ -185,7 +185,7 @@ namespace BotNodeNameSpace {
       subscribe, 
       call_service_method, 
       call_client_service_callback_method,
-      system,
+      system_exit,
       no_action
     };
     
@@ -211,6 +211,10 @@ namespace BotNodeNameSpace {
       }
       else if(msg->match(make_e_tuple(atom("call_client_service_callback_method"), erl::any(), erl::any(), erl::any(), erl::any()))) {
 	msgTypeEnum = call_client_service_callback_method;
+	std::cout<<"if call_client_service_callback_method"<< "\n\r";
+      }
+      else if(msg->match(make_e_tuple(atom("system"), atom("exit")))) {
+	msgTypeEnum = system_exit;
 	std::cout<<"if call_client_service_callback_method"<< "\n\r";
       }
       else {
@@ -271,9 +275,9 @@ namespace BotNodeNameSpace {
 	}
 	break;
 
-	case system: {
-	  core_is_active = false;
+	case system_exit: {
 	  monitor_stop();
+	  core_is_active = false;
 	}
 	  break;
       }
