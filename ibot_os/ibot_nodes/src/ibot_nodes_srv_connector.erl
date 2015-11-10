@@ -145,7 +145,7 @@ run_node([]) ->
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
   nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants, projectType = ProjectType,
-  mainClassName = MainClassName}) ->
+  mainClassName = MainClassName, node_port = NodePort}) ->
   ?DMI("run_node", NodeName), %% информация отладки / debug information
   ibot_nodes_srv_connector:stop_monitor(NodeName), %% остановка монитора за узлом / stop monitor by node
   FullProjectPath = ibot_db_func_config:get_full_project_path(), %% полный путь до проекта / full path to project
@@ -258,7 +258,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
           CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
           CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
           CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
-          erlang:get_cookie()
+          erlang:get_cookie(),
+          NodePort
         ]}])
   end.
 

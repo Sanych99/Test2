@@ -28,7 +28,7 @@ function open(hostName)
         var received_msg = evt.data; /*Данные сообщения*/
         console.log("Received: " + received_msg);
 
-        var response = JSON.parse(received_msg); /*Парси сообщение*/
+        var response = JSON.parse(received_msg); /*Парсим сообщение*/
 
         switch (response['message_type'])
         {

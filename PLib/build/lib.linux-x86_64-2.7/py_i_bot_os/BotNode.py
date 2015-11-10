@@ -62,8 +62,6 @@ class BotNode:
             "system": self.system_message_request,
         }
 
-        print "BotNode constructor is complete..."
-
     @abstractmethod
     def action(self):
         """
@@ -89,7 +87,6 @@ class BotNode:
 
         self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
                                (obj0, obj1, obj2))
-        print "send message"
 
     # === create node elements methods end ===
 
@@ -116,6 +113,8 @@ class BotNode:
 
         call_back = self.subscribeDic[topic_name]
 
+        self.log_message("node with name: " + self.otpNodeName + " subscribe_message_receive topic_name: " + topic_name)
+
         if call_back is not None:
             call_back_method_args = call_back.getMethodMessageType()(subscribe_message)
             call_back.getMethodCallBack()(call_back_method_args)
@@ -129,6 +128,8 @@ class BotNode:
         request_message_from_client = msg[5]  # ErlTuple
 
         service_method = self.asyncServiceServerDic[service_method_name]
+
+        self.log_message("node with name: " + self.otpNodeName + " call_service_method service_method_name: " + service_method_name)
 
         if service_method is not None:
             request = service_method.getServiceRequest()(request_message_from_client)
@@ -151,7 +152,9 @@ class BotNode:
         request_message = msg[3]
         response_message = msg[4]
 
-        client_method = self.asyncServiceClientDic[client_method_name]
+        client_method = self.asyncServiceClientDic[invoked_service_methodName]
+
+        self.log_message("node with name: " + self.otpNodeName + " call_client_service_callback_method service_method_name: " + invoked_service_methodName)
 
         if client_method is not None:
             request = client_method.getServiceRequest()(request_message)
@@ -161,6 +164,8 @@ class BotNode:
 
     def system_message_request(self, msg):
         system_action = str(msg[1])  # String
+
+        self.log_message("node with name: " + self.otpNodeName + " system_message_request system_action: " + system_action)
 
         if system_action == "exit":
             self.coreIsActive = False
@@ -193,6 +198,8 @@ class BotNode:
         # add subscribe method info to local dictionary
         self.subscribeDic[topic_name] = CollectionSubscribe(callback_method, callback_method_message_type)
 
+        self.log_message("node with name: " + self.otpNodeName + " subscribe_to_topic: " + topic_name)
+
     # Publish message to subscribe nodes
     def publish_message(self, topic_name, msg):
         obj0 = erl_term.ErlAtom("broadcast")
@@ -203,6 +210,8 @@ class BotNode:
         self.otpMboxAsync.Send((self.publisherCoreNode, self.coreNodeName),
                                (obj0, obj1, obj2, obj3, obj4))
 
+        self.log_message("node with name: " + self.otpNodeName + " publish_message: " + topic_name)
+
     # Send message to UI
     def send_message_to_ui(self, msg):
         obj0 = erl_term.ErlAtom("send_data_to_ui")
@@ -210,6 +219,7 @@ class BotNode:
         obj2 = msg.getMsg()
         self.otpMboxAsync.Send((self.uiInteractionNode, self.coreNodeName),
                                (obj0, obj1, obj2))
+        self.log_message("node with name: " + self.otpNodeName + " send_message_to_ui")
 
     # ====== Publish/Subscribe to topic method End ======
 
@@ -222,12 +232,14 @@ class BotNode:
         obj1 = erl_term.ErlAtom(node_name)
         self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
                                (obj0, obj1))
+        self.log_message("node with name: " + self.otpNodeName + " start_project_node: " + node_name)
 
     def stop_project_node(self, node_name):
         obj0 = erl_term.ErlAtom("stop_node_from_node")
         obj1 = erl_term.ErlAtom(node_name)
         self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName),
                                (obj0, obj1))
+        self.log_message("node with name: " + self.otpNodeName + " stop_project_node: " + node_name)
 
     # ====== Other node in project End ======
 
@@ -268,6 +280,8 @@ class BotNode:
 
             self.asyncServiceClientDic[server_service_method_name] = service_client
 
+        self.log_message("node with name: " + self.otpNodeName + " register_service_client: " + server_service_method_name)
+
     # Registration service server
     def register_service_server(self, service_method, service_method_name, request_type, response_type):
         obj0 = erl_term.ErlAtom("reg_async_server_service_callback")
@@ -280,6 +294,8 @@ class BotNode:
         if service_method is not None:
             service_server = CollectionServiceServer(service_method_name, request_type, response_type, service_method)
             self.asyncServiceServerDic[service_method_name] = service_server
+
+        self.log_message("node with name: " + self.otpNodeName + " register_service_server: " + service_method_name)
 
     # Asynchronous service call
     def async_service_request(self, service_method_name, req):
@@ -298,6 +314,8 @@ class BotNode:
         else:
             print "def asyncServiceRequest(self, serviceMethodName, req): client service not found..."
 
+        self.log_message("node with name: " + self.otpNodeName + " async_service_request: " + service_method_name)
+
     # ====== Services methods Start ======
 
     # ====== Monitor methods Start ======
@@ -315,6 +333,8 @@ class BotNode:
 
             self.isMonitor = True
 
+        self.log_message("node with name: " + self.otpNodeName + " monitor_start")
+
     # Stop node monitor
     def monitor_stop(self):
         if self.isMonitor:
@@ -324,5 +344,7 @@ class BotNode:
             self.otpMboxAsync.Send((self.connectorCodeNode, self.coreNodeName), (obj0, obj1))
 
         self.isMonitor = False
+
+        self.log_message("node with name: " + self.otpNodeName + " monitor_stop")
 
     # ====== Monitor methods End ======

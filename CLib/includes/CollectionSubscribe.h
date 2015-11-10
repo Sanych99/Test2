@@ -32,8 +32,8 @@ public:
       return equality == rhs.equality;
   }
   
-  virtual void execute(void) const {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
-  virtual void execute(matchable_ptr message_elements) const {  std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; };
+  virtual void execute(void) const {  /*std::cout<<"BASE CLASS VIRTUAL"<<"\n\r";*/ };
+  virtual void execute(matchable_ptr message_elements) const {  /*std::cout<<"BASE CLASS VIRTUAL"<<"\n\r";*/ };
 };
 
 template<typename NodeClass, typename MType>
@@ -49,12 +49,12 @@ public:
   }
   
   virtual void execute(void) const {
-    std::cout<<"FROM CHILDER CLASS"<<"\n\r";
+    /*std::cout<<"FROM CHILDER CLASS"<<"\n\r";*/
     (childObject->*callback)(MType());
   }
   
   virtual void execute(matchable_ptr message_elements) const {
-    std::cout<<"FROM CHILDER matchable_ptr"<<"\n\r";
+    /*std::cout<<"FROM CHILDER matchable_ptr"<<"\n\r";*/
     (childObject->*callback)(MType(message_elements));
   }
 };

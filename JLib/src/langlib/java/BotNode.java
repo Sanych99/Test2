@@ -113,19 +113,19 @@ public abstract class BotNode implements IBotNode {
             while (ok()) {
                 try {
                     OtpErlangTuple rMessage = receive(); // receive message from mail box
-                    //System.out.println("message was receive...");
-                    //invokeSubscribeMethodByTopicName("test_topic", rMessage);
+
                     if (rMessage != null) // if message exist
                     {
                         String msgType = ((OtpErlangAtom) rMessage.elementAt(0)).toString(); // message type
                         switch (msgType) {
                             // message from subscribe topic
                             case "subscribe":
-                                System.out.println("subscribe");
                                 String topicName = ((OtpErlangAtom) rMessage.elementAt(1)).toString(); // get topic name
                                 OtpErlangTuple subscribeMessage = (OtpErlangTuple) rMessage.elementAt(2); // get topic message
 
                                 invokeSubscribeMethodByTopicName(topicName, subscribeMessage); // invoke callback method with message parameter
+
+                                logMessage(String.format("node with name: %1$s received subscribe from topic %2$s", otpNodeName, topicName));
                                 break;
 
                             case "call_service_method":
@@ -135,13 +135,7 @@ public abstract class BotNode implements IBotNode {
                                 OtpErlangString clientMethodNameCallback = (OtpErlangString) rMessage.elementAt(4);
                                 OtpErlangTuple requestMessageFromClient = (OtpErlangTuple) rMessage.elementAt(5);
 
-
-                                System.out.println("call_service_method");
-
                                 IBotMsgInterface response = invokeServerServiceMethod(serviceMethodName, requestMessageFromClient);
-
-                                System.out.println("call_service_method response...");
-
 
                                 OtpErlangObject[] serviceResponseObject = new OtpErlangObject[7];
                                 serviceResponseObject[0] = new OtpErlangAtom("response_service_message");
@@ -154,6 +148,7 @@ public abstract class BotNode implements IBotNode {
 
                                 otpMboxAsync.send(serviceCoreNode, coreNodeName, new OtpErlangTuple(serviceResponseObject));
 
+                                logMessage(String.format("node with name: %1$s call_service_method %2$s", otpNodeName, serviceMethodName));
                                 break;
 
                             case "call_client_service_callback_method":
@@ -162,17 +157,20 @@ public abstract class BotNode implements IBotNode {
                                 OtpErlangTuple requestMessage = (OtpErlangTuple) rMessage.elementAt(3);
                                 OtpErlangTuple responseMessage = (OtpErlangTuple) rMessage.elementAt(4);
                                 invokeClientServiceMethodCallback(invokedServiceMethodName, requestMessage, responseMessage);
+
+                                logMessage(String.format("node with name: %1$s call_client_service_callback_method %2$s from service: %3$s",
+                                        otpNodeName, clientMethodName, invokedServiceMethodName));
                                 break;
 
                             // system message
                             case "system":
-                                System.out.println("case system: " + ok());
                                 String systemAction = ((OtpErlangAtom) rMessage.elementAt(1)).toString(); // system action
 
                                 switch (systemAction) {
                                     case "exit" : set_coreIsActive(false);
                                         monitorStop(); // stop monitor is exist
-                                        System.out.println("Exit message complete... current value: " + ok());
+
+                                        logMessage(String.format("node with name: %1$s exit message received", otpNodeName));
                                         break;
 
                                     case "monitor" : //monitor actions
@@ -180,13 +178,13 @@ public abstract class BotNode implements IBotNode {
                                         switch (monitorAction) {
                                             // when monitor was started
                                             case "monitorIsStart" : isMonitor = true;
+                                                logMessage(String.format("node with name: %1$s monitor start message", otpNodeName));
                                                 break;
                                             default:isMonitor = false;
+                                                logMessage(String.format("node with name: %1$s monitor stop message", otpNodeName));
                                                 break;
                                         }
                                 }
-
-                                //System.out.println("sysMsg");
                                 break;
                         }
                     }
@@ -194,7 +192,7 @@ public abstract class BotNode implements IBotNode {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Node finished work...");
+            logMessage(String.format("node with name: %1$s finished work...", otpNodeName));
         }
     });
 
@@ -237,6 +235,8 @@ public abstract class BotNode implements IBotNode {
         this.logSenderName = new OtpErlangTuple(logSenderObject);
 
         receiveMBoxMessageThread.start();
+
+        logMessage(String.format("node with name: %1$s start node", otpNodeName));
     }
 
 
@@ -281,8 +281,6 @@ public abstract class BotNode implements IBotNode {
         subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         subscribeObject[3] = new OtpErlangAtom(topicName);
         this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
-        System.out.println("subscribeToTopic " + topicName);
-
 
         Method findMethod = getObjectMethod(callbackMethodName, callbackMethodMessageType);
 
@@ -306,6 +304,8 @@ public abstract class BotNode implements IBotNode {
                 this.subscribeDic.put(topicName, collectionSubscribesSet);
             }
         }
+
+        logMessage(String.format("node with name: %1$s subscribe to topic: %2$s", otpNodeName, topicName));
     }
 
     /* ====== Creation Methods End ====== */
@@ -321,11 +321,7 @@ public abstract class BotNode implements IBotNode {
 
     public void publishMessage(String topicName, Object msg) throws Exception
     {
-        System.out.println("publishMessage start... " + topicName);
-
         IBotMsgInterface msgIn = (IBotMsgInterface)msg;
-
-        System.out.println("publishMessage IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
 
         OtpErlangObject[] subscribeObject = new OtpErlangObject[5];
         subscribeObject[0] = new OtpErlangAtom("broadcast");
@@ -333,9 +329,9 @@ public abstract class BotNode implements IBotNode {
         subscribeObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         subscribeObject[3] = new OtpErlangAtom(topicName);
         subscribeObject[4] = msgIn.get_Msg();
-        System.out.println("publishMessage subscribeObject[4] = msgIn.get_Msg();... ");
         this.otpMboxAsync.send(this.publisherCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
-        System.out.println("publishMessage " + topicName);
+
+        logMessage(String.format("node with name: %1$s publish method to topic: %2$s", otpNodeName, topicName));
     }
 
 
@@ -350,6 +346,8 @@ public abstract class BotNode implements IBotNode {
         subscribeObject[0] = new OtpErlangAtom("start_node_from_node");
         subscribeObject[1] = new OtpErlangString(nodeName);
         this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+
+        logMessage(String.format("node with name: %1$s start project node: %2$s", otpNodeName, nodeName));
     }
 
     /**
@@ -363,6 +361,8 @@ public abstract class BotNode implements IBotNode {
         subscribeObject[0] = new OtpErlangAtom("stop_node_from_node");
         subscribeObject[1] = new OtpErlangString(nodeName);
         this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+
+        logMessage(String.format("node with name: %1$s stop project node: %2$s", otpNodeName, nodeName));
     }
 
 
@@ -373,11 +373,7 @@ public abstract class BotNode implements IBotNode {
 
     public void sendMessageToUI(Object msg, String msgClassName, String additionalInfo) throws Exception
     {
-        //System.out.println("sendMessageToUI start... " + this.otpNodeName);
-
         IBotMsgInterface msgIn = (IBotMsgInterface)msg;
-
-        //System.out.println("sendMessageToUI IBotMsgInterface msgIn = (IBotMsgInterface)msg;... ");
 
         OtpErlangObject[] subscribeObject = new OtpErlangObject[5];
         subscribeObject[0] = new OtpErlangAtom("send_data_to_ui");
@@ -385,9 +381,8 @@ public abstract class BotNode implements IBotNode {
         subscribeObject[2] = new OtpErlangAtom(msgClassName);
         subscribeObject[3] = new OtpErlangAtom(additionalInfo);
         subscribeObject[4] = msgIn.get_Msg();
-        //System.out.println("sendMessageToUI subscribeObject[4] = msgIn.get_Msg();... ");
         this.otpMboxAsync.send(this.uiInteractionNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
-        //System.out.println("sendMessageToUI  complete" + this.otpNodeName);
+        logMessage(String.format("node with name: %1$s send message to ui: %2$s", otpNodeName, msgClassName));
     }
 
 
@@ -466,8 +461,6 @@ public abstract class BotNode implements IBotNode {
         synchronized (this.asyncServiceClientDic) {
             CollectionServiceClient serviceClient = this.asyncServiceClientDic.get(serviceMethodName);
 
-            System.out.println(serviceClient.getServiceMethodName());
-
             OtpErlangObject[] requestServiceObject = new OtpErlangObject[6];
             requestServiceObject[0] = new OtpErlangAtom("request_service_message");
             requestServiceObject[1] = new OtpErlangAtom(this.otpMboxNameAsync);
@@ -478,6 +471,8 @@ public abstract class BotNode implements IBotNode {
 
             this.otpMboxAsync.send(this.serviceCoreNode, this.coreNodeName, new OtpErlangTuple(requestServiceObject));
         }
+
+        logMessage(String.format("node with name: %1$s async request server service method: %2$s", otpNodeName, serviceMethodName));
     }
 
 
@@ -556,7 +551,6 @@ public abstract class BotNode implements IBotNode {
         clientServiceObject[2] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
         clientServiceObject[3] = new OtpErlangAtom(serverServiceMethodName);
         this.otpMboxAsync.send(this.serviceCoreNode, this.coreNodeName, new OtpErlangTuple(clientServiceObject));
-        System.out.println("registerServiceClient " + serverServiceMethodName);
 
         synchronized (this.asyncServiceClientDic) {
 
@@ -571,6 +565,8 @@ public abstract class BotNode implements IBotNode {
             }
         }
 
+        logMessage(String.format("node with name: %1$s registered client service method: %2$s to service: %3$s",
+                otpNodeName, clientServiceMethodName, serverServiceMethodName));
     }
 
 
@@ -588,6 +584,9 @@ public abstract class BotNode implements IBotNode {
             CollectionServiceServer serviceServer = new CollectionServiceServer(serviceMethodName, requestType, responseType, serviceMethod);
             this.asyncServiceServerDic.put(serviceMethodName, serviceServer);
         }
+
+        logMessage(String.format("node with name: %1$s registered server service method: %2$s",
+                otpNodeName, serviceMethodName));
     }
 
     /* ====== Service methods End ====== */
@@ -612,6 +611,8 @@ public abstract class BotNode implements IBotNode {
             this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
 
             isMonitor = true;
+
+            logMessage(String.format("node with name: %1$s start monitor", otpNodeName));
         }
     }
 
@@ -627,6 +628,8 @@ public abstract class BotNode implements IBotNode {
         }
 
         isMonitor = false;
+
+        logMessage(String.format("node with name: %1$s stop monitor", otpNodeName));
     }
 
     /* ====== Monitor start / stop functions End ====== */

@@ -122,13 +122,15 @@ class TestClass: public BotNode<TestClass> {
      
      //delete t;
     }
+    
+    void action() {
+      go();
+    }
 };
 
 
 int main(int argc, char* argv[]) {
   TestClass ts(argc, argv);
-  ts.child_object = &ts;
-  ts.go();
-  ts.receive_mbox_message_thread->start_thread();
-  ts.receive_mbox_message_thread->join();
+  //ts.child_object = &ts;
+  ts.start_node(&ts);
 }

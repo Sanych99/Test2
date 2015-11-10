@@ -21,7 +21,7 @@ public:
   
   virtual void execute(matchable_ptr request_message, matchable_ptr response_message) 
   {  
-    std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; 
+    /*std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; */
   };
 };
 
@@ -38,7 +38,7 @@ public:
   
   virtual void execute(matchable_ptr request_message, matchable_ptr response_message) 
   {  
-    std::cout<<"SERVICE CLIENT CHILD CLASS VIRTUAL"<<"\n\r"; 
+    /*std::cout<<"SERVICE CLIENT CHILD CLASS VIRTUAL"<<"\n\r"; */
     (child_object->*callback)(ReqType(request_message), RespType(response_message));
   };
 };

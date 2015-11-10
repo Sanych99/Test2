@@ -607,3 +607,43 @@
 2015-11-01 17:06:42.446 [warning] <0.388.0> lager_error_logger_h dropped 65 messages in the last second that exceeded the limit of 50 messages/sec
 2015-11-01 17:06:42.446 [info] <0.389.0> Application mnesia exited with reason: stopped
 2015-11-01 17:06:42.548 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-10 02:03:03.643 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-10 02:03:10.696 [warning] <0.388.0> lager_error_logger_h dropped 63 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-10 02:03:10.696 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-10 02:03:10.782 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-10 02:03:33.924 [error] <0.651.0> gen_server ibot_nodes_srv_connector terminated with reason: bad argument in call to erlang:open_port({spawn_executable,'/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp'}, [{line,1000},stderr_to_stdout,{args,["first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_sr...",...]}]) in ibot_nodes_srv_connector:run_node/1 line 252
+2015-11-10 02:03:33.925 [error] <0.651.0> CRASH REPORT Process ibot_nodes_srv_connector with 0 neighbours exited with reason: bad argument in call to erlang:open_port({spawn_executable,'/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp'}, [{line,1000},stderr_to_stdout,{args,["first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_sr...",...]}]) in ibot_nodes_srv_connector:run_node/1 line 252
+2015-11-10 02:03:33.925 [error] <0.649.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_connector started with ibot_nodes_srv_connector:start_link() at <0.651.0> exit with reason bad argument in call to erlang:open_port({spawn_executable,'/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp'}, [{line,1000},stderr_to_stdout,{args,["first_cpp","alex-N550JK","core@alex-N550JK","ibot_nodes_sr...",...]}]) in ibot_nodes_srv_connector:run_node/1 line 252 in context child_terminated
+2015-11-10 02:05:14.020 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-10 02:05:21.063 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-10 02:05:21.063 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-10 02:05:21.151 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-10 02:05:21.262 [error] <0.501.0> gen_server ibot_core_srv_project_info_loader terminated with reason: bad argument in call to erlang:binary_to_list(3589) in ibot_core_srv_project_info_loader:create_node_config_record/2 line 163
+2015-11-10 02:05:21.262 [error] <0.501.0> CRASH REPORT Process ibot_core_srv_project_info_loader with 0 neighbours exited with reason: bad argument in call to erlang:binary_to_list(3589) in ibot_core_srv_project_info_loader:create_node_config_record/2 line 163
+2015-11-10 02:05:21.262 [error] <0.500.0> Supervisor ibot_core_sup had child ibot_core_srv_project_info_loader started with ibot_core_srv_project_info_loader:start_link() at <0.501.0> exit with reason bad argument in call to erlang:binary_to_list(3589) in ibot_core_srv_project_info_loader:create_node_config_record/2 line 163 in context child_terminated
+2015-11-10 02:06:26.209 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-10 02:06:33.241 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-10 02:06:33.241 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-10 02:06:33.337 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-10 03:17:54.954 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-10 03:17:55.023 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-10 03:17:55.024 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-10 03:17:55.024 [info] <0.389.0> Application ibot_events started on node 'core@alex-N550JK'
+2015-11-10 03:18:01.992 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-10 03:18:02.085 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-11 01:42:27.138 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-11 01:42:34.175 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-11 01:42:34.175 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-11 01:42:34.263 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-11 02:05:31.665 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-11 02:05:38.711 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-11 02:05:38.711 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-11 02:05:38.801 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-11 03:14:39.350 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-11 03:14:46.403 [warning] <0.388.0> lager_error_logger_h dropped 63 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-11 03:14:46.403 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-11 03:14:46.526 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'
+2015-11-11 03:17:58.755 [info] <0.389.0> Application lager started on node 'core@alex-N550JK'
+2015-11-11 03:18:06.081 [warning] <0.388.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-11-11 03:18:06.081 [info] <0.389.0> Application mnesia exited with reason: stopped
+2015-11-11 03:18:06.163 [info] <0.389.0> Application mnesia started on node 'core@alex-N550JK'

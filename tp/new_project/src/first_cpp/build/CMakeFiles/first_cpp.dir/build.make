@@ -79,56 +79,56 @@ first_cpp_OBJECTS = \
 # External object files for target first_cpp
 first_cpp_EXTERNAL_OBJECTS =
 
-../bin/first_cpp: CMakeFiles/first_cpp.dir/src/first_cpp.cxx.o
-../bin/first_cpp: CMakeFiles/first_cpp.dir/build.make
-../bin/first_cpp: /usr/local/tinch_pp-0.3.0/lib/libtinch++.a
-../bin/first_cpp: /home/alex/iBotOS/iBotOS/CLib/lib/libcpp_ibot_lib.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_system.so
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_atomic.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_coroutine.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_random.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_tr1f.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_thread.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_c99f.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_python-py34.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_filesystem.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_tr1.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_regex.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_signals.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_iostreams.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_python-py27.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_exception.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_tr1l.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_c99l.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_serialization.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_log.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_program_options.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_context.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi_python-py27.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_locale.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_graph_parallel.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_python.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_wserialization.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_c99.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_system.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_test_exec_monitor.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_log_setup.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_prg_exec_monitor.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_chrono.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_date_time.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_graph.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_timer.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi_python.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_wave.a
-../bin/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi_python-py34.a
-../bin/first_cpp: CMakeFiles/first_cpp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable ../bin/first_cpp"
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: CMakeFiles/first_cpp.dir/src/first_cpp.cxx.o
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: CMakeFiles/first_cpp.dir/build.make
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/local/tinch_pp-0.3.0/lib/libtinch++.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /home/alex/iBotOS/iBotOS/CLib/lib/libcpp_ibot_lib.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_system.so
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_atomic.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_coroutine.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_random.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_tr1f.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_thread.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_c99f.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_python-py34.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_filesystem.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_tr1.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_regex.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_signals.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_iostreams.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_python-py27.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_exception.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_tr1l.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_c99l.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_serialization.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_log.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_program_options.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_context.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi_python-py27.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_locale.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_graph_parallel.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_python.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_wserialization.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_math_c99.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_system.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_test_exec_monitor.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_log_setup.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_prg_exec_monitor.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_chrono.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_date_time.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_graph.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_timer.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi_python.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_wave.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: /usr/lib/x86_64-linux-gnu/libboost_mpi_python-py34.a
+/home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp: CMakeFiles/first_cpp.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/first_cpp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/first_cpp.dir/build: ../bin/first_cpp
+CMakeFiles/first_cpp.dir/build: /home/alex/iBotOS/iBotOS/tp/new_project/dev/nodes/first_cpp/first_cpp
 .PHONY : CMakeFiles/first_cpp.dir/build
 
 CMakeFiles/first_cpp.dir/requires: CMakeFiles/first_cpp.dir/src/first_cpp.cxx.o.requires

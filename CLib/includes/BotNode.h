@@ -87,6 +87,8 @@ namespace BotNodeNameSpace {
       void log_error(std::string message_text);
       
       bool ok();
+      
+      void start_node(NodeClass* ts);
     
       //====== Константы / Constants Start ======
 
@@ -100,6 +102,13 @@ namespace BotNodeNameSpace {
       ~BotNode();   
   };
 
+  
+  /*message log type*/
+  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_MESSAGE("Message");
+  /*warning log type*/
+  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_WARNING("Warning");
+  /*error log type*/
+  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_ERROR("Error");
 
 
   template<typename NodeClass>
@@ -117,7 +126,7 @@ namespace BotNodeNameSpace {
     core_cookie(std::string(argv[9])), // init core node cookie
     core_is_active(true), //ядро запущено
     is_monitor(false), //при создании ябра мониторинг за узлом равен false
-    epmd_port(3578)
+    epmd_port(std::atoi(argv[10]))
     { 
       otp_node = node::create(otp_node_name + "@" + current_server_name, core_cookie);
       otp_mbox = otp_node->create_mailbox(otp_mbox_name);
@@ -126,10 +135,27 @@ namespace BotNodeNameSpace {
       receive_mbox_message_thread = new boost::thread(&BotNode::receive_mbox_message_method, this, otp_mbox_async);
 
       otp_node->publish_port(epmd_port);
+      
+      /*start node log message*/
+      log_message("run cpp node with name: " + otp_node_name);
     };
 
   template<typename NodeClass>
-  BotNode<NodeClass>::~BotNode() {};
+  BotNode<NodeClass>::~BotNode() {
+    /*stop node log message*/
+    log_message("desctructor node with name: " + otp_node_name);
+  };
+  
+  
+  template<typename NodeClass>
+  void BotNode<NodeClass>::start_node(NodeClass* ts)
+  {
+    child_object = ts;
+    receive_mbox_message_thread->start_thread();
+    child_object->action();
+    receive_mbox_message_thread->join();
+  }
+
     
     
   /**
@@ -144,6 +170,9 @@ namespace BotNodeNameSpace {
     ));
 
     subscribe_dic[topic_name] = new CollectionSubscribe<NodeClass, M>(callback_function, topic_name, child_object);
+    
+    /*subscribe to topic log message*/
+    log_message("node with name: " + otp_node_name + " subscribe to topic with name: " + topic_name);
     
     //CollectionSubscribe<NodeClass, M>* collection = new CollectionSubscribe<NodeClass, M>(callbackFunction, topicName, childObject);
     /*map<std::string, BaseCollectionSubscribe* >::iterator it = subscribeDic.find(topicName);*/
@@ -166,6 +195,9 @@ namespace BotNodeNameSpace {
   {
     msg->send_mesasge(otp_mbox_async, publisher_core_node, core_node_name, 
 		      otp_node_name + "@" + current_server_name, otp_mbox_name_async, topic_name);
+    
+    /*publish message to topic log message*/
+    log_message("node with name: " + otp_node_name + " publish to topic with name: " + topic_name);
     /*
     otpMboxAsync->send(publisherCoreNode, coreNodeName, 
       make_e_tuple(atom("broadcast"), atom(otpMboxNameAsync), 
@@ -193,33 +225,34 @@ namespace BotNodeNameSpace {
     
     while(core_is_active) {
       matchable_ptr msg = async_mbox->receive();
-
-      std::cout<<"receive message..."<< "\n\r";
       
       std::string test;
       msg->match(make_e_tuple(atom(&test), erl::any(), erl::any()));
       
-      std::cout<<"action name: " + test<< "\n\r";
-      
       if (msg->match(make_e_tuple(atom("subscribe"), erl::any(), erl::any()))) {
 	msgTypeEnum = subscribe;
-	std::cout<<"if subscribe"<< "\n\r";
+	/*get subscribe system message log message*/
+	log_message("node with name: " + otp_node_name + " recieved subscribe system message");
       }
       else if(msg->match(make_e_tuple(atom("call_service_method"), erl::any(), erl::any(), erl::any(), erl::any(), erl::any()))) {
 	msgTypeEnum = call_service_method;
-	std::cout<<"if call_service_method"<< "\n\r";
+	/*get call_service_method system message log message*/
+	log_message("node with name: " + otp_node_name + " recieved call_service_method system message");
       }
       else if(msg->match(make_e_tuple(atom("call_client_service_callback_method"), erl::any(), erl::any(), erl::any(), erl::any()))) {
 	msgTypeEnum = call_client_service_callback_method;
-	std::cout<<"if call_client_service_callback_method"<< "\n\r";
+	/*get call_client_service_callback_method system message log message*/
+	log_message("node with name: " + otp_node_name + " recieved call_client_service_callback_method system message");
       }
       else if(msg->match(make_e_tuple(atom("system"), atom("exit")))) {
 	msgTypeEnum = system_exit;
-	std::cout<<"if call_client_service_callback_method"<< "\n\r";
+	/*get system message log message*/
+	log_message("node with name: " + otp_node_name + " recieved system message");
       }
       else {
-	msgTypeEnum = no_action; 	
-	std::cout<<"if no_action"<< "\n\r";
+	msgTypeEnum = no_action;
+	/*get no_action message log message*/
+	log_message("node with name: " + otp_node_name + " recieved no_action message");
       }
       
 
@@ -228,16 +261,16 @@ namespace BotNodeNameSpace {
 	case subscribe: {
 	  std::string topicName; //наименование топика
 	  matchable_ptr message_elements; //элементы сообщения
-	  std::cout<<"enter to subscribe..."<< "\n\r";
 	  msg->match(make_e_tuple(erl::any(), atom(&topicName), any(&message_elements))); //выбираем наименование топика и элементы сообщения
-	  //cout<<"1: " + topicName << "\n\r";
 	  //вызываем метод подписанный на сообщения
 	  subscribe_dic.at(topicName)->execute(message_elements);
+	  /*subscribe topic message log message*/
+	  log_message("node with name: " + otp_node_name + " execute method for subscribed topic: " + topicName);
 	}
 	  break;
 
 	case no_action: {
-	  cout<< "no_action" << "\n\r";
+	  /*no action method*/
 	}
 	  break;
 
@@ -259,6 +292,9 @@ namespace BotNodeNameSpace {
 	  async_service_server_dic.at(service_method_name)->execute(async_mbox, service_core_node, core_node_name, 
 	    "response_service_message", service_method_name, client_mail_box_name, client_node_full_name, client_method_name_callback, 
 	    request_message_from_client);
+	  
+	  /*call_service_method log message*/
+	  log_message("node with name: " + otp_node_name + " execute server service method: " + service_method_name);
 	}
 	break;
 
@@ -272,12 +308,17 @@ namespace BotNodeNameSpace {
 				  any(&request_message), any(&response_message)));
 	  
 	  async_service_client_dic.at(invoked_service_method_name)->execute(request_message, response_message);
+	  
+	  /*call_client_service_callback_method log message*/
+	  log_message("node with name: " + otp_node_name + " execute client service method: " + client_method_name + " from server service method: " + invoked_service_method_name);
 	}
 	break;
 
 	case system_exit: {
 	  monitor_stop();
 	  core_is_active = false;
+	  /*exit from node log message*/
+	  log_message("node with name: " + otp_node_name + " exit message recieved");
 	}
 	  break;
       }
@@ -308,6 +349,9 @@ namespace BotNodeNameSpace {
 	);
       
       is_monitor = true;
+      
+      /*start monitor log message*/
+      log_message("node with name: " + otp_node_name + " start monitor");
     }
   }
 
@@ -325,6 +369,9 @@ namespace BotNodeNameSpace {
     }
     
     is_monitor = false;
+    
+    /*stop monitor log message*/
+    log_message("node with name: " + otp_node_name + " stop monitor");
   }
 
 
@@ -337,6 +384,9 @@ namespace BotNodeNameSpace {
     otp_mbox_async->send(connector_code_node, core_node_name,
       make_e_tuple(atom("start_node_from_node"), e_string(node_name))
     );
+    
+    /*start project node log message*/
+    log_message("node with name: " + otp_node_name + " start project node with name: " + node_name);
   }
 
 
@@ -349,6 +399,9 @@ namespace BotNodeNameSpace {
     otp_mbox_async->send(connector_code_node, core_node_name,
       make_e_tuple(atom("stop_node_from_node"), e_string(node_name))
     );
+    
+    /*stop project node log message*/
+    log_message("node with name: " + otp_node_name + " stop project node with name: " + node_name);
   }
   
   
@@ -392,6 +445,9 @@ namespace BotNodeNameSpace {
 			 make_e_tuple(atom("reg_async_server_service_callback"), atom(otp_mbox_name_async), 
 			 atom(otp_node_name + "@" + current_server_name), e_string(service_name))
     );
+    
+    /*registered server service log message*/
+    log_message("node with name: " + otp_node_name + " registered server service with name: " + service_name);
   }
   
   
@@ -405,6 +461,9 @@ namespace BotNodeNameSpace {
 			 make_e_tuple(atom("reg_async_client_service_callback"), atom(otp_mbox_name_async), 
 			 atom(otp_node_name + "@" + current_server_name), atom(service_name))
     );
+    
+    /*registered client service log message*/
+    log_message("node with name: " + otp_node_name + " registered client service with name: " + service_name);
   }
   
  
@@ -416,6 +475,9 @@ namespace BotNodeNameSpace {
 			 make_e_tuple(atom("request_service_message"), atom(otp_mbox_name_async), 
 			 atom(otp_node_name + "@" + current_server_name), e_string("cpp_client_empty_by_default"), e_string(service_name), req.get_tuple_message())
     );
+    
+    /*async service request log message*/
+    log_message("node with name: " + otp_node_name + " async service request with name: " + service_name);
   }
 
 

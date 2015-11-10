@@ -159,6 +159,8 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodePreArguments = binary_to_list(Val)};
     <<"runPostArguments">> ->
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodePostArguments = binary_to_list(Val)};
+    <<"node_port">> ->
+      NewNodeConfigRecord = NodeConfigRecord#node_info{node_port = binary_to_list(Val)};
     Other ->
       ?DMI("try monitor other | val", [Other, Val]),
       NewNodeConfigRecord = NodeConfigRecord
@@ -286,6 +288,12 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
 
     <<"logger_log_file_max_row_count">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{logger_log_file_max_row_count = binary_to_integer(Val)};
+
+    <<"user_admin_name">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{user_admin_name = binary_to_integer(Val)};
+
+    <<"user_admin_password">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{user_admin_password = binary_to_integer(Val)};
 
     _ ->
       CoreInfoRecordNew = CoreInfoRecord,

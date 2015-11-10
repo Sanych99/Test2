@@ -40,5 +40,6 @@
   messageFile :: list(),
   serviceFile :: list(),
   projectType = native :: native | maven,
-  mainClassName :: string()
+  mainClassName :: string(),
+  node_port :: string()
 }).

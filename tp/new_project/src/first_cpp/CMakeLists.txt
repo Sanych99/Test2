@@ -64,7 +64,7 @@ include_directories(${Boost_ROOT})
 #set path for create libs
 set(C_LIB_OUTPUT_DIR ../lib)
 #set path for create executable file
-set(C_BIN_OUTPUT_DIR ../bin)
+set(C_BIN_OUTPUT_DIR ../../../dev/nodes/first_cpp)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${C_LIB_OUTPUT_DIR})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${C_LIB_OUTPUT_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${C_BIN_OUTPUT_DIR})

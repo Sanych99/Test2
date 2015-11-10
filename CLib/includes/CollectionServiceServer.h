@@ -23,7 +23,7 @@ public:
     std::string core_node_name, std::string response_service_message, std::string service_method_name, 
     std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) 
   {  
-    std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; 
+    /*std::cout<<"BASE CLASS VIRTUAL"<<"\n\r"; */
   };
 };
 

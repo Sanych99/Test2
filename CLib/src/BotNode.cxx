@@ -33,10 +33,5 @@ using namespace std;
 
 namespace BotNodeNameSpace {
   
-  /*message log type*/
-  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_MESSAGE("Message");
-  /*warning log type*/
-  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_WARNING("Warning");
-  /*error log type*/
-  template<class NodeClass> const std::string BotNode<NodeClass>::LOG_TYPE_ERROR("Error");
+  
 }

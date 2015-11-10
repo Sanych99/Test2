@@ -18,7 +18,9 @@
   python_setup_lib_system_path :: string(),
   logger_log_file_path :: string(),
   logger_log_file_name :: string(),
-  logger_log_file_max_row_count :: integer()
+  logger_log_file_max_row_count :: integer(),
+  user_admin_name :: string(),
+  user_admin_password :: string()
 }).
 
 -record(project_info, {
