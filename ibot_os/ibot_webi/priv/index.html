@@ -6,11 +6,10 @@
     <script type="text/javascript" src="/uiTestMsg"></script>
     <script type="text/javascript" src="/uiTestTypesMsg"></script>
     <script type="text/javascript" src="/uiTestTypesMsgLogic"></script>
-    <script type="text/javascript" src="/uiActionLib"></script>
+    <script type="text/javascript" src="/jsIBotOSInteractionLib"></script>
 <script type="text/javascript">
-var ws = new Object;
+/*var ws = new Object;
 
-/*Open websocket connection to iBotOS core*/
 function open()
 {
     if (!("WebSocket" in window)) {
@@ -76,7 +75,7 @@ function sendData()
             "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one of the message\", 11, true, 7.0]}}";
     ws.send(jsonQ);
     console.log(jsonQ);
-}
+}*/
 
     /*Load connect to project page*/
     function loadConnectToProject()
@@ -103,13 +102,34 @@ function sendData()
             ws.send("{\"getNodes\" : \"\"}");
         });
     }
+
+    function systemAction(response) {
+        switch (response['message_type'])
+        {
+            case "nodeslist" :
+                $('#nodeListDiv').html(response);
+                var nodesList = response['responseJson'].split("&");
+                $('#nodeListDiv').html(nodesList);
+                var nodeListHtml = "";
+                for(var i=1; i<nodesList.length; i++)
+                    nodeListHtml += generateNodeItem(nodesList[i], i);
+                $('#nodeListDiv').html(nodeListHtml);
+                break;
+        }
+    }
+
+    function TestMsg_logic(cratedMessage) {
+        alert("Received message: " + cratedMessage.strParam + " long: " + cratedMessage.longParam);
+    }
+
+
 </script>
 </head>
 <body>
 <div id="sse">
     <div id="logoDiv">iBotOS Developer Tools</div>
     <div id="topBtnDiv">
-        <a href="javascript:open()">Open WebSocket</a>
+        <a href="javascript:open_ibot_core_connection(window.location.host)">Open WebSocket</a>
         <a href="javascript:sendData()">Send Data</a>
         <a href="javascript:sendDataToTopic(new TestMsg(['test from generated message!', 21]))">Send Data2</a>
         <a href="javascript:loadConnectToProject()">Connect to project</a>

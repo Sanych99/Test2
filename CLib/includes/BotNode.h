@@ -89,6 +89,11 @@ namespace BotNodeNameSpace {
       bool ok();
       
       void start_node(NodeClass* ts);
+      
+      template<typename M>
+      void send_message_to_ui(boost::scoped_ptr<M>& msg, std::string message_class_name);
+      template<typename M>
+      void send_message_to_ui(boost::scoped_ptr<M>& msg, std::string message_class_name, std::string additional_info);
     
       //====== Константы / Constants Start ======
 
@@ -479,8 +484,25 @@ namespace BotNodeNameSpace {
     /*async service request log message*/
     log_message("node with name: " + otp_node_name + " async service request with name: " + service_name);
   }
-
-
+  
+  
+  template<typename NodeClass>
+  template<typename M>
+  void BotNode<NodeClass>::send_message_to_ui(boost::scoped_ptr< M >& msg, string message_class_name)
+  {
+    send_message_to_ui(msg, message_class_name, "none");
+  }
+  
+  template<typename NodeClass>
+  template<typename M>
+  void BotNode<NodeClass>::send_message_to_ui(boost::scoped_ptr< M >& msg, string message_class_name, string additional_info)
+  {
+    otp_mbox_async->send(ui_interaction_node, core_node_name, 
+      make_e_tuple(atom("send_data_to_ui"), atom(otp_node_name), atom(message_class_name), atom(additional_info), msg->get_tuple_message())
+    );
+    
+    log_message("node with name: " + otp_node_name + " send_message_to_ui: " + message_class_name);
+  }
 }
 
 

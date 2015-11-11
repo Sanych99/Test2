@@ -5,7 +5,7 @@
 var ws = new Object;
 
 /*Open websocket connection to iBotOS core*/
-function open(hostName)
+function open_ibot_core_connection(hostName)
 {
     /*Проверка поддержки браузеров использования WebSocket*/
     if (!("WebSocket" in window)) {
@@ -28,7 +28,7 @@ function open(hostName)
         var received_msg = evt.data; /*Данные сообщения*/
         console.log("Received: " + received_msg);
 
-        var response = JSON.parse(received_msg); /*Парси сообщение*/
+        var response = JSON.parse(received_msg); /*Парсим сообщение*/
 
         switch (response['message_type'])
         {
@@ -39,6 +39,9 @@ function open(hostName)
                 var cratedMessage = new window[rMessage.messageClassName](rMessage.message);
                 var actionClass = new window[rMessage.messageClassName + '_logic'](cratedMessage);
                 actionClass.action();
+                break;
+
+            default: systemAction(response);
                 break;
         }
     };

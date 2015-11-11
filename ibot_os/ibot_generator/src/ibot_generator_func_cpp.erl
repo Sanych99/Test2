@@ -125,17 +125,17 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList, IsMes
   case io:get_line(Device, "") of
     EndPath when EndPath == eof;EndPath == "---\n" ->
 
-      parameters_constructor_generate(GeneratedFile, AllFieldsList),
+      parameters_constructor_generate(GeneratedFile, lists:reverse(AllFieldsList)),
 
       file:write(GeneratedFile, ?CONSRTUCTOR(RawFileName, ObjCount)), %% Generate class constructor
 
-      ResultString = generate_constructor_matchable_return_value("", AllFieldsList),
+      ResultString = generate_constructor_matchable_return_value("", lists:reverse(AllFieldsList)),
 
       file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount, ResultString)),
 
       case IsMessage of
         true ->
-          file:write(GeneratedFile, ?SEND_MESSAGE_FUNCTION(generate_send_topic_message_tuple("", AllFieldsList))),
+          file:write(GeneratedFile, ?SEND_MESSAGE_FUNCTION(generate_send_topic_message_tuple("", lists:reverse(AllFieldsList)))),
           file:write(GeneratedFile, ?SEND_SERVICE_RESPONSE_FOR_MESSAGES_FUNCTION);
 
         _ ->
@@ -147,17 +147,17 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList, IsMes
           file:write(GeneratedFile, ?SEND_SERVICE_RESPONSE_FOR_MESSAGES_FUNCTION);
 
         false when IsMessage == false ->
-          ServiceResultString = generate_send_topic_message_tuple("", AllFieldsList),
+          ServiceResultString = generate_send_topic_message_tuple("", lists:reverse(AllFieldsList)),
           file:write(GeneratedFile, ?SEND_SERVICE_RESPONSE_FOR_RESP_FUNCTION(RawFileName, ServiceResultString));
 
         _ -> ok
       end,
 
       file:write(GeneratedFile, ?GET_TUPLE_MESSAGE(
-        generate_get_tuple_message("", AllFieldsList), generate_send_topic_message_tuple("", AllFieldsList))),
+        generate_get_tuple_message("", lists:reverse(AllFieldsList)), generate_send_topic_message_tuple("", lists:reverse(AllFieldsList)))),
 
 
-      DefaultValuesResultString = generate_set_default_value("", AllFieldsList),
+      DefaultValuesResultString = generate_set_default_value("", lists:reverse(AllFieldsList)),
       file:write(GeneratedFile, ?SET_DEFAULT_VALUES_FUNCTION(DefaultValuesResultString)),
 
       %parameters_dafault_generate(GeneratedFile, AllFieldsList),

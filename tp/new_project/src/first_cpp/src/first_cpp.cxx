@@ -4,6 +4,7 @@
 #include "IBotMsgInterface.h"
 
 #include "TestMsgCpp.h"
+//#include "TestMsg.h"
 #include "ServiceTestReq.h"
 #include "ServiceTestResp.h"
 
@@ -107,6 +108,11 @@ class TestClass: public BotNode<TestClass> {
      //TesMsg* t = new TesMsg();
      
      publish_message<TesMsg>("testTopic", t);
+     
+     boost::scoped_ptr<TestMsgCpp> tUI(new TestMsgCpp());
+     tUI->strParam = "Message from cpp...";
+     tUI->longParam = 777;
+     send_message_to_ui<TestMsgCpp>(tUI, "TestMsg");
      
      boost::scoped_ptr<TestMsgCpp> cpp(new TestMsgCpp());
      cpp->longParam = 255;

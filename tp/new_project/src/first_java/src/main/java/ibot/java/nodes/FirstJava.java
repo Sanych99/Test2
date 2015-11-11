@@ -33,6 +33,10 @@ public class FirstJava extends BotNode {
 
         TestMsg testMsg = new TestMsg();
 
+        testMsg.set_strParam("String for send ui test...");
+        testMsg.set_longParam((long) 555);
+        this.sendMessageToUI(testMsg, "TestMsg");
+
         this.subscribeToTopic(SUBSCRIBE_TOPIC_NAME, "receiveTopicMessage", TestTypesMsg.class);
 
         TestTypesMsg testTypesMsg = new TestTypesMsg();
@@ -48,6 +52,8 @@ public class FirstJava extends BotNode {
         req.set_strParamReq("Hello from java!");
         this.registerServiceClient("new_cpp_service", "serviceResponse", ServiceTestReq.class, ServiceTestResp.class);
         this.asyncServiceRequest("new_cpp_service", req);
+
+
     }
 
     public void receiveTopicMessage(TestTypesMsg topicMessage) {

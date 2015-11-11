@@ -5,7 +5,7 @@
 var ws = new Object;
 
 /*Open websocket connection to iBotOS core*/
-function open(hostName)
+function open_ibot_core_connection(hostName)
 {
     /*Проверка поддержки браузеров использования WebSocket*/
     if (!("WebSocket" in window)) {
@@ -39,6 +39,9 @@ function open(hostName)
                 var cratedMessage = new window[rMessage.messageClassName](rMessage.message);
                 var actionClass = new window[rMessage.messageClassName + '_logic'](cratedMessage);
                 actionClass.action();
+                break;
+
+            default: systemAction(response);
                 break;
         }
     };
