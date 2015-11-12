@@ -21,14 +21,26 @@ using namespace BotNodeNameSpace;
 class TesMsg: public IBotMsgInterface {
 public:
   std::string text;
+  double dval;
+  std::string bval_str;
+  bool bval;
   
   TesMsg(matchable_ptr message_elements) {   
-    message_elements->match(make_e_tuple(e_string(&text)));
-    cout<<"TesMsg text: " + text<<"\n\r";
+    message_elements->match(make_e_tuple(e_string(&text), float_(&dval), atom(&bval_str)));
+    bval = boost::lexical_cast<bool>(bval_str);
+    cout<<"TesMsg text: " + text + " double: " + boost::lexical_cast<std::string>(dval) + " bool: " + bval_str<<"\n\r";
+    if(bval) {
+      cout<<"This is true"<<"\n\r";
+    }
+    else {
+      cout<<"This is false"<<"\n\r";
+    }
   }
   
   TesMsg() {
-    text = "empty";
+    text = "empty string!";
+    dval = 7.1;
+    bval = true;
     cout<<"TesMsg"<<"\n\r";
   }
   
@@ -42,7 +54,7 @@ public:
 		    std::string currentNode, std::string otpMboxNameAsync, std::string topicName) const {
     mbox->send(publisherCoreNode, coreNodeName, 
     make_e_tuple(atom("broadcast"), atom(otpMboxNameAsync), 
-    atom(currentNode), atom(topicName), make_e_tuple(e_string("from test message atom!"))
+    atom(currentNode), atom(topicName), make_e_tuple(e_string("from test message atom!"), float_(dval), atom(boost::lexical_cast<std::string>(bval)))
   ));
   }
   

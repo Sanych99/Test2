@@ -72,7 +72,7 @@
 ], ?NEW_LINE)).
 
 
--define(CONSTRUCTOR_MATCHABLE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE(Type), "(&", Name, ")"], "")).
+-define(CONSTRUCTOR_MATCHABLE(Type, Name, ResultString), string:join([ResultString, io_lib:format(?OTP_TYPE_CONSTRUCTOR(Type), [list_to_atom(Name)])], "")).
 
 -define(COMMA_DELIMETER(ResultString), string:join([ResultString, ", "], "")).
 
@@ -82,15 +82,29 @@
 %-define(CONSTRUCTOR_START_MSG_PARSE, string:join([?NEW_LINE, ?NEW_LINE, ?TAB(2), "if (msg is not None):"], "")).
 
 -define(CREATE_DEFAULT_PARAMETER_VALUE(Type, Name),
-  string:join([?NEW_LINE, ?TAB(2), ?LANG_TYPE(Type), " ", Name, ";", ""], "")
+  string:join([?NEW_LINE, ?TAB(2), io:format(?LANG_TYPE(Type), [Name]), ""], "")
+).
+
+
+-define(CONSTRUCTOR_CAST_VALUE(ResultString, Type, Name),
+  case Type of
+    T when T == "Boolean" ->
+      string:join([ResultString, ?TAB_STRING(io_lib:format(?CAST_VALUE(Type), [list_to_atom(Name), list_to_atom(Name)]), 2)], ?NEW_LINE);
+    _ -> ResultString
+  end
 ).
 
 -define(CONSRTUCTOR_WITH_PARAMS_INIT_PARAMETER_STRING(Type, Name, ObjectNum),
-  string:join([?NEW_LINE, ?TAB(1), ?LANG_TYPE(Type), " ", Name, ";", ""], "")
+  case Type of
+    T when T == "Boolean" ->
+      string:join([?NEW_LINE, ?TAB(1), io_lib:format(?LANG_TYPE(Type), [list_to_atom(Name), list_to_atom(Name)]), ""], "");
+    _ ->
+      string:join([?NEW_LINE, ?TAB(1), io_lib:format(?LANG_TYPE(Type), [list_to_atom(Name)]), ""], "")
+  end
 ).
 
 
--define(SEND_MESSAGE_TUPLE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE(Type), "(", Name, ")"], "")).
+-define(SEND_MESSAGE_TUPLE(Type, Name, ResultString), string:join([ResultString, io_lib:format(?OTP_TYPE(Type), [list_to_atom(Name)])], "")).
 
 -define(SEND_MESSAGE_FUNCTION(SendMessageTuple),
   string:join([
@@ -163,7 +177,7 @@
 ).
 
 
--define(GET_TUPLE_MESSAGE_TYPE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE(Type)], "")).
+-define(GET_TUPLE_MESSAGE_TYPE(Type, Name, ResultString), string:join([ResultString, ?OTP_TYPE_GET_TUPLE(Type)], "")).
 
 -define(GET_TUPLE_MESSAGE(TupleTypesList, ReturnList),
   string:join([
@@ -178,11 +192,21 @@
 
 
 -define(SET_DEFALUT_PARAMETER(ResultString, Name, Type),
-  string:join([
-    ResultString,
-    ?NEW_LINE, ?TAB(2),
-    Name, " = ", ?DEFAULT_VALUE(Type), ";"
-  ], "")
+  case Type of
+    T when T == "Boolean" ->
+      string:join([
+        ResultString,
+        ?NEW_LINE, ?TAB(2),
+        Name, " = ", ?DEFAULT_VALUE(Type), "; ", Name, "_str = \"", ?DEFAULT_VALUE(Type), "\";"
+      ], "");
+
+    _ ->
+      string:join([
+        ResultString,
+        ?NEW_LINE, ?TAB(2),
+        Name, " = ", ?DEFAULT_VALUE(Type), ";"
+      ], "")
+  end
 ).
 
 -define(SET_DEFAULT_VALUES_FUNCTION(ParameterList),
@@ -242,35 +266,64 @@
 %% Get OPT type
 -define(OTP_TYPE(Type),
   case Type of
-    "String" -> "e_string";
-    "Long" -> "long";
-    "Int" -> "int_";
-    "Double" -> "float_";
-    "Boolean" -> "bool";
+    "String" -> "e_string(~p)";
+    "Long" -> "int_(~p)";
+    "Int" -> "int_(~p)";
+    "Double" -> "float_(~p)";
+    "Boolean" -> "atom(boost::lexical_cast<std::string>(~p))";
     _ -> "UNDEFINE"
   end
 ).
 
+
+-define(OTP_TYPE_CONSTRUCTOR(Type),
+  case Type of
+    "String" -> "e_string(&~p)";
+    "Long" -> "int_(&~p)";
+    "Int" -> "int_(&~p)";
+    "Double" -> "float_(&~p)";
+    "Boolean" -> "atom(&~p_str)";
+    _ -> "UNDEFINE"
+  end
+).
+
+
+-define(OTP_TYPE_GET_TUPLE(Type),
+  case Type of
+    "String" -> "e_string";
+    "Long" -> "int_";
+    "Int" -> "int_";
+    "Double" -> "float_";
+    "Boolean" -> "atom";
+    _ -> "UNDEFINE"
+  end
+).
+
+
 %% Get Java type
 -define(LANG_TYPE(Type),
   case Type of
-    "String" -> "std::string";
-    "Long" -> "long";
-    "Int" -> "boost::int32_t";
-    "Double" -> "float_";
-    "Boolean" -> "bool";
+    "String" -> "std::string ~p;";
+    "Long" -> "boost::int32_t ~p;";
+    "Int" -> "boost::int32_t ~p;";
+    "Double" -> "double ~p;";
+    "Boolean" -> "bool ~p; std::string ~p_str;";
     _ -> "UNDEFINE"
   end
 ).
 
 -define(CONVERT_FROM_OTP_TO_CPP_METHODS(Type),
   case Type of
-    "String" -> "str";
-    "Long" -> "long";
-    "Int" -> "int";
-    "Double" -> "float";
-    "Boolean" -> "bool";
-    _ -> "UNDEFINE"
+    "Boolean" -> "boost::lexical_cast<bool>(~p)";
+    _ -> ""
+  end
+).
+
+
+-define(CAST_VALUE(Type),
+  case Type of
+    "Boolean" -> "~p = boost::lexical_cast<bool>(~p_str);";
+    _ -> ""
   end
 ).
 
@@ -279,8 +332,8 @@
     "String" -> "\" \"";
     "Long" -> "0";
     "Int" -> "0";
-    "Double" -> "0";
+    "Double" -> "0.0";
     "Boolean" -> "true";
-    _ -> "UNDEFINE"
+    _ -> ""
   end
 ).

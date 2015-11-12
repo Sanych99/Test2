@@ -4,24 +4,25 @@ class TestTypesMsg: public IBotMsgInterface {
 public:
 
 	std::string strParam;
-	long longParam;
+	boost::int32_t longParam;
 	boost::int32_t intPara;
-	float_ doubleParam;
-	bool boolParam;
+	double doubleParam;
+	bool boolParam; std::string boolParam_str;
 
 	TestTypesMsg() {
 		set_default_values();
 	}
 
 	TestTypesMsg(matchable_ptr message_elements) {
-		message_elements->match(make_e_tuple(e_string(&strParam), long(&longParam), int_(&intPara), float_(&doubleParam), bool(&boolParam)));
+		message_elements->match(make_e_tuple(e_string(&strParam), int_(&longParam), int_(&intPara), float_(&doubleParam), atom(&boolParam_str)));
+		boolParam = boost::lexical_cast<bool>(boolParam_str);
 	}
 
 	virtual void send_mesasge(mailbox_ptr mbox, std::string publisherCoreNode, std::string coreNodeName, 
 		std::string currentNode, std::string otpMboxNameAsync, std::string topicName) const {
 		mbox->send(publisherCoreNode, coreNodeName, 
 		make_e_tuple(atom("broadcast"), atom(otpMboxNameAsync), 
-		atom(currentNode), atom(topicName), make_e_tuple(e_string(strParam), long(longParam), int_(intPara), float_(doubleParam), bool(boolParam))
+		atom(currentNode), atom(topicName), make_e_tuple(e_string(strParam), int_(longParam), int_(intPara), float_(doubleParam), atom(boost::lexical_cast<std::string>(boolParam)))
 	));
 	}
 
@@ -31,15 +32,15 @@ public:
 		std::cout<<"no action"<<"\n\r";
 	}
 
-	e_tuple<boost::fusion::tuple<e_string, long, int_, float_, bool> > get_tuple_message() {
-		return make_e_tuple(e_string(strParam), long(longParam), int_(intPara), float_(doubleParam), bool(boolParam));
+	e_tuple<boost::fusion::tuple<e_string, int_, int_, float_, atom> > get_tuple_message() {
+		return make_e_tuple(e_string(strParam), int_(longParam), int_(intPara), float_(doubleParam), atom(boost::lexical_cast<std::string>(boolParam)));
 	};
 
 	void set_default_values() {
 		strParam = " ";
 		longParam = 0;
 		intPara = 0;
-		doubleParam = 0;
-		boolParam = true;
+		doubleParam = 0.0;
+		boolParam = true; boolParam_str = "true";
 	}
 };

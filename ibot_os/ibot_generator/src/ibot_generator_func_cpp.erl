@@ -131,7 +131,9 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList, IsMes
 
       ResultString = generate_constructor_matchable_return_value("", lists:reverse(AllFieldsList)),
 
-      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount, ResultString)),
+      NewResultString = parameters_constructor_cast_generate(ResultString, lists:reverse(AllFieldsList)),
+
+      file:write(GeneratedFile, ?CONSTRUCTOR_HEADER_WITH_PARAMS(RawFileName, ObjCount, NewResultString)),
 
       case IsMessage of
         true ->
@@ -159,14 +161,6 @@ for_each_line(Device, GeneratedFile, RawFileName, ObjCount, AllFieldsList, IsMes
 
       DefaultValuesResultString = generate_set_default_value("", lists:reverse(AllFieldsList)),
       file:write(GeneratedFile, ?SET_DEFAULT_VALUES_FUNCTION(DefaultValuesResultString)),
-
-      %parameters_dafault_generate(GeneratedFile, AllFieldsList),
-
-      %file:write(GeneratedFile, ?CONSTRUCTOR_START_MSG_PARSE),
-
-      %getters_setters_generation(GeneratedFile, AllFieldsList), %% Generate getter and setter methods
-
-      %file:write(GeneratedFile, ?GET_OTP_TYPE_MSG), %% Generate Get_Msg interface method
 
       file:write(GeneratedFile, string:join([?NEW_LINE, "};"], "")),
 
@@ -241,6 +235,12 @@ parameters_constructor_generate(_, []) -> ok;
 parameters_constructor_generate(GeneratedFile ,[{Type, Name, ObjCount} | FieldsList]) ->
   file:write(GeneratedFile, ?CONSRTUCTOR_WITH_PARAMS_CREATE_PARAMETER(Type, Name, ObjCount)),
   parameters_constructor_generate(GeneratedFile , FieldsList).
+
+
+parameters_constructor_cast_generate(ResultString, []) -> ResultString;
+parameters_constructor_cast_generate(ResultString ,[{Type, Name, _} | FieldsList]) ->
+  NewResultString = ?CONSTRUCTOR_CAST_VALUE(ResultString, Type, Name),
+  parameters_constructor_cast_generate(NewResultString , FieldsList).
 
 
 parameters_dafault_generate(_, []) -> ok;
