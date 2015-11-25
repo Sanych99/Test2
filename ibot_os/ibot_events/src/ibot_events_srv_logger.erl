@@ -86,6 +86,15 @@ handle_event({MessageType, MessageText, SenderNodeName}, State) ->
       %% todo отправвить сообение главному ядру для записи сообщения
       %% todo надо предусмотреть записи ядра из которого поступило сообщение
       %% todo а та же имя узла проекта который сообщение отправил, в случае если отправление было из узла
+      case ibot_db_srv_func_project:get_project_config_info() of
+        record_not_found -> %% запись не найдена
+          ok;
+
+        %% отправляем данные главному ядру
+        ProjectInfo ->
+          rpc:call(ProjectInfo#project_info.mainProjectNodeName, ibot_events_srv_logger, log,
+            [MessageType, MessageText, SenderNodeName])
+      end,
       ok;
     _ ->
       ok

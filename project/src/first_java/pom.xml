@@ -1,0 +1,246 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ibot.java.nodes</groupId>
+  <artifactId>first_java</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>first_java</name>
+  <url>http://maven.apache.org</url>
+
+  <dependencies>
+
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>3.8.1</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>appassembler-maven-plugin</artifactId>
+          <version>1.10</version>
+      </dependency>
+
+      <dependency>
+          <groupId>langlib.java</groupId>
+          <artifactId>Node</artifactId>
+          <version>2.0</version>
+          <scope>system</scope>
+          <systemPath>/home/alex/iBotOS/iBotOS/JLib/lib/Node.jar</systemPath>
+      </dependency>
+
+      <dependency>
+          <groupId>com.ericsson.otp.erlang</groupId>
+          <artifactId>OtpErlang</artifactId>
+          <version>1.0</version>
+          <scope>system</scope>
+          <systemPath>/home/alex/iBotOS/iBotOS/JLib/lib/OtpErlang.jar</systemPath>
+      </dependency>
+
+      <dependency>
+          <groupId>dev.srv.java</groupId>
+          <artifactId>ServiceTestReq</artifactId>
+          <version>1.0</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>dev.srv.java</groupId>
+          <artifactId>ServiceTestResp</artifactId>
+          <version>1.0</version>
+      </dependency>
+
+      <!--<dependency>
+          <groupId>dev.msg.java</groupId>
+          <artifactId>TestTypesMsg</artifactId>
+          <version>1.0</version>
+          <scope>system</scope>
+          <systemPath>/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/java/TestTypesMsg.jar</systemPath>
+      </dependency>-->
+
+      <dependency>
+          <groupId>dev.msg.java</groupId>
+          <artifactId>TestTypesMsg</artifactId>
+          <version>1.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>dev.msg.java</groupId>
+          <artifactId>TestMsg</artifactId>
+          <version>1.0</version>
+      </dependency>
+
+  </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <outputDirectory>../../dev/nodes/first_java</outputDirectory>
+                    <finalName>first_java</finalName>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.mycompany.app.FirstJava</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path></Class-Path>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+
+            <!-- download source code in Eclipse, best practice -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+
+            <!-- Maven Assembly Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <finalName>first_java</finalName>
+                    <outputDirectory>../../dev/nodes/first_java</outputDirectory>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.mycompany.app.FirstJava</mainClass>
+                        </manifest>
+                    </archive>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install-external</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/java/TestTypesMsg.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>dev.msg.java</groupId>
+                            <artifactId>TestTypesMsg</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>install-external_1</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>/home/alex/iBotOS/iBotOS/tp/new_project/dev/msg/java/TestMsg.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>dev.msg.java</groupId>
+                            <artifactId>TestMsg</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>install-external_2</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>/home/alex/iBotOS/iBotOS/tp/new_project/dev/srv/java/ServiceTestReq.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>dev.srv.java</groupId>
+                            <artifactId>ServiceTestReq</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>install-external_3</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <file>/home/alex/iBotOS/iBotOS/tp/new_project/dev/srv/java/ServiceTestResp.jar</file>
+                            <repositoryLayout>default</repositoryLayout>
+                            <groupId>dev.srv.java</groupId>
+                            <artifactId>ServiceTestResp</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                        </configuration>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <!--<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.mycompany.app.App</mainClass>
+                    <executable>java</executable>
+                    <arguments>
+                        <classpath>
+                            <dependency>langlib.java:Node</dependency>
+                        </classpath>
+                    </arguments>
+                </configuration>
+            </plugin>-->
+        </plugins>
+
+
+
+    </build>
+
+</project>

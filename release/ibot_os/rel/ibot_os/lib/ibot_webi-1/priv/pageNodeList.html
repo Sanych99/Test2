@@ -1,0 +1,86 @@
+<script type="text/javascript">
+
+    /*Create node item on web page*/
+    function generateNodeItem(nodeName, nodeNumber)
+    {
+        var nodeInfo = nodeName.split("#");
+        var nodeHtml = '<div class="nodeListNodeDiv">'
+                        + '<div class="nodeListNumber">' + nodeNumber + '</div>'
+                        + '<div class="nodeListNameGroup"><div class="nodeListName">'
+                        + nodeInfo[0]
+                        + '</div><div class="nodeListAdditionInfo">' + nodeInfo[1] + '</div></div>'
+                        + '<div style="float: left;">'
+                        + '<div style="float: left; margin-right: 10px;" onclick="compileNode(\''+ nodeInfo[0] +'\');">Compile</div>'
+                        + '<div style="float: left; margin-right: 10px;" onclick="startNode(\''+ nodeInfo[0] +'\');">Go</div>'
+                        + '<div style="float: left; margin-right: 10px;" onclick="stopNode(\''+ nodeInfo[0] +'\');">Stop</div>'
+                    + '</div>';
+
+        return nodeHtml += "</div>";
+    }
+
+    /*Generate all messages and services*/
+    function generateMsgs()
+    {
+        var jsonQ = "{\"generateAllMsgs\" : \"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+
+    /*Compile only one node*/
+    function compileNode(nodeName) {
+        var jsonQ = "{\"compileOneNode\" : \""+ nodeName +"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+
+
+    /*Compile all nodes in one time*/
+    function compileAllNode()
+    {
+        var jsonQ = "{\"compileAllNodes\" : \"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+
+    /*Run all nodes in one time*/
+    function startProject()
+    {
+        var jsonQ = "{\"startProject\" : \"\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+
+    /*Start node by name*/
+    function startNode(nodeName) {
+        var jsonQ = "{\"startNode\" : \"" + nodeName + "\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+
+    /*Stop node by name*/
+    function stopNode(nodeName) {
+        var jsonQ = "{\"stopNode\" : \"" + nodeName + "\"}";
+        ws.send(jsonQ);
+        console.log(jsonQ);
+    }
+</script>
+
+<div>
+    <div id="nodeListCommandDiv">
+        <span>Commands: </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" id="generateMsgButton" value="Generate msg" onclick="generateMsgs()" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" id="projectCompileNodeButton" value="Compile all nodes..." onclick="compileAllNode()" />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="button" id="startProjectButton" value="Run all nodes..." onclick="startProject()" />
+    </div>
+    <!--<div class="componentDiv">
+        <input type="button" id="projectCompileNodeButton" value="Compile all nodes..." onclick="compileAllNode()" />
+    </div>
+    <div class="componentDiv">
+        <input type="button" id="startProjectButton" value="Run all nodes..." onclick="startProject()" />
+    </div>-->
+    <div id="nodeListDiv">
+
+    </div>
+</div>

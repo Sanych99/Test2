@@ -1,0 +1,1 @@
+/home/alex/iBotOS/iBotOS/tp/new_project/src/first_cpp/build/CMakeFiles/first_cpp.dir

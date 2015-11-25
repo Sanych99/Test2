@@ -1,0 +1,11 @@
+cmake_minimum_required (VERSION 2.6)
+
+project (testcmake)
+
+set(RF include)
+
+add_executable(testcmake src/main.cpp)
+
+#target_link_libraries (testcmake  libcpp_ibot_lib.a)
+
+install(TARGETS testcmake RUNTIME DESTINATION bin)

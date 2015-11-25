@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="/cssStyle" />
+    <script type="text/javascript" src="/jsJquery"></script>
+    <script type="text/javascript" src="/uiTestMsg"></script>
+    <script type="text/javascript" src="/uiTestTypesMsg"></script>
+    <script type="text/javascript" src="/uiTestTypesMsgLogic"></script>
+    <script type="text/javascript" src="/jsIBotOSInteractionLib"></script>
+<script type="text/javascript">
+/*var ws = new Object;
+
+function open()
+{
+    if (!("WebSocket" in window)) {
+        alert("WebSocket NOT supported by your Browser!");
+        return;
+    }
+    console.log('open');
+    ws = new WebSocket("ws://"+window.location.host+"/websocket");
+    ws.onopen = function() {
+        console.log('connected');
+    };
+    ws.onmessage = function (evt)
+    {
+        var received_msg = evt.data;
+        console.log("Received: " + received_msg);
+
+        var txt = document.createTextNode("Got from server: " + received_msg);
+        document.getElementById('messages').appendChild(txt);
+
+        $('#messages').html(received_msg);
+        var response = JSON.parse(received_msg);
+
+        switch (response['message_type'])
+        {
+            case "nodeslist" :
+                $('#nodeListDiv').html(response);
+                var nodesList = response['responseJson'].split("&");
+                $('#nodeListDiv').html(nodesList);
+                var nodeListHtml = "";
+                    for(var i=1; i<nodesList.length; i++)
+                    nodeListHtml += generateNodeItem(nodesList[i], i);
+                    $('#nodeListDiv').html(nodeListHtml);
+                break;
+
+            case "send_data_to_ui" :
+                    alert(1);
+                var rMessage = new ReceivedMessage(received_msg); //парсим собщение
+                alert(2);
+                    //создаем обхект сообщения
+                var cratedMessage = new window[rMessage.messageClassName](rMessage.message);//new TestMsg(rMessage.message);
+                alert(3);
+                    //выполнение логики
+                var actionClass = new window[rMessage.messageClassName + '_logic'](cratedMessage);
+                alert(4);
+                    actionClass.action();
+                alert(5);
+                //$('#messages').html("from created message: " + cratedMessage.strParam);
+
+                    //выполняем логику для данного типа сообщения
+                break;
+        }
+    };
+    ws.onclose = function()
+    {
+        // websocket is closed.
+        console.log('close');
+    };
+}
+
+function sendData()
+{
+    var jsonQ = "{\"sendData\" : {\"sendType\" : \""+ "broadcast" +
+            "\", \"topicName\" : \"" + "testTopic" + "\", \"message\" : [\"one of the message\", 11, true, 7.0]}}";
+    ws.send(jsonQ);
+    console.log(jsonQ);
+}*/
+
+    /*Load connect to project page*/
+    function loadConnectToProject()
+    {
+        $('#contentDiv').load('/pageConnectToProject');
+    }
+
+    /*Loanf create new project page*/
+    function loadCreateProject()
+    {
+        $('#contentDiv').load('/pageCreateProject');
+    }
+
+    /*Load create new node page*/
+    function loadCreateNode()
+    {
+        $('#contentDiv').load('/pageCreateNode');
+    }
+
+    /*Load project nodes list page*/
+    function loadProjectNodes()
+    {
+        $('#contentDiv').load('/pageNodeList', function () {
+            ws.send("{\"getNodes\" : \"\"}");
+        });
+    }
+
+    function systemAction(response) {
+        switch (response['message_type'])
+        {
+            case "nodeslist" :
+                $('#nodeListDiv').html(response);
+                var nodesList = response['responseJson'].split("&");
+                $('#nodeListDiv').html(nodesList);
+                var nodeListHtml = "";
+                for(var i=1; i<nodesList.length; i++)
+                    nodeListHtml += generateNodeItem(nodesList[i], i);
+                $('#nodeListDiv').html(nodeListHtml);
+                break;
+        }
+    }
+
+    function TestMsg_logic(cratedMessage) {
+        alert("Received message: " + cratedMessage.strParam + " long: " + cratedMessage.longParam);
+    }
+
+
+</script>
+</head>
+<body>
+<div id="sse">
+    <div id="logoDiv">iBotOS Developer Tools</div>
+    <div id="topBtnDiv">
+        <a href="javascript:open_ibot_core_connection(window.location.host)">Open WebSocket</a>
+        <a href="javascript:sendData()">Send Data</a>
+        <a href="javascript:sendDataToTopic(new TestMsg(['test from generated message!', 21]))">Send Data2</a>
+        <a href="javascript:loadConnectToProject()">Connect to project</a>
+        <a href="javascript:loadCreateProject()">Create project</a>
+        <a href="javascript:loadCreateNode()">Create node</a>
+        <a href="javascript:loadProjectNodes()">Project node list</a>
+    </div>
+    <div id="selectedButtonHeader">
+    Please, select action!
+    </div>
+    <div id="contentDiv" class="contentDiv">
+
+    </div>
+</div>
+<div id="messages">
+</div>
+</body>
+</html>

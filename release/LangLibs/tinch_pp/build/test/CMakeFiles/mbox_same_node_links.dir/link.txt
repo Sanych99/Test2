@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/mbox_same_node_links.dir/mbox_same_node_links.cpp.o  -o mbox_same_node_links -rdynamic ../impl/libtinch++.a -lboost_thread -lboost_system -lboost_regex -lboost_signals -lpthread 

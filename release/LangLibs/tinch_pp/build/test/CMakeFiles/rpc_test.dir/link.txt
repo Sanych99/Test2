@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/rpc_test.dir/rpc_test.cpp.o  -o rpc_test -rdynamic ../impl/libtinch++.a -lboost_thread -lboost_system -lboost_regex -lboost_signals -lpthread 

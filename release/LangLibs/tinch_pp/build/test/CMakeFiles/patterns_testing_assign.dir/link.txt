@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/patterns_testing_assign.dir/patterns_testing_assign.cpp.o  -o patterns_testing_assign -rdynamic ../impl/libtinch++.a -lboost_thread -lboost_system -lboost_regex -lboost_signals -lpthread 

@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/local_link.dir/local_link.cpp.o  -o local_link -rdynamic ../impl/libtinch++.a -lboost_thread -lboost_system -lboost_regex -lboost_signals -lpthread 

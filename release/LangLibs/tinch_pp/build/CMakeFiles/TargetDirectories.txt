@@ -1,0 +1,15 @@
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/build_erlang.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/chat_client.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/chat_server.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/link_tester.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/local_link.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/mbox_same_node_links.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/net_kernel_sim.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/patterns.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/patterns_testing_any.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/patterns_testing_assign.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/reflect_msg.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/remote_link.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/rpc_test.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/test/CMakeFiles/thread_safe_queue.dir
+/home/alex/iBotOS/testLib/tinch_pp-master/build/impl/CMakeFiles/tinch++.dir

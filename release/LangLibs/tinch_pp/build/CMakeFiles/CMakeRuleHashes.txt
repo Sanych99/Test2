@@ -1,0 +1,5 @@
+# Hashes of file build rules.
+0f5933c5df23edde8d2a671b924db408 test/CMakeFiles/build_erlang
+09679967a648d32abc597f6258af59cc test/CMakeFiles/chat_server
+df3d2362c0f0fcea9d947537d3218ac2 test/CMakeFiles/link_tester
+f12b90d61bd90b94c0bbeeef43343dc3 test/CMakeFiles/reflect_msg
