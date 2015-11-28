@@ -130,7 +130,8 @@ create_node_config_record([NodeConfigItem | NodeConfigList], NodeConfigRecord) -
   case Key of
     <<"nodeName">> ->
       StrVal = binary_to_list(Val),
-      {'ok', Hostname} = inet:gethostname(),
+      CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
+      Hostname = ibot_core_srv_os:get_machine_host(CoreConigSettings#core_info.is_global), %%inet:gethostname(),
       NewNodeConfigRecord = NodeConfigRecord#node_info{nodeName = StrVal, atomNodeName = list_to_atom(StrVal),
       nodeSystemMailBox = string:join([StrVal, "_MBoxAsync"], ""), atomNodeSystemMailBox = list_to_atom(string:join([StrVal, "_MBoxAsync"], "")),
       nodeServer = Hostname, atomNodeServer = list_to_atom(Hostname),
@@ -294,6 +295,9 @@ create_core_config_record([CoreInfo | CoreInfoList], CoreInfoRecord) ->
 
     <<"user_admin_password">> ->
       CoreInfoRecordNew = CoreInfoRecord#core_info{user_admin_password = binary_to_integer(Val)};
+
+    <<"is_global">> ->
+      CoreInfoRecordNew = CoreInfoRecord#core_info{is_global = list_to_atom(binary_to_list(Val))};
 
     _ ->
       CoreInfoRecordNew = CoreInfoRecord,

@@ -1104,3 +1104,351 @@ Error in process <0.758.0> on node 'core@alex-N550JK' with exit value: {[{reason
 
 2015-11-13 05:10:39 =ERROR REPORT====
 Ranch listener http had connection process started with cowboy_protocol:start_link/4 at <0.758.0> exit with reason: {[{reason,badarg},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{erlang,'++',[ok,[]],[]},{lists,append,1,[{file,"lists.erl"},{line,125}]},{lists,append,1,[{file,"lists.erl"},{line,125}]},{string,join,2,[{file,"string.erl"},{line,517}]},{ibot_generator_func_cpp,parameters_dafault_generate,2,[{file,"src/ibot_generator_func_cpp.erl"},{line,257}]},{ibot_generator_func_cpp,for_each_line,7,[{file,"src/ibot_generator_func_cpp.erl"},{line,134}]},{ibot_generator_func_cpp,for_each_line,7,[{file,"src/ibot_generator_func_cpp.erl"},{line,184}]},{ibot_generator_func_cpp,for_each_line_in_msg_file,3,[{file,"src/ibot_generator_func_cpp.erl"},{line,94}]}]},{msg,{text,<<"{\"generateAllMsgs\" : \"\"}">>}},{req,[{socket,#Port<0.944>},{transport,ranch_tcp},{connection,keepalive},{pid,<0.758.0>},{method,<<"GET">>},{version,'HTTP/1.1'},{peer,{{127,0,0,1},37850}},{host,<<"localhost">>},{host_info,undefined},{port,10100},{path,<<"/websocket">>},{path_info,undefined},{qs,<<>>},{qs_vals,undefined},{bindings,[]},{headers,[{<<"host">>,<<"localhost:10100">>},{<<"user-agent">>,<<"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0">>},{<<"accept">>,<<"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8">>},{<<"accept-language">>,<<"en-US,en;q=0.5">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"sec-websocket-version">>,<<"13">>},{<<"origin">>,<<"http://localhost:10100">>},{<<"sec-websocket-key">>,<<"/oCwY5sZkjKVrmrRHSTUdw==">>},{<<"connection">>,<<"keep-alive, Upgrade">>},{<<"pragma">>,<<"no-cache">>},{<<"cache-control">>,<<"no-cache">>},{<<"upgrade">>,<<"websocket">>}]},{p_headers,[{<<"upgrade">>,[<<"websocket">>]},{<<"connection">>,[<<"keep-alive">>,<<"upgrade">>]}]},{cookies,undefined},{meta,[{websocket_compress,false},{websocket_version,13}]},{body_state,waiting},{multipart,undefined},{buffer,<<>>},{resp_compress,false},{resp_state,done},{resp_headers,[]},{resp_body,<<>>},{onresponse,undefined}]},{state,undefined_state}],[{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]}
+2015-11-27 00:39:44 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-27 00:39:45 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-27 00:39:45 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-27 00:39:45 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-27 00:39:45 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:16:50 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:16:50 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:16:50 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:16:50 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:16:50 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:17 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:29 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:34 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:34 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:35 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:36 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:19:55 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:32:47 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:32:47 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:33:10 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:33:11 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:33:12 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:33:12 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:33:12 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:33:17 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:11 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:12 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:12 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:14 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:15 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:16 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:19 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:19 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:31 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:36 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:37 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:34:37 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 02:57:09 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 02:57:09 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 02:57:09 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 02:57:09 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 02:57:09 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 02:58:05 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp","3589"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {function_clause,[{ibot_core_srv_os,get_machine_host,[undefined],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-28 02:58:05 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.653.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{ibot_core_srv_os,get_machine_host,[undefined],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.650.0>]
+    messages: []
+    links: [<0.651.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 352
+  neighbours:
+2015-11-28 02:58:05 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{ibot_core_srv_os,get_machine_host,[undefined],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.653.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-28 02:59:00 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_cpp,"first_cpp","first_cpp_MBoxAsync",first_cpp_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_cpp@alex-N550JK",'first_cpp@alex-N550JK',"cpp",cpp,"cpp",undefined,undefined,undefined,undefined,undefined,'',"first_cpp","3589"}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {function_clause,[{ibot_core_srv_os,get_machine_host,[true],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-28 02:59:00 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.654.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{ibot_core_srv_os,get_machine_host,[true],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.651.0>]
+    messages: []
+    links: [<0.652.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 352
+  neighbours:
+2015-11-28 02:59:00 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{ibot_core_srv_os,get_machine_host,[true],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.654.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-28 02:59:36 =ERROR REPORT====
+** Generic server ibot_nodes_srv_connector terminating 
+** Last message in was {'$gen_cast',{start_node,{node_info,first_java,"first_java","first_java_MBoxAsync",first_java_MBoxAsync,"alex-N550JK",'alex-N550JK',"first_java@alex-N550JK",'first_java@alex-N550JK',"java",java,"java",undefined,undefined,undefined,undefined,undefined,maven,"ibot.java.nodes.FirstJava",undefined}}}
+** When Server state == {state,undefined,undefined}
+** Reason for termination == 
+** {function_clause,[{ibot_core_srv_os,get_machine_host,[true],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+2015-11-28 02:59:36 =CRASH REPORT====
+  crasher:
+    initial call: ibot_nodes_srv_connector:init/1
+    pid: <0.766.0>
+    registered_name: ibot_nodes_srv_connector
+    exception exit: {{function_clause,[{ibot_core_srv_os,get_machine_host,[true],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]},[{gen_server,terminate,7,[{file,"gen_server.erl"},{line,804}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+    ancestors: [ibot_nodes_sup,<0.651.0>]
+    messages: []
+    links: [<0.652.0>]
+    dictionary: []
+    trap_exit: false
+    status: running
+    heap_size: 2586
+    stack_size: 27
+    reductions: 359
+  neighbours:
+2015-11-28 02:59:36 =SUPERVISOR REPORT====
+     Supervisor: {local,ibot_nodes_sup}
+     Context:    child_terminated
+     Reason:     {function_clause,[{ibot_core_srv_os,get_machine_host,[true],[{file,"src/ibot_core_srv_os.erl"},{line,163}]},{ibot_nodes_srv_connector,run_node,1,[{file,"src/ibot_nodes_srv_connector.erl"},{line,155}]},{ibot_nodes_srv_connector,handle_cast,2,[{file,"src/ibot_nodes_srv_connector.erl"},{line,83}]},{gen_server,try_dispatch,4,[{file,"gen_server.erl"},{line,593}]},{gen_server,handle_msg,5,[{file,"gen_server.erl"},{line,659}]},{proc_lib,init_p_do_apply,3,[{file,"proc_lib.erl"},{line,237}]}]}
+     Offender:   [{pid,<0.766.0>},{name,ibot_nodes_srv_connector},{mfargs,{ibot_nodes_srv_connector,start_link,[]}},{restart_type,permanent},{shutdown,5000},{child_type,worker}]
+
+2015-11-28 03:01:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 03:01:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 03:01:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 03:01:24 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 03:01:24 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-28 03:02:23 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 03:02:25 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 03:02:25 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 03:02:30 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 03:02:31 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-28 03:02:31 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:47:07 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:47:07 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:47:07 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:47:07 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:47:07 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:48:28 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-11-29 03:50:30 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:33 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:33 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:33 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:33 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:34 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:35 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:35 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:36 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:37 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:38 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:39 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:39 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:50:40 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:51:43 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:51:49 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:51:50 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:55:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:55:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:55:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:55:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:55:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+2015-11-29 03:56:25 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 03:58:09 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 04:06:10 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 04:06:35 =ERROR REPORT====
+Error in process <0.776.0> on node 'core@192.168.100.5' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+2015-11-29 04:06:58 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 04:07:22 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+2015-11-29 04:27:10 =ERROR REPORT====
+** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **

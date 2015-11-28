@@ -20,7 +20,8 @@
   logger_log_file_name :: string(),
   logger_log_file_max_row_count :: integer(),
   user_admin_name :: string(),
-  user_admin_password :: string()
+  user_admin_password :: string(),
+  is_global :: boolean()
 }).
 
 -record(project_info, {

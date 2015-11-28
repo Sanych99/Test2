@@ -3,8 +3,8 @@
 "mainProject":"true",
 "distributedProject":"false",
 "projectAutoRun":"false",
-"childrenProjects":[{"projectName":"core1@alex-N550JK"}],
+"childrenProjects":[{"projectName":"ubuntu@192.168.100.3"}],
 "projectState":"develop",
-"projectNodes":["first_java", "first_py"],
-"mainProjectNodeName" : "core@alex-N550JK"
+"projectNodes":["first_java", "first_py", "first_cpp"],
+"mainProjectNodeName" : "core@192.168.100.5"
 }

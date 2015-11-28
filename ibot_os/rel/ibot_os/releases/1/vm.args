@@ -1,5 +1,5 @@
 ## Name of the node
--sname core
+-name core@192.168.100.5
 
 ## Cookie for distributed erlang
 -setcookie jv

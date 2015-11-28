@@ -1,6 +1,6 @@
 {
 "projectName":"new_project",
-"mainProject":"true",
+"mainProject":"false",
 "distributedProject":"false",
 "projectAutoRun":"false",
 "childrenProjects":[{"projectName":"core@ubuntu"}],

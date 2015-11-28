@@ -72,7 +72,7 @@ class BotNode:
 
     # create node method
     def create_node(self):
-        return erl_node.ErlNode(self.otpNodeName, erl_opts.ErlNodeOpts(cookie="jv"))
+        return erl_node.ErlNode(self.otpNodeName + "@" + self.currentServerName, erl_opts.ErlNodeOpts(cookie="jv"))
 
     # create mail box
     def create_m_box(self, otp_m_box_name):

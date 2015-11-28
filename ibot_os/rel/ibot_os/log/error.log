@@ -254,3 +254,276 @@
 
 2015-11-13 05:10:39.146 [error] <0.543.0> Ranch listener http had connection process started with cowboy_protocol:start_link/4 at <0.758.0> exit with reason: {[{reason,badarg},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{erlang,'++',[ok,[]],[]},{lists,append,1,[{file,"lists.erl"},{line,125}]},{lists,append,1,[{file,"lists.erl"},{line,125}]},{string,join,2,[{file,"string.erl"},{line,517}]},{ibot_generator_func_cpp,parameters_dafault_generate,2,[{file,"src/ibot_generator_func_cpp.erl"},{line,257}]},{ibot_generator_func_cpp,for_each_line,7,[{file,"src/ibot_generator_func_cpp.erl"},{line,134}]},{ibot_generator_func_cpp,for_each_line,7,[{file,"src/ibot_generator_func_cpp.erl"},{line,184}]},{ibot_generator_func_cpp,for_each_line_in_msg_file,3,[{file,"src/ibot_generator_func_cpp.erl"},{line,94}]}]},{msg,{text,<<"{\"generateAllMsgs\" : \"\"}">>}},{req,[{socket,#Port<0.944>},{transport,ranch_tcp},{connection,keepalive},{pid,<0.758.0>},{method,<<"GET">>},{version,'HTTP/1.1'},{peer,{{127,0,0,1},37850}},{host,<<"localhost">>},{host_info,undefined},{port,10100},{path,<<"/websocket">>},{path_info,undefined},{qs,<<>>},{qs_vals,undefined},{bindings,[]},{headers,[{<<"host">>,<<"localhost:10100">>},{<<"user-agent">>,<<"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0">>},{<<"accept">>,<<"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8">>},{<<"accept-language">>,<<"en-US,en;q=0.5">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"sec-websocket-version">>,<<"13">>},{<<"origin">>,<<"http://localhost:10100">>},{<<"sec-websocket-key">>,<<"/oCwY5sZkjKVrmrRHSTUdw==">>},{<<"connection">>,<<"keep-alive, Upgrade">>},{<<"pragma">>,<<"no-cache">>},{<<"cache-control">>,<<"no-cache">>},{<<"upgrade">>,<<"websocket">>}]},{p_headers,[{<<"upgrade">>,[<<"websocket">>]},{<<"connection">>,[<<"keep-alive">>,<<"upgrade">>]}]},{cookies,undefined},{meta,[{websocket_compress,false},{websocket_version,13}]},{body_state,waiting},{multipart,undefined},{buffer,<<>>},{resp_compress,false},{resp_state,done},{resp_headers,[]},{resp_body,<<>>},{onresponse,undefined}]},{state,undefined_state}],[{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]}
 
+2015-11-27 00:39:44.971 [error] <0.662.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-27 00:39:45.166 [error] <0.673.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-27 00:39:45.166 [error] <0.674.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-27 00:39:45.434 [error] <0.715.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-27 00:39:45.434 [error] <0.716.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:16:50.100 [error] <0.698.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:16:50.392 [error] <0.707.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:16:50.392 [error] <0.708.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:16:50.804 [error] <0.747.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:16:50.804 [error] <0.748.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:17.673 [error] <0.778.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:29.984 [error] <0.779.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:34.185 [error] <0.780.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:34.895 [error] <0.781.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:35.568 [error] <0.782.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:36.308 [error] <0.783.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:19:55.189 [error] <0.784.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:32:47.445 [error] <0.839.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:32:47.872 [error] <0.840.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:33:10.986 [error] <0.854.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:33:11.393 [error] <0.855.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:33:12.105 [error] <0.856.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:33:12.345 [error] <0.857.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:33:12.569 [error] <0.858.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:33:17.146 [error] <0.860.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:11.768 [error] <0.862.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:12.039 [error] <0.863.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:12.262 [error] <0.864.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:14.698 [error] <0.865.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:15.144 [error] <0.866.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:16.073 [error] <0.867.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:19.165 [error] <0.868.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:19.893 [error] <0.869.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:31.070 [error] <0.871.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:36.331 [error] <0.872.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:37.054 [error] <0.873.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:34:37.437 [error] <0.874.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 02:57:09.109 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 02:57:09.264 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 02:57:09.264 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 02:57:09.523 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 02:57:09.523 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 02:58:05.373 [error] <0.653.0> gen_server ibot_nodes_srv_connector terminated with reason: no function clause matching ibot_core_srv_os:get_machine_host(undefined) line 163
+2015-11-28 02:58:05.374 [error] <0.653.0> CRASH REPORT Process ibot_nodes_srv_connector with 0 neighbours exited with reason: no function clause matching ibot_core_srv_os:get_machine_host(undefined) line 163 in gen_server:terminate/7 line 804
+2015-11-28 02:58:05.374 [error] <0.651.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_connector started with ibot_nodes_srv_connector:start_link() at <0.653.0> exit with reason no function clause matching ibot_core_srv_os:get_machine_host(undefined) line 163 in context child_terminated
+2015-11-28 02:59:00.229 [error] <0.654.0> gen_server ibot_nodes_srv_connector terminated with reason: no function clause matching ibot_core_srv_os:get_machine_host(true) line 163
+2015-11-28 02:59:00.230 [error] <0.654.0> CRASH REPORT Process ibot_nodes_srv_connector with 0 neighbours exited with reason: no function clause matching ibot_core_srv_os:get_machine_host(true) line 163 in gen_server:terminate/7 line 804
+2015-11-28 02:59:00.230 [error] <0.652.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_connector started with ibot_nodes_srv_connector:start_link() at <0.654.0> exit with reason no function clause matching ibot_core_srv_os:get_machine_host(true) line 163 in context child_terminated
+2015-11-28 02:59:36.645 [error] <0.766.0> gen_server ibot_nodes_srv_connector terminated with reason: no function clause matching ibot_core_srv_os:get_machine_host(true) line 163
+2015-11-28 02:59:36.645 [error] <0.766.0> CRASH REPORT Process ibot_nodes_srv_connector with 0 neighbours exited with reason: no function clause matching ibot_core_srv_os:get_machine_host(true) line 163 in gen_server:terminate/7 line 804
+2015-11-28 02:59:36.646 [error] <0.652.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_connector started with ibot_nodes_srv_connector:start_link() at <0.766.0> exit with reason no function clause matching ibot_core_srv_os:get_machine_host(true) line 163 in context child_terminated
+2015-11-28 03:01:23.795 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 03:01:23.938 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 03:01:23.938 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 03:01:24.186 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 03:01:24.186 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-28 03:02:23.791 [error] <0.780.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 03:02:25.119 [error] <0.781.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 03:02:25.879 [error] <0.782.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 03:02:30.553 [error] <0.783.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 03:02:31.233 [error] <0.784.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-28 03:02:31.787 [error] <0.785.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:47:07.075 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:47:07.247 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:47:07.247 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:47:07.504 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:47:07.504 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:48:28.842 [error] <0.811.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2015-11-29 03:50:30.797 [error] <0.768.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:33.036 [error] <0.769.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:33.446 [error] <0.770.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:33.686 [error] <0.771.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:33.958 [error] <0.772.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:34.783 [error] <0.773.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:35.241 [error] <0.774.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:35.719 [error] <0.775.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:36.200 [error] <0.776.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:37.541 [error] <0.777.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:38.091 [error] <0.778.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:39.236 [error] <0.779.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:39.677 [error] <0.780.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:50:40.105 [error] <0.781.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:51:43.683 [error] <0.784.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:51:49.489 [error] <0.785.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:51:50.151 [error] <0.786.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:55:16.182 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:55:16.327 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:55:16.327 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:55:16.573 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:55:16.573 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.3 is illegal **
+
+2015-11-29 03:56:25.588 [error] <0.767.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 03:58:09.215 [error] <0.769.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 04:06:10.087 [error] <0.768.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 04:06:35.007 [error] emulator Error in process <0.776.0> on node 'core@192.168.100.5' with exit value: {{badrecord,service_server},[{ibot_nodes_srv_service,'-handle_info/2-fun-0-',6,[{file,"src/ibot_nodes_srv_service.erl"},{line,77}]}]}
+
+
+2015-11-29 04:06:58.284 [error] <0.792.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 04:07:22.325 [error] <0.796.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+
+2015-11-29 04:27:10.494 [error] <0.830.0> ** System running to use fully qualified hostnames **
+** Hostname alex-N550JK is illegal **
+

@@ -42,6 +42,7 @@
 -include("../../ibot_db/include/ibot_db_records.hrl").
 -include("../../ibot_core/include/ibot_core_spec_symbols.hrl").
 -include("ibot_nodes_scripts_path.hrl").
+-include("../../ibot_core/include/ibot_core_os_definition.hrl").
 
 -record(state, {node_port, node_name}).
 
@@ -150,6 +151,10 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
   ibot_nodes_srv_connector:stop_monitor(NodeName), %% остановка монитора за узлом / stop monitor by node
   FullProjectPath = ibot_db_func_config:get_full_project_path(), %% полный путь до проекта / full path to project
   CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
+  %% наименование хоста или ip адрес | machine name or ip address
+  Host_IP_Name = ibot_core_srv_os:get_machine_host(CoreConigSettings#core_info.is_global),
+  ?DMI("is_global value: ", CoreConigSettings#core_info.is_global),
+  ?DMI("Host_IP_Name value: ", Host_IP_Name),
   %% запуск узла / start node
   case AtomNodeLang of
     java ->
@@ -175,7 +180,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                       %NodePreArguments, % Аргументы для исполняемого файла
                       NodeName, % Имя запускаемого узла
                       NodeName,
-                      net_adm:localhost(), % mail box name
+                      Host_IP_Name,%%net_adm:localhost(), % mail box name
                       atom_to_list(node()), % host name
                       % Передаем параметры в узел
                       CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
@@ -199,7 +204,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                     %NodePreArguments,
                     MainClassName,
                     NodeName, % Имя запускаемого узла
-                    net_adm:localhost(), % mail box name
+                    Host_IP_Name, %%net_adm:localhost(), % mail box name
                     atom_to_list(node()), % host name
                     % передаем параметры в узел / send parameters to node
                     CoreConigSettings#core_info.connector_node, % имя узла регистратора / registraction node name
@@ -231,7 +236,9 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
         ExecutableFile ->
         erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
           {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?PATH_DELIMETER_SYMBOL),
-            NodeName, net_adm:localhost(), atom_to_list(node()),
+            NodeName,
+            Host_IP_Name, %%net_adm:localhost(),
+            atom_to_list(node()),
             CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
             CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
             CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
@@ -241,8 +248,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
           ]}]),
 
           timer:apply_after(3500, ibot_nodes_srv_connector, send_start_signal,
-            [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, net_adm:localhost()], "@"))]);
-
+            [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, Host_IP_Name], "@"))]);
+            %%net_adm:localhost()
         _ -> error
       end;
 
@@ -252,7 +259,9 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
       erlang:open_port({spawn_executable, list_to_atom(string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, NodeName], ?PATH_DELIMETER_SYMBOL))},
         [{line,1000}, stderr_to_stdout,
         {args, [
-          NodeName, net_adm:localhost(), atom_to_list(node()),
+          NodeName,
+          Host_IP_Name, %% net_adm:localhost(),
+          atom_to_list(node()),
           CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
           CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
           CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
@@ -315,6 +324,7 @@ stop_node([]) ->
 -spec send_start_signal(MailBoxName, ClientNodeFullName) -> term() when MailBoxName :: atom(), ClientNodeFullName :: atom().
 
 send_start_signal(MailBoxName, ClientNodeFullName) ->
+  ?DMI("send_start_signal", {MailBoxName, ClientNodeFullName}),
   erlang:send({MailBoxName, ClientNodeFullName},{"start"}).
 
 
