@@ -65,7 +65,7 @@ namespace BotNodeNameSpace {
       
       boost::thread* receive_mbox_message_thread; /** поток обработка системных событий */
       void receive_mbox_message_method(mailbox_ptr async_mbox); /** метод обработки системных событий */
-      template<typename M> void subscribe_to_topic(std::string topic_name, void (NodeClass::*callback_function)(M));
+      template<typename M> void subscribe_to_topic(std::string topic_name, boost::function<void(M)> callback_function);
       template<typename M> void publish_message(std::string topic_name, boost::scoped_ptr<M>& msg);
       
       template<typename ReqType, typename RespType> 
@@ -169,7 +169,7 @@ namespace BotNodeNameSpace {
   */
   template<typename NodeClass>
   template<typename M>     
-  void BotNode<NodeClass>::subscribe_to_topic(std::string topic_name, void (NodeClass::*callback_function)(M)) {
+  void BotNode<NodeClass>::subscribe_to_topic(std::string topic_name, boost::function<void(M)> callback_function) {
     otp_mbox_async->send(publisher_core_node, core_node_name, 
       make_e_tuple(atom("reg_subscr"), atom(otp_mbox_name_async), 
       atom(otp_node_name + "@" + current_server_name), atom(topic_name)

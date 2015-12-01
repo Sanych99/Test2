@@ -39,23 +39,23 @@ public:
 template<typename NodeClass, typename MType>
 class CollectionSubscribe: public BaseCollectionSubscribe {
 public:
-  void (NodeClass::*callback)(MType);
+  boost::function<void(MType)> callback;
   MType t();
   NodeClass* childObject;
   
-  CollectionSubscribe(void (NodeClass::*callbackFunction)(MType), std::string topicName, NodeClass* child): BaseCollectionSubscribe(topicName) {
-    callback = callbackFunction;
+  CollectionSubscribe(boost::function<void(MType)>& callback_function, std::string topicName, NodeClass* child): BaseCollectionSubscribe(topicName) {
+    callback = callback_function;
     childObject = child;
   }
   
   virtual void execute(void) const {
     /*std::cout<<"FROM CHILDER CLASS"<<"\n\r";*/
-    (childObject->*callback)(MType());
+    callback(MType());
   }
   
   virtual void execute(matchable_ptr message_elements) const {
     /*std::cout<<"FROM CHILDER matchable_ptr"<<"\n\r";*/
-    (childObject->*callback)(MType(message_elements));
+    callback(MType(message_elements));
   }
 };
 

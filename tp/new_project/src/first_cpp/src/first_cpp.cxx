@@ -92,7 +92,12 @@ class TestClass: public BotNode<TestClass> {
     ~TestClass() {};
     
     void cm(TesMsg msg) { cout<<"CM1: " + msg.text<<"\n\r"; };
-    void cm2(TesMsg msg) { cout<<"CM2: " + msg.text<<"\n\r"; };
+    void cm2(TesMsg msg) { 
+      
+      log_message("CM2 " + msg.text);
+      cout<<"CM2: " + msg.text<<"\n\r"; 
+      
+    };
     
     ServiceTestResp service_method(ServiceTestReq req) { 
       std::cout<<"get request from client: " + req.strParamReq<<"\n\r";
@@ -108,8 +113,8 @@ class TestClass: public BotNode<TestClass> {
     
     
     void go() {
-     subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm);
-     subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm2);
+     subscribe_to_topic<TesMsg>("testTopic", boost::bind( &TestClass::cm, this, _1 ));
+     subscribe_to_topic<TesMsg>("testTopic", boost::bind( &TestClass::cm2, this, _1 ));
      
      register_service_server<ServiceTestReq, ServiceTestResp>("new_cpp_service", boost::bind( &TestClass::service_method, this, _1 ));
      register_service_client<ServiceTestReq, ServiceTestResp>("new_cpp_service", boost::bind( &TestClass::client_method, this, _1, _2 ));
