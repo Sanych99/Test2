@@ -30,10 +30,10 @@ class CollectionServiceClient: public BaseCollectionServiceClient {
 public:
   //void (NodeClass::*callback)(ReqType, RespType);
   boost::function<void(ReqType, RespType)> callback;
-  NodeClass* child_object;
+  boost::shared_ptr<NodeClass> child_object;
   
   //CollectionServiceClient(void (NodeClass::*callbackFunction)(ReqType, RespType), NodeClass* child) {
-  CollectionServiceClient(boost::function<void(ReqType, RespType)>& callbackFunction, NodeClass* child) {
+  CollectionServiceClient(boost::function<void(ReqType, RespType)>& callbackFunction, boost::shared_ptr<NodeClass>& child) {
     callback = callbackFunction;
     child_object = child;
   };

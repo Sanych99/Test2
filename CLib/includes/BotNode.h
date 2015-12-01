@@ -61,12 +61,12 @@ namespace BotNodeNameSpace {
       std::map < std::string, BaseCollectionServiceServer* > async_service_server_dic;
       std::map < std::string, BaseCollectionServiceClient* > async_service_client_dic;
       
-      NodeClass* child_object; /** ссылка на объек узла */
+      boost::shared_ptr<NodeClass> child_object; /** ссылка на объек узла */
       
       boost::thread* receive_mbox_message_thread; /** поток обработка системных событий */
       void receive_mbox_message_method(mailbox_ptr async_mbox); /** метод обработки системных событий */
       template<typename M> void subscribe_to_topic(std::string topic_name, boost::function<void(M)> callback_function);
-      template<typename M> void publish_message(std::string topic_name, boost::scoped_ptr<M>& msg);
+      template<typename M> void publish_message(std::string topic_name, boost::shared_ptr<M>& msg);
       
       template<typename ReqType, typename RespType> 
       void register_service_server(std::string service_name, boost::function<RespType(ReqType)> callback);
@@ -89,12 +89,12 @@ namespace BotNodeNameSpace {
       
       bool ok();
       
-      void start_node(NodeClass* ts);
+      void start_node(boost::shared_ptr<NodeClass>& ts);
       
       template<typename M>
-      void send_message_to_ui(boost::scoped_ptr<M>& msg, std::string message_class_name);
+      void send_message_to_ui(boost::shared_ptr<M>& msg, std::string message_class_name);
       template<typename M>
-      void send_message_to_ui(boost::scoped_ptr<M>& msg, std::string message_class_name, std::string additional_info);
+      void send_message_to_ui(boost::shared_ptr<M>& msg, std::string message_class_name, std::string additional_info);
     
       //====== Константы / Constants Start ======
 
@@ -154,7 +154,7 @@ namespace BotNodeNameSpace {
   
   
   template<typename NodeClass>
-  void BotNode<NodeClass>::start_node(NodeClass* ts)
+  void BotNode<NodeClass>::start_node(boost::shared_ptr<NodeClass>& ts)
   {
     child_object = ts;
     receive_mbox_message_thread->start_thread();
@@ -197,7 +197,7 @@ namespace BotNodeNameSpace {
   */
   template<typename NodeClass>
   template<typename M>
-  void BotNode<NodeClass>::publish_message(std::string topic_name, boost::scoped_ptr<M>& msg)
+  void BotNode<NodeClass>::publish_message(std::string topic_name, boost::shared_ptr<M>& msg)
   {
     msg->send_mesasge(otp_mbox_async, publisher_core_node, core_node_name, 
 		      otp_node_name + "@" + current_server_name, otp_mbox_name_async, topic_name);
@@ -489,14 +489,14 @@ namespace BotNodeNameSpace {
   
   template<typename NodeClass>
   template<typename M>
-  void BotNode<NodeClass>::send_message_to_ui(boost::scoped_ptr< M >& msg, string message_class_name)
+  void BotNode<NodeClass>::send_message_to_ui(boost::shared_ptr< M >& msg, string message_class_name)
   {
     send_message_to_ui(msg, message_class_name, "none");
   }
   
   template<typename NodeClass>
   template<typename M>
-  void BotNode<NodeClass>::send_message_to_ui(boost::scoped_ptr< M >& msg, string message_class_name, string additional_info)
+  void BotNode<NodeClass>::send_message_to_ui(boost::shared_ptr< M >& msg, string message_class_name, string additional_info)
   {
     otp_mbox_async->send(ui_interaction_node, core_node_name, 
       make_e_tuple(atom("send_data_to_ui"), atom(otp_node_name), atom(message_class_name), atom(additional_info), msg->get_tuple_message())

@@ -41,9 +41,9 @@ class CollectionSubscribe: public BaseCollectionSubscribe {
 public:
   boost::function<void(MType)> callback;
   MType t();
-  NodeClass* childObject;
+  boost::shared_ptr<NodeClass> childObject;
   
-  CollectionSubscribe(boost::function<void(MType)>& callback_function, std::string topicName, NodeClass* child): BaseCollectionSubscribe(topicName) {
+  CollectionSubscribe(boost::function<void(MType)>& callback_function, std::string topicName, boost::shared_ptr<NodeClass>& child): BaseCollectionSubscribe(topicName) {
     callback = callback_function;
     childObject = child;
   }

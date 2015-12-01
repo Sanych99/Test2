@@ -120,18 +120,18 @@ class TestClass: public BotNode<TestClass> {
      register_service_client<ServiceTestReq, ServiceTestResp>("new_cpp_service", boost::bind( &TestClass::client_method, this, _1, _2 ));
      
      
-     
-     boost::scoped_ptr<TesMsg> t(new TesMsg());
+
+     boost::shared_ptr<TesMsg> t(new TesMsg());
      //TesMsg* t = new TesMsg();
      
      publish_message<TesMsg>("testTopic", t);
      
-     boost::scoped_ptr<TestMsgCpp> tUI(new TestMsgCpp());
+     boost::shared_ptr<TestMsgCpp> tUI(new TestMsgCpp());
      tUI->strParam = "Message from cpp...";
      tUI->longParam = 777;
      send_message_to_ui<TestMsgCpp>(tUI, "TestMsg");
      
-     boost::scoped_ptr<TestMsgCpp> cpp(new TestMsgCpp());
+     boost::shared_ptr<TestMsgCpp> cpp(new TestMsgCpp());
      cpp->longParam = 255;
      cpp->strParam = "hello from my test message!";
      
@@ -153,7 +153,7 @@ class TestClass: public BotNode<TestClass> {
 
 
 int main(int argc, char* argv[]) {
-  TestClass ts(argc, argv);
+  boost::shared_ptr<TestClass> ts(new TestClass(argc, argv));
   //ts.child_object = &ts;
-  ts.start_node(&ts);
+  ts->start_node(ts);
 }

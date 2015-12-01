@@ -32,10 +32,10 @@ template<typename NodeClass, typename ReqType, typename RespType>
 class CollectionServiceServer: public BaseCollectionServiceServer {
 protected:
   boost::function<RespType(ReqType)> callback;
-  NodeClass* child_object;
+  boost::shared_ptr<NodeClass> child_object;
   
 public:
-  CollectionServiceServer(boost::function<RespType(ReqType)>& callbackFunction, NodeClass* child): BaseCollectionServiceServer() {
+  CollectionServiceServer(boost::function<RespType(ReqType)>& callbackFunction, boost::shared_ptr<NodeClass>& child): BaseCollectionServiceServer() {
     callback = callbackFunction;
     child_object = child;
   };
