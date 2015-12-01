@@ -28,10 +28,12 @@ public:
 template<typename NodeClass, typename ReqType, typename RespType>
 class CollectionServiceClient: public BaseCollectionServiceClient {
 public:
-  void (NodeClass::*callback)(ReqType, RespType);
+  //void (NodeClass::*callback)(ReqType, RespType);
+  boost::function<void(ReqType, RespType)> callback;
   NodeClass* child_object;
   
-  CollectionServiceClient(void (NodeClass::*callbackFunction)(ReqType, RespType), NodeClass* child) {
+  //CollectionServiceClient(void (NodeClass::*callbackFunction)(ReqType, RespType), NodeClass* child) {
+  CollectionServiceClient(boost::function<void(ReqType, RespType)>& callbackFunction, NodeClass* child) {
     callback = callbackFunction;
     child_object = child;
   };
@@ -39,7 +41,8 @@ public:
   virtual void execute(matchable_ptr request_message, matchable_ptr response_message) 
   {  
     /*std::cout<<"SERVICE CLIENT CHILD CLASS VIRTUAL"<<"\n\r"; */
-    (child_object->*callback)(ReqType(request_message), RespType(response_message));
+    //(child_object->*callback)(ReqType(request_message), RespType(response_message));
+    callback(ReqType(request_message), RespType(response_message));
   };
 };
 

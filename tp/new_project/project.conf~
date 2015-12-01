@@ -1,10 +1,10 @@
 {
 "projectName":"new_project",
-"mainProject":"true",
-"distributedProject":"false",
+"mainProject":"false",
+"distributedProject":"true",
 "projectAutoRun":"false",
-"childrenProjects":[{"projectName":"ubuntu@192.168.100.3"}],
-"projectState":"develop",
+"childrenProjects":[{"projectName":"core@192.168.100.4"}],
+"projectState":"release",
 "projectNodes":["first_java", "first_py", "first_cpp"],
 "mainProjectNodeName" : "core@192.168.100.5"
 }

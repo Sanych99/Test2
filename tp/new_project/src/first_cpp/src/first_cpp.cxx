@@ -111,8 +111,8 @@ class TestClass: public BotNode<TestClass> {
      subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm);
      subscribe_to_topic<TesMsg>("testTopic", &TestClass::cm2);
      
-     register_service_server<ServiceTestReq, ServiceTestResp>("new_cpp_service", &TestClass::service_method);
-     register_service_client<ServiceTestReq, ServiceTestResp>("new_cpp_service", &TestClass::client_method);
+     register_service_server<ServiceTestReq, ServiceTestResp>("new_cpp_service", boost::bind( &TestClass::service_method, this, _1 ));
+     register_service_client<ServiceTestReq, ServiceTestResp>("new_cpp_service", boost::bind( &TestClass::client_method, this, _1, _2 ));
      
      
      

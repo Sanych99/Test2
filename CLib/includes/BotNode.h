@@ -69,9 +69,10 @@ namespace BotNodeNameSpace {
       template<typename M> void publish_message(std::string topic_name, boost::scoped_ptr<M>& msg);
       
       template<typename ReqType, typename RespType> 
-      void register_service_server(std::string service_name, RespType (NodeClass::*callback)(ReqType));
+      void register_service_server(std::string service_name, boost::function<RespType(ReqType)> callback);
       template<typename ReqType, typename RespType> 
-      void register_service_client(std::string service_name, void (NodeClass::*callback)(ReqType, RespType));
+      //void register_service_client(std::string service_name, void (NodeClass::*callback)(ReqType, RespType));
+      void register_service_client(std::string service_name, boost::function<void(ReqType, RespType)> callback);
       
       template<typename ReqType>
       void async_service_request(std::string service_name, ReqType req);
@@ -442,7 +443,7 @@ namespace BotNodeNameSpace {
   
   template<typename NodeClass>
   template<typename ReqType, typename RespType>
-  void BotNode<NodeClass>::register_service_server(string service_name, RespType (NodeClass::*callback)(ReqType))
+  void BotNode<NodeClass>::register_service_server(string service_name, boost::function<RespType(ReqType)> callback)
   {
     async_service_server_dic[service_name] = new CollectionServiceServer<NodeClass, ReqType, RespType>(callback, child_object);
     
@@ -458,7 +459,7 @@ namespace BotNodeNameSpace {
   
   template<typename NodeClass>
   template<typename ReqType, typename RespType>
-  void BotNode<NodeClass>::register_service_client(string service_name, void (NodeClass::*callback)(ReqType, RespType))
+  void BotNode<NodeClass>::register_service_client(string service_name, boost::function<void(ReqType, RespType)> callback)
   {
     async_service_client_dic[service_name] = new CollectionServiceClient<NodeClass, ReqType, RespType>(callback, child_object);
     

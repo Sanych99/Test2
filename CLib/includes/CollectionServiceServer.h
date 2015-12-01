@@ -31,11 +31,11 @@ public:
 template<typename NodeClass, typename ReqType, typename RespType>
 class CollectionServiceServer: public BaseCollectionServiceServer {
 protected:
-  RespType (NodeClass::*callback)(ReqType);
+  boost::function<RespType(ReqType)> callback;
   NodeClass* child_object;
   
 public:
-  CollectionServiceServer(RespType (NodeClass::*callbackFunction)(ReqType), NodeClass* child): BaseCollectionServiceServer() {
+  CollectionServiceServer(boost::function<RespType(ReqType)>& callbackFunction, NodeClass* child): BaseCollectionServiceServer() {
     callback = callbackFunction;
     child_object = child;
   };
@@ -43,7 +43,7 @@ public:
   virtual void execute(mailbox_ptr mbox, std::string service_core_node,  
     std::string core_node_name, std::string response_service_message, std::string service_method_name, 
     std::string client_mail_box_name, std::string client_node_full_name, std::string client_method_name_callback, matchable_ptr request_message_from_client) {
-      RespType response((child_object->*callback)(ReqType(request_message_from_client)));
+      RespType response(callback(ReqType(request_message_from_client)));
       response.send_service_response(mbox, service_core_node,  
 	core_node_name, response_service_message, service_method_name, 
 	client_mail_box_name, client_node_full_name, client_method_name_callback, request_message_from_client);

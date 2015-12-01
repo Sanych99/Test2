@@ -22,6 +22,7 @@ set(TINCH_IMPL /usr/local/tinch_pp-0.3.0/impl)
 set(TINCH_DIR /usr/local/tinch_pp-0.3.0)
 
 include_directories(${INCLUDE_PATH})
+include_directories(${SRC_PATH})
 include_directories(${TINCH_LIB})
 include_directories(${TINCH_IMPL})
 include_directories(${TINCH_DIR})

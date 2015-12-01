@@ -15,6 +15,7 @@ SET(CMAKE_TARGET_LINKED_INFO_FILES
 # The include file search paths:
 SET(CMAKE_C_TARGET_INCLUDE_PATH
   "../includes"
+  "../src"
   "/usr/local/tinch_pp-0.3.0/lib"
   "/usr/local/tinch_pp-0.3.0/impl"
   "/usr/local/tinch_pp-0.3.0"
