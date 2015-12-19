@@ -29,6 +29,7 @@
 %% nodeExecutable - исполняемы файл для запуска узла (java, python, gcc)
 -record(node_info, {
   atomNodeName :: atom(), nodeName :: string(),
+  serverFullName :: string(), atomServerFullName = node() :: atom(),
   nodeSystemMailBox :: string(), atomNodeSystemMailBox :: atom(),
   nodeServer :: string(), atomNodeServer :: atom(),
   nodeNameServer :: string(), atomNodeNameServer :: atom(),

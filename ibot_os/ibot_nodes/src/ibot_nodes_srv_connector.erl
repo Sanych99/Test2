@@ -116,6 +116,20 @@ handle_info({get_me_start_signal, MailBoxName, ClientNodeFullName}, State) ->
   erlang:send({MailBoxName, ClientNodeFullName},{"start"}),
   {noreply, State};
 
+handle_info({register_additional_node_info, AtomNodeName, {ServerFullName, AtomServerFullName}}, State) ->
+  case ibot_db_func_config:get_node_info(AtomNodeName) of
+    NodeInfo when is_record(NodeInfo, node_info) ->
+      NewNodeInfo = NodeInfo#node_info{serverFullName = ServerFullName, atomServerFullName = AtomServerFullName},
+      ibot_db_func_config:set_node_info(NewNodeInfo),
+      ibot_events_srv_logger:log_message(
+        lists:concat(["Register additional node info to node ", AtomNodeName, " values ",
+        ServerFullName, " ", AtomServerFullName]), node());
+    _ ->
+      ibot_events_srv_logger:log_error(
+        lists:concat(["Recodr from ibot_db_func_config:get_node_info for node ", AtomNodeName, " not found"]), node())
+  end,
+  {noreply, State};
+
 handle_info(Msg, State)-> ?DBG_MODULE_INFO("handle_info(Msg, State) ~p~n", [?MODULE, Msg]),
   {noreply, State}.
 
@@ -144,20 +158,27 @@ run_node([]) ->
   ok;
 
 run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nodeNameServer = NodeNameServer,
-  nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
+  atomNodeNameServer = AtomNodeServerName, nodeLang = NodeLang, atomNodeLang = AtomNodeLang, nodeExecutable = NodeExecutable,
   nodePreArguments = NodePreArguments, nodePostArguments = NodePostArgumants, projectType = ProjectType,
   mainClassName = MainClassName, node_port = NodePort}) ->
+  CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
   ?DMI("run_node", NodeName), %% информация отладки / debug information
   ibot_nodes_srv_connector:stop_monitor(NodeName), %% остановка монитора за узлом / stop monitor by node
   FullProjectPath = ibot_db_func_config:get_full_project_path(), %% полный путь до проекта / full path to project
-  CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
   %% наименование хоста или ip адрес | machine name or ip address
   Host_IP_Name = ibot_core_srv_os:get_machine_host(CoreConigSettings#core_info.is_global),
   ?DMI("is_global value: ", CoreConigSettings#core_info.is_global),
   ?DMI("Host_IP_Name value: ", Host_IP_Name),
-  %% запуск узла / start node
-  case AtomNodeLang of
-    java ->
+  ?DMI("NodeServer value: ", NodeServer),
+  ?DMI("NodeNameServer value: ", NodeNameServer),
+  ?DMI("NodeInfo value: ", NodeInfo),
+
+  case Host_IP_Name == NodeServer of
+    %% запуск узла с текущего ядра
+    true ->
+      %% запуск узла / start node
+      case AtomNodeLang of
+        java ->
           %% проверка наличия исполняющего файла java
           case os:find_executable(NodeExecutable) of
             [] ->
@@ -167,16 +188,16 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                 native ->
                   ArgumentList = lists:append([
                     ["-classpath",
-                    string:join([
-                      CoreConigSettings#core_info.java_node_otp_erlang_lib_path,
-                      ":",
-                      CoreConigSettings#core_info.java_ibot_lib_jar_path,
-                      ":",
-                      ibot_db_func_config:get_full_project_path(),
-                      ?PATH_DELIMETER_SYMBOL, ?DEV_FOLDER, ?PATH_DELIMETER_SYMBOL, ?MESSAGE_DIR, ?PATH_DELIMETER_SYMBOL, ?JAVA_FOLDER,
-                      ":",
-                      ibot_db_func_config:get_full_project_path(),
-                      ?PATH_DELIMETER_SYMBOL, ?DEV_FOLDER, ?PATH_DELIMETER_SYMBOL, ?NODES_FOLDER, ?PATH_DELIMETER_SYMBOL, NodeName], ""),
+                      string:join([
+                        CoreConigSettings#core_info.java_node_otp_erlang_lib_path,
+                        ":",
+                        CoreConigSettings#core_info.java_ibot_lib_jar_path,
+                        ":",
+                        ibot_db_func_config:get_full_project_path(),
+                        ?PATH_DELIMETER_SYMBOL, ?DEV_FOLDER, ?PATH_DELIMETER_SYMBOL, ?MESSAGE_DIR, ?PATH_DELIMETER_SYMBOL, ?JAVA_FOLDER,
+                        ":",
+                        ibot_db_func_config:get_full_project_path(),
+                        ?PATH_DELIMETER_SYMBOL, ?DEV_FOLDER, ?PATH_DELIMETER_SYMBOL, ?NODES_FOLDER, ?PATH_DELIMETER_SYMBOL, NodeName], ""),
                       %NodePreArguments, % Аргументы для исполняемого файла
                       NodeName, % Имя запускаемого узла
                       NodeName,
@@ -189,9 +210,9 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                       CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
                       CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
                       erlang:get_cookie()] % Значение Cookies для узла
-                      %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
+                    %NodePostArgumants] % Аргументы определенные пользователем для передачи в узел
                   ]
-                ),
+                  ),
                   ?DMI("run_node java ArgumentList", ArgumentList);
 
                 maven ->
@@ -199,7 +220,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                   ArgumentList = ["-cp",
                     string:join([string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName,
                       string:join([NodeName, ".jar"], "")], ?PATH_DELIMETER_SYMBOL),
-                    ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path, ":",
+                      ":", CoreConigSettings#core_info.java_node_otp_erlang_lib_path, ":",
                       CoreConigSettings#core_info.java_ibot_lib_jar_path], ""),
                     %NodePreArguments,
                     MainClassName,
@@ -213,14 +234,14 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                     CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
                     CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
                     erlang:get_cookie()],
-                    %NodePostArgumants],
+                  %NodePostArgumants],
 
                   ?DMI("maven start", ArgumentList);
 
                 _ ->
                   ArgumentList = [],
                   error
-                end,
+              end,
               % Выполянем комманду по запуску узла
               erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout, {args, ArgumentList}])
           end;
@@ -228,49 +249,56 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
 
 
 
-    python ->
-      case os:find_executable(NodeExecutable) of
-        [] ->
-          throw({stop, executable_file_missing});
+        python ->
+          case os:find_executable(NodeExecutable) of
+            [] ->
+              throw({stop, executable_file_missing});
 
-        ExecutableFile ->
-        erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
-          {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?PATH_DELIMETER_SYMBOL),
-            NodeName,
-            Host_IP_Name, %%net_adm:localhost(),
-            atom_to_list(node()),
-            CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
-            CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
-            CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
-            CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
-            CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
-            erlang:get_cookie()
-          ]}]),
+            ExecutableFile ->
+              erlang:open_port({spawn_executable, ExecutableFile}, [{line,1000}, stderr_to_stdout,
+                {args, [string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, string:join([NodeName, ".py"], "")], ?PATH_DELIMETER_SYMBOL),
+                  NodeName,
+                  Host_IP_Name, %%net_adm:localhost(),
+                  atom_to_list(node()),
+                  CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
+                  CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
+                  CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
+                  CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
+                  CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
+                  erlang:get_cookie()
+                ]}]),
 
-          timer:apply_after(3500, ibot_nodes_srv_connector, send_start_signal,
-            [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, Host_IP_Name], "@"))]);
-            %%net_adm:localhost()
-        _ -> error
+              timer:apply_after(3500, ibot_nodes_srv_connector, send_start_signal,
+                [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, Host_IP_Name], "@"))]);
+          %%net_adm:localhost()
+            _ -> error
+          end;
+
+
+
+        cpp ->
+          erlang:open_port({spawn_executable, list_to_atom(string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, NodeName], ?PATH_DELIMETER_SYMBOL))},
+            [{line,1000}, stderr_to_stdout,
+              {args, [
+                NodeName,
+                Host_IP_Name, %% net_adm:localhost(),
+                atom_to_list(node()),
+                CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
+                CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
+                CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
+                CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
+                CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
+                erlang:get_cookie(),
+                NodePort
+              ]}])
       end;
 
-
-
-    cpp ->
-      erlang:open_port({spawn_executable, list_to_atom(string:join([FullProjectPath, ?DEV_FOLDER, ?NODES_FOLDER, NodeName, NodeName], ?PATH_DELIMETER_SYMBOL))},
-        [{line,1000}, stderr_to_stdout,
-        {args, [
-          NodeName,
-          Host_IP_Name, %% net_adm:localhost(),
-          atom_to_list(node()),
-          CoreConigSettings#core_info.connector_node, %имя узла регистратора / registraction node name
-          CoreConigSettings#core_info.topic_node, % узел регистрации топиков / topic registrator node
-          CoreConigSettings#core_info.service_node, % узел регистрации сервисов / service registration node
-          CoreConigSettings#core_info.ui_interaction_node, % узел взаимодействия с интерфейсом пользователя / user intraction node
-          CoreConigSettings#core_info.logger_interaction_node, % узел логирования сообщений от узлов проекта / nodes messages logging interaction
-          erlang:get_cookie(),
-          NodePort
-        ]}])
+    %% запуск узла с удаленного ядра
+    _ ->
+      ibot_core_srv_interaction:start_remote_node(NodeInfo)
   end.
+
+
 
 
 

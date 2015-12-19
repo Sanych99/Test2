@@ -16,6 +16,7 @@
 -include("../../ibot_db/include/ibot_db_records.hrl").
 -include("ibot_core_project_statuses.hrl").
 -include("../../ibot_events/include/ibot_events_handlers.hrl").
+-include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
 
 %% API
 -export([start_link/0]).
@@ -30,7 +31,8 @@
 -export([
   connect_to_distribute_project/0, %% поздключение к дочерним ядрам
   connect_to_project/0, %% подключение к проекту
-  start_chiled_core/0 %% запуск дочернего ядра
+  start_chiled_core/0, %% запуск дочернего ядра
+  start_remote_node/1 %% start remote node
 ]).
 
 %% gen_server callbacks
@@ -168,3 +170,7 @@ connect_to_distribute_project() ->
   end,
   %% запускаем логгер записи сообщений в файл
   gen_event:add_handler(?EH_EVENT_LOGGER, ?IBOT_EVENTS_SRV_LOGGER, []).
+
+
+start_remote_node(NodeInfo) ->
+  rpc:call(NodeInfo#node_info.atomServerFullName, ?IBOT_CORE_APP, start_node, NodeInfo).

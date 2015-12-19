@@ -1356,3 +1356,205 @@
 2015-12-02 02:59:15.592 [warning] <0.390.0> lager_error_logger_h dropped 59 messages in the last second that exceeded the limit of 50 messages/sec
 2015-12-02 02:59:15.592 [info] <0.391.0> Application mnesia exited with reason: stopped
 2015-12-02 02:59:24.602 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-04 00:25:55.235 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-04 00:26:02.269 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-04 00:26:02.269 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-04 00:26:11.278 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-04 02:05:49.442 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-04 02:05:56.483 [warning] <0.390.0> lager_error_logger_h dropped 53 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-04 02:05:56.483 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-04 02:06:05.499 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-15 03:33:46.989 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-15 03:33:47.060 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 03:33:47.061 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-15 03:33:47.061 [info] <0.391.0> Application ibot_events started on node 'core@alex-N550JK'
+2015-12-15 03:33:54.040 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 03:33:54.043 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 03:33:54.251 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 03:33:54.251 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 03:33:54.255 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-15 03:33:54.531 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 03:33:54.532 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 03:35:16.852 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 03:35:23.852 [warning] <0.390.0> lager_error_logger_h dropped 57 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 03:35:23.852 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 03:35:32.864 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 03:40:15.076 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-15 03:41:24.322 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 03:41:31.363 [warning] <0.390.0> lager_error_logger_h dropped 63 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 03:41:31.363 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 03:41:40.376 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 03:52:58.615 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 03:53:05.647 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 03:53:05.647 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 03:53:13.813 [error] emulator Error in process <0.721.0> on node 'core@192.168.1.5' with exit value: {[{reason,{case_clause,{aborted,{node_not_running,'core@192.168.1.5'}}}},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{ibot_db_func,get_from_mnesia,2,[{file,"src/ibot_db_func.erl"},{line,51}]},{ibot_db_func_config... 
+
+
+2015-12-15 03:53:13.814 [error] <0.545.0> Ranch listener http had connection process started with cowboy_protocol:start_link/4 at <0.721.0> exit with reason: {[{reason,{case_clause,{aborted,{node_not_running,'core@192.168.1.5'}}}},{mfa,{ibot_webi_handler,websocket_handle,3}},{stacktrace,[{ibot_db_func,get_from_mnesia,2,[{file,"src/ibot_db_func.erl"},{line,51}]},{ibot_db_func_config,get_node_info,1,[{file,"src/ibot_db_func_config.erl"},{line,117}]},{ibot_db_func_config,generate_nodes_info_to_list,2,[{file,"src/ibot_db_func_config.erl"},{line,138}]},{ibot_core_app,get_project_node_from_config,0,[{file,"src/ibot_core_app.erl"},{line,116}]},{ibot_webi_handler,websocket_handle,3,[{file,"src/ibot_webi_handler.erl"},{line,78}]},{cowboy_websocket,handler_call,7,[{file,"src/cowboy_websocket.erl"},{line,598}]},{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]},{msg,{text,<<"{\"getNodes\" : \"\"}">>}},{req,[{socket,#Port<0.946>},{transport,ranch_tcp},{connection,keepalive},{pid,<0.721.0>},{method,<<"GET">>},{version,'HTTP/1.1'},{peer,{{127,0,0,1},39693}},{host,<<"localhost">>},{host_info,undefined},{port,10100},{path,<<"/websocket">>},{path_info,undefined},{qs,<<>>},{qs_vals,undefined},{bindings,[]},{headers,[{<<"host">>,<<"localhost:10100">>},{<<"user-agent">>,<<"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0">>},{<<"accept">>,<<"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8">>},{<<"accept-language">>,<<"en-US,en;q=0.5">>},{<<"accept-encoding">>,<<"gzip, deflate">>},{<<"sec-websocket-version">>,<<"13">>},{<<"origin">>,<<"http://localhost:10100">>},{<<"sec-websocket-key">>,<<"KwtTGqYEfxl8VhjdGmP6Xg==">>},{<<"connection">>,<<"keep-alive, Upgrade">>},{<<"pragma">>,<<"no-cache">>},{<<"cache-control">>,<<"no-cache">>},{<<"upgrade">>,<<"websocket">>}]},{p_headers,[{<<"upgrade">>,[<<"websocket">>]},{<<"connection">>,[<<"keep-alive">>,<<"upgrade">>]}]},{cookies,undefined},{meta,[{websocket_compress,false},{websocket_version,13}]},{body_state,waiting},{multipart,undefined},{buffer,<<>>},{resp_compress,false},{resp_state,done},{resp_headers,[]},{resp_body,<<>>},{onresponse,undefined}]},{state,undefined_state}],[{cowboy_protocol,execute,4,[{file,"src/cowboy_protocol.erl"},{line,529}]}]}
+
+2015-12-15 03:53:14.660 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 03:53:29.373 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 03:53:36.413 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 03:53:36.413 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 03:53:45.423 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 03:56:30.426 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 03:56:37.469 [warning] <0.390.0> lager_error_logger_h dropped 64 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 03:56:37.469 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 03:56:46.477 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 04:00:10.632 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-15 04:00:17.681 [warning] <0.390.0> lager_error_logger_h dropped 61 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 04:00:17.681 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 04:00:17.682 [error] <0.701.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:00:17.837 [error] <0.710.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:00:17.838 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:00:17.841 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-15 04:00:18.111 [error] <0.750.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:00:18.111 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:00:51.789 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 04:00:58.831 [warning] <0.390.0> lager_error_logger_h dropped 60 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 04:00:58.831 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 04:01:07.851 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 04:04:29.950 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-15 04:04:30.044 [warning] <0.390.0> lager_error_logger_h dropped 57 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 04:04:30.046 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-15 04:04:30.047 [info] <0.391.0> Application ibot_events started on node 'core@alex-N550JK'
+2015-12-15 04:04:37.000 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 04:04:37.003 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:04:37.156 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:04:37.157 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:04:37.161 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-15 04:04:37.414 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:04:37.414 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-15 04:05:25.670 [info] <0.391.0> Application lager started on node 'core@192.168.1.5'
+2015-12-15 04:05:32.736 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 04:05:32.736 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 04:05:41.755 [info] <0.391.0> Application mnesia started on node 'core@192.168.1.5'
+2015-12-15 04:08:03.485 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-15 04:08:10.538 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-15 04:08:10.538 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-15 04:08:19.555 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 02:06:57.154 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 02:07:04.323 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 02:07:04.323 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 02:07:13.328 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 02:26:10.380 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 02:26:17.421 [warning] <0.390.0> lager_error_logger_h dropped 65 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 02:26:17.421 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 02:26:26.436 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 02:37:14.894 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-20 02:37:25.980 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 02:37:26.051 [warning] <0.390.0> lager_error_logger_h dropped 57 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 02:37:26.052 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 02:37:26.052 [info] <0.391.0> Application ibot_events started on node 'core@192.168.100.5'
+2015-12-20 02:37:33.008 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 02:37:42.021 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 02:45:29.776 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-20 02:45:36.842 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 02:45:36.842 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 02:45:36.846 [error] <0.701.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 02:45:37.029 [error] <0.710.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 02:45:37.029 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 02:45:37.033 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-20 02:45:37.286 [error] <0.750.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 02:45:37.287 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 02:45:54.183 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 02:46:01.209 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 02:46:01.209 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 02:46:10.218 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 03:23:08.241 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 03:23:15.273 [warning] <0.390.0> lager_error_logger_h dropped 64 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 03:23:15.273 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 03:23:24.276 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 03:28:19.848 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-20 03:28:26.877 [warning] <0.390.0> lager_error_logger_h dropped 60 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 03:28:26.878 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 03:28:26.881 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:28:27.022 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:28:27.022 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:28:27.028 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-20 03:28:27.269 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:28:27.269 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:28:59.425 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 03:29:06.456 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 03:29:06.456 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 03:29:15.477 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 03:36:29.645 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 03:36:36.739 [warning] <0.390.0> lager_error_logger_h dropped 62 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 03:36:36.739 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 03:36:45.753 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'
+2015-12-20 03:37:11.106 [error] <0.653.0> gen_server ibot_nodes_srv_connector terminated with reason: no function clause matching lists:flatten([82,101,103,105,115,116,101,114,32,97,100,100,105,116,105,111,110,97,108,32,110,111,100,101,32,105,...], 'core@192.168.100.5') line 622
+2015-12-20 03:37:11.106 [error] <0.653.0> CRASH REPORT Process ibot_nodes_srv_connector with 0 neighbours exited with reason: no function clause matching lists:flatten([82,101,103,105,115,116,101,114,32,97,100,100,105,116,105,111,110,97,108,32,110,111,100,101,32,105,...], 'core@192.168.100.5') line 622 in gen_server:terminate/7 line 804
+2015-12-20 03:37:11.106 [error] <0.651.0> Supervisor ibot_nodes_sup had child ibot_nodes_srv_connector started with ibot_nodes_srv_connector:start_link() at <0.653.0> exit with reason no function clause matching lists:flatten([82,101,103,105,115,116,101,114,32,97,100,100,105,116,105,111,110,97,108,32,110,111,100,101,32,105,...], 'core@192.168.100.5') line 622 in context child_terminated
+2015-12-20 03:40:23.348 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2015-12-20 03:40:30.378 [warning] <0.390.0> lager_error_logger_h dropped 57 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 03:40:30.378 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 03:40:30.381 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:40:30.512 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:40:30.512 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:40:30.518 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2015-12-20 03:40:30.757 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:40:30.757 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2015-12-20 03:40:39.726 [info] <0.391.0> Application lager started on node 'core@192.168.100.5'
+2015-12-20 03:40:46.757 [warning] <0.390.0> lager_error_logger_h dropped 58 messages in the last second that exceeded the limit of 50 messages/sec
+2015-12-20 03:40:46.757 [info] <0.391.0> Application mnesia exited with reason: stopped
+2015-12-20 03:40:55.773 [info] <0.391.0> Application mnesia started on node 'core@192.168.100.5'

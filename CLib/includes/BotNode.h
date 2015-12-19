@@ -57,9 +57,9 @@ namespace BotNodeNameSpace {
       volatile bool core_is_active; /** ядро запущено */
       bool is_monitor; /** узел находятся под мониторингом*/
       int epmd_port; /** порт для соединения с ядром */
-      std::map < std::string, BaseCollectionSubscribe* > subscribe_dic; /** список подписанных методов на топики */
-      std::map < std::string, BaseCollectionServiceServer* > async_service_server_dic;
-      std::map < std::string, BaseCollectionServiceClient* > async_service_client_dic;
+      std::map < std::string, boost::shared_ptr<BaseCollectionSubscribe> > subscribe_dic; /** список подписанных методов на топики */
+      std::map < std::string, boost::shared_ptr<BaseCollectionServiceServer> > async_service_server_dic;
+      std::map < std::string, boost::shared_ptr<BaseCollectionServiceClient> > async_service_client_dic;
       
       boost::shared_ptr<NodeClass> child_object; /** ссылка на объек узла */
       
@@ -90,6 +90,8 @@ namespace BotNodeNameSpace {
       bool ok();
       
       void start_node(boost::shared_ptr<NodeClass>& ts);
+      
+      void register_additional_node_info();
       
       template<typename M>
       void send_message_to_ui(boost::shared_ptr<M>& msg, std::string message_class_name);
@@ -132,7 +134,7 @@ namespace BotNodeNameSpace {
     core_cookie(std::string(argv[9])), // init core node cookie
     core_is_active(true), //ядро запущено
     is_monitor(false), //при создании ябра мониторинг за узлом равен false
-    epmd_port(std::atoi(argv[10]))
+    epmd_port(std::atoi(argv[10])) //порт для поключения к ядру
     { 
       otp_node = node::create(otp_node_name + "@" + current_server_name, core_cookie);
       otp_mbox = otp_node->create_mailbox(otp_mbox_name);
@@ -141,6 +143,8 @@ namespace BotNodeNameSpace {
       receive_mbox_message_thread = new boost::thread(&BotNode::receive_mbox_message_method, this, otp_mbox_async);
 
       otp_node->publish_port(epmd_port);
+      
+      register_additional_node_info();
       
       /*start node log message*/
       log_message("run cpp node with name: " + otp_node_name);
@@ -161,6 +165,16 @@ namespace BotNodeNameSpace {
     child_object->action();
     receive_mbox_message_thread->join();
   }
+  
+  
+  template<typename NodeClass>
+  void BotNode<NodeClass>::register_additional_node_info()
+  {
+    otp_mbox_async->send(connector_code_node, core_node_name, 
+      make_e_tuple(atom("register_additional_node_info"), atom(otp_node_name), 
+	make_e_tuple(e_string(core_node_name), atom(core_node_name))
+    ));
+  }
 
     
     
@@ -175,7 +189,7 @@ namespace BotNodeNameSpace {
       atom(otp_node_name + "@" + current_server_name), atom(topic_name)
     ));
 
-    subscribe_dic[topic_name] = new CollectionSubscribe<NodeClass, M>(callback_function, topic_name, child_object);
+    subscribe_dic[topic_name] = boost::shared_ptr< CollectionSubscribe<NodeClass, M> >(new CollectionSubscribe<NodeClass, M>(callback_function, topic_name, child_object));
     
     /*subscribe to topic log message*/
     log_message("node with name: " + otp_node_name + " subscribe to topic with name: " + topic_name);
@@ -230,10 +244,9 @@ namespace BotNodeNameSpace {
     ReceivedMessageType msgTypeEnum;
     
     while(core_is_active) {
-      matchable_ptr msg = async_mbox->receive();
+      //if(!core_is_active) break;
       
-      std::string test;
-      msg->match(make_e_tuple(atom(&test), erl::any(), erl::any()));
+      matchable_ptr msg = async_mbox->receive();
       
       if (msg->match(make_e_tuple(atom("subscribe"), erl::any(), erl::any()))) {
 	msgTypeEnum = subscribe;
@@ -326,7 +339,7 @@ namespace BotNodeNameSpace {
 	  /*exit from node log message*/
 	  log_message("node with name: " + otp_node_name + " exit message recieved");
 	}
-	  break;
+	break;
       }
     }
   };
@@ -445,7 +458,7 @@ namespace BotNodeNameSpace {
   template<typename ReqType, typename RespType>
   void BotNode<NodeClass>::register_service_server(string service_name, boost::function<RespType(ReqType)> callback)
   {
-    async_service_server_dic[service_name] = new CollectionServiceServer<NodeClass, ReqType, RespType>(callback, child_object);
+    async_service_server_dic[service_name] = boost::shared_ptr< CollectionServiceServer<NodeClass, ReqType, RespType> >(new CollectionServiceServer<NodeClass, ReqType, RespType>(callback, child_object));
     
     otp_mbox_async->send(service_core_node, core_node_name, 
 			 make_e_tuple(atom("reg_async_server_service_callback"), atom(otp_mbox_name_async), 
@@ -461,7 +474,7 @@ namespace BotNodeNameSpace {
   template<typename ReqType, typename RespType>
   void BotNode<NodeClass>::register_service_client(string service_name, boost::function<void(ReqType, RespType)> callback)
   {
-    async_service_client_dic[service_name] = new CollectionServiceClient<NodeClass, ReqType, RespType>(callback, child_object);
+    async_service_client_dic[service_name] = boost::shared_ptr<CollectionServiceClient< NodeClass, ReqType, RespType> >(new CollectionServiceClient<NodeClass, ReqType, RespType>(callback, child_object));
     
     otp_mbox_async->send(service_core_node, core_node_name, 
 			 make_e_tuple(atom("reg_async_client_service_callback"), atom(otp_mbox_name_async), 
