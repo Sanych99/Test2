@@ -236,6 +236,8 @@ public abstract class BotNode implements IBotNode {
 
         receiveMBoxMessageThread.start();
 
+        registerAdditionalNodeInfo();
+
         logMessage(String.format("node with name: %1$s start node", otpNodeName));
     }
 
@@ -262,6 +264,21 @@ public abstract class BotNode implements IBotNode {
     private OtpMbox createMbox(String otpMboxName)
     {
         return getOtpNode().createMbox(otpMboxName);
+    }
+
+
+    private void registerAdditionalNodeInfo()
+    {
+        OtpErlangObject[] infoObject = new OtpErlangObject[3];
+        infoObject[0] = new OtpErlangAtom("register_additional_node_info");
+        infoObject[1] = new OtpErlangAtom(this.otpNodeName);
+
+        OtpErlangObject[] innerObject = new OtpErlangObject[2];
+        innerObject[0] = new OtpErlangString(this.coreNodeName);
+        innerObject[1] = new OtpErlangAtom(this.coreNodeName);
+
+        infoObject[2] = new OtpErlangTuple(innerObject);
+        this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(infoObject));
     }
 
 

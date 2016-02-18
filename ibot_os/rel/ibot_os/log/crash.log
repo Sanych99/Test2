@@ -1645,3 +1645,135 @@ Ranch listener http had connection process started with cowboy_protocol:start_li
 2015-12-20 03:40:30 =ERROR REPORT====
 ** System NOT running to use fully qualified hostnames **
 ** Hostname 192.168.100.4 is illegal **
+2015-12-30 03:26:22 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2015-12-30 03:26:22 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2015-12-30 03:26:22 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2015-12-30 03:26:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2015-12-30 03:26:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2015-12-30 03:27:02 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:06 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:06 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:21 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:23 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:25 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:25 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:25 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:26 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2015-12-30 03:27:26 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:52:35 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-01-30 02:52:35 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-01-30 02:52:35 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-01-30 02:52:36 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-01-30 02:52:36 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-01-30 02:53:16 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:19 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:20 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:25 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:26 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:31 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:31 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:31 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:32 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:33 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:36 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:39 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:40 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:40 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:40 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:41 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:45 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:49 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:49 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:53:54 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:54:00 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-01-30 02:54:01 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **

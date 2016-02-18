@@ -6,6 +6,16 @@ cmake_minimum_required (VERSION 2.6)
 #project name
 project (first_cpp)
 
+#SET(CMAKE_CXX_FLAGS_DEBUG "-O0")
+#SET
+## Compiler flags
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "-O2")        ## Optimize
+    set(CMAKE_EXE_LINKER_FLAGS "-s")  ## Strip binary
+endif()
+set(CMAKE_BUILD_TYPE RELEASE)
+
+
 #include(CheckCXXCompilerFlag)
 #CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
 #CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
@@ -89,6 +99,7 @@ add_executable(first_cpp src/first_cpp.cxx ${IBOT_HEADERS} ${IBOT_PROJECT_MESSAG
 
 #====== link libs ======
 target_link_libraries (first_cpp ${TINCH_LIBS}  ${IBOT_LIBS} ${Boost_LIBRARIES} ${ALLB} pthread)
+#link_libraries(first_cpp ${TINCH_LIBS}  ${IBOT_LIBS} ${Boost_LIBRARIES} ${ALLB} pthread)
 #!====== link libs ======
 
 else (${Boost_FOUND})
