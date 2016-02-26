@@ -1777,3 +1777,39 @@ Ranch listener http had connection process started with cowboy_protocol:start_li
 2016-01-30 02:54:01 =ERROR REPORT====
 ** System NOT running to use fully qualified hostnames **
 ** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:04:04 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-02-18 23:04:04 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-02-18 23:04:04 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-02-18 23:04:04 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-02-18 23:04:04 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+2016-02-18 23:04:38 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:04:47 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:04:55 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:04:58 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:04:59 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:05:02 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+2016-02-18 23:05:03 =ERROR REPORT====
+** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **

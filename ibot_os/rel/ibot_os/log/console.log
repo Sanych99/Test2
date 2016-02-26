@@ -1698,3 +1698,43 @@
 2016-01-30 02:54:01.455 [error] <0.811.0> ** System NOT running to use fully qualified hostnames **
 ** Hostname 192.168.100.5 is illegal **
 
+2016-02-18 23:03:57.213 [info] <0.391.0> Application lager started on node 'core@alex-N550JK'
+2016-02-18 23:04:04.240 [warning] <0.390.0> lager_error_logger_h dropped 65 messages in the last second that exceeded the limit of 50 messages/sec
+2016-02-18 23:04:04.240 [info] <0.391.0> Application mnesia exited with reason: stopped
+2016-02-18 23:04:04.244 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-18 23:04:04.406 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-18 23:04:04.406 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-18 23:04:04.409 [info] <0.391.0> Application mnesia started on node 'core@alex-N550JK'
+2016-02-18 23:04:04.674 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-18 23:04:04.674 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-18 23:04:38.007 [error] <0.758.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-18 23:04:47.491 [error] <0.767.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-18 23:04:55.399 [error] <0.773.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-18 23:04:58.156 [error] <0.779.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-18 23:04:59.192 [error] <0.780.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-18 23:05:02.936 [error] <0.788.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-18 23:05:03.255 [error] <0.789.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
