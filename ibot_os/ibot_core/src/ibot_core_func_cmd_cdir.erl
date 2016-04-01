@@ -34,20 +34,17 @@ create_project(Path, Folder) ->
       ?DBG_INFO("full_project_path...================... ~p~n", [Full_Project_Path]),
       ibot_core_func_cmd:run_exec(atom_to_list(Full_Project_Path)), % Создаем директорию проекта
 
-      Dev_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ibot_core_env:env_dev_folder()), % Пут до директории с откомпилированными библиотеками проекта файлами проекта
+      Dev_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ?DEV_FOLDER), % Пут до директории с откомпилированными библиотеками проекта файлами проекта
       ?DBG_INFO("dev_folder ~p~n", [Dev_Folder]),
       ibot_core_func_cmd:run_exec(atom_to_list(Dev_Folder)), % Создаем директорию для откопированных / сгенерированных файлов проекта
 
-      Dev_Folder_SubDirs = ?DEV_FOLDER_LIST(Path, Folder, ibot_core_env:env_dev_folder()), %% Dev folder subdirectories
+      Dev_Folder_SubDirs = ?DEV_FOLDER_LIST(Path, Folder, ?DEV_FOLDER), %% Dev folder subdirectories
       create_folder_comand(Dev_Folder_SubDirs), %% Create Dev folder subdirectories
 
-      Src_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ibot_core_env:env_src_folder()), % Пут до директории с исходными файлами проекта
-      ?DBG_INFO("src_folder ~p~n", [Src_Folder]),
+      Src_Folder = ?MKDIR_PROJECT_SUB_FOLDER(Path, Folder, ?SRC_FOLDER), % Пут до директории с исходными файлами проекта
+      ?DMI("src_folder ~p~n", [Src_Folder]),
       ibot_core_func_cmd:run_exec(atom_to_list(Src_Folder)), % Создаем директорию исходных файлов проекта
-      ?DBG_INFO("project directories created successfull...================... ~n", []),
-
-
-
+      ?DMI("project directories created successfull...================... ~n", []),
       ok
   end.
 
@@ -78,43 +75,47 @@ create_folder_comand([F | List]) ->
 -spec create_node(NodeName, Lang) -> ok | {error, atom()} when NodeName :: string(), Lang :: atom().
 
 create_node(NodeName, Lang) ->
-  ?DBG_INFO("func create_node node, NodeName parameter: ~p ...........~n", [NodeName]),
+  ?DMI("func create_node node, NodeName parameter: ~p ...........~n", [NodeName]),
   case Lang of
     java ->
-      ?DBG_INFO("func create_node node, run func create_java_node(~p): ...........~n", [NodeName]),
+      ?DMI("func create_node node, run func create_java_node(~p): ...........~n", [NodeName]),
       create_java_node(NodeName), % Create java type node folders stucture
       ok;
     _ -> {error, ?WRONG_NODE_LANG_TYPE, Lang} % Wrong node lang type error
   end.
 
 
+
 %% ============================
 %% Create nodes methods for different nodes
 %% ============================
 
+
 %% @doc
 %% Create directorise for Java project
+
 create_java_node(NodeName) ->
-  ?DBG_INFO("func create_java_node: ...........~n", []),
+  ?DMI("func create_java_node: ...........~n", []),
   case ets:info(ibot_config) of
-    undefine -> ?DBG_INFO("cnfig table not exist: ...........~n", []);
-    Res -> ?DBG_INFO("config table exist: ~p ...........~n", [Res])
+    undefine -> ?DMI("cnfig table not exist: ...........~n", []);
+    Res -> ?DMI("config table exist: ~p ...........~n", [Res])
   end,
 
   case ibot_db_func:get(?TABLE_CONFIG, ?FULL_PROJECT_PATH) of % Try get full path to project folder
     [{?FULL_PROJECT_PATH, Full_Path}] ->
-      ?DBG_INFO("full_project_path: ~p...........~n", [Full_Path]),
+      ?DMI("full_project_path: ~p...........~n", [Full_Path]),
       case filelib:ensure_dir(Full_Path) of % Ensure that the folder exisit
         ok ->
           NodeFolder = ?JAVA_NODE_FOLDERS(Full_Path, NodeName), % Construct node folder list
-          ?DBG_INFO("java_node_folders: ~p...........~n", [NodeFolder]),
+          ?DMI("java_node_folders: ~p...........~n", [NodeFolder]),
           create_folder_comand(NodeFolder), % Create node folders
           ok;
         {error, Reason} -> {error, ?FULL_PATH_PROJECT_NOT_EXISIT, Reason} % If project folder not exeist return error
       end;
-    [] -> ?DBG_INFO("full_path_project_undefine: ...........~n", []),
+    [] -> ?DMI("full_path_project_undefine: ...........~n", []),
       {error, ?FULL_PATH_PROJECT_UNDEFINE} % If project path not exeist in project db config return error
   end.
+
 
 
 remove_dir(DirPath) ->
@@ -125,10 +126,13 @@ remove_dir(DirPath) ->
   end.
 
 
+
 del_dir(Dir) ->
   lists:foreach(fun(D) ->
     ok = file:del_dir(D)
   end, del_all_files([Dir], [])).
+
+
 
 del_all_files([], EmptyDirs) ->
   EmptyDirs;
@@ -149,8 +153,11 @@ del_all_files([Dir | T], EmptyDirs) ->
   del_all_files(T ++ Dirs, [Dir | EmptyDirs]).
 
 
+
 create_dir(DirPath) ->
   filelib:ensure_dir(DirPath).
+
+
 
 move_dir(Source, Destination)->
   %% For Windows
@@ -159,6 +166,8 @@ move_dir(Source, Destination)->
   Command = "mv " ++ Source ++ " " ++ Destination,
   ?DBG_MODULE_INFO("move_dir(Source, Destination)-> ~p~n", [?MODULE, Command]),
   spawn(os,cmd,[Command]).
+
+
 
 copy_dir(Source, Destination)->
   %% For Windows
@@ -172,7 +181,8 @@ copy_dir(Source, Destination)->
       ?DMI("copy_dir", [FileList]),
       copy_file_from_to_dir(Source, Destination, FileList);
     {error, Reason} -> ok
-  end.%%filelib:wildcard(string:join([Source, "*"], ?DELIM_PATH_SYMBOL)),
+  end.
+
 
 
 copy_file_from_to_dir(Source, Destination, []) ->

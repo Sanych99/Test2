@@ -20,7 +20,6 @@
 %% ===================================================================
 
 start(_StartType, _StartArgs) ->
-    %%ibot_ri_app:start(normal, []),
     ibot_core_sup:start_link().
 
 stop(_State) ->
@@ -38,6 +37,7 @@ create_project(Path, Dir) ->
   ibot_db_func:add(?TABLE_CONFIG,
     ?FULL_PROJECT_PATH, string:join([Path, Dir], ?PATH_DELIMETER_SYMBOL)), %% Add project full path to config
   ibot_core_func_cmd_cdir:create_project(Path, Dir). %% Create project directories
+
 
 %% @doc
 %% Создание узла / Create node

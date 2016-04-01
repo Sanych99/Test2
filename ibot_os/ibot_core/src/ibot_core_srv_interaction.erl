@@ -21,17 +21,17 @@
 %% API
 -export([start_link/0]).
 -export([
-  start_distribute_db/0, %% запуск распределенной бд
-  stop_distribute_db/0 %% остановка распределенной бд
+  start_distribute_db/0, %% start distributed db
+  stop_distribute_db/0 %% stop distributed db
 ]).
 -export([
-  all_children_projects_start_distribute_db/0, %% запуск распределенной бд на дочерних ядрах
-  all_children_projects_stop_distribute_db/0 %% остановка расчпределенной бд на дочерних ядрах
+  all_children_projects_start_distribute_db/0, %% start ditributes db on child cores
+  all_children_projects_stop_distribute_db/0 %% stop ditributes db on child cores
 ]).
 -export([
-  connect_to_distribute_project/0, %% поздключение к дочерним ядрам
-  connect_to_project/0, %% подключение к проекту
-  start_chiled_core/0, %% запуск дочернего ядра
+  connect_to_distribute_project/0, %% start core / main core managed all child cores
+  connect_to_project/0, %% connect to project. read nodes config file.
+  start_chiled_core/0, %% start child cores
   start_remote_node/1 %% start remote node
 ]).
 
@@ -54,12 +54,30 @@ start_link() ->
 
 init([]) ->
   timer:apply_after(7000, ?IBOT_CORE_SRV_INTERACTION, connect_to_distribute_project, []),
-  %?DBG_MODULE_INFO("init([]) -> after 7 seconds..............", [?MODULE]),
   {ok, #state{}}.
 
 
-handle_call(_Request, _From, State) ->
+handle_call({all_children_projects_start_distribute_db}, _From, State) ->
+  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, start_distribute_db, []),
+  {reply, ok, State};
+
+handle_call({all_children_projects_stop_distribute_db}, _From, State) ->
+  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, stop_distribute_db, []),
+  {reply, ok, State};
+
+handle_call({connect_to_project}, _From, State) ->
+  ibot_core_app:connect_to_project(ibot_db_func_config:get_full_project_path()),  %% connect to project
+  case ibot_db_srv_func_project:get_projectStatus() of                            %% if project status is RELEASE, start project nodes
+    ?RELEASE ->
+      ibot_core_app:start_project();
+    _ -> ok
+  end,
+  {reply, ok, State};
+
+handle_call({start_chiled_core}, _From, State) ->
+  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, connect_to_project, []),
   {reply, ok, State}.
+
 
 
 handle_cast(_Request, State) ->
@@ -77,68 +95,46 @@ terminate(_Reason, _State) ->
 code_change(_OldVsn, State, _Extra) ->
   {ok, State}.
 
+
 %%%===================================================================
-%%% Internal functions
+%%% API functions
 %%%===================================================================
 
-%% @doc
-%% Запуск распределенной БД
-%% @end
+%% start distributed database
 start_distribute_db() ->
   ibot_db_srv:start_distibuted_db().
 
-%% @doc
-%% Остановка распределенной БД
-%% @end
+%% stop distributed database
 stop_distribute_db() ->
   ibot_db_srv:stop_distributed_db().
 
-
-%% @doc
-%% Connect to project. Read nodes config file.
-%% @spec connect_to_project() -> ok.
-%% @end
--spec connect_to_project() -> ok.
-
+%% connect to project. read nodes config file.
 connect_to_project() ->
-  %% connect to project
-  ibot_core_app:connect_to_project(ibot_db_func_config:get_full_project_path()),
-  %% if project status is RELEASE, start project nodes
-  case ibot_db_srv_func_project:get_projectStatus() of
-    ?RELEASE ->
-      ibot_core_app:start_project();
-    _ -> ok
-  end.
+  gen_server:call(ibot_core_srv_interaction, {connect_to_project}).
 
-%% @doc
-%% Запуск дочерних ядер
-%% @end
+%% start child cores
 start_chiled_core() ->
-  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, connect_to_project, []).
+  gen_server:call(ibot_core_srv_interaction, {start_chiled_core}).
 
+%% start remote node
+start_remote_node(NodeInfo) ->
+  rpc:call(NodeInfo#node_info.atomServerFullName, ?IBOT_CORE_APP, start_node, NodeInfo).
 
-%% @doc
-%% Запуск распределенной бд на дочерних ядрах
-%% @end
+%% start ditributes db on child cores
 all_children_projects_start_distribute_db() ->
-  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, start_distribute_db, []).
+  gen_server:call(ibot_core_srv_interaction, {all_children_projects_start_distribute_db}).
 
-
-%% @doc
-%% Остановка распределенной бд на дочерних ядрах
-%% @end
+%% stop ditributes db on child cores
 all_children_projects_stop_distribute_db() ->
-  rpc:multicall(ibot_db_srv_func_project:get_children_project_names_list(), ibot_core_srv_interaction, stop_distribute_db, []).
+  gen_server:call(ibot_core_srv_interaction, {all_children_projects_stop_distribute_db}).
 
-%% @doc
-%% Запуск ядра и управление дочерними для главного
-%% @end
+%% start core / main core managed all child cores
 connect_to_distribute_project() ->
-  case mnesia:stop() of %% остановка распределенной бд / выполняемтся всем ядрами
+  case mnesia:stop() of %% stop distributed db / all cores do it itself
     _ ->
-      mnesia:delete_schema([node()]), % Удаляем все локальные схемы с распределенной бд / Remove local mnesia schema
+      mnesia:delete_schema([node()]), %% remove local mnesia schema
       case ibot_db_srv_func_project:get_project_config_info() of %% информация о конфигурации проекта
-        record_not_found -> %% запись не найдена
+        record_not_found ->
           ok;
 
         ProjectInfo ->
@@ -170,7 +166,3 @@ connect_to_distribute_project() ->
   end,
   %% запускаем логгер записи сообщений в файл
   gen_event:add_handler(?EH_EVENT_LOGGER, ?IBOT_EVENTS_SRV_LOGGER, []).
-
-
-start_remote_node(NodeInfo) ->
-  rpc:call(NodeInfo#node_info.atomServerFullName, ?IBOT_CORE_APP, start_node, NodeInfo).

@@ -863,3 +863,33 @@
 2016-02-18 23:05:03.255 [error] <0.789.0> ** System NOT running to use fully qualified hostnames **
 ** Hostname 192.168.100.5 is illegal **
 
+2016-02-27 01:03:24.997 [error] <0.702.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-27 01:03:25.129 [error] <0.711.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-27 01:03:25.129 [error] <0.712.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-27 01:03:25.377 [error] <0.751.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-27 01:03:25.377 [error] <0.752.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.4 is illegal **
+
+2016-02-27 01:05:12.185 [error] <0.771.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-27 01:05:12.955 [error] <0.772.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-27 01:05:17.971 [error] <0.774.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-27 01:05:26.003 [error] <0.775.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+
+2016-02-27 01:05:33.201 [error] <0.783.0> ** System NOT running to use fully qualified hostnames **
+** Hostname 192.168.100.5 is illegal **
+

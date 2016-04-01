@@ -48,8 +48,8 @@ init([]) ->
   {ok, #state{}}.
 
 
-
 %% === handle_call method start ===
+
 
 %% @doc
 %% Compile all nodes command
@@ -58,6 +58,8 @@ handle_call({?COMPILE_ALL_NODES}, _From, State) ->
   ?DMI("handle_call COMPILE_ALL_NODES", ?COMPILE_ALL_NODES),
   ibot_core_srv_compile_nodes:compile_all_nodes(), %% compile all nodes
   {reply, ok, State};
+
+
 
 %% @doc
 %% Compile one node
@@ -69,9 +71,9 @@ handle_call({?COMPILE_NODE, NodeName}, _From, State) ->
 handle_call(_Request, _From, State) ->
   {reply, ok, State}.
 
+
+
 %% === handle_call method end ===
-
-
 
 handle_cast(_Request, State) ->
   {noreply, State}.
@@ -112,6 +114,7 @@ compile_all_nodes() ->
       end
   end,
   ok.
+
 
 
 %% @doc
@@ -185,6 +188,8 @@ compile_node([NodeName | NodeNamesList], Full_Project_Path) ->
   compile_node(NodeNamesList, Full_Project_Path); %% compile next node
 compile_node([],_) -> ok.
 
+
+
 copy_msg_srv_files_to_dev_node(_NodeCompilePath, _SourcePath, [], _Lang, _Ext) ->
   ok;
 copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, [MsgFile | MsgFileList], Lang, Ext) ->
@@ -194,6 +199,8 @@ copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, [MsgFile | MsgFileLi
   ?DMI("copy_msg_srv_files_to_dev_node -> source | destination", [SourcePathFile, DestinationPathFile]),
   file:copy(SourcePathFile, DestinationPathFile),
   copy_msg_srv_files_to_dev_node(NodeCompilePath, SourcePath, MsgFileList, Lang, Ext).
+
+
 
 copy_node_config_to_dev_node(RootNodeFolder, DestinationNodeFolder) ->
   SourceConfigFilePath = string:join([RootNodeFolder, "node_config.conf"], ?PATH_DELIMETER_SYMBOL),
