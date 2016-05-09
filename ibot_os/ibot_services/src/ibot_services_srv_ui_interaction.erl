@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 06. Aug 2015 1:24 AM
 %%%-------------------------------------------------------------------
--module(ibot_nodes_srv_ui_interaction).
+-module(ibot_services_srv_ui_interaction).
 -author("alex").
 
 -behaviour(gen_server).
@@ -60,7 +60,7 @@ handle_cast({init_state}, _State) ->
 handle_cast({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) ->
   %% запускаем новый процесс
   spawn(fun() ->
-    ibot_nodes_srv_ui_interaction:start_send_message_to_ui_from_core({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) end),
+    ibot_services_srv_ui_interaction:start_send_message_to_ui_from_core({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) end),
   {noreply, State};
 
 handle_cast(_Request, State) ->
@@ -73,7 +73,7 @@ handle_cast(_Request, State) ->
 handle_info({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) ->
   %% запускаем новый процесс
   spawn(fun() ->
-    ibot_nodes_srv_ui_interaction:start_send_message_to_ui_from_core({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) end),
+    ibot_services_srv_ui_interaction:start_send_message_to_ui_from_core({send_data_to_ui, NodeName, MsgClassName, AdditionalInfo, Msg}, State) end),
   {noreply, State};
 
 handle_info(_Info, State) ->
@@ -103,7 +103,7 @@ start_send_message_to_ui_from_core({send_data_to_ui, NodeName, MsgClassName, Add
   case State#state.isMainNode of %% является ли ядро главным (для распределенных приложений)
     true ->
       %% главное ядро, отправляем сообщение пользовательскому интефейсу
-      ibot_nodes_srv_ui_interaction:send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg);
+      ibot_services_srv_ui_interaction:send_message_to_webi_client(NodeName, MsgClassName, AdditionalInfo, Msg);
 
     false ->
       %% дочернее ядро, пересылаем сообщение через главное ядро

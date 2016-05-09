@@ -62,7 +62,7 @@ public abstract class BotNode implements IBotNode {
 
     private String serviceCoreNode;
 
-    private String connectorCodeNode;
+    private String connectorCoreNode;
 
     private String uiInteractionNode;
 
@@ -209,7 +209,7 @@ public abstract class BotNode implements IBotNode {
         this.coreNodeName = args[2]; // init core node name
         this.otpMboxNameAsync = args[0] + "_MBoxAsync"; // init asynchronous mail box name
         this.otpMboxName = args[0] + "_MBox"; // init mail box name
-        this.connectorCodeNode = args[3];  // init connector node name
+        this.connectorCoreNode = args[3];  // init connector node name
         this.publisherCoreNode = args[4]; // init publisher node name
         this.serviceCoreNode = args[5]; // init service node name
         this.uiInteractionNode = args[6]; // init ui interaction node name
@@ -278,7 +278,7 @@ public abstract class BotNode implements IBotNode {
         innerObject[1] = new OtpErlangAtom(this.coreNodeName);
 
         infoObject[2] = new OtpErlangTuple(innerObject);
-        this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(infoObject));
+        this.otpMboxAsync.send(this.connectorCoreNode, this.coreNodeName, new OtpErlangTuple(infoObject));
     }
 
 
@@ -362,7 +362,7 @@ public abstract class BotNode implements IBotNode {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[2];
         subscribeObject[0] = new OtpErlangAtom("start_node_from_node");
         subscribeObject[1] = new OtpErlangString(nodeName);
-        this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        this.otpMboxAsync.send(this.connectorCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
 
         logMessage(String.format("node with name: %1$s start project node: %2$s", otpNodeName, nodeName));
     }
@@ -377,7 +377,7 @@ public abstract class BotNode implements IBotNode {
         OtpErlangObject[] subscribeObject = new OtpErlangObject[2];
         subscribeObject[0] = new OtpErlangAtom("stop_node_from_node");
         subscribeObject[1] = new OtpErlangString(nodeName);
-        this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
+        this.otpMboxAsync.send(this.connectorCoreNode, this.coreNodeName, new OtpErlangTuple(subscribeObject));
 
         logMessage(String.format("node with name: %1$s stop project node: %2$s", otpNodeName, nodeName));
     }
@@ -625,7 +625,7 @@ public abstract class BotNode implements IBotNode {
             monitorObject[2] = new OtpErlangAtom(this.otpNodeName);
             monitorObject[3] = new OtpErlangAtom(this.currentServerName);
             monitorObject[4] = new OtpErlangAtom(this.otpNodeName + "@" + this.currentServerName);
-            this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
+            this.otpMboxAsync.send(this.connectorCoreNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
 
             isMonitor = true;
 
@@ -641,7 +641,7 @@ public abstract class BotNode implements IBotNode {
             OtpErlangObject[] monitorObject = new OtpErlangObject[2];
             monitorObject[0] = new OtpErlangAtom("stop_monitor");
             monitorObject[1] = new OtpErlangString(this.otpNodeName);
-            this.otpMboxAsync.send(this.connectorCodeNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
+            this.otpMboxAsync.send(this.connectorCoreNode, this.coreNodeName, new OtpErlangTuple(monitorObject));
         }
 
         isMonitor = false;

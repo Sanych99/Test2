@@ -1,4 +1,4 @@
--module(ibot_nodes_app).
+-module(ibot_services_app).
 
 -behaviour(application).
 
@@ -11,7 +11,7 @@
 
 start(_StartType, _StartArgs) ->
     % Запускаем наблюдатиель
-    ibot_nodes_sup:start_link().
+    ibot_services_sup:start_link().
 
 stop(_State) ->
     ok.

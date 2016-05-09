@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 16. Apr 2015 2:08 AM
 %%%-------------------------------------------------------------------
--module(ibot_nodes_srv_service).
+-module(ibot_services_srv_service).
 -author("alex").
 
 -behaviour(gen_server).

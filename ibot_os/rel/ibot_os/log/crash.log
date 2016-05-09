@@ -1843,3 +1843,6 @@ Ranch listener http had connection process started with cowboy_protocol:start_li
 2016-02-27 01:05:33 =ERROR REPORT====
 ** System NOT running to use fully qualified hostnames **
 ** Hostname 192.168.100.5 is illegal **
+2016-05-10 01:52:55 =ERROR REPORT====
+Error in process <0.696.0> on node 'core@alex-N550JK' with exit value: {undef,[{ibot_services_srv_ui_interaction,init_state,[],[]},{ibot_core_srv_interaction,connect_to_distribute_project,0,[{file,"src/ibot_core_srv_interaction.erl"},{line,165}]}]}
+

@@ -2,7 +2,7 @@
 %% @doc Приложение управления внешними узлами
 %% спроектированными разрабочками на языках (C/C++, Python, Java)
 %% ==============================
--module(ibot_nodes_sup).
+-module(ibot_services_sup).
 
 -behaviour(supervisor).
 
@@ -38,7 +38,7 @@ start_link() ->
 start_child_monitor(NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom) ->
   ?DMI("start_child_monitor", {NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}),
   supervisor:start_child(?MODULE, ?CHILD_PARAM(list_to_atom(string:join([NodeNameString, "monitor"], "_")),
-    ibot_nodes_srv_monitor, worker, {NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom})).
+    ibot_services_srv_monitor, worker, {NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom})).
 
 %% @doc
 %% Остановка узла монитора за узлом
@@ -57,10 +57,10 @@ stop_child_monitor(NodeName) ->
 %% Запуск узлов и наблюдателя
 %% @end
 init([]) ->
-  IBot_Comm_Topic_Child = ?CHILD(ibot_nodes_srv_topic, worker),
+  IBot_Comm_Topic_Child = ?CHILD(ibot_services_srv_topic, worker),
   %IBot_Nodes_Registrator = ?CHILD(ibot_nodes_srv_registrator, worker),
 
-  IB1 = ?CHILD(ibot_nodes_srv_connector, worker),
-  IBot_Nodes_Srv_Service = ?CHILD(ibot_nodes_srv_service, worker),
-  IBot_Nodes_Srv_UI_Interaction = ?CHILD(ibot_nodes_srv_ui_interaction, worker),
-  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Nodes_Srv_Service, IBot_Nodes_Srv_UI_Interaction]} }.
+  IB1 = ?CHILD(ibot_services_srv_connector, worker),
+  IBot_Services_Srv_Service = ?CHILD(ibot_services_srv_service, worker),
+  IBot_Services_Srv_UI_Interaction = ?CHILD(ibot_services_srv_ui_interaction, worker),
+  {ok, { {one_for_one, 5, 10}, [IBot_Comm_Topic_Child, IB1, IBot_Services_Srv_Service, IBot_Services_Srv_UI_Interaction]} }.

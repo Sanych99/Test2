@@ -1,4 +1,4 @@
-{application, ibot_nodes,
+{application, ibot_services,
  [
   {description, ""},
   {vsn, "1"},
@@ -7,6 +7,6 @@
                   kernel,
                   stdlib, ibot_db
                  ]},
-  {mod, { ibot_nodes_app, [ibot_nodes_srv_connector]}},
+  {mod, { ibot_services_app, [ibot_services_srv_connector]}},
   {env, []}
  ]}.

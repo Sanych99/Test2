@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 22. Февр. 2015 21:43
 %%%-------------------------------------------------------------------
--module(ibot_nodes_srv_connector).
+-module(ibot_services_srv_connector).
 
 -behaviour(gen_server).
 
@@ -36,7 +36,6 @@
 
 -include("../../ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
--include("ibot_nodes_modules.hrl").
 -include("ibot_nodes_registration_info.hrl").
 -include("../../ibot_core/include/env_params.hrl").
 -include("../../ibot_db/include/ibot_db_records.hrl").
@@ -87,22 +86,22 @@ handle_cast(_Request, State) ->
 
 
 handle_info({start_node_from_node, NodeName}, State) ->
-  ibot_nodes_srv_connector:start_node([NodeName]),
+  ibot_services_srv_connector:start_node([NodeName]),
   {noreply, State};
 
 handle_info({stop_node_from_node, NodeName}, State) ->
-  ibot_nodes_srv_connector:stop_node([NodeName]),
+  ibot_services_srv_connector:stop_node([NodeName]),
   {noreply, State};
 
 %% start monitor for node
 handle_info({start_monitor, NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom}, State) ->
   %% run new process for monitoring node
-  ibot_nodes_sup:start_child_monitor(NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom),
+  ibot_services_sup:start_child_monitor(NodeNameString, NodeNameAtom, NodeServerAtom, NodeNameAndServerAtom),
   {noreply, State};
 
 %% stop node monitoring
 handle_info({stop_monitor, NodeNameString}, State) ->
-  ibot_nodes_srv_connector:stop_monitor(NodeNameString),
+  ibot_services_srv_connector:stop_monitor(NodeNameString),
   {noreply, State};
 
 
@@ -163,7 +162,7 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
   mainClassName = MainClassName, node_port = NodePort}) ->
   CoreConigSettings = ibot_db_func_config:get_core_config_info(), %% данные конфига ядра / core config data
   ?DMI("run_node", NodeName), %% информация отладки / debug information
-  ibot_nodes_srv_connector:stop_monitor(NodeName), %% остановка монитора за узлом / stop monitor by node
+  ibot_services_srv_connector:stop_monitor(NodeName), %% остановка монитора за узлом / stop monitor by node
   FullProjectPath = ibot_db_func_config:get_full_project_path(), %% полный путь до проекта / full path to project
   %% наименование хоста или ip адрес | machine name or ip address
   Host_IP_Name = ibot_core_srv_os:get_machine_host(CoreConigSettings#core_info.is_global),
@@ -268,8 +267,8 @@ run_node(NodeInfo = #node_info{nodeName = NodeName, nodeServer = NodeServer, nod
                   erlang:get_cookie()
                 ]}]),
 
-              timer:apply_after(3500, ibot_nodes_srv_connector, send_start_signal,
-                [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_atom(string:join([NodeName, Host_IP_Name], "@"))]);
+              timer:apply_after(3500, ibot_services_srv_connector, send_start_signal,
+                [list_to_atom(string:join([NodeName, "MBoxAsync"], "_")), list_to_existing_atom(string:join([NodeName, Host_IP_Name], "@"))]);
           %%net_adm:localhost()
             _ -> error
           end;
@@ -368,7 +367,7 @@ stop_monitor(NodeName) ->
   MonitorNodeName = list_to_atom(string:join([NodeName, "monitor"], "_")),
   case whereis(MonitorNodeName) of
     undefined -> ok;
-    MonitorPid -> ibot_nodes_sup:stop_child_monitor(MonitorNodeName)
+    MonitorPid -> ibot_services_sup:stop_child_monitor(MonitorNodeName)
   end.
 
 %% ====== Nodes executing actions End ======

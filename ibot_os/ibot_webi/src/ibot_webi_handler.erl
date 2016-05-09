@@ -99,7 +99,7 @@ websocket_handle({text, Msg}, Req, State) ->
 
         %% Остановка указанного узла
         <<"stopNode">> ->
-          ibot_nodes_srv_connector:stop_node([binary_to_list(B)]),
+          ibot_services_srv_connector:stop_node([binary_to_list(B)]),
           {reply, {text, << "responding to ", Msg/binary >>}, Req, State, hibernate };
 
 
@@ -117,7 +117,7 @@ websocket_handle({text, Msg}, Req, State) ->
                                _ -> E
                              end || E <- ListParameters]),
                   ?DMI("new parameters list", NewListParametersTuple),
-                  ibot_nodes_srv_topic:broadcats_message(binary_to_atom(TopicOrServiceName, utf8), NewListParametersTuple),
+                  ibot_services_srv_topic:broadcats_message(binary_to_atom(TopicOrServiceName, utf8), NewListParametersTuple),
                   {reply, {text, jiffy:encode({[{ok,<<"send data cpmplete...">>}]})},
                     Req, State, hibernate };
 

@@ -161,7 +161,7 @@ start_node(NodeName) ->
 %% @end
 
 run_project_node([NodeName | NodeNamesList]) ->
-  gen_server:cast(ibot_nodes_srv_connector, {start_node, ibot_db_func_config:get_node_info(list_to_atom(NodeName))}),
+  gen_server:cast(ibot_services_srv_connector, {start_node, ibot_db_func_config:get_node_info(list_to_atom(NodeName))}),
   run_project_node(NodeNamesList);
 run_project_node([]) ->
   ok.

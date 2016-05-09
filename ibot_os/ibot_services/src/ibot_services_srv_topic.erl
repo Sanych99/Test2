@@ -7,7 +7,7 @@
 %%% @end
 %%% Created : 10. Март 2015 20:37
 %%%-------------------------------------------------------------------
--module(ibot_nodes_srv_topic).
+-module(ibot_services_srv_topic).
 
 -behaviour(gen_server).
 

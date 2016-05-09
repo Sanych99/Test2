@@ -16,7 +16,7 @@
 -include("../../ibot_db/include/ibot_db_records.hrl").
 -include("ibot_core_project_statuses.hrl").
 -include("../../ibot_events/include/ibot_events_handlers.hrl").
--include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
+-include("../../ibot_services/include/ibot_nodes_registration_info.hrl").
 
 %% API
 -export([start_link/0]).
@@ -162,7 +162,7 @@ connect_to_distribute_project() ->
       end,
 
       %% инициализация узла по отправке сообщений пользовательскому интерфейсу /  init ui interaction sending message #state record
-      ibot_nodes_srv_ui_interaction:init_state()
+      ibot_services_srv_ui_interaction:init_state()
   end,
   %% запускаем логгер записи сообщений в файл
   gen_event:add_handler(?EH_EVENT_LOGGER, ?IBOT_EVENTS_SRV_LOGGER, []).

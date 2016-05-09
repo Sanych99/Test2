@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 12. Март 2015 12:22
 %%%-------------------------------------------------------------------
--module(ibot_nodes_srv_monitor).
+-module(ibot_services_srv_monitor).
 -author("alex").
 
 -behaviour(gen_server).
@@ -25,7 +25,6 @@
 -define(SERVER, ?MODULE).
 
 -include("../../ibot_core/include/debug.hrl").
--include("ibot_nodes_modules.hrl").
 -include("ibot_comm_commands.hrl").
 
 -record(state, {
@@ -65,15 +64,15 @@ handle_cast(_Request, State) ->
 %% node down message
 handle_info({nodedown, _ExternalNodeNode}, State = #state{nodeName = NodeName, nodeNameString = NodeNameString}) ->
   ?DMI("nodedown:", NodeName),
-  gen_server:cast(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
-  %ibot_nodes_sup:stop_child_monitor(list_to_atom(string:join([NodeNameString, "monitor"], "_"))),
+  gen_server:cast(ibot_services_srv_connector, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
+  %ibot_services_sup:stop_child_monitor(list_to_atom(string:join([NodeNameString, "monitor"], "_"))),
   {noreply, State};
 
 %% node EXIT message
 handle_info({'EXIT',_Info, P1, P2}, State = #state{nodeName = NodeName, nodeNameString = NodeNameString}) ->
   ?DMI("EXIT", NodeName),
-  gen_server:cast(?IBOT_NODES_SRV_CONNECTOR, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
-  %ibot_nodes_sup:stop_child_monitor(list_to_atom(string:join([NodeNameString, "monitor"], "_"))),
+  gen_server:cast(ibot_services_srv_connector, {?RESTART_NODE, NodeName}), %% Рестарт упавшего узла
+  %ibot_services_sup:stop_child_monitor(list_to_atom(string:join([NodeNameString, "monitor"], "_"))),
   {noreply, State};
 
 handle_info(_Info, State) -> ?DBG_MODULE_INFO("handle_info _Info:~p~n", [?MODULE, _Info]),
