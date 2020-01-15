@@ -11,10 +11,10 @@
 
 -behaviour(gen_server).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_nodes_service.hrl").
--include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
--include("../../ibot_db/include/ibot_db_records_service.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records_service.hrl").
 
 %% API
 -export([start_link/0]).

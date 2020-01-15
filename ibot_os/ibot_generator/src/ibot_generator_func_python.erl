@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(ibot_generator_func_python).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("project_paths.hrl").
 -include("msg_srv_python_generate_templates.hrl").
 

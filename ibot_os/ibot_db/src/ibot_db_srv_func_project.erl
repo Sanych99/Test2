@@ -20,8 +20,8 @@
 -export([add_project_config_info/1, get_project_config_info/0, get_project_config_info_in_sync/0,
   get_children_project_names_list/0, get_projectStatus/0]).
 
--include("../../ibot_core/include/debug.hrl").
--include("../../ibot_core/include/ibot_core_project_statuses.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_project_statuses.hrl").
 -include("ibot_db_records.hrl").
 -include("ibot_db_table_names.hrl").
 

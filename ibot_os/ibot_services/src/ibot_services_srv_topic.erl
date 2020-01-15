@@ -25,9 +25,9 @@
 -define(SERVER, ?MODULE).
 -define(REG_SUBSCR, reg_subscr).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
 
 -record(state, {}).
 

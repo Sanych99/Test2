@@ -15,7 +15,7 @@
   get_topic_nodes/1  %% получить списко узлов подписанных на топик
 ]).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_db_table_names.hrl").
 -include("ibot_db_records.hrl").
 -include("ibot_db_table_commands.hrl").

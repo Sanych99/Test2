@@ -4,9 +4,9 @@
 -behaviour(cowboy_websocket_handler).
 
 -include("ibot_webi_ui_client_process_name.hrl").
--include("../../ibot_core/include/debug.hrl").
--include("../../ibot_core/include/ibot_core_modules_names.hrl").
--include("../../ibot_core/include/ibot_core_node_compilation_commands.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_modules_names.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_node_compilation_commands.hrl").
 
 -export([init/3, handle/2, terminate/3]).
 

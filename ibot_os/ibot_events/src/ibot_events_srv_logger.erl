@@ -12,8 +12,8 @@
 
 -include("ibot_events_handlers.hrl").
 -include("ibot_events_srv_logger_messages_type.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
--include("../../ibot_core/include/ibot_core_spec_symbols.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_spec_symbols.hrl").
 
 %% API
 -export([init/1, handle_event/2, terminate/2, write_message_to_log_file/4]).

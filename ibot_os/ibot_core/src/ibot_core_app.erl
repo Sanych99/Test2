@@ -1,8 +1,8 @@
 -module(ibot_core_app).
 
 -include("debug.hrl").
--include("../../ibot_db/include/ibot_db_table_names.hrl").
--include("../../ibot_db/include/ibot_db_project_config_param.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_table_names.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_project_config_param.hrl").
 -include("ibot_core_create_project_paths.hrl").
 -include("ibot_core_modules_names.hrl").
 

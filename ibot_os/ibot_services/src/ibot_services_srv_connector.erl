@@ -34,14 +34,14 @@
   end
 ).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
 -include("ibot_nodes_registration_info.hrl").
--include("../../ibot_core/include/env_params.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
--include("../../ibot_core/include/ibot_core_spec_symbols.hrl").
+-include("..\\..\\ibot_core/include/env_params.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_spec_symbols.hrl").
 -include("ibot_nodes_scripts_path.hrl").
--include("../../ibot_core/include/ibot_core_os_definition.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_os_definition.hrl").
 
 -record(state, {node_port, node_name}).
 

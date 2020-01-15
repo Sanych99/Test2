@@ -8,10 +8,10 @@
 %%%-------------------------------------------------------------------
 -module(ibot_db_func_services).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_db_records_service.hrl").
 -include("ibot_db_table_names.hrl").
--include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_reserve_atoms.hrl").
 
 -export([register_client_service/4, get_client_service/2, register_server_service/3, get_server_service/1]).
 

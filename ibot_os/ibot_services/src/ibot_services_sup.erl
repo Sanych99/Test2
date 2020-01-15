@@ -13,7 +13,7 @@
 -export([init/1]).
 
 -include("ibot_nodes_registration_info.hrl").
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 
 -define(CHILD(I, Type), {I, {I, start_link, []}, permanent, 5000, Type, [I]}).
 -define(CHILD_PARAM(N, I, Type, P), {N, {I, start_link, [P]}, permanent, 5000, Type, [I]}).

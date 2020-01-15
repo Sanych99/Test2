@@ -8,13 +8,13 @@
 %%%-------------------------------------------------------------------
 -module(ibot_generator_msg_srv).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("msg_srv_java_generate_templates.hrl").
 -include("project_paths.hrl").
 -include("spec_file_ext.hrl").
--include("../../ibot_db/include/ibot_db_table_names.hrl").
--include("../../ibot_db/include/ibot_db_project_config_param.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_table_names.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_project_config_param.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
 
 
 %% API

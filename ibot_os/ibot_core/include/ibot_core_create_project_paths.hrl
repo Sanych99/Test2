@@ -9,8 +9,8 @@
 -include("env_params.hrl").
 -include("ibot_core_reserve_atoms.hrl").
 -include("ibot_core_reserve_file_name.hrl").
--include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
--include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("..\\..\\ibot_services/include/ibot_nodes_registration_info.hrl").
 -include("ibot_core_project_statuses.hrl").
 -include("ibot_core_spec_symbols.hrl").
 

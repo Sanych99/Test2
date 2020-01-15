@@ -12,7 +12,7 @@
 -behaviour(gen_server).
 
 -include("debug.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
 
 %% API
 -export([start_link/0]).

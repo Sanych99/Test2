@@ -24,7 +24,7 @@
 
 -define(SERVER, ?MODULE).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_comm_commands.hrl").
 
 -record(state, {

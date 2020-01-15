@@ -15,10 +15,10 @@
 
 -include("debug.hrl").
 -include("ibot_core_node_compilation_commands.hrl").
--include("../../ibot_db/include/ibot_db_reserve_atoms.hrl").
--include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
--include("../../ibot_core/include/ibot_core_reserve_atoms.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_reserve_atoms.hrl").
+-include("..\\..\\ibot_services/include/ibot_nodes_registration_info.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_reserve_atoms.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
 -include("env_params.hrl").
 -include("ibot_core_spec_symbols.hrl").
 

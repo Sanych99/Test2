@@ -25,14 +25,14 @@
 
 -define(SERVER, ?MODULE).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_db_project_config_param.hrl").
 -include("ibot_db_modules.hrl").
 -include("ibot_db_table_names.hrl").
 -include("ibot_db_table_commands.hrl").
 -include("ibot_db_records_service.hrl").
 -include("ibot_db_records.hrl").
--include("../../ibot_nodes/include/ibot_nodes_registration_info.hrl").
+-include("..\\..\\ibot_services/include/ibot_nodes_registration_info.hrl").
 
 -record(state, {}).
 

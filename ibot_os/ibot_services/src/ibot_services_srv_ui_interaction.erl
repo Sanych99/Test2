@@ -24,9 +24,9 @@
 
 -export([send_message_to_webi_client/4, init_state/0, send_data_from_children_core/4, start_send_message_to_ui_from_core/2]).
 
--include("../../ibot_core/include/debug.hrl").
--include("../../ibot_webi/include/ibot_webi_ui_client_process_name.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_webi/include/ibot_webi_ui_client_process_name.hrl").
+-include("..\\..\\ibot_db/include/ibot_db_records.hrl").
 
 -define(SERVER, ?MODULE).
 

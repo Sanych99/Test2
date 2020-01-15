@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(ibot_generator_func_cpp).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("project_paths.hrl").
 -include("msg_srv_cpp_generate_templates.hrl").
 

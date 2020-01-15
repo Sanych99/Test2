@@ -31,7 +31,7 @@
 -define(ERROR_REMOTE_NODE_CALL, error_remote_node_call).
 -define(IBOT_RI_REMOTE_CALL_TIMEOUT, ibot_ri_remote_call_timeout).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("ibot_ri_command.hrl").
 
 -record(state, {}).

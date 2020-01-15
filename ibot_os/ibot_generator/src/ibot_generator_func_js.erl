@@ -8,7 +8,7 @@
 %%%-------------------------------------------------------------------
 -module(ibot_generator_func_js).
 
--include("../../ibot_core/include/debug.hrl").
+-include("..\\..\\ibot_core/include/debug.hrl").
 -include("project_paths.hrl").
 -include("msg_srv_js_generate_templates.hrl").
 

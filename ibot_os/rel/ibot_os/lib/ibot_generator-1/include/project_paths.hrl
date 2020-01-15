@@ -6,7 +6,7 @@
 %%% @end
 %%% Created : 09. Mar 2015 10:20 PM
 %%%-------------------------------------------------------------------
--include("../../ibot_core/include/ibot_core_spec_symbols.hrl").
+-include("..\\..\\ibot_core/include/ibot_core_spec_symbols.hrl").
 -include("project_dirs.hrl").
 
 -define(DEV_MESSAGE_FOLDER, "msg").

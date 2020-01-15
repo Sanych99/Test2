@@ -13,10 +13,10 @@
 
 -include("debug.hrl").
 -include("ibot_core_modules_names.hrl").
--include("../../ibot_db/include/ibot_db_records.hrl").
+-include("..\\\..\\\ibot_db/include/ibot_db_records.hrl").
 -include("ibot_core_project_statuses.hrl").
--include("../../ibot_events/include/ibot_events_handlers.hrl").
--include("../../ibot_services/include/ibot_nodes_registration_info.hrl").
+-include("..\\..\\ibot_events/include/ibot_events_handlers.hrl").
+-include("..\\..\\ibot_services/include/ibot_nodes_registration_info.hrl").
 
 %% API
 -export([start_link/0]).
